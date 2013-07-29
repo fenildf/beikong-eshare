@@ -17,6 +17,7 @@ class Course < ActiveRecord::Base
   include CourseUpdateStatusMethods
   include CourseDepend::CourseMethods
   include CourseData::CourseMethods
+  include CourseScore::CourseMethods
 
   simple_taggable
   BASE_TAGS = %w(
@@ -90,6 +91,9 @@ class Course < ActiveRecord::Base
   scope :published_and_maintenance, :conditions => {
     :status => [STATUS_PUBLISHED, STATUS_MAINTENANCE]
   }
+
+  scope :approved, :conditions => {:is_approved => true}
+  scope :disapproved, :conditions => {:is_approved => false}
   
   # 设置 apply_request_limit 默认值
   before_validation :set_default_apply_request_limit
