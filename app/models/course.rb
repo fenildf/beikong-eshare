@@ -73,6 +73,8 @@ class Course < ActiveRecord::Base
   has_many :question_answers, :through => :questions,
                               :source => :answers
 
+  has_many :course_scores
+
   validates :creator, :presence => true
 
   validates :cid, :uniqueness => {:case_sensitive => false},
