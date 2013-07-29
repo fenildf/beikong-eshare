@@ -1,0 +1,30 @@
+- title = t('common.site.title.app')
+
+- content_for :javascript do
+  = javascript_include_tag '/highcharts/js/highcharts'
+  = javascript_include_tag '/jquery-migrate/jquery-migrate-1.2.1.js'
+  = render_cell :layout, :google_analytics_code if R::INTERNET
+
+!!!
+- simple_page_layout title, :html_lang => :zh, :body_class => 'app' do
+  = render_cell :layout, :topnav, :user => current_user
+  = render_cell :layout, :searchbar, :user => current_user
+
+  .page-layout-course-ware-show
+    .sidebar
+      %a.course-link{:href => "/courses/#{@course.id}"}
+        .cb
+          %i.icon-book
+          %span.name= truncate_u @course.name, 24
+
+      .items
+        - @chapter.course_wares.each do |cw|
+          - klass = ( cw == @course_ware ? 'current' : '' )
+          - klass = [klass, course_ware_reading_css_class(cw)].join(' ').strip
+          %a.item{:href => "/course_wares/#{cw.id}", :class => klass}
+            .line
+            %i{:class => cw.kind}
+            %span.title= truncate_u cw.title, 32
+
+    .course-content
+      = yield

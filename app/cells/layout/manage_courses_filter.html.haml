@@ -1,0 +1,12 @@
+-# 通过 "/manage/courses?q=#{q}" 搜索
+-# 具体逻辑定义在 search.js.coffee
+
+.page-filter.manage-courses
+  %input.flat{:name => :q, :type => :text, :placeholder => '查找课程', :value => @query}
+
+  - if @query.present?
+    %a.clear-filter{:href => '/manage/courses', :title => '清除搜索词'}
+      %i.icon-remove-sign
+
+  %a.btn.inverse-flat.do-search{:href => 'javascript:;', :title => '搜索'}
+    %i.icon-search.icon-white

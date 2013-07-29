@@ -1,0 +1,28 @@
+.page-question-tree
+  .pblock
+    = render_cell :questions, :tree_question, :user => @user, :question => @question
+
+  .pblock
+    = render_cell :questions, :tree_answers, :user => @user, :answers => @question.answers
+
+    .my-answer
+      - if @question.answered_by? @user
+        .you-can-answer-only-once
+          :ruby
+            my_answer = @question.answer_of(@user)
+            str = t('common.question.you-can-answer-only-once')
+            str.sub!('%{your-answer}') do
+              link_to t('common.question.your-answer'), "#answer-#{my_answer.id}"
+            end
+          = str.html_safe
+      - else
+        - if @user.present?
+          = simple_form_for [@question, Answer.new] do |f|
+            .form-inputs
+              = f.input :content, :as => :text, :input_html => {:rows => 5, :class => 'xxlarge'}
+            .form-actions
+              = f.button :submit, :class => 'success'
+        - else
+          .need-signed-in
+            %a{:href => '/account/sign_in'}> 登录网站
+            %span> 后，你就可以添加你的回答

@@ -1,0 +1,342 @@
+zh-CN:
+  simple-navbar:
+    admin:
+      home: 首页
+      users_manage: 用户管理
+      categories_manage: 分类管理
+      courses_manage: 课程管理
+      teacher_surveys_manage: 教师评价
+      course_applies_manage: 选课管理
+
+      #INTERNET
+      user_opinions_view: 反馈意见 
+      site_changes: 更新记录
+
+    teacher:
+      dashboard: 动态
+      courses: 课程
+      disk: 文件
+      tags: 标签
+      user: 个人
+      questions: 问答
+      
+      courses_manage: 课程管理
+      courses_manage_aj: 课管理β
+
+    student:
+      dashboard: 动态
+      courses: 课程
+      disk: 文件
+      tags: 标签
+      user: 个人
+      questions: 问答
+
+      learning_plan: 计划
+      teacher-surveys: 教师评价
+
+    account:
+      edit: 基础信息设置
+      avatar: 头像设置
+      userpage: 个人页设置
+      sync: 社交网站同步
+    admin_account:
+      password: 修改管理员密码
+
+    help:
+      user_opinion: 意见反馈
+      site_changes: 网站功能改进记录
+
+  helpers:
+    submit:
+      course:
+        create: 创建%{model}
+        update: 更新%{model}
+      question:
+        create: 确定提问
+        update: 更新问题
+      answer:
+        create: 发布回答
+        update: 更新回答
+      chapter:
+        create: 创建章节
+        update: 更新章节
+      course_ware:
+        create: 创建课件
+        update: 更新课件
+      user:
+        create: 创建用户
+        update: 确定更新
+      survey:
+        create: 创建调查表
+      user_opinion:
+        create: 提交
+
+  activerecord:
+    models:
+      user: 用户
+      course: 课程
+
+    attributes:
+      user:
+        login: 用户名
+        name: 姓名
+        current_password: 当前密码
+        password: 密码
+        password_confirmation: 确认密码
+        remember_me: 记住登录状态
+        avatar: 用户头像
+        email: EMail
+        userpage_head: 个人页版头图片
+        tagline: 个人签名档
+
+      course:
+        name: 课程名
+        cid: 课程编号
+        desc: 课程简介
+        syllabus: 课程大纲
+        cover: 课程封面
+        enable_apply_request_limit: 限制选课人数
+        apply_request_limit: 最大选课人数
+
+      chapter:
+        title: 章节标题
+        desc: 章节简介
+      course_ware:
+        title: 课件标题
+        desc: 课件简介
+      question:
+        title: 问题
+        content: 具体描述
+      answer:
+        content: 回答正文
+
+      survey:
+        title: 调查表标题
+
+      user_opinion:
+        title: 标题
+        content: 内容
+        image: 上传截图说明
+        contact: 联系方式（邮件或其他）
+
+    errors:
+      models:
+        course:
+          attributes:
+            name:
+              blank: 必须填写课程名
+              taken: 有重复的课程名
+            cid:
+              blank: 必须填写课程编号
+              taken: 有重复的课程编号
+            desc:
+              blank: 必须填写课程简介
+            syllabus:
+              blank: 必须填写课程大纲
+
+        chapter:
+          attributes:
+            title:
+              blank: 必须填写章节标题
+
+        course_ware:
+          attributes:
+            title:
+              blank: 必须填写课件标题
+
+        user:
+          attributes:
+            email:
+              blank: 邮箱未填写
+              taken: 邮箱已经注册过了
+              invalid: 邮箱格式不正确
+            password:
+              blank: 密码未填写
+              confirmation: 两次密码输入不同
+              too_short: 密码太短
+            name:
+              blank: 昵称未填写
+              taken: 昵称已经被使用了
+            current_password:
+              blank: 当前密码未填写
+              invalid: 当前密码不正确
+        question:
+          attributes:
+            title:
+              blank: 必须填写问题
+        survey:
+          attributes:
+            title:
+              blank: 必须填写调查表标题
+
+        simple_survey/survey_result:
+          attributes:
+            survey_id:
+              taken: 不能重复填写一个调查表
+
+        user_opinion:
+          attributes:
+            title:
+              blank: 请填写标题
+            content:
+              blank: 请填写反馈内容
+            contact:
+              blank: 请填写联系方式
+
+
+  views:
+    pagination:
+      first: "&laquo; 第一页"
+      last: "最后页 &raquo;"
+      # previous: "&lsaquo; 上一页"
+      # next: "下一页 &rsaquo;"
+      previous: "&laquo; 上一页"
+      next: "下一页 &raquo;"
+      truncate: "..."
+
+  page:
+    questions:
+      index: 问答首页
+
+  common:
+    sign-in: 登　录
+    sign-ining: 正在登录
+
+    sign-up: 注　册
+    sign-uping: 正在注册
+
+    edit: 编辑
+    delete: 删除
+    delete_confirm: 确定要删除吗？
+    
+    confirm: 确定吗？
+
+    unknown-user: 未知用户
+
+    user:
+      edit: 修改
+      delete: 删除
+
+    site:
+      title:
+        app: EduShare
+        admin: EduShare | ADMIN
+      home_title:
+        app: EduShare
+        admin: EduShare Admin
+
+    form:
+      cancel: 取消
+
+    course:
+      create_course: 创建课程
+      course-no-desc: 当前课程还没有简介
+      course-ware-no-desc: 当前小节还没有简介
+
+    question:
+      you-can-answer-only-once: 你已经回答过这个问题了。对于一个问题你只能回答一次，不过你可以编辑修改 %{your-answer}
+      your-answer: 你自己的回答
+
+
+  compoents:
+    data_table:
+      users:
+        id: ID
+        role: 角色
+        login: 用户名
+        name: 姓名
+        email: Email
+        ops: 操作
+        
+      files:
+        name: 文件名
+        size: 大小
+        size_str: 大小
+        fileops_time: 修改日期
+        ops: 操作
+
+      courses:
+        id: ID
+        name: 课程名称
+        cid: 课程编号
+        desc: 简介
+        syllabus: 教学大钢
+        ops: 操作
+        chapters-count: 章节数
+        creator: 创建者
+        select_apply: 选课人数/上限
+        select_status: 选课状态
+        select_apply_status: 选课情况
+
+      chapters:
+        title: 标题
+        course-wares-count: 课件数目
+        practices-count: 练习数目
+        updated_at: 更新时间
+        ops: 操作
+        position: 排序位置
+
+      course-wares:
+        title: 课件名
+        kind: 类型
+        desc: 课件简介
+        pages-count: 页数
+        duration: 时长
+        ops: 操作
+        position: 排序位置
+        convert_status: 转码状态
+
+      course-applies:
+        user: 选课人
+        status: 选课状态
+        ops: 操作
+
+        course: 课程
+        cid: 课程ID
+        updated_at: 更新时间
+
+      questions:
+        title: 标题
+        content: 内容
+        ops: 操作
+
+      answers:
+        content: 内容
+        ops: 操作
+
+      announcements:
+        title: 标题
+        content: 内容
+        ops: 操作
+
+
+      categories:
+        name: 菜单
+        parent: 父节点
+        lft: left
+        rgt: right
+        ops: 操作
+
+      surveys:
+        id: ID
+        title: 调查表标题
+        ops: 操作
+        count: 已填写份数
+
+      survey_results:
+        user: 被调查人
+        time: 调查时间
+        ops: 操作
+
+      survey_teachers:
+        name: 教师
+        status: 评价状态
+        ops: 操作
+        count: 已提交问卷数
+
+  devise:
+    failure:
+      user:
+        unauthenticated: 用户验证失败
+        not_found_in_database: 用户不存在
+        invalid: 用户密码不正确

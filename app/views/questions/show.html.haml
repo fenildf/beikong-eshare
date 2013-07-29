@@ -1,0 +1,11 @@
+- content_for :header do
+  %h1 问答
+
+.page-question-show
+  .mainp66
+    = render_cell :questions, :tree, :user => current_user, :question => @question
+  .sidep33
+    .pblock.info
+      = render_cell :questions, :info, :question => @question
+    
+    = render_cell :questions, :linked_course, :user => @current_user, :question => @question

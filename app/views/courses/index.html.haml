@@ -1,0 +1,76 @@
+.page-courses-index
+  = render_cell :course, :index_navbar
+
+  .hot-courses.2week
+    %h3.cp1 
+      %i.icon-leaf
+      %span 双周热门课程
+    .clearfix
+
+    :ruby
+      courses = Course.top_interactive_sums_of(Date.today, Date.today - 13).limit(4)
+    .courses
+      - courses.each do |course|
+        = render_cell :course, :card, :course => course, :user => current_user
+
+  .mainp75
+    .all-courses
+      - Course::BASE_TAGS.each do |bt|
+        :ruby
+          tagname = bt
+          courses = Course.by_tag(tagname).limit(8)
+
+        - if courses.present?
+          .tag-courses
+            %h3.cp1.tagname
+              %i.icon-tag
+              %span= tagname
+              %a.count{:href => "/tags/courses/#{tagname}"}
+                %span= Course.by_tag(tagname).count
+                %span 项课程
+
+            .clearfix
+
+            .courses
+              - courses.each do |course|
+                = render_cell :course, :smallcard, :course => course, :user => current_user
+
+  .sidep25
+    - if R::INHOUSE && current_user.is_student?
+      %a.select-courses{:href => '/courses/sch_select'}
+        %i.icon-ok-sign.icon-white
+        %span 开始选课
+
+      .pblock
+        .select-courses-dyna
+          %h3.cp 近期选课动态
+          - applies = current_user.select_course_applies.limit(5).order('updated_at DESC')
+          .applies
+            - applies.each do |apply|
+              - course = apply.course
+              .apply
+                - case apply.status
+                - when SelectCourseApply::STATUS_REQUEST
+                  %span 对
+                  %a{:href => "/courses/#{course.id}"}= course.name 
+                  %span 发起了选课申请
+                - when SelectCourseApply::STATUS_ACCEPT
+                  %a{:href => "/courses/#{course.id}"}= course.name 
+                  %span 的选课申请已经通过
+                - when SelectCourseApply::STATUS_REJECT
+                  %a{:href => "/courses/#{course.id}"}= course.name 
+                  %span 的选课申请已被拒绝
+          %a.go-user-course-applies{:href => "/users/#{current_user.id}/course_applies"} 
+            %i.icon-chevron-right
+            %span 查看我的所有选课情况
+
+    .pblock
+      .chart
+        %h3.cp 个人学习情况统计
+        .cha
+          .desc
+            .d 课程总数
+            .c= Course.count
+          .page-chart.all-course-read-pie{:data => {:url => "/charts/courses/all_courses_read_pie"}}
+
+  .clearfix

@@ -1,0 +1,14 @@
+.page-feeds.list
+  = page_tile(:'public-feeds', @feeds) do
+    - add_left(:icon) do |feed|
+      = feed_icon feed
+
+    - add(:time, :quiet) do |feed|
+      = timeago feed.created_at
+
+    - add(:desc) do |feed|
+      = feed_desc feed
+
+    - add(:'avatar-and-content') do |feed|
+      .avatar= avatar feed.who, :small
+      .content= feed_content feed

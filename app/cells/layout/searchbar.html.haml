@@ -1,0 +1,11 @@
+.page-search-bar
+  .inner
+    %a.homepage{:href => '/'} 首页
+    .sf
+      %input.flat{:name => :q, :type => :text, :placeholder => '搜索课程和其他内容…'}
+      %a.btn.inverse-flat.do-search{:href => 'javascript:;'}
+        %i.icon-search.icon-white
+    - if @user.present?
+      .usri
+        .name= @user.name
+        .avatar= avatar @user, :small
