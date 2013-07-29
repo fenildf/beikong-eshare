@@ -6,7 +6,7 @@ describe Team do
   it "用户创建Team" do
     expect{
       teacher_user.teams.create(:name => "张三")
-    }.to change{User.count}.by(1)
+    }.to change{Team.count}.by(1)
   end
 
 
