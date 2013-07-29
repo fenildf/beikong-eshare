@@ -1,17 +1,17 @@
 class Team < ActiveRecord::Base
-  attr_accessible :creator,:name
+  attr_accessible :teacher_user,:name
 
-  belongs_to :creator,
+  belongs_to :teacher_user,
              :class_name  => 'User',
-             :foreign_key => :creator_id
+             :foreign_key => :teacher_user_id
 
   validates :name,    :presence => true
-  validates :creator, :presence => true
+  validates :teacher_user, :presence => true
 
   module UserMethods
     def self.included(base)
-      base.has_many :teams, :foreign_key => :creator_id
-      base.has_many :created_teams, :class_name => 'Team', :foreign_key => :creator_id
+      base.has_many :teams, :foreign_key => :teacher_user_id
+      base.has_many :manage_teams, :class_name => 'Team', :foreign_key => :teacher_user_id
     end
 
     # 1.user.teams.create(:name => xxxx)
