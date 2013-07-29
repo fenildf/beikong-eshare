@@ -90,7 +90,8 @@ class Course < ActiveRecord::Base
     :status => [STATUS_PUBLISHED, STATUS_MAINTENANCE]
   }
 
-  
+  scope :approved, :conditions => {:is_approved => true}
+  scope :disapproved, :conditions => {:is_approved => false}
   
   # 设置 apply_request_limit 默认值
   before_validation :set_default_apply_request_limit
