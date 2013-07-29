@@ -89,6 +89,8 @@ class Course < ActiveRecord::Base
   scope :published_and_maintenance, :conditions => {
     :status => [STATUS_PUBLISHED, STATUS_MAINTENANCE]
   }
+
+  
   
   # 设置 apply_request_limit 默认值
   before_validation :set_default_apply_request_limit
