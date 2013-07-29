@@ -16,6 +16,7 @@ class Course < ActiveRecord::Base
   include CourseAttitude::CourseMethods
   include CourseUpdateStatusMethods
   include CourseDepend::CourseMethods
+  include CourseScore::CourseMethods
 
   simple_taggable
   BASE_TAGS = %w(
@@ -72,8 +73,6 @@ class Course < ActiveRecord::Base
   has_many :questions
   has_many :question_answers, :through => :questions,
                               :source => :answers
-
-  has_many :course_scores
 
   validates :creator, :presence => true
 

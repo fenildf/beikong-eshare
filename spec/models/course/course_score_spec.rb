@@ -17,20 +17,20 @@ describe CourseScore do
 
   describe "course_1 set_score" do
     before {
-      @course_1._score(@student_user_1, '70')
+      @course_1.set_score(@student_user_1, '70')
     }
 
     it "score" do
-      @course_1.get_score_of_user(@student_user_1).should == 70
+      @course_1.get_score_of_user(@student_user_1).should == '70'
     end
 
     describe "course_1 set_score" do
       before {
-        @course_1._score(@student_user_1, '90')
+        @course_1.set_score(@student_user_1, '90')
       }
 
       it "score" do
-        @course_1.get_score_of_user(@student_user_1).should == 90
+        @course_1.get_score_of_user(@student_user_1).should == '90'
       end
     end
 

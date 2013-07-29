@@ -9,23 +9,36 @@ class CourseScore < ActiveRecord::Base
   validates :course, :student_user, :score, :presence => true
   validates :course_id, :uniqueness => {:scope => :student_user_id}
 
-  def set_score(student_user, score)
-    student_user.course_scores.where(:course_id => id).first_or_create do |course|
-      course.score = score
-    end
-  end
-
-  def get_score_of_user(student_user)
-    student_score = student_user.course_scores.where(:course_id => id)
-    return nil if student_score.nil?
-
-    student_score.score
-  end
 
 
   module UserMethods
     def self.included(base)
       base.has_many :course_scores, :class_name => 'CourseScore', :foreign_key => :student_user_id
+    end
+  end
+
+
+  module CourseMethods
+    def self.included(base)
+      base.has_many :course_scores
+    end
+
+    def set_score(student_user, score)
+      student_scores = student_user.course_scores.where(:course_id => id)
+      if student_scores.exists?
+        student_score = student_scores.first
+        student_score.score = score
+        student_score.save
+        return student_score
+      end
+      student_scores.create(:score => score)
+    end
+
+    def get_score_of_user(student_user)
+      student_score = student_user.course_scores.where(:course_id => id).first
+      return nil if student_score.nil?
+
+      student_score.score
     end
   end
 
