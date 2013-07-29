@@ -1,7 +1,7 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: mindpin_edushare_development
+  database: beikong-eshare-development
   username: root
   password: root
   pool: 5
@@ -11,7 +11,7 @@ development:
 test:
   adapter: mysql2
   encoding: utf8
-  database: mindpin_edushare_test
+  database: beikong-eshare-test
   username: root
   password: root
   pool: 5
@@ -20,7 +20,7 @@ test:
 production:
   adapter: mysql2
   encoding: utf8
-  database: mindpin_edushare_production
+  database: beikong-eshare-production
   username: root
   password: root
   pool: 5
