@@ -2,7 +2,7 @@
 FactoryGirl.define do
   sequence(:num) {|n| n}
 
-  factory :user, :aliases => [:creator, :receiver, :sharer] do
+  factory :user, :aliases => [:creator, :receiver, :sharer, :teacher_user] do
     login    {"user#{generate(:num)}"}
     name     {"用户#{generate(:num)}"}
     email    {"user#{generate(:num)}@edu.dev"}

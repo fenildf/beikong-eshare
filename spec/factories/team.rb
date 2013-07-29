@@ -2,6 +2,6 @@ FactoryGirl.define do
   factory :team do
     sequence(:name) {|n| "name_n"}
 
-    creator
+    teacher_user
   end
 end
