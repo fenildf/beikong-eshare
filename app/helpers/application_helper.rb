@@ -173,7 +173,7 @@ module ApplicationHelper
       :student => '学生',
       :teacher => '老师',
       :admin => '系统管理员',
-      :manager => '教学管理员'
+      :manager => '教务领导'
     }
 
     user.roles.map {|role|

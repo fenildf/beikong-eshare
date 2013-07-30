@@ -1,0 +1,10 @@
+:ruby
+  s = [
+    ['学生 Student', :student], 
+    ['老师 Teacher', :teacher],
+    ['教务领导 Manager', :manager],
+  ]
+
+.input{:style => 'margin-bottom:20px;'}
+  %label 用户角色
+  = @form_object.select :role, s, :label => '用户角色'

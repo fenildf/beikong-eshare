@@ -3,22 +3,7 @@
   .btns
     %a.btn.success-flat{:href => '/manage/courses/new'}
       %i.icon-plus.icon-white
-      %span 创建课程
-    .down-btns
-      %a.btn.down.success-flat{:href => 'javascript:;'}
-        %i.icon-chevron-down.icon-white
-        %span 导入…
-      .menu
-        %a.btn.success-flat{:href => '/manage/courses/import'}
-          %i.icon-upload.icon-white
-          %span 导入Excel
-        %a.btn.success-flat{:href => '/manage/courses/import_youku_list'}
-          %i.icon-upload.icon-white
-          %span 导入优酷列表
-        %a.btn.success-flat{:href => '/manage/courses/import_tudou_list'}
-          %i.icon-upload.icon-white
-          %span 导入土豆豆单
-
+      %span 申请创建课程
 
 .page-manage-courses
   - if params[:select_apply_status]

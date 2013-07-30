@@ -4,69 +4,31 @@ SimpleNavbar::Base.config do
       controller :'admin/users'
     end
 
-    nav :courses_manage, :url => '/manage/courses' do
-      controller :'manage/courses'
-      controller :'manage/chapters'
-      controller :'manage/course_wares'
-      controller :'manage/course_applies'
+    nav :team_manage, :url => '/manage/teams' do
+      controller :'manage/teams'
     end
 
-    if R::INHOUSE
-      nav :course_applies_manage, :url => '/manage/applies' do
-        controller :'manage/applies'
-      end
-      nav :teacher_surveys_manage, :url => '/manage/surveys' do
-        controller :'manage/surveys'
-        controller :'manage/survey_results'
-      end
+    nav :course_applies_manage, :url => '/manage/applies' do
+      controller :'manage/applies'
     end
-
-    if R::INTERNET
-      nav :user_opinions_view, :url => '/admin/user_opinions' do
-        controller :'admin/user_opinions'
-      end
-
-      nav :site_changes, :url => '/admin/site_changes' do
-        controller :'admin/site_changes'
-      end
+    nav :teacher_surveys_manage, :url => '/manage/surveys' do
+      controller :'manage/surveys'
+      controller :'manage/survey_results'
     end
   end
 
   # -------------------------
   # 教师
   rule :teacher do
-    nav :courses, :url => '/courses' do
-      controller :courses
-      controller :chapters
-      controller :course_wares
-    end
-
-    nav :dashboard, :url => '/dashboard' do
-      controller :index, :only => :dashboard
-    end
-
-    nav :user, :url => '/users/me' do
-      controller :users
-      controller :friends
-    end
-
-    # nav :disk, :url => '/disk' do
-    #   controller :disk
-    # end
-
-    nav :tags, :url => '/tags' do
-      controller :tags
-    end
-
-    nav :questions, :url => '/questions' do
-      controller :questions
-    end
-
     nav :courses_manage, :url => '/manage/courses' do
       controller :'manage/courses'
       controller :'manage/chapters'
       controller :'manage/course_wares'
       controller :'manage/applies'
+    end
+
+    nav :teams, :url => '/teams' do
+      controller :teams
     end
   end
 

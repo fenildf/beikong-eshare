@@ -2,26 +2,19 @@ zh-CN:
   simple-navbar:
     admin:
       home: 首页
-      users_manage: 用户管理
+      users_manage: 用户登记
       categories_manage: 分类管理
-      courses_manage: 课程管理
-      teacher_surveys_manage: 教师评价
       course_applies_manage: 选课管理
+      teacher_surveys_manage: 教师评价
+      team_manage: 班级登记
 
       #INTERNET
       user_opinions_view: 反馈意见 
       site_changes: 更新记录
 
     teacher:
-      dashboard: 动态
-      courses: 课程
-      disk: 文件
-      tags: 标签
-      user: 个人
-      questions: 问答
-      
-      courses_manage: 课程管理
-      courses_manage_aj: 课管理β
+      courses_manage: 课程登记
+      teams: 班级信息
 
     student:
       dashboard: 动态
