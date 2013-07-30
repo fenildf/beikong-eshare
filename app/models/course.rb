@@ -51,7 +51,11 @@ class Course < ActiveRecord::Base
   STATUS_MAINTENANCE = 'MAINTENANCE'
 
   attr_accessible :name, :cid, :desc, :syllabus, :cover, :creator, :with_chapter, 
-                  :apply_request_limit, :enable_apply_request_limit, :status
+                  :apply_request_limit, :enable_apply_request_limit, :status,
+                  :is_approved, :time, :location,
+                  :lesson_hour, :credit, 
+                  :least_user_count, :most_user_count, 
+                  :teach_type, :teach_content
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   has_many :chapters
