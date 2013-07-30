@@ -11,7 +11,7 @@ class Course < ActiveRecord::Base
   include YoukuVideoList::CourseMethods
   include TudouVideoList::CourseMethods
   include CourseFav::CourseMethods
-  include SelectCourseApply::CourseMethods
+  include SelectCourse::CourseMethods
   include Note::CourseMethods
   include CourseAttitude::CourseMethods
   include CourseUpdateStatusMethods
