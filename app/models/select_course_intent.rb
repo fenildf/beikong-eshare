@@ -71,10 +71,4 @@ class SelectCourseIntent < ActiveRecord::Base
         approved && check_first && check_second && check_third
       end
   end
-
-  module CourseMethods
-    def self.included(base)
-      base.has_many :select_course_intents
-    end
-  end
 end
