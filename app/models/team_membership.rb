@@ -15,7 +15,6 @@ class TeamMembership < ActiveRecord::Base
       base.has_many :user_memberships, :class_name  => 'TeamMembership'
       base.has_many :joined_teams, :through => :user_memberships, :source=> :team
     end
-    # 5.查询用户参与的 teams(用户不是创建者，而是参与者的 team) joined_teams
   end
 
   module TeamMethods
@@ -23,15 +22,17 @@ class TeamMembership < ActiveRecord::Base
       base.has_many :team_memberships
       base.has_many :members, :through => :team_memberships, :source=> :user
     end
+
     # 2.增加 team 参与者
     def add_member(user)
       self.team_memberships.create(:user => user)
     end
+
     # 3.移除 team 参与者
     def remove_member(user)
       self.team_memberships.by_user(user).destroy_all
     end
-    # 6.查询 team 的参与者(不包括创建者) members
+    
   end
 
 
