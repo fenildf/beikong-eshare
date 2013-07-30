@@ -36,7 +36,6 @@ class CourseWare < ActiveRecord::Base
   has_many :javascript_steps
   has_many :css_steps
   has_many :regex_steps
-  has_many :sql_steps
   has_many :java_steps
 
   scope :by_course, lambda {|course|
