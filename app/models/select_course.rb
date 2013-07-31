@@ -81,6 +81,11 @@ class SelectCourse < ActiveRecord::Base
     return self.notfull_courses if label == 'notfull'
   end
 
+  def self.no_selected_course_users
+    User.with_role(:student).joins("LEFT OUTER JOIN select_courses ON select_courses.user_id = users.id AND select_courses.status = '#{STATUS_ACCEPT}'").
+      where("select_courses.user_id is NULL")
+  end
+
   module CourseMethods
     def self.included(base)
       base.has_many :select_courses, :dependent => :delete_all
