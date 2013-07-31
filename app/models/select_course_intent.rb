@@ -194,7 +194,7 @@ class SelectCourseIntent < ActiveRecord::Base
       end
 
       def _check_course?(course)
-        approved      = Course.approved.include?(course)
+        approved      = Course.approve_status_with_yes.include?(course)
         check_first   = course != _select_course_intent.first_course
         check_second  = course != _select_course_intent.second_course
         check_third   = course != _select_course_intent.third_course

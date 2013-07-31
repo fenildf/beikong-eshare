@@ -4,9 +4,9 @@ describe SelectCourseIntent do
   let(:user)     {FactoryGirl.create :user}
   let(:course)  {FactoryGirl.create :course}
 
-  let(:course1)  {FactoryGirl.create :course, :is_approved => true}
-  let(:course2)  {FactoryGirl.create :course, :is_approved => true}
-  let(:course3)  {FactoryGirl.create :course, :is_approved => true}
+  let(:course1)  {FactoryGirl.create :course, :approve_status => Course::APPROVE_STATUS_YES}
+  let(:course2)  {FactoryGirl.create :course, :approve_status => Course::APPROVE_STATUS_YES}
+  let(:course3)  {FactoryGirl.create :course, :approve_status => Course::APPROVE_STATUS_YES}
   let(:opinion) {"opinion opinion opinion opinion 4"}
 
   describe '设置' do

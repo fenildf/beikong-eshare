@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe SelectCourseIntent do
   before{
-    @course_1 = FactoryGirl.create :course, :is_approved => true
-    @course_2 = FactoryGirl.create :course, :is_approved => true
-    @course_3 = FactoryGirl.create :course, :is_approved => true
-    @course_4 = FactoryGirl.create :course, :is_approved => true
+    @course_1 = FactoryGirl.create :course, :approve_status => Course::APPROVE_STATUS_YES
+    @course_2 = FactoryGirl.create :course, :approve_status => Course::APPROVE_STATUS_YES
+    @course_3 = FactoryGirl.create :course, :approve_status => Course::APPROVE_STATUS_YES
+    @course_4 = FactoryGirl.create :course, :approve_status => Course::APPROVE_STATUS_YES
 
     @team_1 = FactoryGirl.create :team
     @team_2 = FactoryGirl.create :team
