@@ -4,13 +4,14 @@ SimpleNavbar::Base.config do
       controller :'admin/users'
     end
 
-    nav :team_manage, :url => '/manage/teams' do
-      controller :'manage/teams'
-    end
+    # nav :team_manage, :url => '/manage/teams' do
+    #   controller :'manage/teams'
+    # end
 
-    nav :course_applies_manage, :url => '/manage/applies' do
-      controller :'manage/applies'
+    nav :select_course, :url => '/manage/select_course_intents' do
+      controller :'manage/select_course_intents'
     end
+    
     nav :teacher_surveys_manage, :url => '/manage/surveys' do
       controller :'manage/surveys'
       controller :'manage/survey_results'

@@ -4,7 +4,7 @@ zh-CN:
       home: 首页
       users_manage: 用户登记
       categories_manage: 分类管理
-      course_applies_manage: 选课管理
+      select_course: 选课管理
       teacher_surveys_manage: 教师评价
       team_manage: 班级登记
 
@@ -18,7 +18,7 @@ zh-CN:
 
     manager:
       courses_check: 课程审批
-      select_course: 选课情况
+      select_course: 选课管理
 
     student:
       dashboard: 动态
