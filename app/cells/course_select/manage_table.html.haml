@@ -1,18 +1,30 @@
 = page_data_table :students, @users, :striped, :bordered do |table|
   - table.add_column :name do |user|
     = user_link user
-  - table.add_column :first do |user|
+
+  - table.add_column :wish do |user|
     - if user.course_intent(:first) == @course
-      .has-intent
-        %i.icon-ok
-  - table.add_column :second do |user|
-    - if user.course_intent(:second) == @course
-      .has-intent
-        %i.icon-ok
-  - table.add_column :third do |user|
-    - if user.course_intent(:third) == @course
-      .has-intent
-        %i.icon-ok
+      第一志愿
+    - elsif user.course_intent(:second) == @course
+      第二志愿
+    - elsif user.course_intent(:third) == @course
+      第三志愿
+    - else
+      无
+
+  / - table.add_column :first do |user|
+  /   - if user.course_intent(:first) == @course
+  /     .has-intent
+  /       %i.icon-ok
+  / - table.add_column :second do |user|
+  /   - if user.course_intent(:second) == @course
+  /     .has-intent
+  /       %i.icon-ok
+  / - table.add_column :third do |user|
+  /   - if user.course_intent(:third) == @course
+  /     .has-intent
+  /       %i.icon-ok
+
   - table.add_column :status do |user|
     = course_select_status_label user, @course
 

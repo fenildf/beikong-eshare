@@ -2,7 +2,7 @@ class Manage::SelectCourseIntentsController < ApplicationController
   before_filter :authenticate_user!
   layout Proc.new { |controller|
     case controller.action_name
-    when 'index', 'list'
+    when 'index', 'list', 'adjust'
       return 'grid'
     else
       return 'application'
@@ -20,7 +20,7 @@ class Manage::SelectCourseIntentsController < ApplicationController
 
   def adjust
     @course = Course.find params[:course]
-    @students = SelectCourse.no_selected_course_users
+    @students = SelectCourse.no_selected_course_users.page(params[:page]).per(15)
   end
 
   def accept

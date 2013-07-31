@@ -268,6 +268,7 @@ zh-CN:
         third: 第三志愿
         status: 选课状态
         ops: 操作
+        wish: 对当前课程的志愿
 
       courses:
         id: ID

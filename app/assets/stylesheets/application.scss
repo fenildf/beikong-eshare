@@ -5197,6 +5197,12 @@ form .input.page-form-tag-inputer {
 }
 
 .page-course-applies {
+  .pblock.desc {
+    margin-top: -16px;
+    padding-bottom:20px;
+    background:#ffffda;
+  }
+
   .page-chart.all-courses-select-apply-pie,
   .page-chart.course-intent-123-pie
   {
@@ -5323,8 +5329,12 @@ form .input.page-form-tag-inputer {
   height:20px;line-height:20px;
   padding:0 10px;
   display: inline-block;
-  background-color:#444;
-  color:white;
+  background-color:#f1f1f1;
+
+  &.pass {
+    background-color:#444;
+    color:white;
+  }
 }
 
 .page-student-select-course-intent-form {

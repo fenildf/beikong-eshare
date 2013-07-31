@@ -1,0 +1,23 @@
+- content_for :header do
+  %h1 志愿调剂 - #{@course.name}
+  .btns
+    %a.btn.gray-flat{:href => '/manage/select_course_intents'}
+      %i.icon-chevron-left
+      %span 返回选课统计
+    %a.btn.gray-flat{:href => "/manage/select_course_intents/list?course=#{@course.id}"}
+      %i.icon-chevron-left
+      %span 返回课程志愿查看
+
+.page-course-applies
+  .pblock.desc
+    .p
+      %span 志愿调剂页面列出了所有目前仍然没有选中任何课程的学生。
+    .p
+      %span 教学管理员可以通过调剂页面
+      %b 直接将这些学生纳入当前课程
+      %span ：#{@course.name}
+
+  .pblock.table{:style => 'margin-top:-16px;'}
+    = render_cell :course_select, :manage_table, :users => @students, :course => @course
+
+  = paginate @students
