@@ -80,7 +80,7 @@ class SelectCourse < ActiveRecord::Base
   module CourseMethods
     def self.included(base)
       base.has_many :select_courses, :dependent => :delete_all
-      base.has_many :apply_users, :through => :select_courses, :source => :user
+      base.has_many :selected_users, :through => :select_courses, :source => :user
     end
 
     # 是否有选课人数上限限制
@@ -91,19 +91,19 @@ class SelectCourse < ActiveRecord::Base
 
   module UserMethods
     def self.included(base)
-      base.has_many :select_courses
-      base.has_many :apply_courses, :through => :select_courses, :source => :course
+      base.has_many :select_course_records, :class_name => "SelectCourse"
+      base.has_many :selected_courses, :through => :select_course_records, :source => :course
     end
 
     # 用户发起一个选课请求
     def select_course(course)
-      return if self.apply_courses.include?(course)
+      return if self.selected_courses.include?(course)
       self.select_courses.create :course => course
     end
 
     # 学生自己主动取消选择一门课程
     def cancel_select_course(course)
-      return if !self.apply_courses.include?(course)
+      return if !self.selected_courses.include?(course)
       self.select_courses.by_course(course).destroy_all
     end
   end
