@@ -178,6 +178,7 @@ Eshare::Application.routes.draw do
     resources :select_course_intents, :shallow => true do
       collection do
         get :list
+        get :adjust
         put :accept
         put :reject
       end

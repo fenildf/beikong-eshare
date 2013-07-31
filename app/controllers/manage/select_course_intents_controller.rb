@@ -18,6 +18,11 @@ class Manage::SelectCourseIntentsController < ApplicationController
     @students = @course.intent_student_users
   end
 
+  def adjust
+    @course = Course.find params[:course]
+    @students = SelectCourse.no_selected_course_users
+  end
+
   def accept
     @user = User.find params[:user_id]
     @course = Course.find params[:course_id]

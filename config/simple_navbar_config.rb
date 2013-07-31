@@ -26,9 +26,9 @@ SimpleNavbar::Base.config do
       controller :'manage/applies'
     end
 
-    nav :teams, :url => '/teams' do
-      controller :teams
-    end
+    # nav :teams, :url => '/teams' do
+    #   controller :teams
+    # end
   end
 
   # 教务管理

@@ -5,7 +5,7 @@
   .chart
     .page-chart.all-courses-select-apply-pie
 
-.pblock.table
+.pblock.table{:style => 'margin-top:-16px;'}
   = page_data_table(:'courses', @courses, :striped, :bordered) do |table|
     - table.add_column :name
     - table.add_column :least_user_count
