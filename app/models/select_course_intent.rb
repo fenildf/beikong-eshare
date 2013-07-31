@@ -113,13 +113,60 @@ class SelectCourseIntent < ActiveRecord::Base
         .count()
     end
 
-    def intent_student_users(flag = nil)
-      if flag.present?
-        sql = %`
-          
-        `
-        User.find_by_sql(sql)
-      end
+    def intent_student_users(options = {})
+      flag = options[:flag]
+      team = options[:team]
+
+      return __intent_student_users_with_flag(flag, team) if flag.present?
+
+      __intent_student_users_without_flag(team)
+    end
+
+    def __intent_student_users_with_flag(flag, team)
+      column_name = "#{flag}_course_id"
+      sci_joins = %`
+        INNER JOIN 
+          select_course_intents 
+        ON 
+          select_course_intents.user_id = users.id 
+            AND 
+          select_course_intents.#{column_name} = #{self.id}
+      `
+      return User.joins(sci_joins) if team.blank?
+
+      User.joins(sci_joins).joins(___intent_student_users_sub_sql(team))
+    end
+
+    def __intent_student_users_without_flag(team)
+      sci_joins = %`
+        INNER JOIN 
+          select_course_intents 
+        ON 
+          select_course_intents.user_id = users.id 
+            AND
+          (
+            select_course_intents.first_course_id = #{self.id}
+              OR
+            select_course_intents.second_course_id = #{self.id}
+              OR
+            select_course_intents.third_course_id = #{self.id}
+          )
+      `
+
+      return User.joins(sci_joins) if team.blank?
+
+      User.joins(sci_joins).joins(___intent_student_users_sub_sql(team))
+    end
+
+    def ___intent_student_users_sub_sql(team)
+      %`
+        INNER JOIN
+          team_memberships
+        ON
+          team_memberships.user_id = users.id
+            AND
+          team_memberships.team_id = #{team.id}
+      `
     end
   end
 

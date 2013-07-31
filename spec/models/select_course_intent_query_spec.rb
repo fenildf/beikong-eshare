@@ -193,5 +193,51 @@ describe SelectCourseIntent do
         [@course_4, 3]
       ]
     }
+
+    ## users
+    it{
+      @course_1.intent_student_users(:flag => :first).should =~ [
+        @user_1, @user_2, @user_3, @user_7, @user_9, @user_8
+      ]
+    }
+
+    it{
+      @course_1.intent_student_users(:flag => :second).should =~ []
+    }
+
+    it{
+      @course_1.intent_student_users(:flag => :third).should =~ [
+        @user_6, @user_12
+      ]
+    }
+
+    it{
+      @course_1.intent_student_users.should =~ [
+         @user_1, @user_2, @user_3, @user_6,
+         @user_7, @user_9, @user_8, @user_12
+      ]
+    }
+
+    it{
+      @course_1.intent_student_users(:flag => :first, :team => @team_1).should =~ [
+        @user_1, @user_2, @user_3
+      ]
+    }
+
+    it{
+      @course_1.intent_student_users(:flag => :second, :team => @team_1).should =~ []
+    }
+
+    it{
+      @course_1.intent_student_users(:flag => :third, :team => @team_1).should =~ [
+        @user_6
+      ]
+    }
+
+    it{
+      @course_1.intent_student_users(:team => @team_1).should =~ [
+         @user_1, @user_2, @user_3, @user_6
+      ]
+    }
   end
 end
