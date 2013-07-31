@@ -201,7 +201,7 @@ class User < ActiveRecord::Base
   include CourseSubject::UserMethods
   include CourseSubjectManagership::UserMethods
   include CourseSubjectFollow::UserMethods
-  include SelectCourseApply::UserMethods
+  include SelectCourse::UserMethods
   include CourseWareReading::UserMethods
   include TagFollow::UserMethods
   include Omniauth::UserMethods
@@ -214,4 +214,5 @@ class User < ActiveRecord::Base
   include SimpleCredit::UserMethods
   include Report::UserMethods
   include CourseScore::UserMethods
+  include SelectCourseIntent::UserMethods
 end
