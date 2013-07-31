@@ -178,6 +178,8 @@ Eshare::Application.routes.draw do
     resources :select_course_intents, :shallow => true do
       collection do
         get :list
+        put :accept
+        put :reject
       end
     end
     
@@ -315,6 +317,7 @@ Eshare::Application.routes.draw do
 
       member do
         get :read_pie
+        get :course_intent_123_pie
       end
 
       resources :chapters, :shallow => true do

@@ -5197,7 +5197,9 @@ form .input.page-form-tag-inputer {
 }
 
 .page-course-applies {
-  .page-chart.all-courses-select-apply-pie{
+  .page-chart.all-courses-select-apply-pie,
+  .page-chart.course-intent-123-pie
+  {
     background-color:white;
     margin-bottom:20px;
   }
@@ -5313,6 +5315,15 @@ form .input.page-form-tag-inputer {
     color:darken(#BE3730, 20%);
     background-color:lighten(#BE3730, 40%);
   }
+}
+
+.page-course-select-status {
+  @include border-radius(20px);
+  height:20px;line-height:20px;
+  padding:0 10px;
+  display: inline-block;
+  background-color:#444;
+  color:white;
 }
 
 .page-student-select-course-intent-form {

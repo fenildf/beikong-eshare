@@ -15,6 +15,16 @@ class Charts::CoursesController < ApplicationController
     render :json => @course.course_wares_read_stat_of(current_user)
   end
 
+  def course_intent_123_pie
+    @course = Course.find params[:id]
+
+    render :json => {
+      :first => @course.intent_student_count(:flag => :first),
+      :second => @course.intent_student_count(:flag => :second),
+      :third => @course.intent_student_count(:flag => :third)
+    }
+  end
+
   def all_courses_select_apply_pie
     @courses = SelectCourseIntent.intent_course_ranking
 

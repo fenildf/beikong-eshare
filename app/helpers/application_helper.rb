@@ -269,6 +269,31 @@ module ApplicationHelper
     end
   end
 
+  # 返回 选中 未选中 等待志愿分配 未申请 四种状态
+  def course_select_status_label(user, course)
+    if course.selected_users.include?(user)
+      return capture_haml {
+        haml_tag 'span.page-course-select-status.pass', '选中'
+      }
+    end
+
+    if course.be_reject_selected_users.include?(user)
+      return capture_haml {
+        haml_tag 'span.page-course-select-status.reject', '未选中'
+      }
+    end
+
+    if course.intent_student_users.include?(user)
+      return capture_haml {
+        haml_tag 'span.page-course-select-status.wait', '等待志愿分配'
+      }
+    end
+
+    return capture_haml {
+      haml_tag 'span.page-course-select-status.no', '未申请'
+    }
+  end
+
   module FeedHelper
     def feed_icon(feed)
       capture_haml {

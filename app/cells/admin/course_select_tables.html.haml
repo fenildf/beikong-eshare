@@ -36,7 +36,7 @@
 
       %tr
         %th.intent-status 选课结果
-        %td.approved{:colspan => 3} 未选/等待志愿分配/选中/没有选中
+        %td.approved{:colspan => 3}= course_select_status_label @user, course
 
         %th.ops 志愿选择
         %td.ops{:colspan => 5}

@@ -37,13 +37,13 @@
         %td.most= course.most_user_count
 
         %th.num 选课人数
-        %td.num xxx
+        %td.num= course.intent_student_count
 
         %th.status 选课状态
         %td.status 正常
 
         %th.result 选中人数
-        %td.result xxx
+        %td.result= course.selected_users.count
 
       %tr
         %th.approved 申报状态
