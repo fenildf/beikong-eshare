@@ -1,11 +1,15 @@
 class SelectCourse < ActiveRecord::Base
-  attr_accessible :course, :user
+  STATUS_REJECT = 'reject'
+  STATUS_ACCEPT = 'accept'
+
+  attr_accessible :course, :user, :status
 
   belongs_to :course
   belongs_to :user
 
   validates :course, :user, :presence => true
   validates :user_id,  :uniqueness => {:scope => :course_id}
+  validates :status, :inclusion => { :in => [ STATUS_REJECT, STATUS_ACCEPT] }
 
   scope :by_course, lambda{|course| {:conditions => ['course_id = ?', course.id]} }
 
@@ -80,7 +84,10 @@ class SelectCourse < ActiveRecord::Base
   module CourseMethods
     def self.included(base)
       base.has_many :select_courses, :dependent => :delete_all
-      base.has_many :apply_users, :through => :select_courses, :source => :user
+      base.has_many :selected_users, :through => :select_courses, :source => :user,
+        :conditions => "select_courses.status = '#{STATUS_ACCEPT}'"
+      base.has_many :be_reject_selected_users, :through => :select_courses, :source => :user,
+        :conditions => "select_courses.status = '#{STATUS_REJECT}'"
     end
 
     # 是否有选课人数上限限制
@@ -91,21 +98,23 @@ class SelectCourse < ActiveRecord::Base
 
   module UserMethods
     def self.included(base)
-      base.has_many :select_courses
-      base.has_many :apply_courses, :through => :select_courses, :source => :course
+      base.has_many :select_course_records, :class_name => "SelectCourse"
+      base.has_many :selected_courses, :through => :select_course_records, :source => :course,
+        :conditions => "select_courses.status = '#{STATUS_ACCEPT}'"
+      base.has_many :be_reject_selected_courses, :through => :select_course_records, :source => :course,
+        :conditions => "select_courses.status = '#{STATUS_REJECT}'"
     end
 
     # 用户发起一个选课请求
-    def select_course(course)
-      return if self.apply_courses.include?(course)
-      self.select_courses.create :course => course
+    def select_course(status, course)
+      record = self.select_course_records.by_course(course).first
+      if record.blank?
+        self.select_course_records.create :course => course, :status => status.to_s
+      else
+        record.update_attributes(:status => status.to_s)
+      end
     end
 
-    # 学生自己主动取消选择一门课程
-    def cancel_select_course(course)
-      return if !self.apply_courses.include?(course)
-      self.select_courses.by_course(course).destroy_all
-    end
   end
 
 end
