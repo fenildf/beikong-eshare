@@ -39,48 +39,27 @@ SimpleNavbar::Base.config do
       controller :'manage/course_wares'
       controller :'manage/applies'
     end
+
+    nav :select_course, :url => '/manage/select_course_intents' do
+      controller :'manage/select_course_intents'
+    end
   end
 
   # ------------------
   # 学生
   rule :student do
+    nav :select_course, :url => '/select_course_intents' do
+      controller :select_course_intents
+    end
+    
     nav :courses, :url => '/courses' do
       controller :courses
       controller :chapters
       controller :course_wares
     end
 
-    nav :dashboard, :url => '/dashboard' do
-      controller :index, :only => :dashboard
-    end
-
-    if R::INHOUSE
-      nav :learning_plan, :url => '/plan' do
-        controller :index, :only => :plan
-      end
-    end
-
-    nav :user, :url => '/users/me' do
-      controller :users
-      controller :friends
-    end
-
-    # nav :disk, :url => '/disk' do
-    #   controller :disk
-    # end
-
-    nav :tags, :url => '/tags' do
-      controller :tags
-    end
-
-    nav :questions, :url => '/questions' do
-      controller :questions
-    end
-
-    if R::INHOUSE
-      nav :'teacher-surveys', :url => '/surveys' do
-        controller :surveys
-      end
+    nav :'teacher-surveys', :url => '/surveys' do
+      controller :surveys
     end
   end
 
@@ -109,18 +88,6 @@ SimpleNavbar::Base.config do
   rule :admin_account do
     nav :password, :url => '/account/edit' do
       controller :account, :only => :edit
-    end
-  end
-
-  if R::INTERNET
-    rule :help do
-      nav :user_opinion, :url => '/help/user_opinions/new' do
-        controller :'help/user_opinions'
-      end
-
-      nav :site_changes, :url => '/help/site_changes' do
-        controller :'help/site_changes'
-      end
     end
   end
 

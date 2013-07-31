@@ -47,7 +47,7 @@
 
       %tr
         %th.approved 申报状态
-        %td.approved{:colspan => 5} 正在审核
+        %td.approved{:colspan => 5}= course_approve_status_label course
 
         %th.ops 操作
         %td.ops{:colspan => 3}
@@ -59,8 +59,6 @@
             %a.btn.success-flat.small{:href => "/manage/courses/#{course.id}/check"} 
               %i.icon-check.icon-white
               %span 审核
-            
-
 
           - if is_creator_teacher || is_manager
             %a.btn.success-flat.small{:href => "/manage/courses/#{course.id}/edit"} 

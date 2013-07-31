@@ -247,6 +247,28 @@ module ApplicationHelper
     }
   end
 
+  def course_approve_status_label(course)
+    status = course.approve_status
+
+    if status == 'WAITING'
+      return capture_haml {
+        haml_tag 'span.page-course-apprive-status.waiting', '等待审核'
+      }
+    end
+
+    if status == 'YES'
+      return capture_haml {
+        haml_tag 'span.page-course-apprive-status.yes', '审核通过'
+      }
+    end
+
+    if status == 'NO'
+      return capture_haml {
+        haml_tag 'span.page-course-apprive-status.no', '未通过'
+      }
+    end
+  end
+
   module FeedHelper
     def feed_icon(feed)
       capture_haml {

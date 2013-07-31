@@ -18,6 +18,7 @@ zh-CN:
 
     manager:
       courses_check: 课程审批
+      select_course: 选课情况
 
     student:
       dashboard: 动态
@@ -29,6 +30,7 @@ zh-CN:
 
       learning_plan: 计划
       teacher-surveys: 教师评价
+      select_course: 选课
 
     account:
       edit: 基础信息设置
@@ -259,6 +261,14 @@ zh-CN:
         fileops_time: 修改日期
         ops: 操作
 
+      students:
+        name: 姓名
+        first: 第一志愿
+        second: 第二志愿
+        third: 第三志愿
+        status: 选课状态
+        ops: 操作
+
       courses:
         id: ID
         name: 课程名称
@@ -271,6 +281,13 @@ zh-CN:
         select_apply: 选课人数/上限
         select_status: 选课状态
         select_apply_status: 选课情况
+        least_user_count: 最小人数
+        most_user_count: 最大人数
+        total_intent: 志愿总数
+        first_intent: 第一志愿
+        second_intent: 第二志愿
+        third_intent: 第三志愿
+
 
       chapters:
         title: 标题

@@ -124,4 +124,24 @@ class Manage::CoursesController < ApplicationController
     authorize! :manage, Course
     @course = Course.find params[:id]
   end
+
+  def check_yes
+    authorize! :manage, Course
+    @course = Course.find params[:id]
+    @course.approve_status = 'YES'
+    if @course.save
+      return redirect_to :action => :index
+    end
+    redirect_to :action => :check
+  end
+
+  def check_no
+    authorize! :manage, Course
+    @course = Course.find params[:id]
+    @course.approve_status = 'NO'
+    if @course.save
+      return redirect_to :action => :index
+    end
+    redirect_to :action => :check
+  end
 end

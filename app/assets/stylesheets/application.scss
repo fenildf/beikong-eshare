@@ -70,7 +70,10 @@ body {
       li.course_applies_manage,
       li.teacher_surveys_manage,
       li.team_manage, li.teams,
-      li.courses_check
+      li.courses_check,
+      li.select_course,
+      li.courses,
+      li.teacher-surveys
       {
         a:before {
           content:"";
@@ -103,6 +106,18 @@ body {
 
       li.courses_check a:before{
         background:url(nav-icons/all.png) no-repeat -50px -50px;
+      }
+
+      li.select_course a:before {
+        background:url(nav-icons/all.png) no-repeat -150px -50px;
+      }
+
+      li.courses a:before, li.teams a:before{
+        background:url(nav-icons/all.png) no-repeat -100px -50px;
+      }
+
+      li.teacher-surveys a:before{
+        background:url(nav-icons/all.png) no-repeat -0px -50px;
       }
 
     }
@@ -5274,6 +5289,94 @@ form .input.page-form-tag-inputer {
         font-weight:normal;
         margin-left:5px;
         color:#666;
+      }
+    }
+  }
+}
+
+.page-course-apprive-status {
+  @include border-radius(20px);
+  height:20px;line-height:20px;
+  padding:0 10px;
+  display: inline-block;
+
+  &.waiting {
+    background-color:#f1f1f1;
+  }
+
+  &.yes {
+    color:darken(#51A451, 20%);
+    background-color:lighten(#51A451, 40%);
+  }
+
+  &.no {
+    color:darken(#BE3730, 20%);
+    background-color:lighten(#BE3730, 40%);
+  }
+}
+
+.page-student-select-course-intent-form {
+  .pblock.desc {
+    background-color:#ffffda;
+    padding-bottom:20px;
+    // margin-top: -16px;
+  }
+
+  .pblock.result {
+    padding:0;
+    margin-top: -16px;
+    .intent {
+      padding:10px 20px;
+      border-bottom:dashed 1px #e7e7e7;
+      &:last-child {
+        border-bottom:none;
+      }
+    }
+    .ops {
+      padding:10px 20px;
+    }
+  }
+
+  .courses-tables {
+    margin-top:-16px;
+    table.course {
+      box-shadow:0 1px 0 #E7E7E7;
+      background-color:#fff;
+
+      td.cover {
+        width:115px;
+      }
+      td.teacher {
+        width:100px;
+        img {width:26px;height:26px;}
+      }
+      td.name {
+        min-width:300px;
+      }
+      td.ops {
+        .int {
+          float:left;
+          margin-right:10px;
+          color:#3A7CE7;
+          padding:0 10px;
+          @include border-radius(20px);
+
+          &.sel {
+            background-color:#3A7CE7;
+            color:white;
+          }
+        }
+      }
+
+      th {
+        font-weight:bold;
+        height:27px;line-height:27px;
+        width:60px;
+        background-color:#F9F9F9;
+        text-align:center;
+      }
+      td {
+        height:27px;line-height:27px;
       }
     }
   }

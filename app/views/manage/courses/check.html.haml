@@ -59,7 +59,7 @@
       .blo
         .f
           .t 审核状态：
-          .v 等待审核
+          .v= course_approve_status_label @course
 
     .btns
       %a.btn.success-flat{:href => "/manage/courses/#{@course.id}/check_yes", :data => {:method => :put}}

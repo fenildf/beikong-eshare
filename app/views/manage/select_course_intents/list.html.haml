@@ -1,0 +1,33 @@
+- content_for :header do
+  %h1 选课志愿提交情况 - #{@course.name}
+
+.page-course-applies
+  / .chart
+  /   .page-chart.all-courses-select-apply-pie
+
+.pblock.table
+  = page_data_table :students, @students, :striped, :bordered do |table|
+    - table.add_column :name do |user|
+      = user_link user
+    - table.add_column :first do |user|
+      - if user.course_intent(:first) == @course
+        .has-intent
+          %i.icon-ok
+    - table.add_column :second do |user|
+      - if user.course_intent(:second) == @course
+        .has-intent
+          %i.icon-ok
+    - table.add_column :third do |user|
+      - if user.course_intent(:third) == @course
+        .has-intent
+          %i.icon-ok
+    - table.add_column :status do |user|
+      等待审核/选中/拒绝
+
+    - table.add_column :ops do |user|
+      %a.btn.mini.success-flat.accept{:href => 'javascript:;', :data => {:'user-id' => user.id}} 
+        %i.icon-ok.icon-white
+        %span 批准
+      %a.btn.mini.danger-flat.reject{:href => 'javascript:;', :data => {:'user-id' => user.id}} 
+        %i.icon-ban-circle.icon-white
+        %span 拒绝

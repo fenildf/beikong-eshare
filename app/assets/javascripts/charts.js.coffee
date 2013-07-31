@@ -350,10 +350,10 @@ jQuery ->
               type: 'pie'
               name: '课程数'
               animation: false
-              point:
-                events:
-                  click: (e)->
-                    location.href = "/manage/courses?select_apply_status=#{this.label}"
+              # point:
+              #   events:
+              #     click: (e)->
+              #       location.href = "/manage/courses?select_apply_status=#{this.label}"
 
               dataLabels:
                 format: '<b>{point.name}</b>: {point.y}'
@@ -365,28 +365,28 @@ jQuery ->
               data: [
                 {
                   label: 'notfull'
-                  name: '未满'
+                  name: '人数过少'
                   y: notfull
                   color: '#FEF093'
                 },
 
                 {
                   label: 'over'
-                  name: '超选'
+                  name: '人数过多'
                   y: over
                   color: '#cc3333'
                 },
 
                 {
                   label: 'full'
-                  name: '选满'
+                  name: '人数适合'
                   y: full
                   color: '#80CC00'
                 },
 
                 {
                   label: 'empty'
-                  name: '空选'
+                  name: '无人选'
                   y: empty
                   color: '#CDCDCD'
                 },
