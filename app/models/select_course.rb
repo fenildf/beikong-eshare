@@ -98,13 +98,13 @@ class SelectCourse < ActiveRecord::Base
     # 用户发起一个选课请求
     def select_course(course)
       return if self.selected_courses.include?(course)
-      self.select_courses.create :course => course
+      self.select_course_records.create :course => course
     end
 
     # 学生自己主动取消选择一门课程
     def cancel_select_course(course)
       return if !self.selected_courses.include?(course)
-      self.select_courses.by_course(course).destroy_all
+      self.select_course_records.by_course(course).destroy_all
     end
   end
 
