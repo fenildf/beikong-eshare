@@ -190,6 +190,10 @@ Eshare::Application.routes.draw do
         post :do_import_tudou_list
       end
 
+      member do
+        get :check
+      end
+
       resources :chapters, :shallow => true do
         member do
           put :move_up

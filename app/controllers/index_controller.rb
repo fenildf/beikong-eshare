@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class IndexController < ApplicationController
   before_filter :authenticate_user!, :except => [:index]
   layout 'dashboard', :only => [:dashboard]
@@ -8,15 +7,9 @@ class IndexController < ApplicationController
       return redirect_to '/account/sign_in'
     end
 
-    if current_user.is_admin?
-      return redirect_to "/admin"
-    end
-    
-    if R::INHOUSE
-      redirect_to '/courses'
-    else
-      redirect_to '/users/me'
-    end
+    return redirect_to "/admin" if current_user.is_admin?
+    return redirect_to "/manage/courses" if current_user.is_teacher?
+    return redirect_to "/manage/courses" if current_user.is_manager?
   end
 
   def dashboard

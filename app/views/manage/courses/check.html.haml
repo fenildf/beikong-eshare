@@ -1,0 +1,78 @@
+- content_for :header do
+  %h1 课程审核 - #{@course.name}
+
+.page-manage-course-check
+  .pblock.desc
+    .p 
+      %span 教务管理员需阅读课程申报信息后，给出审核
+      %b 通过或不通过
+      %span 的批复。
+    .p
+      %span 亦可经过沟通后直接对申报信息作出修改。
+
+  .pblock.info
+    .blos
+      .blo
+        .f
+          .t 课程名：
+          .v= @course.name
+        .f
+          .t 主讲教师：
+          .v= @course.creator.name
+
+      .blo
+        .f
+          .t 课时：
+          .v= course_check_field_value @course.lesson_hour
+        .f
+          .t 学分：
+          .v= course_check_field_value @course.credit
+        .f
+          .t 上课地点：
+          .v= course_check_field_value @course.location
+        .f
+          .t 上课时间：
+          .v= course_check_field_value @course.time
+
+      .blo
+        .f 
+          .t 最小人数：
+          .v= @course.least_user_count
+        .f
+          .t 最大人数：
+          .v= @course.most_user_count
+
+      .blo
+        .f
+          .t 教学目标：
+          .v= @course.syllabus
+        .f
+          .t 课程简介：
+          .v= simple_format @course.desc
+        .f
+          .t 授课内容：
+          .v= simple_format @course.teach_content
+        .f
+          .t 授课方式：
+          .v= @course.teach_type
+
+      .blo
+        .f
+          .t 审核状态：
+          .v 等待审核
+
+    .btns
+      %a.btn.success-flat{:href => "/manage/courses/#{@course.id}/check_yes", :data => {:method => :put}}
+        %i.icon-ok.icon-white
+        %span 审核通过
+
+      %a.btn.inverse-flat{:href => "/manage/courses/#{@course.id}/check_no", :data => {:method => :put}}
+        %i.icon-remove.icon-white
+        %span 不通过
+
+      %a.btn.success-flat{:href => "/manage/courses/#{@course.id}/edit"} 
+        %i.icon-edit.icon-white
+        %span 修改
+
+      %a.btn.gray-flat{:href => "/manage/courses"} 
+        %span 取消返回

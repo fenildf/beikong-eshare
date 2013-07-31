@@ -69,7 +69,8 @@ body {
       li.courses_manage, 
       li.course_applies_manage,
       li.teacher_surveys_manage,
-      li.team_manage, li.teams
+      li.team_manage, li.teams,
+      li.courses_check
       {
         a:before {
           content:"";
@@ -98,6 +99,10 @@ body {
 
       li.team_manage a:before, li.teams a:before{
         background:url(nav-icons/all.png) no-repeat -200px 0px;
+      }
+
+      li.courses_check a:before{
+        background:url(nav-icons/all.png) no-repeat -50px -50px;
       }
 
     }
@@ -1952,10 +1957,90 @@ img.page-avatar {
 }
 
 .page-manage-courses {
+  .success {
+    padding-bottom:20px;
+    background-color:#eeffda;
+    margin-top:-16px;
+    color:green;
+    i {opacity:0.75;}
+  }
+
   .pblock.select_apply_status {
     margin-top:-21px;
     padding-bottom:20px;
     background-color:#ffffda;
+  }
+
+  .courses-tables {
+    margin-top:-16px;
+    table.course {
+      box-shadow:0 1px 0 #E7E7E7;
+      background-color:#fff;
+
+      td.cover {
+        width:160px;
+      }
+      td.teacher {
+        width:100px;
+        img {width:26px;height:26px;}
+      }
+      td.name {
+        min-width:300px;
+      }
+
+      th {
+        font-weight:bold;
+        height:27px;line-height:27px;
+        width:60px;
+        background-color:#F9F9F9;
+        text-align:center;
+      }
+      td {
+        height:27px;line-height:27px;
+      }
+    }
+  }
+}
+
+.page-manage-course-check {
+  .pblock.desc {
+    background-color:#ffffda;
+    margin-top: -16px;
+    padding-bottom:20px;
+  }
+
+  .pblock.info {
+    margin-top:-16px;
+    padding-bottom:20px;
+    .f {
+      overflow:hidden;
+      margin-bottom:10px;
+      width:60%;
+      .t {
+        width:80px;
+        font-weight:bold;
+        float:left;
+        text-align:right;
+      }
+      .v {
+        margin-left:95px;
+        p {
+          margin-top:0;
+        }
+        span.blank {
+          color:red;
+        }
+      }
+    }
+
+    .blo {
+      margin-bottom:10px;
+      border-bottom:dashed 1px #e7e7e7;
+    }
+
+    .btns {
+      margin-top:20px;
+    }
   }
 }
 
@@ -3233,6 +3318,29 @@ img.page-avatar {
   }
 
   .page-course-form {
+    .form-inputs .creator {
+      margin:10px 0 10px;
+      padding-bottom:10px;
+      border-bottom:dashed 1px #e7e7e7;
+    }
+
+    .hour-credit, .user-count{
+      overflow:hidden;
+      .input {
+        float:left;
+        margin-right:20px;
+        margin-bottom:10px;
+      }
+      margin-bottom:10px;
+      border-bottom:dashed 1px #e7e7e7;
+    }
+
+    .time-place, .txt, .ccov{
+      padding-bottom:10px;
+      margin-bottom:10px;
+      border-bottom:dashed 1px #e7e7e7;
+    }
+
     .form-inputs.apply_request_limit {
       height:30px;
       margin-bottom:20px;

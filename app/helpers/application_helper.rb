@@ -235,6 +235,18 @@ module ApplicationHelper
     }
   end
 
+  def course_check_field_value(value)
+    if value.blank?
+      return capture_haml {
+        haml_tag 'span.blank', '未填写'
+      }
+    end
+
+    return capture_haml {
+      haml_tag 'span', value
+    }
+  end
+
   module FeedHelper
     def feed_icon(feed)
       capture_haml {

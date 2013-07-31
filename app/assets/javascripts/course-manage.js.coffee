@@ -276,11 +276,31 @@ jQuery ->
             success: ->
               tr.fadeOut -> tr.remove()
 
-  jQuery('.page-data-table.courses').each ->
-    new DeleteOp jQuery(this)
+  # jQuery('.page-data-table.courses').each ->
+  #   new DeleteOp jQuery(this)
 
   jQuery('.page-data-table.chapters').each ->
     new DeleteOp jQuery(this)
 
   jQuery('.page-data-table.course-wares').each ->
     new DeleteOp jQuery(this)
+
+# 删除课程（新）
+  class DeleteC
+    constructor: (@$tables)->
+      @setup()
+    setup: ->
+      @$tables.delegate 'td a.btn.delete', 'click', ->
+        if confirm '确定要删除吗？'
+          url = jQuery(this).data('url')
+          $table = jQuery(this).closest('table')
+          jQuery.ajax
+            url: url
+            type: 'DELETE'
+            success: ->
+              $table.fadeOut -> $table.remove()
+              $pc = jQuery('.pblock.success')
+              $pc.fadeOut -> $pc.remove()
+
+  jQuery('.page-manage-courses .courses-tables').each ->
+    new DeleteC jQuery(this)

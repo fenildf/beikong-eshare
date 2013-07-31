@@ -17,7 +17,6 @@ SimpleNavbar::Base.config do
     end
   end
 
-  # -------------------------
   # 教师
   rule :teacher do
     nav :courses_manage, :url => '/manage/courses' do
@@ -29,6 +28,16 @@ SimpleNavbar::Base.config do
 
     nav :teams, :url => '/teams' do
       controller :teams
+    end
+  end
+
+  # 教务管理
+  rule :manager do
+    nav :courses_check, :url => '/manage/courses' do
+      controller :'manage/courses'
+      controller :'manage/chapters'
+      controller :'manage/course_wares'
+      controller :'manage/applies'
     end
   end
 

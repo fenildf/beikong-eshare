@@ -13,8 +13,11 @@ zh-CN:
       site_changes: 更新记录
 
     teacher:
-      courses_manage: 课程登记
+      courses_manage: 课程申报
       teams: 班级信息
+
+    manager:
+      courses_check: 课程审批
 
     student:
       dashboard: 动态
@@ -85,11 +88,19 @@ zh-CN:
       course:
         name: 课程名
         cid: 课程编号
-        desc: 课程简介
-        syllabus: 课程大纲
         cover: 课程封面
         enable_apply_request_limit: 限制选课人数
         apply_request_limit: 最大选课人数
+        lesson_hour: 课时
+        credit: 学分
+        least_user_count: 最小人数
+        most_user_count: 最大人数
+        time: 上课时间
+        location: 上课地点
+        syllabus: 教学目标
+        desc: 课程简介
+        teach_content: 授课内容
+        teach_type: 授课方式
 
       chapter:
         title: 章节标题
