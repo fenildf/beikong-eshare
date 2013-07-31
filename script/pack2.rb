@@ -10,7 +10,19 @@ defpack 2, :depends => [1] do
   p "创建五个课程"
   courses = []
   course_names.each_with_index do |name,index|
-    course = Course.create(:name => name, :cid => randstr, :creator => course_teachers[index])
+    arr = %w{一 二 三 四 五}
+    course = Course.create(
+      :name => name, 
+      :cid => randstr, 
+      :creator => course_teachers[index], 
+      :approve_status => 'YES',
+      :least_user_count => 5,
+      :most_user_count => 20,
+      :time => "9:00",
+      :lesson_hour => 16,
+      :credit => 3,
+      :location => "第#{arr[index]}教学楼"
+    )
     courses << course
   end
 
