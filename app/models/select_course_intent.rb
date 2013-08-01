@@ -89,6 +89,13 @@ class SelectCourseIntent < ActiveRecord::Base
   end
 
   module CourseMethods
+    def batch_check(flag)
+      users = self.intent_student_users(:flag => flag)
+      users.each do |user|
+        user.select_course(:accept, self)
+      end
+    end
+
     def intent_student_count(options = {})
       flag = options[:flag]
       team = options[:team]
