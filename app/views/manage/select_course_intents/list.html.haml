@@ -10,6 +10,25 @@
 
 .page-course-applies
   .stat
+    .overselect
+      .inner
+        .s
+          .t 
+            %span 最小人数：
+            %b.c= @course.least_user_count
+        .s
+          .t 
+            %span 最大人数：
+            %b.c= @course.most_user_count
+        .s
+          .t 
+            %span 目前已批准人数：
+            %b.c= @course.selected_users.count
+        .s
+          .t
+            %span 目前人数状态：
+            %b.c= course_selected_stat_label @course
+  
     .intent-bar
       .inner
         :ruby
@@ -41,25 +60,6 @@
             %span 第三志愿人数：
             %b.c= third_count
           .bar{:style => "width:#{p3}%;"}
-
-    .overselect
-      .inner
-        .s
-          .t 
-            %span 最小人数：
-            %b.c= @course.least_user_count
-        .s
-          .t 
-            %span 最大人数：
-            %b.c= @course.most_user_count
-        .s
-          .t 
-            %span 目前已批准人数：
-            %b.c= @course.selected_users.count
-        .s
-          .t
-            %span 目前人数状态：
-            %b.c= course_selected_stat_label @course
 
     .batch-ops
       .inner
