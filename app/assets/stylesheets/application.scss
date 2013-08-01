@@ -5215,6 +5215,44 @@ form .input.page-form-tag-inputer {
     margin-bottom:20px;
     margin-top: -16px;
   }
+
+  .stat {
+    margin-top:-16px;
+    margin-bottom:20px;
+
+    .intent-bar, 
+    .overselect,
+    .batch-ops{
+      @include border-box;
+      width:40%;
+      float:left;
+      .inner {
+        padding:20px;
+        margin-right:5px;
+        background-color:white;
+        @include border-radius(3px);
+        border:solid 1px #e7e7e7;
+        height:150px;
+
+        .s {
+          margin-bottom:10px;
+          .bar {
+            margin-top:3px;
+            height:16px;
+            @include border-radius(2px);
+          }
+          &.first .bar {background-color:#2F7ED8;}
+          &.second .bar {background-color:#0D233A;}
+          &.third .bar {background-color:#8BBC21;}
+        }
+      }
+    }
+
+    .batch-ops {
+      width:20%;
+      .inner{margin-right:0;}
+    }
+  }
 }
 
 .page-export-coding-json {

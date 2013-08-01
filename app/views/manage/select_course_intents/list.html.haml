@@ -9,8 +9,75 @@
       %span 志愿调剂
 
 .page-course-applies
-  .chart
-    .page-chart.course-intent-123-pie{:data => {:id => @course.id}}
+  .stat
+    .intent-bar
+      .inner
+        :ruby
+          first_count  = @course.intent_student_count(:flag => :first)
+          second_count = @course.intent_student_count(:flag => :second)
+          third_count  = @course.intent_student_count(:flag => :third)
+          total_count  = first_count + second_count + third_count
+
+          p1 = total_count > 0 ? first_count  * 100.0 / total_count : 0
+          p2 = total_count > 0 ? second_count * 100.0 / total_count : 0
+          p3 = total_count > 0 ? third_count  * 100.0 / total_count : 0
+
+          p1 = [p1, 1].max
+          p2 = [p2, 1].max
+          p3 = [p3, 1].max
+
+        .s.first
+          .t 
+            %span 第一志愿人数：
+            %b.c= first_count 
+          .bar{:style => "width:#{p1}%;"}
+        .s.second
+          .t 
+            %span 第二志愿人数：
+            %b.c= second_count
+          .bar{:style => "width:#{p2}%;"}
+        .s.third
+          .t 
+            %span 第三志愿人数：
+            %b.c= third_count
+          .bar{:style => "width:#{p3}%;"}
+
+    .overselect
+      .inner
+        .s
+          .t 
+            %span 最小人数：
+            %b.c= @course.least_user_count
+        .s
+          .t 
+            %span 最大人数：
+            %b.c= @course.most_user_count
+        .s
+          .t 
+            %span 目前已批准人数：
+            %b.c= @course.selected_users.count
+        .s
+          .t
+            %span 目前人数状态：
+            %b.c= course_selected_stat_label @course
+
+    .batch-ops
+      .inner
+        .s
+          %a.btn.inverse-flat{:href => "/manage/select_course_intents/batch_check?course=#{@course.id}&flag=first", :data => {:method =>:post, :confirm => "将批量批准所有第一志愿共 #{first_count} 人，确定吗？"}} 
+            %i.icon-ok.icon-white
+            %span 批量批准第一志愿
+        .s
+          %a.btn.inverse-flat{:href => "/manage/select_course_intents/batch_check?course=#{@course.id}&flag=second", :data => {:method =>:post, :confirm => "将批量批准所有第二志愿共 #{second_count} 人，确定吗？"}} 
+            %i.icon-ok.icon-white
+            %span 批量批准第二志愿
+        .s
+          %a.btn.inverse-flat{:href => "/manage/select_course_intents/batch_check?course=#{@course.id}&flag=third", :data => {:method =>:post, :confirm => "将批量批准所有第三志愿共 #{third_count} 人，确定吗？"}} 
+            %i.icon-ok.icon-white
+            %span 批量批准第三志愿
+
+    .clearfix
+
 
   .pblock.table{:style => 'margin-top:-16px;'}
     = render_cell :course_select, :manage_table, :users => @students, :course => @course

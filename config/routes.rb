@@ -181,6 +181,7 @@ Eshare::Application.routes.draw do
         get :adjust
         put :accept
         put :reject
+        post :batch_check
       end
     end
     

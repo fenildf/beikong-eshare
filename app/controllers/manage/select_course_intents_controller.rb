@@ -57,4 +57,12 @@ class Manage::SelectCourseIntentsController < ApplicationController
     }
   end
 
+  def batch_check
+    course = Course.find params[:course]
+    flag = params[:flag].to_sym
+    course.batch_check flag
+
+    redirect_to "/manage/select_course_intents/list?course=#{params[:course]}"
+  end
+
 end
