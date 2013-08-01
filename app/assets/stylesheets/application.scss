@@ -73,7 +73,8 @@ body {
       li.courses_check,
       li.select_course,
       li.courses,
-      li.teacher-surveys
+      li.teacher-surveys,
+      li.announcements
       {
         a:before {
           content:"";
@@ -118,6 +119,10 @@ body {
 
       li.teacher-surveys a:before{
         background:url(nav-icons/all.png) no-repeat -0px -50px;
+      }
+
+      li.announcements a:before{
+        background:url(nav-icons/all.png) no-repeat -200px -50px;
       }
 
     }

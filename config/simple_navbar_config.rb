@@ -48,6 +48,10 @@ SimpleNavbar::Base.config do
     nav :select_course, :url => '/manage/select_course_intents' do
       controller :'manage/select_course_intents'
     end
+
+    nav :announcements, :url => '/manage/announcements' do
+      controller :'manage/announcements'
+    end
   end
 
   # ------------------

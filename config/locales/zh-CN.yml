@@ -20,6 +20,7 @@ zh-CN:
     manager:
       courses_check: 课程审批
       select_course: 选课管理
+      announcements: 公告发布
 
     student:
       dashboard: 动态
@@ -69,11 +70,15 @@ zh-CN:
         create: 创建调查表
       user_opinion:
         create: 提交
+      announcement:
+        create: 创建公告
+        update: 更新公告
 
   activerecord:
     models:
       user: 用户
       course: 课程
+      announcement: 公告
 
     attributes:
       user:
@@ -125,6 +130,10 @@ zh-CN:
         content: 内容
         image: 上传截图说明
         contact: 联系方式（邮件或其他）
+
+      announcement:
+        title: 公告标题
+        content: 公告内容
 
     errors:
       models:
@@ -189,6 +198,13 @@ zh-CN:
               blank: 请填写反馈内容
             contact:
               blank: 请填写联系方式
+
+        announcement:
+          attributes:
+            title:
+              blank: 必须填写标题
+            content:
+              blank: 必须填写内容
 
 
   views:

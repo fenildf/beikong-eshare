@@ -250,6 +250,10 @@ Eshare::Application.routes.draw do
       resources :survey_results, :shallow => true
     end
 
+    resources :announcements, :shallow => true do
+      
+    end
+
     namespace :aj do
       resources :courses, :shallow => true do
         resources :chapters, :shallow => true

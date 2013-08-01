@@ -1,0 +1,9 @@
+- content_for :header do
+  %h1 发布新公告
+
+.page-course-form
+  .pblock.form{:style => 'margin-top:-16px;padding-bottom:20px;'}
+    = simple_form_for @announcement, :url => '/manage/announcements' do |f|
+      = f.input :title, :input_html => {:class => :xxlarge}
+      = f.input :content, :input_html => {:rows => 10, :class => :xxlarge}
+      = f.button :submit, :class => 'success-flat'
