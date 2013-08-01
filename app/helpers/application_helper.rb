@@ -297,7 +297,7 @@ module ApplicationHelper
   def course_selected_stat_label(course)
       min = course.least_user_count
       max = course.most_user_count
-      count = course.intent_student_count
+      count = course.selected_users.count
 
       if count == 0
         return '无人选'
