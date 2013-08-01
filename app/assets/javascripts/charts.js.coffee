@@ -316,6 +316,70 @@ jQuery ->
     console.log $chart, $chart.highcharts
     $chart.highcharts option
 
+jQuery ->
+  jQuery('.page-chart.course-intent-123-pie').each ->
+    $chart = jQuery(this)
+    course_id = $chart.data('id')
+
+    jQuery.ajax
+      url: "/charts/courses/#{course_id}/course_intent_123_pie"
+      success: (res)->
+        first  = res.first
+        second = res.second
+        third  = res.third
+
+        option =
+          chart:
+            plotBackgroundColor: null
+            plotBorderWidth: null
+            plotShadow: false
+            backgroundColor: null
+
+          title:
+            text: null
+
+          plotOptions: 
+            pie: 
+              allowPointSelect: false
+              showInLegend: true
+              cursor: 'pointer'
+
+          series: [
+            {
+              type: 'pie'
+              name: '志愿数'
+              animation: false
+              innerSize: '30%'
+              dataLabels:
+                format: '<b>{point.name}</b>: {point.y}'
+                color: 'black'
+                distance: 25
+                style:
+                  fontSize: '15px'
+                  fontWeight: 'bold'
+              data: [
+                {
+                  label: 'first'
+                  name: '第一志愿数'
+                  y: first
+                },
+
+                {
+                  label: 'second'
+                  name: '第二志愿数'
+                  y: second
+                },
+
+                {
+                  label: 'third'
+                  name: '第三志愿数'
+                  y: third
+                },
+              ]
+            }
+          ]
+
+        $chart.highcharts option
 
 jQuery ->
   jQuery('.page-chart.all-courses-select-apply-pie').each ->
@@ -350,10 +414,10 @@ jQuery ->
               type: 'pie'
               name: '课程数'
               animation: false
-              point:
-                events:
-                  click: (e)->
-                    location.href = "/manage/courses?select_apply_status=#{this.label}"
+              # point:
+              #   events:
+              #     click: (e)->
+              #       location.href = "/manage/courses?select_apply_status=#{this.label}"
 
               dataLabels:
                 format: '<b>{point.name}</b>: {point.y}'
@@ -365,28 +429,28 @@ jQuery ->
               data: [
                 {
                   label: 'notfull'
-                  name: '未满'
+                  name: '人数过少'
                   y: notfull
                   color: '#FEF093'
                 },
 
                 {
                   label: 'over'
-                  name: '超选'
+                  name: '人数过多'
                   y: over
                   color: '#cc3333'
                 },
 
                 {
                   label: 'full'
-                  name: '选满'
+                  name: '人数适合'
                   y: full
                   color: '#80CC00'
                 },
 
                 {
                   label: 'empty'
-                  name: '空选'
+                  name: '无人选'
                   y: empty
                   color: '#CDCDCD'
                 },

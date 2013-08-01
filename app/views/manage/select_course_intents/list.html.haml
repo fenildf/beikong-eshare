@@ -1,0 +1,16 @@
+- content_for :header do
+  %h1 选课志愿提交情况 - #{@course.name}
+  .btns
+    %a.btn.gray-flat{:href => '/manage/select_course_intents'}
+      %i.icon-chevron-left
+      %span 返回选课统计
+    %a.btn.success-flat{:href => "/manage/select_course_intents/adjust?course=#{@course.id}"}
+      %i.icon-retweet.icon-white
+      %span 志愿调剂
+
+.page-course-applies
+  .chart
+    .page-chart.course-intent-123-pie{:data => {:id => @course.id}}
+
+  .pblock.table{:style => 'margin-top:-16px;'}
+    = render_cell :course_select, :manage_table, :users => @students, :course => @course

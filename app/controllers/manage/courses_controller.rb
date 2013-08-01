@@ -8,23 +8,12 @@ class Manage::CoursesController < ApplicationController
   def index
     authorize! :manage, Course
 
-    if params[:select_apply_status]
-      @courses = 
-        SelectCourseApply
-          .select_apply_status_courses(params[:select_apply_status])
-          .page(params[:page])
+    if current_user.is_manager?
+      @courses = Course.page(params[:page])
       return
     end
 
-    query = @query = (params[:q].blank? ? '' : params[:q].strip)
-
-    if query.blank?
-      @courses = Course.page(params[:page])
-    else
-      @courses = @search = Course.search {
-        fulltext query
-      }.results
-    end
+    @courses = Course.where(:creator_id => current_user.id).page(params[:page])
   end
 
   def new
@@ -32,31 +21,30 @@ class Manage::CoursesController < ApplicationController
     @course = Course.new
   end
 
-  def create
-    authorize! :manage, Course
-    @course = current_user.courses.build(params[:course])
-    if @course.save
-      tags = params[:course_tags]
-      if tags.present?
-        @course.replace_public_tags(tags, current_user)
-      end
-      return redirect_to :action => :index
-    end
-    render :action => :new
-  end
-
   def edit
     @course = Course.find params[:id]
     authorize! :manage, @course
   end
 
+  def create
+    authorize! :manage, Course
+
+    @course = current_user.courses.build(params[:course])
+    if @course.save
+      @course.replace_public_tags(params[:course_tags], current_user)
+      flash[:success] = '课程申报已经创建'
+      return redirect_to :action => :index
+    end
+    render :action => :new
+  end
+
   def update
     @course = Course.find params[:id]
     authorize! :manage, @course
-    tags = params[:course_tags]
 
     if @course.update_attributes(params[:course]) && 
-       @course.replace_public_tags(tags, current_user)
+      @course.replace_public_tags(params[:course_tags], current_user)
+      flash[:success] = '课程申报修改成功'
       return redirect_to :action => :index
     end
     render :action => :edit
@@ -130,5 +118,30 @@ class Manage::CoursesController < ApplicationController
     Course.import_tudou_video_list(@url, current_user)
 
     redirect_to :action => :index
+  end
+
+  def check
+    authorize! :manage, Course
+    @course = Course.find params[:id]
+  end
+
+  def check_yes
+    authorize! :manage, Course
+    @course = Course.find params[:id]
+    @course.approve_status = 'YES'
+    if @course.save
+      return redirect_to :action => :index
+    end
+    redirect_to :action => :check
+  end
+
+  def check_no
+    authorize! :manage, Course
+    @course = Course.find params[:id]
+    @course.approve_status = 'NO'
+    if @course.save
+      return redirect_to :action => :index
+    end
+    redirect_to :action => :check
   end
 end

@@ -42,6 +42,7 @@ class Course < ActiveRecord::Base
   )
   
   def replace_public_tags(tags_str, user)
+    return true if tags_str.blank?
     self.remove_public_tag self.public_tags.map(&:name).join(' ')
     self.set_tag_list(tags_str, :user => user, :force_public => true)
   end
@@ -85,6 +86,7 @@ class Course < ActiveRecord::Base
   has_many :question_answers, :through => :questions,
                               :source => :answers
 
+  validates :name, :presence => true
   validates :creator, :presence => true
 
   validates :cid, :uniqueness => {:case_sensitive => false},
