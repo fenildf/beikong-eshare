@@ -42,7 +42,7 @@ jQuery ->
         $old_tr.after $new_tr
         $old_tr.remove()
 
-  # # 拒绝学生选课申请
+  # 拒绝学生选课申请
   jQuery(document).on 'click', '.page-course-applies .students a.reject', ->
     user_id = jQuery(this).data('user-id')
     course_id = jQuery(this).data('course-id')
@@ -59,6 +59,28 @@ jQuery ->
         $old_tr.after $new_tr
         $old_tr.remove()
 
+  # 学生选课列表的折叠展开
+  class OpenClose
+    constructor: (@$tables)->
+      @setup()
+    setup: ->
+      that = this
+      @$tables.delegate 'td.open a.open', 'click', ->
+        $table0 = jQuery(this).closest('table')
+        $table1 = $table0.next('table')
+
+        $table0.hide()
+        $table1.show()
+
+      @$tables.delegate 'td.close a.close', 'click', ->
+        $table1 = jQuery(this).closest('table')
+        $table0 = $table1.prev('table')
+
+        $table1.hide()
+        $table0.show()
+
+  jQuery('.page-student-select-course-intent-form .courses-tables').each ->
+    new OpenClose jQuery(this)
 
 
 # 新版选课

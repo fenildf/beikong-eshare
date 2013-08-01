@@ -15,6 +15,7 @@ zh-CN:
     teacher:
       courses_manage: 课程申报
       teams: 班级信息
+      select_course: 选课管理
 
     manager:
       courses_check: 课程审批

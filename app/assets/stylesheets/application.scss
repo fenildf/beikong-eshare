@@ -5337,6 +5337,14 @@ form .input.page-form-tag-inputer {
   }
 }
 
+.page-surveys-index {
+  .pblock.desc {
+    background-color:#ffffda;
+    padding-bottom:20px;
+    margin-top: -16px;
+  }
+}
+
 .page-student-select-course-intent-form {
   .pblock.desc {
     background-color:#ffffda;
@@ -5372,10 +5380,11 @@ form .input.page-form-tag-inputer {
         width:100px;
         img {width:26px;height:26px;}
       }
-      td.name {
+      td.name, td.location{
         min-width:300px;
       }
       td.ops {
+        // width:400px;
         .int {
           float:left;
           margin-right:10px;
@@ -5388,6 +5397,15 @@ form .input.page-form-tag-inputer {
             color:white;
           }
         }
+      }
+      td.approved {
+        .app {width:200px;}
+      }
+      td.id, td.lesson_hour, td.credit{
+        width:80px;
+      }
+      td.open, td.close {
+        width:80px;
       }
 
       th {

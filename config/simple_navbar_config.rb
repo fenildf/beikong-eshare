@@ -27,6 +27,10 @@ SimpleNavbar::Base.config do
       controller :'manage/applies'
     end
 
+    nav :select_course, :url => '/manage/select_course_intents' do
+      controller :'manage/select_course_intents'
+    end
+
     # nav :teams, :url => '/teams' do
     #   controller :teams
     # end

@@ -1,6 +1,15 @@
 class SurveysController < ApplicationController
   before_filter :authenticate_user!
 
+  layout Proc.new { |controller|
+    case controller.action_name
+    when 'select_teacher'
+      return 'grid'
+    else
+      return 'application'
+    end
+  }
+
   def index
     @surveys = Survey.page params[:page]
   end
@@ -47,6 +56,8 @@ class SurveysController < ApplicationController
 
   def select_teacher
     @survey = Survey.find params[:id]
-    @teachers = User.with_role(:teacher).page params[:page]
+    # @teachers = User.with_role(:teacher).page params[:page]
+    @selected_courses = current_user.selected_courses
+    @teachers = current_user.selected_courses.map {|c| c.creator}
   end
 end

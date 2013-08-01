@@ -2,8 +2,14 @@
   %h1 选课志愿提交情况统计
 
 .page-course-applies
-  .chart
-    .page-chart.all-courses-select-apply-pie
+  
+  - if current_user.is_manager?
+    .chart
+      .page-chart.all-courses-select-apply-pie
+  - else
+    .pblock.desc
+      .p
+        %span 这里显示了所有你负责的课程，你可以在此进行对所有志愿的处理。
 
 .pblock.table{:style => 'margin-top:-16px;'}
   = page_data_table(:'courses', @courses, :striped, :bordered) do |table|

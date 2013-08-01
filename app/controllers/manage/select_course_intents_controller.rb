@@ -11,6 +11,12 @@ class Manage::SelectCourseIntentsController < ApplicationController
 
   def index
     @courses = SelectCourseIntent.intent_course_ranking
+
+    if current_user.is_teacher?
+      @courses = @courses.select {|c|
+        c.creator == current_user
+      }
+    end
   end
 
   def list
