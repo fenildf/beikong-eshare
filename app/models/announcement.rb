@@ -3,7 +3,7 @@ class Announcement < ActiveRecord::Base
   FOR_ROLE_STUDENT = 'STUDENT'
 
   default_scope order('id desc')
-  attr_accessible :title, :content, :creator_id
+  attr_accessible :title, :content, :creator_id, :for_role
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   has_many :announcement_users

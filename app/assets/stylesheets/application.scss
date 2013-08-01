@@ -5426,3 +5426,44 @@ form .input.page-form-tag-inputer {
     }
   }
 }
+
+.page-manage-announcements {
+  .pblock.success {
+    padding-bottom:20px;
+    background-color:#eeffda;
+    margin-top:-16px;
+    color:green;
+    i {opacity:0.75;}
+  }
+  .pblock.table {
+    margin-top:-16px;
+  }
+}
+
+.page-announcement-show {
+  .pblock.show {
+    margin-top:-16px;
+    padding-bottom:20px;
+  }
+
+  .f {
+    overflow:hidden;
+    margin-bottom:10px;
+    width:60%;
+    .t {
+      width:80px;
+      font-weight:bold;
+      float:left;
+      text-align:right;
+    }
+    .v {
+      margin-left:95px;
+      p {
+        margin-top:0;
+      }
+      span.blank {
+        color:red;
+      }
+    }
+  }
+}

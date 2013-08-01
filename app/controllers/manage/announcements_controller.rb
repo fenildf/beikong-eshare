@@ -19,15 +19,24 @@ class Manage::AnnouncementsController < ApplicationController
 
   def create
     @announcement = current_user.announcements.build(params[:announcement])
-    if @announcement.save      
+    if @announcement.save
+      flash[:success] = '公告创建成功'
       return redirect_to :action => :index
     end
     render :action => :new
   end
 
-  def show
-    @announcement.read_by_user(current_user)
+  def update
+    if @announcement.update_attributes(params[:announcement])
+      flash[:success] = '公告修改成功'
+      return redirect_to :action => :index
+    end
+    render :action => :edit
   end
 
+  def destroy
+    @announcement.destroy
+    redirect_to :action => :index
+  end
 
 end

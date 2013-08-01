@@ -1,8 +1,20 @@
-= link_to "通知列表", "/announcements"
+- content_for :header do
+  %h1 查看公告 - #{@announcement.title}
+  .btns
+    - if current_user.is_manager?
+      %a.btn.gray-flat{:href => '/manage/announcements'}
+        %i.icon-chevron-left
+        %span 返回公告列表
+    - else
+      %a.btn.gray-flat{:href => '/announcements'}
+        %i.icon-chevron-left
+        %span 返回公告列表
 
-
-.title 
-  = @announcement.title
-
-.content 
-  = simple_format(@announcement.content)
+.page-announcement-show
+  .pblock.show
+    .f
+      .t 公告标题：
+      .v= @announcement.title
+    .f
+      .t 公告正文：
+      .v= simple_format(@announcement.content)

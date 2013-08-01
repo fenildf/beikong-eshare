@@ -18,24 +18,6 @@ SimpleNavbar::Base.config do
     end
   end
 
-  # 教师
-  rule :teacher do
-    nav :courses_manage, :url => '/manage/courses' do
-      controller :'manage/courses'
-      controller :'manage/chapters'
-      controller :'manage/course_wares'
-      controller :'manage/applies'
-    end
-
-    nav :select_course, :url => '/manage/select_course_intents' do
-      controller :'manage/select_course_intents'
-    end
-
-    # nav :teams, :url => '/teams' do
-    #   controller :teams
-    # end
-  end
-
   # 教务管理
   rule :manager do
     nav :courses_check, :url => '/manage/courses' do
@@ -51,10 +33,32 @@ SimpleNavbar::Base.config do
 
     nav :announcements, :url => '/manage/announcements' do
       controller :'manage/announcements'
+      controller :announcements
     end
   end
 
-  # ------------------
+  # 教师
+  rule :teacher do
+    nav :courses_manage, :url => '/manage/courses' do
+      controller :'manage/courses'
+      controller :'manage/chapters'
+      controller :'manage/course_wares'
+      controller :'manage/applies'
+    end
+
+    nav :select_course, :url => '/manage/select_course_intents' do
+      controller :'manage/select_course_intents'
+    end
+
+    nav :announcements, :url => '/announcements' do
+      controller :announcements
+    end
+
+    # nav :teams, :url => '/teams' do
+    #   controller :teams
+    # end
+  end
+
   # 学生
   rule :student do
     nav :select_course, :url => '/select_course_intents' do
@@ -69,6 +73,10 @@ SimpleNavbar::Base.config do
 
     nav :'teacher-surveys', :url => '/surveys' do
       controller :surveys
+    end
+
+    nav :announcements, :url => '/announcements' do
+      controller :announcements
     end
   end
 

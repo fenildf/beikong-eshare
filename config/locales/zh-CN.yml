@@ -16,6 +16,7 @@ zh-CN:
       courses_manage: 课程申报
       teams: 班级信息
       select_course: 选课管理
+      announcements: 公告查看
 
     manager:
       courses_check: 课程审批
@@ -33,6 +34,7 @@ zh-CN:
       learning_plan: 计划
       teacher-surveys: 教师评价
       select_course: 选课
+      announcements: 公告查看
 
     account:
       edit: 基础信息设置
@@ -347,6 +349,8 @@ zh-CN:
         title: 标题
         content: 内容
         ops: 操作
+        for_role: 针对角色
+        readed: 是否已读
 
 
       categories:
