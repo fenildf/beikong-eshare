@@ -49,6 +49,14 @@ class OneCourseIntent < ActiveRecord::Base
       base.has_many :one_course_intents
     end
 
+    def intent_student_users(options = {})
+      intent_users(options)
+    end
+
+    def intent_student_count(options = {})
+      intent_users_count(options)
+    end
+
     def intent_users(options = {})
       team = options[:team]
       order_by_sql = %`
