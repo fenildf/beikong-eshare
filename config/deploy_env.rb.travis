@@ -1,4 +1,5 @@
 class R
   INHOUSE = false
   INTERNET = !INHOUSE
+  SELECT_COURSE_MODE = 'ONE'
 end
