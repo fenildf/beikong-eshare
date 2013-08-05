@@ -1,0 +1,31 @@
+- content_for :header do
+  %h1 公告管理
+  .btns
+    %a.btn.success-flat{:href => '/manage/announcements/new'}
+      %i.icon-plus.icon-white
+      %span 发布新公告
+
+.page-manage-announcements
+  - if flash[:success]
+    .pblock.success
+      = flash[:success]
+  .pblock.table
+    = page_data_table :announcements, @announcements, :striped, :bordered do |table|
+      - table.add_column :title
+      - table.add_column :for_role do |a|
+        :ruby
+          s = {
+            'TEACHER' => '老师',
+            'STUDENT' => '学生'
+          }[a.for_role]
+        = s
+      - table.add_column :content do |a|
+        %a.btn.gray-flat.mini{:href => "/announcements/#{a.id}"} 点击查看
+      - table.add_column :ops do |a|
+        %a.btn.success-flat.mini{:href => "/manage/announcements/#{a.id}/edit"} 
+          %i.icon-edit.icon-white
+          %span 修改
+
+        %a.btn.danger-flat.mini{:href => "/manage/announcements/#{a.id}", :data => {:confirm => '确定要删除吗？', :method => :delete}} 
+          %i.icon-trash.icon-white
+          %span 删除

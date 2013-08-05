@@ -173,7 +173,7 @@ module ApplicationHelper
       :student => '学生',
       :teacher => '老师',
       :admin => '系统管理员',
-      :manager => '教学管理员'
+      :manager => '教务领导'
     }
 
     user.roles.map {|role|
@@ -233,6 +233,85 @@ module ApplicationHelper
     capture_haml {
       haml_tag 'span.course-update-status', str, :class => klass
     }
+  end
+
+  def course_check_field_value(value)
+    if value.blank?
+      return capture_haml {
+        haml_tag 'span.blank', '未填写'
+      }
+    end
+
+    return capture_haml {
+      haml_tag 'span', value
+    }
+  end
+
+  def course_approve_status_label(course)
+    status = course.approve_status
+
+    if status == 'WAITING'
+      return capture_haml {
+        haml_tag 'span.page-course-apprive-status.waiting', '等待审核'
+      }
+    end
+
+    if status == 'YES'
+      return capture_haml {
+        haml_tag 'span.page-course-apprive-status.yes', '审核通过'
+      }
+    end
+
+    if status == 'NO'
+      return capture_haml {
+        haml_tag 'span.page-course-apprive-status.no', '未通过'
+      }
+    end
+  end
+
+  # 返回 选中 未选中 等待志愿分配 未申请 四种状态
+  def course_select_status_label(user, course)
+    if course.selected_users.include?(user)
+      return capture_haml {
+        haml_tag 'span.page-course-select-status.pass', '选中'
+      }
+    end
+
+    if course.be_reject_selected_users.include?(user)
+      return capture_haml {
+        haml_tag 'span.page-course-select-status.reject', '未选中'
+      }
+    end
+
+    if course.intent_student_users.include?(user)
+      return capture_haml {
+        haml_tag 'span.page-course-select-status.wait', '等待志愿分配'
+      }
+    end
+
+    return capture_haml {
+      haml_tag 'span.page-course-select-status.no', '未申请'
+    }
+  end
+
+  def course_selected_stat_label(course)
+      min = course.least_user_count
+      max = course.most_user_count
+      count = course.selected_users.count
+
+      if count == 0
+        return '无人选'
+      end
+
+      if min && count < min
+        return '人数过少'
+      end
+
+      if max && count > max
+        return '人数过多'
+      end
+
+      return '人数适合'
   end
 
   module FeedHelper

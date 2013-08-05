@@ -1,0 +1,41 @@
+.page-student-select-course-intent-form
+  .pblock.desc
+    .p
+      %b= current_user.name
+      %span 同学你好，你正在使用选课登记系统进行选课志愿填报。
+    .p{:style => 'margin-top:10px;'}
+      %span 每位同学可以填报三项志愿，每项志愿下只能选择一门课。
+    .p
+      %span 教务处将根据选课志愿汇总情况和课程安排来安排最终上课结果。
+
+  = simple_form_for SelectCourseIntent.new, :url => "/select_course_intents/save" do |f|
+    .pblock.result
+      .intent.first
+        :ruby
+          course = current_user.course_intent(:first)
+          name = course.present? ? course.name : '未选择'
+
+        %span 第一志愿：
+        %span.r= name
+        %input{:type => :hidden, :name => :first_intent}
+      .intent.second
+        :ruby
+          course = current_user.course_intent(:second)
+          name = course.present? ? course.name : '未选择'
+
+        %span 第二志愿：
+        %span.r= name
+        %input{:type => :hidden, :name => :second_intent}
+      .intent.third
+        :ruby
+          course = current_user.course_intent(:third)
+          name = course.present? ? course.name : '未选择'
+
+        %span 第三志愿：
+        %span.r= name
+        %input{:type => :hidden, :name => :third_intent}
+      .ops
+        = f.button :submit, '保存选课志愿', :class => 'success-flat'
+
+  .courses-tables
+    = render_cell :admin, :course_select_tables, :courses => @courses, :user => current_user

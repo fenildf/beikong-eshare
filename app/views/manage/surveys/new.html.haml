@@ -15,5 +15,5 @@
         = f.select :survey_template_id, s, :label => '调查表模板'
 
       .form-actions
-        = f.button :submit, :class => 'success'
-        %a.btn.cancel{:href => '/manage/surveys'}= t('common.form.cancel')
+        = f.button :submit, :class => 'success-flat'
+        %a.btn.cancel.gray-flat{:href => '/manage/surveys'}= t('common.form.cancel')

@@ -10,16 +10,8 @@
       = f.input :password
       = f.input :password_confirmation
 
-      :ruby
-        s = [
-          ['学生 Student', :student], 
-          ['老师 Teacher', :teacher],
-        ]
-
-      .input{:style => 'margin-bottom:20px;'}
-        %label 用户角色
-        = f.select :role, s, :label => '用户角色'
+      = render_cell :admin, :form_user_role_select, :form_object => f
 
     .form-actions
-      = f.button :submit, :class => 'success'
-      %a.btn.cancel{:href => '/admin/users'}= t('common.form.cancel')
+      = f.button :submit, :class => 'success-flat'
+      %a.btn.cancel.gray-flat{:href => '/admin/users'}= t('common.form.cancel')

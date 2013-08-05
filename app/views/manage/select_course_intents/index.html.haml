@@ -1,0 +1,30 @@
+- content_for :header do
+  %h1 选课志愿提交情况统计
+
+.page-course-applies
+  
+  - if current_user.is_manager?
+    .chart
+      .page-chart.all-courses-select-apply-pie
+  - else
+    .pblock.desc
+      .p
+        %span 这里显示了所有你负责的课程，你可以在此进行对所有志愿的处理。
+
+.pblock.table{:style => 'margin-top:-16px;'}
+  = page_data_table(:'courses', @courses, :striped, :bordered) do |table|
+    - table.add_column :name
+    - table.add_column :least_user_count
+    - table.add_column :most_user_count
+    - table.add_column :total_intent do |course|
+      = course.intent_student_count
+    - table.add_column :first_intent do |course|
+      = course.intent_student_count :flag => :first
+    - table.add_column :second_intent do |course|
+      = course.intent_student_count :flag => :second
+    - table.add_column :third_intent do |course|
+      = course.intent_student_count :flag => :third
+    - table.add_column :ops do |course|
+      %a.btn.mini.success-flat{:href => "/manage/select_course_intents/list?course=#{course.id}"}
+        %i.icon-tasks.icon-white
+        %span 查看所有志愿

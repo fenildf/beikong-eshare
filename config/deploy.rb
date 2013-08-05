@@ -2,10 +2,10 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 
-set :domain, 'teamkn.mindpin.com'
+set :domain, ''
 set :deploy_to, '/web/2013/eshare'
 set :current_path, 'current'
-set :repository, 'git://github.com/mindpin/eshare.git'
+set :repository, 'git://github.com/mindpin/beikong-eshare.git'
 set :branch, 'master'
 set :user, 'root'
 

@@ -1,9 +1,25 @@
-.page-announcements
-  = paginate @announcements
-  
-  = link_to "new announcement", "/announcements/new"
+- content_for :header do
+  %h1 公告查看
 
-  = page_data_table(:announcements, @announcements, :striped, :bordered) do |table|
-    - table.add_column(:title) do |announcement|
-      = link_to announcement.title, "/announcements/#{announcement.id}"
-    
+.page-manage-announcements
+  - if flash[:success]
+    .pblock.success
+      = flash[:success]
+  .pblock.table
+    = page_data_table :announcements, @announcements, :striped, :bordered do |table|
+      - table.add_column :title
+      - table.add_column :for_role do |a|
+        :ruby
+          s = {
+            'TEACHER' => '老师',
+            'STUDENT' => '学生'
+          }[a.for_role]
+        = s
+      - table.add_column :readed do |a|
+        - if a.has_readed?(current_user)
+          %span 已读
+        - else
+          %b 未读
+
+      - table.add_column :content do |a|
+        %a.btn.gray-flat.mini{:href => "/announcements/#{a.id}"} 点击查看

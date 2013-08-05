@@ -1,0 +1,73 @@
+- @courses.each do |course|
+  %table.page-data-table.bordered.course
+    %tbody
+      %tr
+        %td.cover{:rowspan => 4}
+          = fit_image course.cover.versions[:normal].url, :height => 160, :width => 160
+
+        %th.id ID
+        %td.id= course.id
+
+        %th.name 课程名
+        %td.name{:colspan => 3}= course.name
+
+        %th.lesson_hour 课时
+        %td.lesson_hour= course.lesson_hour
+
+        %th.credit 学分
+        %td.credit= course.credit
+
+      %tr
+        %th.teacher 主讲人
+        %td.teacher
+          %span= avatar_link course.creator, :small
+          %span= user_link course.creator
+
+        %th.location 上课地点
+        %td.location{:colspan => 3}= course.location
+
+        %th.time 上课时间
+        %td.time{:colspan => 3}= course.time
+
+      %tr
+        %th.least 最小人数
+        %td.least= course.least_user_count
+
+        %th.most 最大人数
+        %td.most= course.most_user_count
+
+        %th.num 选课人数
+        %td.num= course.intent_student_count
+
+        %th.status 选课状态
+        %td.status 正常
+
+        %th.result 选中人数
+        %td.result= course.selected_users.count
+
+      %tr
+        %th.approved 申报状态
+        %td.approved{:colspan => 5}= course_approve_status_label course
+
+        %th.ops 操作
+        %td.ops{:colspan => 3}
+          :ruby
+            is_creator_teacher = ( @user.is_teacher? && @user == course.creator )
+            is_manager = @user.is_manager?
+
+          - if is_manager
+            %a.btn.success-flat.small{:href => "/manage/courses/#{course.id}/check"} 
+              %i.icon-check.icon-white
+              %span 审核
+
+          - if is_creator_teacher || is_manager
+            %a.btn.success-flat.small{:href => "/manage/courses/#{course.id}/edit"} 
+              %i.icon-edit.icon-white
+              %span 修改
+            %a.btn.danger-flat.small.delete{:href => "javascript:;", :data => {:url => "/manage/courses/#{course.id}"}} 
+              %i.icon-trash.icon-white
+              %span 删除
+
+          / %a.btn.success-flat.small{:href => 'javascript:;'} 
+          /   %i.icon-list-alt.icon-white
+          /   %span 选课管理

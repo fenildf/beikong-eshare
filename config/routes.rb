@@ -174,6 +174,16 @@ Eshare::Application.routes.draw do
         get :status_reject
       end
     end
+
+    resources :select_course_intents, :shallow => true do
+      collection do
+        get :list
+        get :adjust
+        put :accept
+        put :reject
+        post :batch_check
+      end
+    end
     
     resources :courses, :shallow => true do
       collection do
@@ -188,6 +198,12 @@ Eshare::Application.routes.draw do
         get :import_tudou_list
         post :import_tudou_list_2
         post :do_import_tudou_list
+      end
+
+      member do
+        get :check
+        put :check_yes
+        put :check_no
       end
 
       resources :chapters, :shallow => true do
@@ -235,10 +251,23 @@ Eshare::Application.routes.draw do
       resources :survey_results, :shallow => true
     end
 
+    resources :announcements, :shallow => true do
+      
+    end
+
     namespace :aj do
       resources :courses, :shallow => true do
         resources :chapters, :shallow => true
       end
+    end
+  end
+end
+
+# 学生选课
+Eshare::Application.routes.draw do
+  resources :select_course_intents, :shallow => true do
+    collection do
+      post :save
     end
   end
 end
@@ -294,6 +323,7 @@ Eshare::Application.routes.draw do
 
       member do
         get :read_pie
+        get :course_intent_123_pie
       end
 
       resources :chapters, :shallow => true do

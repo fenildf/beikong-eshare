@@ -2,26 +2,26 @@ zh-CN:
   simple-navbar:
     admin:
       home: 首页
-      users_manage: 用户管理
+      users_manage: 用户登记
       categories_manage: 分类管理
-      courses_manage: 课程管理
+      select_course: 选课管理
       teacher_surveys_manage: 教师评价
-      course_applies_manage: 选课管理
+      team_manage: 班级登记
 
       #INTERNET
       user_opinions_view: 反馈意见 
       site_changes: 更新记录
 
     teacher:
-      dashboard: 动态
-      courses: 课程
-      disk: 文件
-      tags: 标签
-      user: 个人
-      questions: 问答
-      
-      courses_manage: 课程管理
-      courses_manage_aj: 课管理β
+      courses_manage: 课程申报
+      teams: 班级信息
+      select_course: 选课管理
+      announcements: 公告查看
+
+    manager:
+      courses_check: 课程审批
+      select_course: 选课管理
+      announcements: 公告发布
 
     student:
       dashboard: 动态
@@ -33,6 +33,8 @@ zh-CN:
 
       learning_plan: 计划
       teacher-surveys: 教师评价
+      select_course: 选课
+      announcements: 公告查看
 
     account:
       edit: 基础信息设置
@@ -70,11 +72,15 @@ zh-CN:
         create: 创建调查表
       user_opinion:
         create: 提交
+      announcement:
+        create: 创建公告
+        update: 更新公告
 
   activerecord:
     models:
       user: 用户
       course: 课程
+      announcement: 公告
 
     attributes:
       user:
@@ -92,11 +98,19 @@ zh-CN:
       course:
         name: 课程名
         cid: 课程编号
-        desc: 课程简介
-        syllabus: 课程大纲
         cover: 课程封面
         enable_apply_request_limit: 限制选课人数
         apply_request_limit: 最大选课人数
+        lesson_hour: 课时
+        credit: 学分
+        least_user_count: 最小人数
+        most_user_count: 最大人数
+        time: 上课时间
+        location: 上课地点
+        syllabus: 教学目标
+        desc: 课程简介
+        teach_content: 授课内容
+        teach_type: 授课方式
 
       chapter:
         title: 章节标题
@@ -118,6 +132,10 @@ zh-CN:
         content: 内容
         image: 上传截图说明
         contact: 联系方式（邮件或其他）
+
+      announcement:
+        title: 公告标题
+        content: 公告内容
 
     errors:
       models:
@@ -182,6 +200,13 @@ zh-CN:
               blank: 请填写反馈内容
             contact:
               blank: 请填写联系方式
+
+        announcement:
+          attributes:
+            title:
+              blank: 必须填写标题
+            content:
+              blank: 必须填写内容
 
 
   views:
@@ -255,6 +280,15 @@ zh-CN:
         fileops_time: 修改日期
         ops: 操作
 
+      students:
+        name: 姓名
+        first: 第一志愿
+        second: 第二志愿
+        third: 第三志愿
+        status: 选课状态
+        ops: 操作
+        wish: 对当前课程的志愿
+
       courses:
         id: ID
         name: 课程名称
@@ -267,6 +301,13 @@ zh-CN:
         select_apply: 选课人数/上限
         select_status: 选课状态
         select_apply_status: 选课情况
+        least_user_count: 最小人数
+        most_user_count: 最大人数
+        total_intent: 志愿总数
+        first_intent: 第一志愿
+        second_intent: 第二志愿
+        third_intent: 第三志愿
+
 
       chapters:
         title: 标题
@@ -308,6 +349,8 @@ zh-CN:
         title: 标题
         content: 内容
         ops: 操作
+        for_role: 针对角色
+        readed: 是否已读
 
 
       categories:

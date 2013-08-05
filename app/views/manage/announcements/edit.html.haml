@@ -1,0 +1,21 @@
+- content_for :header do
+  %h1 修改公告
+
+.page-course-form
+  .pblock.form{:style => 'margin-top:-16px;padding-bottom:20px;'}
+    = simple_form_for @announcement, :url => "/manage/announcements/#{@announcement.id}" do |f|
+      = f.input :title, :input_html => {:class => :xxlarge}
+      = f.input :content, :input_html => {:rows => 10, :class => :xxlarge}
+
+      :ruby
+        s = [
+          ['学生', Announcement::FOR_ROLE_STUDENT], 
+          ['老师', Announcement::FOR_ROLE_TEACHER],
+        ]
+
+      .input{:style => 'margin-bottom:20px;'}
+        %label 针对以下角色
+        = f.select :for_role, s, :label => '用户角色'
+
+      = f.button :submit, :class => 'success-flat'
+      %a.btn.cancel.gray-flat{:href => '/manage/announcements'}= t('common.form.cancel')
