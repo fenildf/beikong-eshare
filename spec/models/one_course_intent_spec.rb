@@ -1,6 +1,6 @@
-R::SELECT_COURSE_MODE = 'ONE'
 require "spec_helper"
 
+if R::SELECT_COURSE_MODE == 'ONE'
 describe OneCourseIntent do
   before{
     @teacher = FactoryGirl.create :user, :role => :teacher
@@ -188,4 +188,5 @@ describe OneCourseIntent do
       end
     end
   end
+end
 end

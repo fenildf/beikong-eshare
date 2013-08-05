@@ -1,6 +1,5 @@
-R::SELECT_COURSE_MODE = 'THREE'
 require 'spec_helper'
-
+if R::SELECT_COURSE_MODE == 'THREE'
 describe SelectCourseIntent do
   before{
     @course_1 = FactoryGirl.create :course, :approve_status => Course::APPROVE_STATUS_YES
@@ -241,4 +240,5 @@ describe SelectCourseIntent do
       ]
     }
   end
+end
 end
