@@ -4,9 +4,9 @@ describe AnnouncementUser do
   describe 'Validation' do
     before {
       @creator = FactoryGirl.create(:user, id: 1000)
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create(:user, :role => :student)
 
-      @announcement = FactoryGirl.create(:announcement, creator: @creator)
+      @announcement = FactoryGirl.create(:announcement, creator: @creator, for_role: Announcement::FOR_ROLE_STUDENT)
     }
 
     it "其它用户还没有通知记录" do
