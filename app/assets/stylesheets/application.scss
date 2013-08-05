@@ -3342,6 +3342,20 @@ img.page-avatar {
       margin:10px 0 10px;
       padding-bottom:10px;
       border-bottom:dashed 1px #e7e7e7;
+      overflow:hidden;
+      line-height:24px;
+
+      .crea {
+        float:left;
+        margin-right:20px;
+      }
+      .teachers {
+        float:left;
+        a.add {
+          width:20px;padding:0;
+          margin-left:10px;
+        }
+      }
     }
 
     .hour-credit, .user-count{
@@ -5501,6 +5515,84 @@ form .input.page-form-tag-inputer {
       }
       span.blank {
         color:red;
+      }
+    }
+  }
+}
+
+.page-teacher-selector {
+  position:fixed;
+  top:81px;
+  right:0px;
+  width:70%;
+  bottom:0px;
+  background-color:white;
+  border-left:solid 1px #e7e7e7;
+  box-shadow:-1px 0 0 #e7e7e7;
+
+  .btns {
+    padding:10px 15px;
+    border-bottom:solid 1px #e7e7e7;
+    background-color:#ffffda;
+    a.close {
+      margin-right:20px;
+    }
+  }
+
+  .data {
+    .teachers {
+      width:70%;
+      float:left;
+      .title {
+        padding:10px 15px;
+        border-bottom:solid 1px #e7e7e7;
+        background-color:#f7f7f7;
+      }
+
+      .teas {
+        padding:10px;
+        overflow-y:auto;
+        overflow-x:hidden;
+        .teacher {
+          float:left;
+          width:100px;
+          background-color:#fafafa;
+          @include border-radius(3px);
+          margin:0 5px 5px 0;
+          padding:10px;
+          input[type=checkbox] {
+            position:relative;
+            top:2px;
+            margin-right:3px;
+          }
+
+          &.selected {
+            background-color:#7592D0;
+            color:white;
+          }
+        }
+      }
+
+    }
+    .results {
+      width:30%;
+      position:absolute;
+      top:51px;bottom:0;
+      left:70%;right:0;
+      @include border-box;
+      border-left:solid 1px #e7e7e7;
+      .title {
+        padding:10px 15px;
+        border-bottom:solid 1px #e7e7e7;
+        background-color:#f7f7f7;
+      }
+      .creator, .teacher{
+        padding:10px;
+        background-color:#7592D0;
+        color:white;
+        @include border-radius(3px);
+        margin:5px;
+        font-weight:bold;
       }
     }
   }

@@ -129,3 +129,88 @@ jQuery ->
 
   jQuery('.page-student-select-course-intent-form .courses-tables').each ->
     new CourseSel jQuery(this)
+
+
+# 给课程增加任课老师
+jQuery ->
+  class TeacherSelector
+    constructor: (@$button)->
+      @$selector = jQuery('.page-teacher-selector')
+      @setup()
+
+      @init_selector()
+
+    setup: ->
+      @$button.on 'click', =>
+        @open()
+
+      @$selector.find('a.btn.close').on 'click', =>
+        @close()        
+
+    open: ->
+      @$selector.css
+        right: '-70%'
+        opacity: 0
+      .show()
+      .animate
+        right: 0
+        opacity: 1
+
+    close: ->
+      @$selector.css
+        right: 0
+        opacity: 1
+      .animate
+        right: '-70%'
+        opacity: 0
+        => @$selector.hide()
+
+    init_selector: ->
+      that = this
+      @$selector.delegate '.teacher:not(.creator) input[type=checkbox]', 'change', ->
+        checked = jQuery(this).prop('checked')
+        user_id = jQuery(this).closest('.teacher').data('id')
+
+        if checked
+          that.select(user_id)
+        else
+          that.unselect(user_id)
+    
+    _get_selector_teacher: (user_id)->
+      @$selector.find(".teachers .teacher:not(.creator)[data-id=#{user_id}]")
+
+    _get_result_teacher: (user_id)->
+      @$selector.find(".results .teacher[data-id=#{user_id}]")
+
+    select: (user_id)->
+      $teacher = @_get_selector_teacher(user_id)
+      $teacher.addClass('selected')
+
+      @$selector.find('.results')
+        .append jQuery("<div class='teacher' data-id=#{user_id}>#{$teacher.data('name')}</div>")
+
+      @recount()
+
+    unselect: (user_id)->
+      $teacher = @_get_selector_teacher(user_id)
+      $teacher.removeClass('selected')
+
+      @_get_result_teacher(user_id).remove()
+
+      @recount()
+
+    recount: ->
+      user_ids = []
+      user_names = []
+      @$selector.find(".teachers .teacher:not(.creator).selected").each ->
+        user_ids.push jQuery(this).data('id')
+        user_names.push jQuery(this).data('name')
+      
+      jQuery('.form-inputs .teachers span')
+        .html if user_names.length > 0 then user_names.join('，') else '无'
+      jQuery('.form-inputs .teachers input.teacher_ids').val user_ids.join(',')
+
+      @$selector.find('span.count').html user_ids.length + 1
+
+  jQuery('.page-course-form form .teachers a.add').each ->
+    new TeacherSelector jQuery(this)

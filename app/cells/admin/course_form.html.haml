@@ -15,8 +15,15 @@
 
     = f.input :name
     .creator
-      %b.teacher 主讲人：
-      %span= teacher.name
+      .crea
+        %b 负责人：
+        %span= teacher.name
+      .teachers
+        %b 其他任课教师：
+        %span 无
+        %a.btn.success-flat.add.mini{:href => 'javascript:;', :title => '点击添加其他教师'}
+          %i.icon-plus.icon-white
+        %input.teacher_ids{:name => 'teacher_ids', :type => :hidden}
 
     .hour-credit
       = f.input :lesson_hour, :input_html => {:class => :small}
@@ -42,3 +49,32 @@
   .form-actions
     = f.button :submit, submit_label, :class => 'success-flat'
     %a.btn.cancel.gray-flat{:href => '/manage/courses'}= t('common.form.cancel')
+
+
+.page-teacher-selector{:style => 'display:none;'}
+  .btns
+    %a.btn.inverse-flat.close{:href => 'javascript:;'} 
+      %i.icon-chevron-left.icon-white
+      %span 关闭
+    %span 设置任课教师
+
+  .data
+    .teachers
+      .title 从下列教师中选择
+      .teas
+        - User.with_role(:teacher).each do |tea|
+          - if tea.id == teacher.id
+            .teacher.creator.selected{:data => {:id => tea.id, :name => tea.name}}
+              %input{:type => :checkbox, :checked => true, :disabled => true}
+              %span.name= tea.name
+          - else
+            .teacher{:data => {:id => tea.id, :name => tea.name}}
+              %input{:type => :checkbox}
+              %span.name= tea.name
+
+    .results
+      .title 
+        %span 已选择 
+        %span.count 1 
+        %span 名教师
+      .creator #{teacher.name}（负责人）

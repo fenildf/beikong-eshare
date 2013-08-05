@@ -3,7 +3,7 @@
 
 .page-course-applies
   
-  - if current_user.is_manager?
+  - if current_user.is_manager? || current_user.is_admin?
     .chart
       .page-chart.all-courses-select-apply-pie
   - else
