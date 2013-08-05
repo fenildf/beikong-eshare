@@ -18,6 +18,11 @@ class CourseTeacher < ActiveRecord::Base
                     :source => :teacher_user  
     end
 
+    def set_teacher_users(user_id_str)
+      ids = user_id_str.split(",") || []
+      self.teacher_user_ids= ids
+    end
+
     def add_teacher_user(user) #增加任课老师，不能是 course.creator
       return false if self.teacher_users.include?(user)
       self.course_teachers.create(:teacher_user => user)
