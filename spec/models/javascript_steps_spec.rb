@@ -89,7 +89,7 @@ describe JavascriptStep do
     before {
       @course_ware = FactoryGirl.create(:course_ware, :kind => 'javascript')
       @step_1 = @course_ware.javascript_steps.create({
-        :content => "content_1", 
+        :content => "content_1",
         :rule => "rule_1",
         :init_code => 'function(){}'
       })
