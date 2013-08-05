@@ -9,6 +9,10 @@
     teacher = @course.creator
   end
 
+  other_teachers = @course.teacher_users
+  other_teachers_names = other_teachers.map{|t| t.name}.join('，')
+  other_teachers_ids = other_teachers.map{|t| t.id}.join(',')
+
 = simple_form_for @course, :url => url do |f|
   .form-inputs
     = f.input :cid, :as => :hidden, :input_html => {:value => randstr}
@@ -20,10 +24,10 @@
         %span= teacher.name
       .teachers
         %b 其他任课教师：
-        %span 无
+        %span= other_teachers_names
         %a.btn.success-flat.add.mini{:href => 'javascript:;', :title => '点击添加其他教师'}
           %i.icon-plus.icon-white
-        %input.teacher_ids{:name => 'teacher_ids', :type => :hidden}
+        %input.teacher_ids{:name => 'teacher_ids', :type => :hidden, :value => other_teachers_ids}
 
     .hour-credit
       = f.input :lesson_hour, :input_html => {:class => :small}
@@ -65,16 +69,23 @@
         - User.with_role(:teacher).each do |tea|
           - if tea.id == teacher.id
             .teacher.creator.selected{:data => {:id => tea.id, :name => tea.name}}
-              %input{:type => :checkbox, :checked => true, :disabled => true}
+              %input{:autocomplete => :off, :type => :checkbox, :checked => true, :disabled => true}
               %span.name= tea.name
           - else
-            .teacher{:data => {:id => tea.id, :name => tea.name}}
-              %input{:type => :checkbox}
-              %span.name= tea.name
+            - if other_teachers.include? tea
+              .teacher.selected{:data => {:id => tea.id, :name => tea.name}}
+                %input{:autocomplete => :off, :type => :checkbox, :checked => true}
+                %span.name= tea.name
+            - else
+              .teacher{:data => {:id => tea.id, :name => tea.name}}
+                %input{:autocomplete => :off, :type => :checkbox}
+                %span.name= tea.name
 
     .results
       .title 
         %span 已选择 
-        %span.count 1 
+        %span.count= other_teachers.length + 1 
         %span 名教师
       .creator #{teacher.name}（负责人）
+      - other_teachers.each do |t|
+        .teacher{:data => {:id => t.id}}= t.name

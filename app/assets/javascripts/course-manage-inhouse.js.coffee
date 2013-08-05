@@ -155,15 +155,17 @@ jQuery ->
       .animate
         right: 0
         opacity: 1
+      , 300
 
     close: ->
       @$selector.css
         right: 0
         opacity: 1
-      .animate
+      .animate {
         right: '-70%'
         opacity: 0
-        => @$selector.hide()
+      }, 300, => 
+        @$selector.hide()
 
     init_selector: ->
       that = this

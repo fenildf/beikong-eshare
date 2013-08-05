@@ -30,8 +30,9 @@ class Manage::CoursesController < ApplicationController
     authorize! :manage, Course
 
     @course = current_user.courses.build(params[:course])
-    if @course.save
-      @course.replace_public_tags(params[:course_tags], current_user)
+    if @course.save 
+      @course.set_teacher_users params[:teacher_ids]
+      # @course.replace_public_tags(params[:course_tags], current_user)
       flash[:success] = '课程申报已经创建'
       return redirect_to :action => :index
     end
@@ -42,8 +43,9 @@ class Manage::CoursesController < ApplicationController
     @course = Course.find params[:id]
     authorize! :manage, @course
 
-    if @course.update_attributes(params[:course]) && 
-      @course.replace_public_tags(params[:course_tags], current_user)
+    if @course.update_attributes(params[:course])
+      @course.set_teacher_users params[:teacher_ids]
+      # @course.replace_public_tags(params[:course_tags], current_user)
       flash[:success] = '课程申报修改成功'
       return redirect_to :action => :index
     end
