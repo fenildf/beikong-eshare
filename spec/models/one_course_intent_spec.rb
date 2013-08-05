@@ -136,14 +136,14 @@ describe OneCourseIntent do
 
         it{
           @course_1.intent_users(:team => @team_1).should =~ [@user_1, @user_2, @user_3]
-          @course_1.intent_users(:team => @team_2).should == []
-          @course_1.intent_users.should =~ [@user_1, @user_2, @user_3]
+          @course_1.intent_users(:team => @team_2).should == [@user_4]
+          @course_1.intent_users.should =~ [@user_1, @user_2, @user_3, @user_4]
         }
 
         it{
           @course_1.intent_users_count(:team => @team_1).should == 3
-          @course_1.intent_users_count(:team => @team_2).should == 0
-          @course_1.intent_users_count.should == 3
+          @course_1.intent_users_count(:team => @team_2).should == 1
+          @course_1.intent_users_count.should == 4
         }
 
         it{
