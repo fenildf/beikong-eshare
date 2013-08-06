@@ -5246,7 +5246,7 @@ form .input.page-form-tag-inputer {
         background-color:white;
         @include border-radius(3px);
         border:solid 1px #e7e7e7;
-        height:150px;
+        height:100px;
 
         .s {
           margin-bottom:10px;
@@ -5520,15 +5520,25 @@ form .input.page-form-tag-inputer {
   }
 }
 
+.page-teacher-selector-overlay {
+  position:fixed;
+  background-color:rgba(black, 0.5);
+  left:0;right:0;bottom:0;
+  // top:81px;
+  top:31px;
+  z-index:3;
+}
 .page-teacher-selector {
   position:fixed;
-  top:81px;
+  // top:81px;
+  top:31px;
   right:0px;
   width:70%;
   bottom:0px;
+  z-index:4;
   background-color:white;
   border-left:solid 1px #e7e7e7;
-  box-shadow:-1px 0 0 #e7e7e7;
+  // box-shadow:-1px 0 0 #e7e7e7;
 
   .btns {
     padding:10px 15px;

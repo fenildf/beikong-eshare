@@ -34,8 +34,8 @@
       = f.input :credit, :input_html => {:class => :small}
 
     .user-count
-      = f.input :least_user_count, :input_html => {:class => :small, :value => 5}
-      = f.input :most_user_count, :input_html => {:class => :small, :value => 20}
+      = f.input :least_user_count, :input_html => {:class => :small}
+      = f.input :most_user_count, :input_html => {:class => :small}
 
     .time-place
       = f.input :time
@@ -55,6 +55,7 @@
     %a.btn.cancel.gray-flat{:href => '/manage/courses'}= t('common.form.cancel')
 
 
+.page-teacher-selector-overlay{:style => 'display:none;'}
 .page-teacher-selector{:style => 'display:none;'}
   .btns
     %a.btn.inverse-flat.close{:href => 'javascript:;'} 

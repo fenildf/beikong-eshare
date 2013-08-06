@@ -151,6 +151,14 @@ zh-CN:
               blank: 必须填写课程简介
             syllabus:
               blank: 必须填写课程大纲
+            lesson_hour:
+              blank: 必须填写课时
+            credit:
+              blank: 必须填写学分
+            least_user_count:
+              blank: 必须填写最小人数
+            most_user_count:
+              blank: 必须填写最大人数
 
         chapter:
           attributes:
@@ -288,6 +296,7 @@ zh-CN:
         status: 选课状态
         ops: 操作
         wish: 对当前课程的志愿
+        total_credit: 当前学分
 
       courses:
         id: ID

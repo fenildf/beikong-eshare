@@ -51,7 +51,7 @@ class OneCourseIntent < ActiveRecord::Base
         ) AS ocis
         ON ocis.course_id = courses.id
       `
-      Course.unscoped.joins(ocis_join_sql).order("ocis.count desc")
+      Course.unscoped.approve_status_with_yes.joins(ocis_join_sql).order("ocis.count desc")
     end
   end
 

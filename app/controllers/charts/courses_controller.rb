@@ -26,7 +26,7 @@ class Charts::CoursesController < ApplicationController
   end
 
   def all_courses_select_apply_pie
-    @courses = SelectCourseIntent.intent_course_ranking
+    @courses = CourseIntent.intent_course_ranking
 
     stat = {
       :notfull => 0, :full => 0, :over => 0, :empty => 0

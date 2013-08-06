@@ -18,12 +18,6 @@
     - table.add_column :most_user_count
     - table.add_column :total_intent do |course|
       = course.intent_student_count
-    - table.add_column :first_intent do |course|
-      = course.intent_student_count :flag => :first
-    - table.add_column :second_intent do |course|
-      = course.intent_student_count :flag => :second
-    - table.add_column :third_intent do |course|
-      = course.intent_student_count :flag => :third
     - table.add_column :ops do |course|
       %a.btn.mini.success-flat{:href => "/manage/select_course_intents/list?course=#{course.id}"}
         %i.icon-tasks.icon-white

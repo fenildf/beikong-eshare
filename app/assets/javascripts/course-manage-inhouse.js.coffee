@@ -42,6 +42,9 @@ jQuery ->
         $old_tr.after $new_tr
         $old_tr.remove()
 
+        jQuery('.stat .c.accept_count').html(res.accept_count)
+        jQuery('.stat .c.reject_count').html(res.reject_count)
+
   # 拒绝学生选课申请
   jQuery(document).on 'click', '.page-course-applies .students a.reject', ->
     user_id = jQuery(this).data('user-id')
@@ -58,6 +61,9 @@ jQuery ->
         $old_tr = jQuery(this).closest('tr')
         $old_tr.after $new_tr
         $old_tr.remove()
+
+        jQuery('.stat .c.accept_count').html(res.accept_count)
+        jQuery('.stat .c.reject_count').html(res.reject_count)
 
   # 学生选课列表的折叠展开
   class OpenClose
@@ -177,6 +183,7 @@ jQuery ->
 jQuery ->
   class TeacherSelector
     constructor: (@$button)->
+      @$overlay = jQuery('.page-teacher-selector-overlay')
       @$selector = jQuery('.page-teacher-selector')
       @setup()
 
@@ -189,7 +196,11 @@ jQuery ->
       @$selector.find('a.btn.close').on 'click', =>
         @close()        
 
+      @$overlay.on 'click', =>
+        @close()      
+
     open: ->
+      @$overlay.fadeIn(300)
       @$selector.css
         right: '-70%'
         opacity: 0
@@ -200,6 +211,7 @@ jQuery ->
       , 300
 
     close: ->
+      @$overlay.fadeOut(300)
       @$selector.css
         right: 0
         opacity: 1

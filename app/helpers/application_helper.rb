@@ -294,6 +294,26 @@ module ApplicationHelper
     }
   end
 
+  def course_intent_stat_label(course)
+      min = course.least_user_count
+      max = course.most_user_count
+      count = course.intent_student_count
+
+      if count == 0
+        return '无人选'
+      end
+
+      if min && count < min
+        return '人数过少'
+      end
+
+      if max && count > max
+        return '人数过多'
+      end
+
+      return '人数适合'
+  end
+
   def course_selected_stat_label(course)
       min = course.least_user_count
       max = course.most_user_count

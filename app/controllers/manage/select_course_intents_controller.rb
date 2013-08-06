@@ -10,7 +10,7 @@ class Manage::SelectCourseIntentsController < ApplicationController
   }
 
   def index
-    @courses = SelectCourseIntent.intent_course_ranking
+    @courses = CourseIntent.intent_course_ranking
 
     if current_user.is_teacher?
       @courses = @courses.select {|c|
@@ -26,7 +26,7 @@ class Manage::SelectCourseIntentsController < ApplicationController
 
   def adjust
     @course = Course.find params[:course]
-    @students = SelectCourse.no_selected_course_users.page(params[:page]).per(15)
+    @students = CourseIntent.need_adjust_users.page(params[:page]).per(15)
   end
 
   def accept
@@ -37,6 +37,8 @@ class Manage::SelectCourseIntentsController < ApplicationController
 
     render :json => { 
       :status => 'ok',
+      :accept_count => @course.selected_users.count,
+      :reject_count => @course.be_reject_selected_users.count,
       :html => ( render_cell :course_select, :manage_table, 
                              :users => [@user],
                              :course => @course)
@@ -51,16 +53,27 @@ class Manage::SelectCourseIntentsController < ApplicationController
 
     render :json => { 
       :status => 'ok',
+      :accept_count => @course.selected_users.count,
+      :reject_count => @course.be_reject_selected_users.count,
       :html => ( render_cell :course_select, :manage_table, 
                              :users => [@user],
                              :course => @course)
     }
   end
 
+  # 批量处理三个志愿
   def batch_check
     course = Course.find params[:course]
     flag = params[:flag].to_sym
     course.batch_check flag
+
+    redirect_to "/manage/select_course_intents/list?course=#{params[:course]}"
+  end
+
+  # 批量处理单一志愿
+  def batch_check_one
+    course = Course.find params[:course]
+    course.batch_check
 
     redirect_to "/manage/select_course_intents/list?course=#{params[:course]}"
   end
