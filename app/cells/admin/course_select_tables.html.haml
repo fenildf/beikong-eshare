@@ -64,9 +64,9 @@
         %th.ops 操作
         %td.ops{:colspan => 4}
           - if course.selected_users.include?(@user)
-            已选中该课程，志愿不可更改
+            %a.btn.disabled.gray-flat{:href => 'javascript:;'} 已经选中
           - elsif course.be_reject_selected_users.include?(@user)
-            未选中该课程，志愿不可更改
+            %a.btn.disabled.gray-flat{:href => 'javascript:;'} 没有选中
           - elsif course.intent_student_users.include?(@user)
             %a.btn.danger-flat.do-unselect{:href => 'javascript:;', :data => {:id => course.id}} 
               %i.icon-ok-circle.icon-white

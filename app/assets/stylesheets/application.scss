@@ -5392,6 +5392,11 @@ form .input.page-form-tag-inputer {
     background-color:#444;
     color:white;
   }
+
+  &.reject {
+    background-color:#ffdada;
+    color:#990000;
+  }
 }
 
 .page-surveys-index {

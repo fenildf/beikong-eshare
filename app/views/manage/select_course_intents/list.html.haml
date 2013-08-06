@@ -46,13 +46,30 @@
           .t
             %span 目前志愿状态：
             %b.c= course_intent_stat_label @course
+        .s
+          .t
+            %span 目前上课状态：
+            %b.c= course_selected_stat_label @course
 
     .batch-ops
       .inner
-        .s
-          %a.btn.inverse-flat{:href => "/manage/select_course_intents/batch_check_one?course=#{@course.id}", :data => {:method =>:post, :confirm => "将批量处理所有志愿共 #{total_count} 人，按照志愿时间先到先得，确定吗？"}} 
-            %i.icon-ok.icon-white
-            %span 批量处理志愿
+        :ruby
+          hide_batch_btn = true
+
+          @course.intent_users.each do |user|
+            flag = user.is_accept_or_reject_select?(@course)
+            hide_batch_btn = hide_batch_btn && flag
+          end
+
+
+        - if hide_batch_btn
+          .s
+            目前提交的所有志愿已处理完毕
+        - else
+          .s
+            %a.btn.inverse-flat{:href => "/manage/select_course_intents/batch_check_one?course=#{@course.id}", :data => {:method =>:post, :confirm => "将批量处理所有志愿，按照志愿时间先到先得，确定吗？"}} 
+              %i.icon-ok.icon-white
+              %span 批量处理志愿
 
     .clearfix
 
