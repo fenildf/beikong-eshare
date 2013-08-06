@@ -33,26 +33,25 @@ class OneCourseIntent < ActiveRecord::Base
     def intent_course_ranking(options = {})
       team = options[:team]
 
-      ocis_join_sql = %`
-        INNER JOIN
-        (
-          SELECT one_course_intents.user_id, count(one_course_intents.course_id) as count
-          FROM one_course_intents
-          GROUP BY one_course_intents.user_id
-        ) AS ocis
-        ON ocis.user_id = users.id
-      `
-      return User.joins(ocis_join_sql).order("ocis.count desc") if team.blank?
-
-      team_join_sql = %`
+      team_join_sql = team.blank? ? "" : %`
         INNER JOIN team_memberships 
         ON 
-          team_memberships.user_id = users.id
+          team_memberships.user_id = one_course_intents.user_id
             AND
           team_memberships.team_id = #{team.id}
       `
 
-      User.joins(ocis_join_sql).joins(team_join_sql).order("ocis.count desc")
+      ocis_join_sql = %`
+        INNER JOIN
+        (
+          SELECT one_course_intents.course_id, count(one_course_intents.user_id) as count
+          FROM one_course_intents
+          #{team_join_sql}
+          GROUP BY one_course_intents.course_id
+        ) AS ocis
+        ON ocis.course_id = courses.id
+      `
+      Course.joins(ocis_join_sql).order("ocis.count desc")
     end
   end
 
