@@ -42,16 +42,16 @@ class OneCourseIntent < ActiveRecord::Base
       `
 
       ocis_join_sql = %`
-        INNER JOIN
+        LEFT OUTER JOIN
         (
-          SELECT one_course_intents.course_id, count(one_course_intents.user_id) as count
+          SELECT one_course_intents.course_id, IFNULL(count(one_course_intents.user_id), 0) as count
           FROM one_course_intents
           #{team_join_sql}
           GROUP BY one_course_intents.course_id
         ) AS ocis
         ON ocis.course_id = courses.id
       `
-      Course.joins(ocis_join_sql).order("ocis.count desc")
+      Course.unscoped.joins(ocis_join_sql).order("ocis.count desc")
     end
   end
 
