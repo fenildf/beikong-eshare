@@ -56,6 +56,21 @@ class OneCourseIntent < ActiveRecord::Base
       base.has_many :one_course_intents
     end
 
+    def intent_and_selected_users
+      join_sql = %`
+        LEFT JOIN select_courses
+          ON select_courses.user_id = users.id
+        LEFT JOIN one_course_intents
+          ON one_course_intents.user_id = users.id
+      `
+      where_sql = %`
+        one_course_intents.user_id IS NOT NULL
+          OR
+        select_courses.user_id IS NOT NULL
+      `
+      User.joins(join_sql).where(where_sql).with_role(:student)
+    end
+
     def intent_student_users(options = {})
       intent_users(options)
     end
