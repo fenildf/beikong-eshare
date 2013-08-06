@@ -34,7 +34,10 @@ class SelectCourseIntentsController < ApplicationController
     current_user.add_course_intent(course)
 
     render :json => {
-      :status => 'ok'
+      :status => 'ok',
+      :html => (
+        render_cell :admin, :course_select_tables, :courses => [course], :user => current_user
+      )
     }
   end
 
@@ -43,7 +46,10 @@ class SelectCourseIntentsController < ApplicationController
     current_user.remove_course_intent(course)
 
     render :json => {
-      :status => 'ok'
+      :status => 'ok',
+      :html => (
+        render_cell :admin, :course_select_tables, :courses => [course], :user => current_user
+      )
     }
   end
 end

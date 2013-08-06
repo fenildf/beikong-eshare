@@ -2,11 +2,12 @@
   %table.page-data-table.bordered.course
     %tbody
       %tr
-        %th.id ID
-        %td.id= course.id
-
         %th.name 课程名
         %td.name{:colspan => 3}= course.name
+
+        %th.intent-status 选课结果
+        %td.approved{:colspan => 5}
+          .app= course_select_status_label @user, course
 
         %th.lesson_hour 课时
         %td.lesson_hour= course.lesson_hour
@@ -69,7 +70,7 @@
           - elsif course.intent_student_users.include?(@user)
             %a.btn.danger-flat.do-unselect{:href => 'javascript:;', :data => {:id => course.id}} 
               %i.icon-ok-circle.icon-white
-              %span 取消志愿
+              %span 撤销志愿
           - else
             %a.btn.success-flat.do-select{:href => 'javascript:;', :data => {:id => course.id}} 
               %i.icon-ok-circle.icon-white

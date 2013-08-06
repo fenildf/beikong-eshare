@@ -139,23 +139,34 @@ jQuery ->
       
       @$tables.delegate 'td a.do-select', 'click', ->
         course_id = jQuery(this).data('id')
+        $table = jQuery(this).closest('table')
         jQuery.ajax
           url: '/select_course_intents/save_one'
           type: 'POST'
           data:
             course_id: course_id
           success: (res)->
-            console.log res
+            $html = jQuery(res.html)
+            # 标签
+            $table.find('td.approved').html $html.find('td.approved').html()
+            # 按钮
+            $table.find('td.ops').html $html.find('td.ops').html()
 
       @$tables.delegate 'td a.do-unselect', 'click', ->
-        course_id = jQuery(this).data('id')
-        jQuery.ajax
-          url: '/select_course_intents/remove_one'
-          type: 'DELETE'
-          data:
-            course_id: course_id
-          success: (res)->
-            console.log res
+        if confirm('确定要撤销这个志愿吗？')
+          course_id = jQuery(this).data('id')
+          $table = jQuery(this).closest('table')
+          jQuery.ajax
+            url: '/select_course_intents/remove_one'
+            type: 'DELETE'
+            data:
+              course_id: course_id
+            success: (res)->
+              $html = jQuery(res.html)
+              # 标签
+              $table.find('td.approved').html $html.find('td.approved').html()
+              # 按钮
+              $table.find('td.ops').html $html.find('td.ops').html()
 
 
 
