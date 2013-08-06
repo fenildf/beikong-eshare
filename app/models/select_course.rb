@@ -110,6 +110,10 @@ class SelectCourse < ActiveRecord::Base
         :conditions => "select_courses.status = '#{STATUS_REJECT}'"
     end
 
+    def is_accept_or_reject_select?(course)
+      self.selected_courses.include?(course) || self.be_reject_selected_courses.include?(course)
+    end
+
     # 用户发起一个选课请求
     def select_course(status, course)
       record = self.select_course_records.by_course(course).first
