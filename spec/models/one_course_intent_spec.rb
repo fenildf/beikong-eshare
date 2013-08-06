@@ -53,7 +53,7 @@ describe OneCourseIntent do
   }
 
   it{
-    CourseIntent.need_adjust_users.should =~ [
+    @course_1.need_adjust_users.should =~ [
       @user_1, @user_2, @user_3,
       @user_4, @user_5, @user_6
     ]
@@ -87,7 +87,7 @@ describe OneCourseIntent do
     }
 
     it{
-      CourseIntent.need_adjust_users.should =~ [
+      @course_1.need_adjust_users.should =~ [
         @user_1, @user_2, @user_3,
         @user_4, @user_5, @user_6
       ]
@@ -178,7 +178,13 @@ describe OneCourseIntent do
             }
 
             it{
-              CourseIntent.need_adjust_users.should == [
+              @course_1.need_adjust_users.should =~ [
+                @user_5, @user_6
+              ]
+            }
+
+            it{
+              @course_2.need_adjust_users.should =~ [
                 @user_1, @user_4,
                 @user_5, @user_6
               ]

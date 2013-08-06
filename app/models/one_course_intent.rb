@@ -9,27 +9,6 @@ class OneCourseIntent < ActiveRecord::Base
   validates :user_id,  :uniqueness => {:scope => :course_id}
 
   module ClassMethods
-    def need_adjust_users
-      join_sql = %`
-      INNER JOIN 
-        (
-          SELECT users.id AS id, sum(IFNULL(courses.credit, 0)) AS sum FROM users
-            LEFT OUTER JOIN select_courses
-            ON select_courses.user_id = users.id
-            LEFT OUTER JOIN courses
-            ON courses.id = select_courses.course_id
-          GROUP BY
-            users.id
-        ) AS user_and_sums
-      ON
-        user_and_sums.id = users.id 
-      AND 
-        user_and_sums.sum < #{R::LEAST_SELECT_CREDIT}
-      `
-
-      User.joins(join_sql).with_role(:student)
-    end
-
     def intent_course_ranking(options = {})
       team = options[:team]
 
@@ -161,5 +140,27 @@ class OneCourseIntent < ActiveRecord::Base
         user.select_course(:reject, self)
       end
     end
+
+    def need_adjust_users
+      join_sql = %`
+        INNER JOIN 
+        (
+          SELECT users.id, sum(IFNULL(courses.credit, 0)) AS S
+          FROM users
+          LEFT OUTER JOIN select_courses ON select_courses.user_id = users.id AND select_courses.course_id = #{self.id}
+          LEFT OUTER JOIN courses ON courses.id = select_courses.course_id
+          WHERE select_courses.course_id IS NULL
+          GROUP BY users.id
+        ) AS USER_AND_SUMS
+      ON
+        USER_AND_SUMS.id = users.id 
+      AND 
+        USER_AND_SUMS.S < #{R::LEAST_SELECT_CREDIT}
+
+      `
+
+      User.joins(join_sql).with_role(:student)
+    end
+
   end
 end
