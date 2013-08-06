@@ -183,10 +183,32 @@ describe OneCourseIntent do
                 @user_5, @user_6
               ]
             }
+
           end
         end
       end
     end
+  end
+
+  context 'ranking' do
+    before{
+      @user_1.add_course_intent(@course_1)
+      @user_1.add_course_intent(@course_2)
+      @user_1.add_course_intent(@course_3)
+
+      @user_2.add_course_intent(@course_2)
+      @user_2.add_course_intent(@course_3)
+
+      @user_4.add_course_intent(@course_3)
+    }
+
+    it{
+      CourseIntent.intent_course_ranking.should == [@user_1, @user_2, @user_4]
+    }
+
+    it{
+      CourseIntent.intent_course_ranking(:team => @team_2).should == [@user_4]
+    }
   end
 end
 end
