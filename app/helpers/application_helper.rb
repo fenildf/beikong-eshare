@@ -172,7 +172,7 @@ module ApplicationHelper
     rrr = {
       :student => '学生',
       :teacher => '老师',
-      :admin => '系统管理员',
+      :admin => '网络管理员',
       :manager => '教务领导'
     }
 

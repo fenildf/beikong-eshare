@@ -1,0 +1,101 @@
+:ruby
+  first = @user.course_intent(:first)
+  second = @user.course_intent(:second)
+  third = @user.course_intent(:third)
+
+- @courses.each do |course|
+  %table.page-data-table.bordered.course
+    %tbody
+      %tr
+        %th.id ID
+        %td.id= course.id
+
+        %th.name 课程名
+        %td.name{:colspan => 3}= course.name
+
+        %th.lesson_hour 课时
+        %td.lesson_hour= course.lesson_hour
+
+        %th.credit 学分
+        %td.credit= course.credit
+
+        %td.open
+          %a.open.btn.inverse-flat{:href => 'javascript:;'}
+            %i.icon-chevron-down.icon-white
+            %span 展开
+
+  %table.page-data-table.bordered.course{:style => 'display:none;'}
+    %tbody
+      %tr
+        %td.cover{:rowspan => 4}
+          = fit_image course.cover.versions[:normal].url, :height => 114, :width => 114
+
+        %th.id ID
+        %td.id= course.id
+
+        %th.name 课程名
+        %td.name{:colspan => 3}= course.name
+
+        %th.lesson_hour 课时
+        %td.lesson_hour= course.lesson_hour
+
+        %th.credit 学分
+        %td.credit= course.credit
+
+        %td.close
+          %a.close.btn.inverse-flat{:href => 'javascript:;'}
+            %i.icon-chevron-up.icon-white
+            %span 关闭
+
+
+      %tr
+        %th.teacher 主讲人
+        %td.teacher
+          %span= avatar_link course.creator, :small
+          %span= user_link course.creator
+
+        %th.location 上课地点
+        %td.location{:colspan => 3}= course.location
+
+        %th.time 上课时间
+        %td.time{:colspan => 4}= course.time
+
+      %tr
+        %th.intent-status 选课结果
+        %td.approved{:colspan => 3}
+          .app= course_select_status_label @user, course
+
+        %th.ops 志愿选择
+        %td.ops{:colspan => 6}
+          :ruby
+            if first.present? && first.id == course.id
+              checked = true
+            else
+              checked = false
+            end
+
+          .int{:class => checked ? 'sel' : ''}
+            %span 第一志愿
+
+            %input{:name => :first, :type => :radio, :checked => checked, :autocomplete => :off, :data => {:'course-id' => course.id, :'course-name' => course.name}}
+
+          :ruby
+            if second.present? && second.id == course.id
+              checked = true
+            else
+              checked = false
+            end
+          .int{:class => checked ? 'sel' : ''}
+            %span 第二志愿
+
+            %input{:name => :second, :type => :radio, :checked => checked, :autocomplete => :off, :data => {:'course-id' => course.id, :'course-name' => course.name}}
+
+          :ruby
+            if third.present? && third.id == course.id
+              checked = true
+            else
+              checked = false
+            end
+          .int{:class => checked ? 'sel' : ''}
+            %span 第三志愿
+            %input{:name => :third, :type => :radio, :checked => checked, :autocomplete => :off, :data => {:'course-id' => course.id, :'course-name' => course.name}}

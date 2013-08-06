@@ -28,4 +28,22 @@ class SelectCourseIntentsController < ApplicationController
       current_user.set_select_course_intent(flag, course)
     end
   end
+
+  def save_one
+    course = Course.find params[:course_id]
+    current_user.add_course_intent(course)
+
+    render :json => {
+      :status => 'ok'
+    }
+  end
+
+  def remove_one
+    course = Course.find params[:course_id]
+    current_user.remove_course_intent(course)
+
+    render :json => {
+      :status => 'ok'
+    }
+  end
 end

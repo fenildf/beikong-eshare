@@ -83,7 +83,7 @@ jQuery ->
     new OpenClose jQuery(this)
 
 
-# 新版选课
+# 新版选课（三志愿）
 jQuery ->
   class CourseSel
     constructor: (@$tables)->
@@ -92,7 +92,6 @@ jQuery ->
       that = this
 
       @$tables.delegate 'td input[type=radio]', 'change', ->
-        console.log 1
         # 让同一横排的不可点击
         $radio = jQuery(this)
         $td = $radio.closest('td')
@@ -130,6 +129,38 @@ jQuery ->
   jQuery('.page-student-select-course-intent-form .courses-tables').each ->
     new CourseSel jQuery(this)
 
+# 新版选课（单志愿）
+jQuery ->
+  class CourseSelOne
+    constructor: (@$tables)->
+      @setup()
+    setup: ->
+      that = this
+      
+      @$tables.delegate 'td a.do-select', 'click', ->
+        course_id = jQuery(this).data('id')
+        jQuery.ajax
+          url: '/select_course_intents/save_one'
+          type: 'POST'
+          data:
+            course_id: course_id
+          success: (res)->
+            console.log res
+
+      @$tables.delegate 'td a.do-unselect', 'click', ->
+        course_id = jQuery(this).data('id')
+        jQuery.ajax
+          url: '/select_course_intents/remove_one'
+          type: 'DELETE'
+          data:
+            course_id: course_id
+          success: (res)->
+            console.log res
+
+
+
+  jQuery('.page-student-select-course-intent-form .courses-tables').each ->
+    new CourseSelOne jQuery(this)
 
 # 给课程增加任课老师
 jQuery ->

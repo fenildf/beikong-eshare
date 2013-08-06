@@ -268,6 +268,8 @@ Eshare::Application.routes.draw do
   resources :select_course_intents, :shallow => true do
     collection do
       post :save
+      post :save_one # 单志愿
+      delete :remove_one
     end
   end
 end
