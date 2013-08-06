@@ -221,16 +221,24 @@ describe OneCourseIntent do
 
   context 'intent_and_selected_users' do
     before{
+      @user_1.add_course_intent(@course_1)
       @user_1.select_course(:accept, @course_1)
-      @user_2.select_course(:reject, @course_1)
-      @user_3.add_course_intent(@course_1)
-      @user_4.add_course_intent(@course_1)
+      @user_2.select_course(:accept, @course_1)
+      @user_3.select_course(:accept, @course_1)
       @user_4.select_course(:accept, @course_1)
+      @user_5.select_course(:reject, @course_1)
+      @user_5.select_course(:reject, @course_2)
     }
 
     it{
+      @course_1.intent_users.should == [@user_1]
+      @course_1.selected_users.count == 4
+      @course_1.be_reject_selected_users.count == 1
+      @course_2.be_reject_selected_users.count == 1
+
+      @course_1.intent_and_selected_users.count.should == 5
       @course_1.intent_and_selected_users.should =~ [
-        @user_1, @user_2, @user_3, @user_4
+        @user_1, @user_2, @user_3, @user_4, @user_5
       ]
     }
   end

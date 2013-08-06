@@ -60,8 +60,12 @@ class OneCourseIntent < ActiveRecord::Base
       join_sql = %`
         LEFT JOIN select_courses
           ON select_courses.user_id = users.id
+            AND
+          select_courses.course_id = #{self.id}
         LEFT JOIN one_course_intents
           ON one_course_intents.user_id = users.id
+            AND
+          one_course_intents.course_id = #{self.id}
       `
       where_sql = %`
         one_course_intents.user_id IS NOT NULL
