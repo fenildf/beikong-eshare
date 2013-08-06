@@ -129,15 +129,24 @@ class OneCourseIntent < ActiveRecord::Base
 
     # 批量处理申请，先到先得
     def batch_check
-      users = self.intent_users
-      accept_users = users[0...self.most_user_count] || []
-      reject_users = users[self.most_user_count..-1] || []
-      accept_users.each do |user|
-        user.select_course(:accept, self)
-      end
+      iusers = self.intent_users
+      selected_count = self.selected_users.count
+      max_count = self.most_user_count
 
-      reject_users.each do |user|
-        user.select_course(:reject, self)
+      iusers.each do |user|
+        if selected_users.include?(user) || be_reject_selected_users.include?(user)
+          next
+        end
+
+        is_course_full = selected_count >= max_count
+
+        if is_course_full
+          user.select_course(:reject, self)
+        else
+          user.select_course(:accept, self)
+          selected_count += 1
+        end
+
       end
     end
 
