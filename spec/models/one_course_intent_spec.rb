@@ -218,5 +218,21 @@ describe OneCourseIntent do
       courses.should =~ [@course_3, @course_1, @course_2, @course_4]
     }
   end
+
+  context 'intent_and_selected_users' do
+    before{
+      @user_1.select_course(:accept, @course_1)
+      @user_2.select_course(:reject, @course_1)
+      @user_3.add_course_intent(@course_1)
+      @user_4.add_course_intent(@course_1)
+      @user_4.select_course(:accept, @course_1)
+    }
+
+    it{
+      @course_1.intent_and_selected_users.should =~ [
+        @user_1, @user_2, @user_3, @user_4
+      ]
+    }
+  end
 end
 end
