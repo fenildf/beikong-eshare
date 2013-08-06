@@ -21,12 +21,12 @@ class Manage::SelectCourseIntentsController < ApplicationController
 
   def list
     @course = Course.find params[:course]
-    @students = @course.intent_student_users
+    @students = @course.intent_and_selected_users.page(params[:page]).per(15)
   end
 
   def adjust
     @course = Course.find params[:course]
-    @students = CourseIntent.need_adjust_users.page(params[:page]).per(15)
+    @students = @course.need_adjust_users.page(params[:page]).per(15)
   end
 
   def accept

@@ -59,3 +59,5 @@
 
   .pblock.table{:style => 'margin-top:-16px;'}
     = render_cell :course_select, :manage_table, :users => @students, :course => @course
+
+  = paginate @students
