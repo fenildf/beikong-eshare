@@ -37,6 +37,10 @@ class OneCourseIntent < ActiveRecord::Base
       base.has_many :intent_courses, :through => :one_course_intents, :source => :course
     end
 
+    def remove_course_intent(course)
+      self.one_course_intents.where(:course_id => course.id).destroy_all
+    end
+
     def add_course_intent(course)
       return if intent_courses.include?(course)
 
