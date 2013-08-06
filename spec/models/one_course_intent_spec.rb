@@ -203,11 +203,13 @@ describe OneCourseIntent do
     }
 
     it{
-      CourseIntent.intent_course_ranking.should == [@course_3, @course_2, @course_1]
+      CourseIntent.intent_course_ranking.should == [@course_3, @course_2, @course_1, @course_4]
     }
 
     it{
-      CourseIntent.intent_course_ranking(:team => @team_2).should == [@course_3]
+      courses = CourseIntent.intent_course_ranking(:team => @team_2)
+      courses.first.should == @course_3
+      courses.should =~ [@course_3, @course_1, @course_2, @course_4]
     }
   end
 end

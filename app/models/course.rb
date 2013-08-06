@@ -102,6 +102,10 @@ class Course < ActiveRecord::Base
       APPROVE_STATUS_WAITING, APPROVE_STATUS_YES, APPROVE_STATUS_NO
     ] }
 
+
+  validates :least_user_count, :most_user_count, :lesson_hour, :credit,
+            :presence => true
+
   scope :unpublished, :conditions => {:status => STATUS_UNPUBLISHED}
   scope :published,   :conditions => {:status => STATUS_PUBLISHED}
   scope :maintenance, :conditions => {:status => STATUS_MAINTENANCE}
