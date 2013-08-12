@@ -11,7 +11,7 @@
   - table.add_column :ops do |user|
     %a.btn.mini.success-flat.accept{:href => 'javascript:;', :data => {:'user-id' => user.id, :'course-id' => @course.id}} 
       %i.icon-ok.icon-white
-      %span 批准
+      %span 通过
     %a.btn.mini.danger-flat.reject{:href => 'javascript:;', :data => {:'user-id' => user.id, :'course-id' => @course.id}} 
       %i.icon-ban-circle.icon-white
-      %span 拒绝
+      %span 不通过

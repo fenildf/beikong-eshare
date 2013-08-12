@@ -2168,6 +2168,14 @@ img.page-avatar {
   }
 
   .all-courses {
+    .course-blank {
+      background-color:#ffffda;
+      border:solid 1px #e7e7e7;
+      @include border-radius(3px);
+      padding:20px;
+      box-shadow:0 1px 0 #E7E7E7;
+    }
+
     .tag-courses{
       margin-bottom:20px;
       .tagname {

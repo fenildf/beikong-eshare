@@ -25,7 +25,7 @@ zh-CN:
 
     student:
       dashboard: 动态
-      courses: 课程
+      courses: 我的课程
       disk: 文件
       tags: 标签
       user: 个人
@@ -33,7 +33,7 @@ zh-CN:
 
       learning_plan: 计划
       teacher-surveys: 教师评价
-      select_course: 选课
+      select_course: 选课中心
       announcements: 公告查看
 
     account:

@@ -286,7 +286,7 @@ module ApplicationHelper
 
     if course.be_reject_selected_users.include?(user)
       return capture_haml {
-        haml_tag 'span.page-course-select-status.reject', '拒绝'
+        haml_tag 'span.page-course-select-status.reject', '审核未通过'
       }
     end
 

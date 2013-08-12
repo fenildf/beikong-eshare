@@ -70,9 +70,9 @@
           - elsif course.intent_student_users.include?(@user)
             %a.btn.danger-flat.do-unselect{:href => 'javascript:;', :data => {:id => course.id}} 
               %i.icon-ok-circle.icon-white
-              %span 撤销志愿
+              %span 取消申请
           - else
             %a.btn.success-flat.do-select{:href => 'javascript:;', :data => {:id => course.id}} 
               %i.icon-ok-circle.icon-white
-              %span 发起志愿
+              %span 申请课程
 
