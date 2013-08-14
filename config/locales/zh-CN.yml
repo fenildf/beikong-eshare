@@ -7,21 +7,20 @@ zh-CN:
       select_course: 学生申请
       teacher_surveys_manage: 教师评价
       team_manage: 班级登记
-
-      #INTERNET
-      user_opinions_view: 反馈意见 
-      site_changes: 更新记录
+      courses: 课程中心
 
     teacher:
       courses_manage: 课程申报
       teams: 班级信息
       select_course: 学生申请
       announcements: 公告查看
+      courses: 课程中心
 
     manager:
       courses_check: 课程审批
       select_course: 学生申请
       announcements: 公告发布
+      courses: 课程中心
 
     student:
       dashboard: 动态
@@ -312,7 +311,7 @@ zh-CN:
         select_apply_status: 选课情况
         least_user_count: 最小人数
         most_user_count: 最大人数
-        total_intent: 志愿总数
+        total_intent: 申请总数
         first_intent: 第一志愿
         second_intent: 第二志愿
         third_intent: 第三志愿

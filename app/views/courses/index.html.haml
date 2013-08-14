@@ -1,27 +1,49 @@
 .page-courses-index
   .mainp75
     .all-courses
-      - courses = current_user.selected_courses
-      - if courses.blank?
-        .course-blank
-          你目前没有选中任何课程
+      - if current_user.is_student?
+        - courses = current_user.selected_courses
+        - if courses.blank?
+          .course-blank
+            你目前没有选中任何课程
 
-      - else
-        - courses.each do |course|
-          = render_cell :course, :smallcard, :course => course, :user => current_user
+        - else
+          - courses.each do |course|
+            = render_cell :course, :smallcard, :course => course, :user => current_user
+
+      - if current_user.is_admin? || current_user.is_manager?
+        - courses = Course.approve_status_with_yes
+        - if courses.blank?
+          .course-blank
+            目前还没有课程
+
+        - else
+          - courses.each do |course|
+            = render_cell :course, :smallcard, :course => course, :user => current_user
+
+      - if current_user.is_teacher?
+        - courses = current_user.courses.approve_status_with_yes
+        - if courses.blank?
+          .course-blank
+            目前还没有通过审批的课程
+
+        - else
+          - courses.each do |course|
+            = render_cell :course, :smallcard, :course => course, :user => current_user
         
   .sidep25
-    %a.select-courses{:href => '/select_course_intents'}
-      %i.icon-ok-sign.icon-white
-      %span 去选课
+    - if current_user.is_student?
+      %a.select-courses{:href => '/select_course_intents'}
+        %i.icon-ok-sign.icon-white
+        %span 去选课
 
-    .pblock
-      .chart
-        %h3.cp 个人学习情况统计
-        .cha
-          .desc
-            .d 课程总数
-            .c= Course.count
-          .page-chart.all-course-read-pie{:data => {:url => "/charts/courses/all_courses_read_pie"}}
+      .pblock
+        .chart
+          %h3.cp 个人学习情况统计
+          .cha
+            .desc
+              .d 课程总数
+              .c= Course.count
+            .page-chart.all-course-read-pie{:data => {:url => "/charts/courses/all_courses_read_pie"}}
 
   .clearfix

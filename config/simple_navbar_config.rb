@@ -12,6 +12,12 @@ SimpleNavbar::Base.config do
       controller :'manage/select_course_intents'
     end
     
+    nav :courses, :url => '/courses' do
+      controller :courses
+      controller :chapters
+      controller :course_wares
+    end
+
     nav :teacher_surveys_manage, :url => '/manage/surveys' do
       controller :'manage/surveys'
       controller :'manage/survey_results'
@@ -31,6 +37,12 @@ SimpleNavbar::Base.config do
       controller :'manage/select_course_intents'
     end
 
+    nav :courses, :url => '/courses' do
+      controller :courses
+      controller :chapters
+      controller :course_wares
+    end
+
     nav :announcements, :url => '/manage/announcements' do
       controller :'manage/announcements'
       controller :announcements
@@ -48,6 +60,12 @@ SimpleNavbar::Base.config do
 
     nav :select_course, :url => '/manage/select_course_intents' do
       controller :'manage/select_course_intents'
+    end
+
+    nav :courses, :url => '/courses' do
+      controller :courses
+      controller :chapters
+      controller :course_wares
     end
 
     nav :announcements, :url => '/announcements' do

@@ -7,7 +7,7 @@ class Question < ActiveRecord::Base
   include QuestionVote::QuestionMethods
   
   attr_accessible :title, :content, :ask_to_user_id, :creator, :best_answer,
-                  :course, :chapter, :course_ware, :reward
+                  :course, :chapter, :course_ware, :reward, :course_id
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :ask_to, :class_name => 'User', :foreign_key => :ask_to_user_id

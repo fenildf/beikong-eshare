@@ -3,8 +3,7 @@
 
 = simple_form_for @question do |f|
   = f.input :title, :as => :text, :input_html => {:rows => 3, :class => :xxlarge}, :label => '问题'
-  = f.input :content, :as => :text, :input_html => {:rows => 5, :class => :xxlarge}, :label => '问题描述'
-  / = f.association :chapter
-  / = f.association :ask_to
+  = f.input :content, :as => :text, :input_html => {:rows => 6, :class => :xxlarge}, :label => '问题详细描述'
+  = f.input :course_id
   = f.button :submit, :class => 'success'
   %a.btn.cancel{:href => "/questions"}= t('common.form.cancel')

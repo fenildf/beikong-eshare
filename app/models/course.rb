@@ -119,6 +119,8 @@ class Course < ActiveRecord::Base
     :conditions => ['approve_status = ?', Course::APPROVE_STATUS_YES]
   scope :approve_status_with_no,
     :conditions => ['approve_status = ?', Course::APPROVE_STATUS_NO]
+  scope :approve_status_with_not_yes,
+    :conditions => ['approve_status <> ?', Course::APPROVE_STATUS_YES]
 
   # 设置 approve_status 默认值
   before_validation :set_default_approve_status

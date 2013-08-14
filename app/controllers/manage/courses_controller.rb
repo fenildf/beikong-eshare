@@ -9,7 +9,7 @@ class Manage::CoursesController < ApplicationController
     authorize! :manage, Course
 
     if current_user.is_manager?
-      @courses = Course.page(params[:page])
+      @courses = Course.approve_status_with_not_yes.page(params[:page])
       return
     end
 

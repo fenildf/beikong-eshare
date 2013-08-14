@@ -2416,6 +2416,10 @@ img.page-avatar {
         margin-bottom:20px;
       }
 
+      .info {
+        margin-bottom:20px;
+      }
+
       .desc {
         margin-bottom:20px;
 
@@ -2849,6 +2853,22 @@ img.page-avatar {
   .course-questions-stat{
     background-color:#fcfcfc;
     color:#666;
+  }
+
+  a.ask {
+    height:50px;line-height:50px;
+    margin-bottom:20px;
+    font-size:16px;
+    display:block;
+    background-color:#DF6840;
+    color:white;
+    text-align:center;
+    @include border-radius(3px);
+    font-weight:bold;
+    &:hover {
+      background-color:#e68b6c;
+      text-decoration:none;
+    }
   }
 }
 
