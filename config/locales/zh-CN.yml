@@ -2,9 +2,9 @@ zh-CN:
   simple-navbar:
     admin:
       home: 首页
-      users_manage: 用户登记
+      users_manage: 用户管理
       categories_manage: 分类管理
-      select_course: 选课管理
+      select_course: 学生申请
       teacher_surveys_manage: 教师评价
       team_manage: 班级登记
 
@@ -15,12 +15,12 @@ zh-CN:
     teacher:
       courses_manage: 课程申报
       teams: 班级信息
-      select_course: 选课管理
+      select_course: 学生申请
       announcements: 公告查看
 
     manager:
       courses_check: 课程审批
-      select_course: 选课管理
+      select_course: 学生申请
       announcements: 公告发布
 
     student:

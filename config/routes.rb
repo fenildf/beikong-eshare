@@ -284,6 +284,7 @@ Eshare::Application.routes.draw do
       get :users_rank
       get :questions
       get :notes
+      get :chs
     end
 
     collection do

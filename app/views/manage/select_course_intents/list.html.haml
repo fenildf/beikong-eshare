@@ -1,12 +1,13 @@
 - content_for :header do
-  %h1 选课志愿提交情况 - #{@course.name}
-  .btns
+  .btns.front
     %a.btn.gray-flat{:href => '/manage/select_course_intents'}
       %i.icon-chevron-left
       %span 返回选课统计
-    %a.btn.success-flat{:href => "/manage/select_course_intents/adjust?course=#{@course.id}"}
+  %h1 学生申请提交情况 - #{@course.name}
+  .btns
+    %a.btn.success-flat{:href => "/manage/select_course_intents/adjust?course=#{@course.id}", :title => '进入学生调剂页面，将其他学生调剂到本课程内'}
       %i.icon-retweet.icon-white
-      %span 志愿调剂
+      %span 学生调剂
 
 .page-course-applies
   .stat
@@ -64,12 +65,12 @@
 
         - if hide_batch_btn
           .s
-            目前提交的所有志愿已处理完毕
+            目前所有学生申请已处理完毕
         - else
           .s
             %a.btn.inverse-flat{:href => "/manage/select_course_intents/batch_check_one?course=#{@course.id}", :data => {:method =>:post, :confirm => "将批量处理所有志愿，按照志愿时间先到先得，确定吗？"}} 
               %i.icon-ok.icon-white
-              %span 批量处理志愿
+              %span 一键通过所有申请
 
     .clearfix
 

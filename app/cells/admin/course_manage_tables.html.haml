@@ -2,8 +2,9 @@
   %table.page-data-table.bordered.course
     %tbody
       %tr
-        %td.cover{:rowspan => 4}
-          = fit_image course.cover.versions[:normal].url, :height => 160, :width => 160
+        - if !@user.is_manager?
+          %td.cover{:rowspan => 4}
+            = fit_image course.cover.versions[:normal].url, :height => 160, :width => 160
 
         %th.id ID
         %td.id= course.id
@@ -58,7 +59,7 @@
           - if is_manager
             %a.btn.success-flat.small{:href => "/manage/courses/#{course.id}/check"} 
               %i.icon-check.icon-white
-              %span 审核
+              %span 进入审核
 
           - if is_creator_teacher || is_manager
             %a.btn.success-flat.small{:href => "/manage/courses/#{course.id}/edit"} 

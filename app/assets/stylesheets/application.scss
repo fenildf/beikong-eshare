@@ -284,7 +284,7 @@ body.auth{
   background:url(wallpaper/auth-bg.png);
 
   .page-sign{
-    background-color:rgba(white, 0.3);
+    background-color:rgba(white, 0.6);
     // border-left:solid 1px rgba(black, 0.5);
     // box-shadow:0 0 5px rgba(black, 0.5), 1px 0 1px rgba(white, 0.5) inset;
     position:fixed;
@@ -385,7 +385,7 @@ body.auth{
           box-shadow:none;
           // border:solid 1px rgba(black, 0.4);
           // box-shadow:0 1px 0px rgba(white, 0.3), 0 1px 0px rgba(black, 0.1) inset;
-          background-color:rgba(black, 0.4);
+          background-color:rgba(black, 0.6);
           color:white;
         }
       }
@@ -629,6 +629,13 @@ body.admin, body.app, body.account, body.help, body.error, body.course{
         overflow:hidden;
         font-size:0;line-height:0;
       }
+      .label {
+        height:$h;line-height:$h;
+        width:81px;margin-left:40px;
+        float:left;
+        display:block;
+        font-weight:bold;
+      }
       .sf {
         input{
           margin-bottom:0;
@@ -710,6 +717,11 @@ body.admin, body.app, body.account, body.help, body.error, body.course{
       .btn-group, .btns{
         float:right;
         margin:14px 0 0 0;
+      }
+
+      .btns.front{
+        float:left;
+        margin-right:20px;
       }
     }
 
@@ -2873,6 +2885,11 @@ img.page-avatar {
           i  {opacity:1;}
         }
       }
+    }
+
+    a.course-link.back {
+      border-top:solid 1px #E7E7E7;
+      background-color:#FCFCFC;
     }
 
     .user-card{
@@ -5373,6 +5390,7 @@ form .input.page-form-tag-inputer {
   height:20px;line-height:20px;
   padding:0 10px;
   display: inline-block;
+  font-weight:bold;
 
   &.waiting {
     background-color:#f1f1f1;

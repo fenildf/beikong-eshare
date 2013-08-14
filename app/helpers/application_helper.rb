@@ -173,7 +173,7 @@ module ApplicationHelper
       :student => '学生',
       :teacher => '老师',
       :admin => '网络管理员',
-      :manager => '教务领导'
+      :manager => '教学处/教研室'
     }
 
     user.roles.map {|role|
@@ -274,25 +274,25 @@ module ApplicationHelper
     if course.selected_users.include?(user)
       if course.intent_student_users.include?(user)
         return capture_haml {
-          haml_tag 'span.page-course-select-status.pass', '选中'
+          haml_tag 'span.page-course-select-status.pass', '申请成功'
         }
       end
 
       return capture_haml {
-        haml_tag 'span.page-course-select-status.pass', '调剂选中'
+        haml_tag 'span.page-course-select-status.pass', '调剂成功'
       }
 
     end
 
     if course.be_reject_selected_users.include?(user)
       return capture_haml {
-        haml_tag 'span.page-course-select-status.reject', '审核未通过'
+        haml_tag 'span.page-course-select-status.reject', '申请未过'
       }
     end
 
     if course.intent_student_users.include?(user)
       return capture_haml {
-        haml_tag 'span.page-course-select-status.wait', '等待志愿分配'
+        haml_tag 'span.page-course-select-status.wait', '等待处理'
       }
     end
 

@@ -1,8 +1,5 @@
 .page-course-show
   = render_cell :course, :header, :course => @course
-
-  .checkins
-    = render_cell :course, :checkin, :user => current_user, :course => @course
       
   = render_cell :course, :navbar, :course => @course
 
