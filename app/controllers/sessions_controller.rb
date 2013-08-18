@@ -5,7 +5,7 @@ class SessionsController < Devise::SessionsController
     end
 
     case controller.action_name
-    when 'new'
+    when 'new', 'new_xuanke', 'new_eshare'
       return 'auth'
     end
   }
@@ -13,6 +13,16 @@ class SessionsController < Devise::SessionsController
   def new
     super
     # 在这里添加其他逻辑
+  end
+
+  def new_xuanke
+    @for = :xuanke
+    self.new
+  end
+
+  def new_eshare
+    @for = :eshare
+    self.new
   end
 
   def create

@@ -24,6 +24,11 @@ Eshare::Application.routes.draw do
                        :registrations => :account,
                        :sessions => :sessions
                      }
+  devise_scope :user do 
+    get '/xk/sign_in' => 'sessions#new_xuanke'
+    get '/eshare/sign_in' => 'sessions#new_eshare'
+  end
+
 
   devise_scope :user do
     get 'account/avatar' => 'account#avatar'

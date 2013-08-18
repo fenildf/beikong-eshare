@@ -4,7 +4,11 @@
       = f.input :login, :placeholder => '用户名', :required => true
       = f.input :password, :required => true, :placeholder => '密码', :required => true
     .form-actions
-      = f.button :submit, t('common.sign-in'), :class => 'large sign-in'
+      - if :xuanke == @for
+        = f.button :submit, '登录选课系统', :class => 'large sign-in'
+      - else
+        = f.button :submit, '登录在线课程', :class => 'large sign-in'
+
     .remember
       = f.input :remember_me, :as => :boolean
     .clearfix
