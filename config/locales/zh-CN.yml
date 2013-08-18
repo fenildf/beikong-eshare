@@ -23,10 +23,14 @@ zh-CN:
       courses: 课程中心
 
     student:
-      dashboard: 动态
+      select_course: 选课中心
       courses: 我的课程
-      disk: 文件
-      tags: 标签
+      teacher-surveys: 教师评价
+      announcements: 公告查看
+
+    student_eshare:
+      courses: 我的课程
+      dashboard: 动态
       user: 个人
       questions: 问答
 

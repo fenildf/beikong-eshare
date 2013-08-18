@@ -9,6 +9,11 @@ class SelectCourseIntentsController < ApplicationController
     end
   }
 
+  before_filter :set_subsystem
+  def set_subsystem
+    @subsystem = :xuanke
+  end  
+
   def index
     @courses = Course.approve_status_with_yes
   end

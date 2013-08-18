@@ -98,6 +98,27 @@ SimpleNavbar::Base.config do
     end
   end
 
+  rule :student_eshare do
+    nav :courses, :url => '/courses' do
+      controller :courses
+      controller :chapters
+      controller :course_wares
+    end
+
+    nav :dashboard, :url => '/dashboard' do
+      controller :index, :only => :dashboard
+    end
+
+    nav :user, :url => '/users/me' do
+      controller :users
+      controller :friends
+    end
+
+    nav :questions, :url => '/questions' do
+      controller :questions
+    end
+  end
+
   # ------------------------
 
   rule :account do

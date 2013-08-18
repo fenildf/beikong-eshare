@@ -2,14 +2,12 @@
 
 - content_for :javascript do
   = javascript_include_tag '/highcharts/js/highcharts'
-  = render_cell :layout, :google_analytics_code if R::INTERNET
 
 !!!
 - simple_page_layout title, :html_lang => :zh, :body_class => 'app' do
-  = render_cell :layout, :topnav, :user => current_user
+  = render_cell :layout, :topnav, :user => current_user, :for => @subsystem
   = render_cell :layout, :searchbar, :user => current_user
-  = render_cell :layout, :sidebar, :user => current_user
-  / = render_cell :chat, :chatbar, :user => current_user
+  = render_cell :layout, :sidebar, :user => current_user, :for => @subsystem
 
   .page-layout-application
     .page-content.grids-style

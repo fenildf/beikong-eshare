@@ -29,6 +29,7 @@ class LayoutCell < Cell::Rails
 
   def sidebar(opts = {})
     @user = opts[:user]
+    @for = opts[:for]
     render
   end
 
