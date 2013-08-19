@@ -9,6 +9,11 @@ class Manage::SelectCourseIntentsController < ApplicationController
     end
   }
 
+  before_filter :set_subsystem
+  def set_subsystem
+    @subsystem = :xuanke
+  end  
+
   def index
     @courses = CourseIntent.intent_course_ranking
 

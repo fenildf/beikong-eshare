@@ -5,6 +5,11 @@ class Manage::CoursesController < ApplicationController
     return 'manage'
   end
   
+  before_filter :set_subsystem
+  def set_subsystem
+    @subsystem = :xuanke
+  end  
+
   def index
     authorize! :manage, Course
 
