@@ -7,6 +7,7 @@ class LayoutCell < Cell::Rails
 
   def topnav(opts = {})
     @user = opts[:user]
+    @for = opts[:for]
     render
   end
 
