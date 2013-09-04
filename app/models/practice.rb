@@ -19,6 +19,10 @@ class Practice < ActiveRecord::Base
   validates :title, :chapter, :creator, :presence => true
 
 
+  scope :by_creator, lambda{|creator| :creator => creator }
+  scope :by_course, lambda{|course| joins(:chapters).where('chapters.course_id = ?', course) }
+
+
   def submit_by_user(user)
     self.records.create(
       :practice => self,
@@ -29,11 +33,13 @@ class Practice < ActiveRecord::Base
   end
 
 
-  def check_by_user(user)
+  def check_by_user(user, score,comment)
     practice_record = _get_record_by_user(user)
 
     practice_record.status = PracticeRecord::Status::CHECKED
     practice_record.checked_at = Time.now
+    practice_record.score = score
+    practice_record.comment = comment
     practice_record.save
   end
 
@@ -48,12 +54,39 @@ class Practice < ActiveRecord::Base
     _get_record_by_user(user).status == PracticeRecord::Status::CHECKED
   end
 
+  def in_submitted_offline_of_user?(@user)
+    return false if _empty_records_by_user?(user)
+    _get_record_by_user(user).status == PracticeRecord::Status::SUBMITTED_OFFLINE
+  end
+
   def submitted_time_by_user(user)
     _get_record_by_user(user).submitted_at
   end
 
   def checked_time_by_user(user)
     _get_record_by_user(user).checked_at
+  end
+
+
+  def submitted_users
+    practice.records.where(:status => PracticeRecord::Status::SUBMITTED).map do |r|
+      r.users
+    end
+  end
+
+  def checked_users
+    practice.records.where(:status => PracticeRecord::Status::CHECKED).map do |r|
+      r.users
+    end
+  end
+
+  def submittd_offline_by_user(user, submit_desc)
+    practice_record = _get_record_by_user(user)
+    practice_record.status = PracticeRecord::Status::SUBMITTED_OFFLINE
+    practice_record.submit_desc = submit_desc
+    practice_record.is_submitted_offline = true
+    practice_record.submitted_offline_at = Time.now
+    practice_record.save
   end
 
   private

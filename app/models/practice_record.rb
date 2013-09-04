@@ -2,6 +2,7 @@ class PracticeRecord < ActiveRecord::Base
   class Status
     SUBMITTED   = 'SUBMITTED'
     CHECKED   = 'CHECKED'
+    SUBMITTED_OFFLINE = 'SUBMITTED_OFFLINE'
   end
 
   attr_accessible :practice, :user, :submitted_at, :checked_at, :status
