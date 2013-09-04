@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class FileEntity < ActiveRecord::Base
   include FileEntityConvertMethods
+  include FileEntityDownload
 
   if Rails.env == 'test'
     file_part_upload :path => File.join(R::UPLOAD_BASE_PATH, 'files/test/:class/:id/:name'),

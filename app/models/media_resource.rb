@@ -6,6 +6,7 @@ class MediaResource < ActiveRecord::Base
   include MediaResourceCrudMethods
   include MediaResourceCategoryMethods
   include MediaResourceTipMethods
+  include MediaResourceDownload
   include MediaShare::MediaResourceMethods
   simple_taggable
 
