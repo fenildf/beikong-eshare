@@ -78,9 +78,11 @@ describe Practice do
       describe '批阅习题' do
         before {
           @time = Time.now
+          @score = 60
+          @comment = 'test'
 
           Timecop.travel(@time) do
-            @practice.check_by_user(@user)
+            @practice.check_by_user(@user, @score, @comment)
           end
           
         }
@@ -92,6 +94,19 @@ describe Practice do
         it "批阅时间正确" do
           @practice.checked_time_by_user(@user).to_i.should == @time.to_i
         end
+      end
+
+
+      describe "线下提交" do
+        before {
+          @submit_desc = 'test desc'
+          @practice.submittd_offline_by_user(@user, @submit_desc)
+        }
+
+        it "已经在线下提交" do
+          @practice.in_submitted_offline_of_user?(@user).should == true
+        end
+
       end
       
     end
@@ -184,6 +199,61 @@ describe Practice do
     end
 
     
+
+  end
+
+
+
+  describe "创建课程习题" do
+    before {
+      @user = FactoryGirl.create(:user)
+
+      @course = FactoryGirl.create(:course)
+      @chapter = FactoryGirl.create(:chapter, :course => @course)
+      @practice = FactoryGirl.create(:practice, :creator => @user)
+    }
+
+    it "创建习题" do
+      expect{
+        Practice.by_creator(@user).by_course(@course)
+      }.to change{Practice.count}.by(1)
+    end
+
+    it "习题还未有任何提交" do
+      @practice.records.count.should == 0
+    end
+
+    describe "学生提交作业" do
+      before {
+        @student1 = FactoryGirl.create(:user)
+        @student2 = FactoryGirl.create(:user)
+
+        @practice.submit_by_user(@student1)
+        @practice.submit_by_user(@student2)
+      }
+
+      it "学生列表" do
+        @practice.submitted_users.should == [@student1, @student2]
+      end
+
+      it "完成作业的学生列表" do
+        @practice.checked_users.should == nil
+      end
+
+      describe "学生完成作业" do
+        before {
+          @score = 60
+          @comment = 'hello comment'
+          @practice.check_by_user(@student1, @score, @comment)
+        }
+
+        it "完成作业的学生列表" do
+          @practice.checked_users.should == [@student2]
+        end
+
+      end
+
+    end
 
   end
 
