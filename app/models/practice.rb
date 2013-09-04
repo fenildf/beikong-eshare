@@ -19,7 +19,7 @@ class Practice < ActiveRecord::Base
   validates :title, :chapter, :creator, :presence => true
 
 
-  scope :by_creator, lambda{|creator| :creator => creator }
+  scope :by_creator, lambda{|creator| where(:creator => creator) }
   scope :by_course, lambda{|course| joins(:chapters).where('chapters.course_id = ?', course) }
 
 
@@ -54,7 +54,7 @@ class Practice < ActiveRecord::Base
     _get_record_by_user(user).status == PracticeRecord::Status::CHECKED
   end
 
-  def in_submitted_offline_of_user?(@user)
+  def in_submitted_offline_of_user?(user)
     return false if _empty_records_by_user?(user)
     _get_record_by_user(user).status == PracticeRecord::Status::SUBMITTED_OFFLINE
   end
