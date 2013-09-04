@@ -248,6 +248,7 @@ describe Practice do
       before {
         @student1 = FactoryGirl.create(:user)
         @student2 = FactoryGirl.create(:user)
+        @student3 = FactoryGirl.create(:user)
 
         @practice.submit_by_user(@student1)
         @practice.submit_by_user(@student2)
