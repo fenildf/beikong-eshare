@@ -215,4 +215,5 @@ class User < ActiveRecord::Base
   include Report::UserMethods
   include CourseScore::UserMethods
   include CourseIntent::UserMethods
+  include CourseWare::UserMethods
 end
