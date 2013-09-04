@@ -73,6 +73,10 @@ describe Practice do
         @practice.checked_time_by_user(@user).blank?.should == true
       end
 
+      it "在线下提交 false" do
+        @practice.in_submitted_offline_of_user?(@user).should == false
+      end
+
 
       describe '批阅习题' do
         before {
@@ -93,6 +97,14 @@ describe Practice do
         it "批阅时间正确" do
           @practice.checked_time_by_user(@user).to_i.should == @time.to_i
         end
+
+        it "score" do
+          @practice.get_record_by_user(@user).score.should == @score
+        end
+
+        it "comment" do
+          @practice.get_record_by_user(@user).comment.should == @comment
+        end
       end
 
 
@@ -104,6 +116,10 @@ describe Practice do
 
         it "已经在线下提交" do
           @practice.in_submitted_offline_of_user?(@user).should == true
+        end
+
+        it "submit_desc" do
+          @practice.get_record_by_user(@user).submit_desc.should == @submit_desc
         end
 
       end
@@ -209,14 +225,23 @@ describe Practice do
       @practice = FactoryGirl.create(:practice, :creator => @user)
     }
 
-    it "创建习题" do
-      expect{
-        Practice.by_creator(@user).by_course(@course)
-      }.to change{Practice.count}.by(1)
-    end
-
     it "习题还未有任何提交" do
       @practice.records.count.should == 0
+    end
+
+    it "习题数量" do
+      Practice.by_creator(@user).by_course(@course).count.should == 0
+    end
+
+    describe "在某个课程下创建习题" do
+      before {
+        @chapter = FactoryGirl.create(:chapter, :course => @course)
+        @practice = FactoryGirl.create(:practice, :creator => @user, :chapter => @chapter)
+      }
+
+      it "习题数量" do
+        Practice.by_creator(@user).by_course(@course).count.should == 1
+      end
     end
 
     describe "学生提交作业" do
@@ -233,7 +258,7 @@ describe Practice do
       end
 
       it "完成作业的学生列表" do
-        @practice.checked_users.should == nil
+        @practice.checked_users.should == []
       end
 
       describe "学生完成作业" do
@@ -244,7 +269,7 @@ describe Practice do
         }
 
         it "完成作业的学生列表" do
-          @practice.checked_users.should == [@student2]
+          @practice.checked_users.should == [@student1]
         end
 
       end
