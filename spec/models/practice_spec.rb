@@ -5,7 +5,6 @@ describe Practice do
   describe "创建单一习题" do
 
     before {
-
       @user = FactoryGirl.create(:user)
 
       @chapter = FactoryGirl.create(:chapter)
@@ -116,7 +115,6 @@ describe Practice do
 
   end
 
-
   describe "创建习题时连同创建多个附件" do
     before {
       @user = FactoryGirl.create(:user)
@@ -203,7 +201,6 @@ describe Practice do
   end
 
 
-=begin
   describe "创建课程习题" do
     before {
       @user = FactoryGirl.create(:user)
@@ -255,6 +252,5 @@ describe Practice do
     end
 
   end
-=end
   
 end
