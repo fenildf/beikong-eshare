@@ -122,6 +122,8 @@ class Course < ActiveRecord::Base
   scope :approve_status_with_not_yes,
     :conditions => ['approve_status <> ?', Course::APPROVE_STATUS_YES]
 
+  scope :of_creator, lambda { |creator| where(:creator_id => creator.id) }
+
   # 设置 approve_status 默认值
   before_validation :set_default_approve_status
   def set_default_approve_status

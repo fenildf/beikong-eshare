@@ -1,5 +1,8 @@
 .page-sidebar
   - if @user.present?
+    .avatar
+      = avatar_link @user
+      
     - if @user.is_admin?
       = simple_navbar :admin, :as_list, :with_icon
 

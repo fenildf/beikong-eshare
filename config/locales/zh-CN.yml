@@ -10,11 +10,21 @@ zh-CN:
       courses: 课程中心
 
     teacher:
-      courses_manage: 课程申报
-      teams: 班级信息
-      select_course: 学生申请
-      announcements: 公告查看
+      index: 首页 
+      course_design: 课程编排
+      course_ware_upload: 上传课件
+      file_upload: 文件共享
+      new_practice: 布置作业
+      check_practice: 检查作业
+      course_scores: 成绩登记
+      stat: 统计信息
+      new_announcements: 发布公告
+      announcements: 查看公告
+      my_teams: 我的班级
+      course_submit: 课程申报
       courses: 课程中心
+      questions: 在线答疑
+      friends: 好友关注
 
     manager:
       courses_check: 课程审批

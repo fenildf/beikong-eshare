@@ -25,7 +25,7 @@
       .teachers
         %b 其他任课教师：
         %span= other_teachers_names
-        %a.btn.success-flat.add.mini{:href => 'javascript:;', :title => '点击添加其他教师'}
+        %a.btn.success.add.mini{:href => 'javascript:;', :title => '点击添加其他教师'}
           %i.icon-plus.icon-white
         %input.teacher_ids{:name => 'teacher_ids', :type => :hidden, :value => other_teachers_ids}
 
@@ -51,8 +51,8 @@
       = f.input :cover, :as => :file
 
   .form-actions
-    = f.button :submit, submit_label, :class => 'success-flat'
-    %a.btn.cancel.gray-flat{:href => '/manage/courses'}= t('common.form.cancel')
+    = f.button :submit, submit_label, :class => 'success'
+    %a.btn.cancel.gray{:href => '/manage/courses'}= t('common.form.cancel')
 
 
 .page-teacher-selector-overlay{:style => 'display:none;'}

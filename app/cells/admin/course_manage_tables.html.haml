@@ -62,13 +62,12 @@
               %span 进入审核
 
           - if is_creator_teacher || is_manager
-            %a.btn.success-flat.small{:href => "/manage/courses/#{course.id}/edit"} 
-              %i.icon-edit.icon-white
+            %a.btn.gray.small{:href => "/manage/courses/#{course.id}/edit"} 
+              %i.icon-edit
               %span 修改
-            %a.btn.danger-flat.small.delete{:href => "javascript:;", :data => {:url => "/manage/courses/#{course.id}"}} 
+            %a.btn.danger.small.delete{:href => "javascript:;", :data => {:url => "/manage/courses/#{course.id}"}} 
               %i.icon-trash.icon-white
               %span 删除
-
-          / %a.btn.success-flat.small{:href => 'javascript:;'} 
-          /   %i.icon-list-alt.icon-white
-          /   %span 选课管理
+            %a.btn.inverse.small.design{:href => "/manage/courses/#{course.id}"}
+              %i.icon-book.icon-white
+              %span 章节编排

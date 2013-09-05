@@ -1,15 +1,12 @@
 class Manage::CoursesController < ApplicationController
   before_filter :authenticate_user!
-  layout :get_layout
-  def get_layout
-    return 'manage'
-  end
   
   before_filter :set_subsystem
   def set_subsystem
     @subsystem = :xuanke
-  end  
+  end
 
+  # 课程申报
   def index
     authorize! :manage, Course
 
@@ -18,7 +15,7 @@ class Manage::CoursesController < ApplicationController
       return
     end
 
-    @courses = Course.where(:creator_id => current_user.id).page(params[:page])
+    @courses = Course.of_creator(current_user).page(params[:page])
   end
 
   def new
