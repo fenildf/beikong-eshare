@@ -38,7 +38,7 @@ module FileEntityConvertMethods
   end
 
   def kind_need_convert?
-    self.is_ppt? || self.is_pdf?
+    self.is_ppt? || self.is_pdf? || self.is_doc?
   end
 
   # 判断物理上是否可以进行转码
