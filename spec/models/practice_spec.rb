@@ -19,7 +19,7 @@ describe Practice do
     end
 
     it "习题还未有任何提交" do
-      @practice.records.count.should == 0
+      @practice.created_records.count.should == 0
     end
 
     it "应该还没提交" do
@@ -66,11 +66,11 @@ describe Practice do
       end
 
       it "提交时间正确" do
-        @practice.submitted_time_by_user(@user).to_i.should == @time.to_i
+        @practice.get_record_by_user(@user).submitted_at.to_i.should == @time.to_i
       end
 
       it "批阅时间为空" do
-        @practice.checked_time_by_user(@user).blank?.should == true
+        @practice.get_record_by_user(@user).checked_at.blank?.should == true
       end
 
       it "在线下提交 false" do
@@ -95,7 +95,7 @@ describe Practice do
         end
 
         it "批阅时间正确" do
-          @practice.checked_time_by_user(@user).to_i.should == @time.to_i
+          @practice.get_record_by_user(@user).checked_at.to_i.should == @time.to_i
         end
 
         it "score" do
@@ -226,7 +226,7 @@ describe Practice do
     }
 
     it "习题还未有任何提交" do
-      @practice.records.count.should == 0
+      @practice.created_records.count.should == 0
     end
 
     it "习题数量" do
@@ -260,6 +260,10 @@ describe Practice do
 
       it "完成作业的学生列表" do
         @practice.checked_users.should == []
+      end
+
+      it "线下完成作业的学生列表" do
+        @practice.submitted_offline_users.should == []
       end
 
       describe "学生完成作业" do
