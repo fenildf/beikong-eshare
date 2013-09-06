@@ -192,8 +192,16 @@ Eshare::Application.routes.draw do
       end
     end
     
+    resources :course_wares, :shallow => true do
+      collection do
+        get :get_select_widget
+      end
+    end
+
     resources :courses, :shallow => true do
       collection do
+        get :design # 课程编排
+
         get :download_import_sample
         get :import
         post :do_import
@@ -220,22 +228,11 @@ Eshare::Application.routes.draw do
         end
 
         resources :course_wares, :shallow => true do
-          collection do
-            get :import_javascript_course_ware
-            post :do_import_javascript_course_ware
-          end
-
           member do
             put :move_up
             put :move_down
             put :do_convert
             get :export_json
-          end
-
-          resources :javascript_steps, :shallow => true do
-            member do
-              get :form_html
-            end
           end
         end
       end

@@ -1,31 +1,20 @@
 - content_for :header do
-  = render_cell :manage_courses_breadcrumb, :display, :model => @chapter
+  = render_cell :manage_courses_breadcrumb, :design, :model => @chapter
 
   .btns
-    %a.btn.gray-flat{:href => "/manage/chapters/#{@chapter.id}/edit"}
+    %a.btn.gray{:href => "/manage/chapters/#{@chapter.id}/edit"}
       %i.icon-edit
       %span= t('common.edit')
 
-    .down-btns
-      %a.btn.down.success-flat{:href => 'javascript:;'}
-        %i.icon-chevron-down.icon-white
-        %span 增加课件
-
-      .menu
-        %a.btn.success-flat{:href => "/manage/chapters/#{@chapter.id}/course_wares/new"}
-          %i.icon-plus.icon-white
-          %span 一般课件
-        %a.btn.success-flat{:href => "/manage/chapters/#{@chapter.id}/course_wares/new?for=web_video"}
-          %i.icon-plus.icon-white
-          %span 增加网络视频
-        - if R::INTERNET
-          %a.btn.success-flat{:href => "/manage/chapters/#{@chapter.id}/course_wares/new?for=javascript"}
-            %i.icon-plus.icon-white
-            %span 增加 js 教程
-          %a.btn.success-flat{:href => "/manage/chapters/#{@chapter.id}/course_wares/import_javascript_course_ware"}
-            %i.icon-plus.icon-white
-            %span 导入 js 教程
+    %a.btn.success{:href => "/manage/chapters/#{@chapter.id}/course_wares/new"}
+      %i.icon-plus.icon-white
+      %span 上传课件
 
 .page-manage-chapter-show
+  - if flash[:success]
+    .pblock.success
+      %i.icon-ok
+      %span= flash[:success]
+
   .pblock.table
     = render_cell :course_ware, :manage_table, :course_wares => @course_wares

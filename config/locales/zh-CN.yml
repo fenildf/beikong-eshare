@@ -329,6 +329,10 @@ zh-CN:
         first_intent: 第一志愿
         second_intent: 第二志愿
         third_intent: 第三志愿
+        chapters_count: 章节数
+        course_wares_count: 课件数
+        approved: 申报状态
+        cover: 课程封面
 
 
       chapters:

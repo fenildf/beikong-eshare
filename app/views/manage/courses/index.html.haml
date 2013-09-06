@@ -10,19 +10,23 @@
     %h1 课程审批
 
 .page-manage-courses
-  .pblock.desc
-    - c1 = Course.of_creator(current_user).count
-    - c2 = Course.of_creator(current_user).approve_status_with_yes.count
+  - if @courses.blank?
+    .pblock.desc
+      你还没有申报任何课程，请通过顶部按钮发起新课程申报
 
-    发起课程申报并等待领导审批。目前你已申报 #{c1} 项课程，其中 #{c2} 项课程通过审核
+  - else
+    .pblock.desc
+      - c1 = Course.of_creator(current_user).count
+      - c2 = Course.of_creator(current_user).approve_status_with_yes.count
 
-  - if msg = flash[:success]
-    .pblock.success
-      %i.icon-ok
-      %span= msg
+      发起课程申报并等待领导审批。目前你已申报 #{c1} 项课程，其中 #{c2} 项课程通过审核
 
+    - if msg = flash[:success]
+      .pblock.success
+        %i.icon-ok
+        %span= msg
 
-  .courses-tables
-    = render_cell :admin, :course_manage_tables, :courses => @courses, :user => current_user
+    .courses-tables
+      = render_cell :admin, :course_manage_tables, :courses => @courses, :user => current_user
 
-  = paginate @courses
+    = paginate @courses

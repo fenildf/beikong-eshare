@@ -72,6 +72,12 @@ class Manage::CoursesController < ApplicationController
     redirect_to :action => :index, :q => cookies[:last_course_filter]
   end
 
+  # -----------------------------
+
+  def design
+    @courses = Course.of_creator(current_user).page(params[:page])
+  end
+
   def download_import_sample
     authorize! :manage, Course
     send_file Course.get_sample_excel_course, :filename => 'course_sample.xlsx'

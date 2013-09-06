@@ -63,7 +63,8 @@ SimpleNavbar::Base.config do
 
     # 课程编排
     nav :course_design, :url => '/manage/courses/design' do
-      controller :'manage/courses', :only => [:design]
+      controller :'manage/courses', :except => [:index, :new, :edit]
+      controller :'manage/chapters'
     end
 
     # 上传课件

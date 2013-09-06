@@ -51,4 +51,9 @@ class CourseWareCell < Cell::Rails
     @chapters = opts[:chapters]
     render
   end
+
+  def chapter_select(opts = {})
+    @course = opts[:course]
+    render
+  end
 end
