@@ -1,0 +1,16 @@
+.pblock.table
+  = page_data_table(:courses, @courses, :striped, :bordered) do |table|
+    - table.add_column(:cover) do |course|
+      = fit_image course.cover.versions[:normal].url, :height => 50, :width => 50
+    - table.add_column(:name) do |course|
+      = link_to course.name, course
+    - table.add_column(:chapters_count) do |course|
+      = course.chapters.count
+    - table.add_column(:course_wares_count) do |course|
+      = course.course_wares.count
+    - table.add_column(:approved) do |course|
+      = course_approve_status_label course
+    - table.add_column(:ops) do |course|
+      %a.btn.inverse.small.design{:href => "/manage/courses/#{course.id}"}
+        %i.icon-book.icon-white
+        %span 开始编排

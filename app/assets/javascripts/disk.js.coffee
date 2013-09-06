@@ -110,13 +110,19 @@ jQuery ->
       file.uploader_item.mark_success() if file.uploader_item
 
       setTimeout ->
-        jQuery('.page-course-ware-form .linked')
-          .slideDown()
-          .find('.name').html(file.file_name)
-        jQuery('.page-course-ware-form .course-ware-upload')
-          .show()
-          .find('span').html('重新上传')
+        jQuery('form a.btn.course-ware-upload').hide()
       , 700
+  }
+
+  # 作业附件上传
+  new PageFileUploader jQuery('.page-file-uploader'), {
+    url : '/upload'
+    multiple : false
+    button : jQuery('a.btn.practice-attach-upload')
+
+    on_file_success : (file) ->
+      jQuery('input.file').val file.file_entity_id
+      file.uploader_item.mark_success() if file.uploader_item
   }
 
 # ------------------------

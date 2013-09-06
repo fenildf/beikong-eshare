@@ -2,38 +2,51 @@ zh-CN:
   simple-navbar:
     admin:
       home: 首页
-      users_manage: 用户登记
+      users_manage: 用户管理
       categories_manage: 分类管理
-      select_course: 选课管理
+      select_course: 学生申请
       teacher_surveys_manage: 教师评价
       team_manage: 班级登记
-
-      #INTERNET
-      user_opinions_view: 反馈意见 
-      site_changes: 更新记录
+      courses: 课程中心
 
     teacher:
-      courses_manage: 课程申报
-      teams: 班级信息
-      select_course: 选课管理
-      announcements: 公告查看
+      index: 首页 
+      course_design: 课程编排
+      course_ware_upload: 上传课件
+      file_upload: 文件共享
+      new_practice: 布置作业
+      check_practice: 检查作业
+      course_scores: 成绩登记
+      stat: 统计信息
+      new_announcements: 发布公告
+      announcements: 查看公告
+      my_teams: 我的班级
+      course_submit: 课程申报
+      courses: 课程中心
+      questions: 在线答疑
+      friends: 好友关注
 
     manager:
       courses_check: 课程审批
-      select_course: 选课管理
+      select_course: 学生申请
       announcements: 公告发布
+      courses: 课程中心
 
     student:
+      select_course: 选课中心
+      courses: 我的课程
+      teacher-surveys: 教师评价
+      announcements: 公告查看
+
+    student_eshare:
+      courses: 我的课程
       dashboard: 动态
-      courses: 课程
-      disk: 文件
-      tags: 标签
       user: 个人
       questions: 问答
 
       learning_plan: 计划
       teacher-surveys: 教师评价
-      select_course: 选课
+      select_course: 选课中心
       announcements: 公告查看
 
     account:
@@ -137,6 +150,10 @@ zh-CN:
         title: 公告标题
         content: 公告内容
 
+      practice:
+        title: 作业标题
+        content: 作业要求
+
     errors:
       models:
         course:
@@ -151,6 +168,14 @@ zh-CN:
               blank: 必须填写课程简介
             syllabus:
               blank: 必须填写课程大纲
+            lesson_hour:
+              blank: 必须填写课时
+            credit:
+              blank: 必须填写学分
+            least_user_count:
+              blank: 必须填写最小人数
+            most_user_count:
+              blank: 必须填写最大人数
 
         chapter:
           attributes:
@@ -288,6 +313,7 @@ zh-CN:
         status: 选课状态
         ops: 操作
         wish: 对当前课程的志愿
+        total_credit: 当前学分
 
       courses:
         id: ID
@@ -303,10 +329,14 @@ zh-CN:
         select_apply_status: 选课情况
         least_user_count: 最小人数
         most_user_count: 最大人数
-        total_intent: 志愿总数
+        total_intent: 申请总数
         first_intent: 第一志愿
         second_intent: 第二志愿
         third_intent: 第三志愿
+        chapters_count: 章节数
+        course_wares_count: 课件数
+        approved: 申报状态
+        cover: 课程封面
 
 
       chapters:
@@ -376,6 +406,12 @@ zh-CN:
         status: 评价状态
         ops: 操作
         count: 已提交问卷数
+
+      practices:
+        course: 课程
+        chapter: 章节
+        title: 作业标题
+        ops: 操作
 
   devise:
     failure:

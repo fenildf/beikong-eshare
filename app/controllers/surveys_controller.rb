@@ -10,6 +10,11 @@ class SurveysController < ApplicationController
     end
   }
 
+  before_filter :set_subsystem
+  def set_subsystem
+    @subsystem = :xuanke
+  end  
+
   def index
     @surveys = Survey.page params[:page]
   end

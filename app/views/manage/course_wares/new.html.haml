@@ -1,49 +1,62 @@
 - content_for :header do
-  = render_cell :manage_courses_breadcrumb, :form, :model => @course_ware
+  = render_cell :manage_courses_breadcrumb, :design_form, :model => @course_ware
 
 .page-course-ware-form
-  .pblock.form
-    - if R::INTERNET && @for_javascript
-      .for 现在你正在添加一个 javascript 编程教程，先创建教程后才能编辑教程具体内容
-      = simple_form_for @course_ware, :url => "/manage/chapters/#{@chapter.id}/course_wares" do |f|
-        .form-inputs
-          = f.input :title, :input_html => {:class => 'xxlarge'}
-          = f.input :desc, :input_html => {:rows => 6, :class => 'xxlarge'}
-          = f.input :kind, :as => :hidden, :input_html => {:value => 'javascript'}
-        .form-actions
-          = f.button :submit, :class => 'success'
-          %a.btn.cancel{:href => "/manage/chapters/#{@chapter.id}"}= t('common.form.cancel')
+  :ruby
+    chcount = Course.of_creator(current_user).sum { |c|
+      c.chapters.count
+    }
 
-    - else
-      = simple_form_for @course_ware, :url => "/manage/chapters/#{@chapter.id}/course_wares" do |f|
-        .form-inputs
-          = f.input :title, :input_html => {:class => 'xxlarge'}
-          = f.input :desc, :input_html => {:rows => 6, :class => 'xxlarge'}
 
-          - if @for_web_video # 网络视频
-            :ruby
-              s = [
-                ['优酷 YOUKU', 'youku'], 
-                ['新浪视频 SINA', 'sina'],
-                ['土豆视频 TUDOU', 'tudou']
-              ]
+  - if chcount == 0
+    .pblock.desc
+      %span 你还没有创建任何课程章节，请先通过
+      %a.btn.inverse{:href => '/manage/courses/design'} 课程编排
+      %span 来创建课程章节，然后才能上传课件
 
-            = f.input :kind, :collection => s, :label => '网络视频来源', :prompt => nil
-            = f.input :url, :label => '视频网址 URL', :input_html => {:class => 'xxlarge', :placeholder => 'http://'}
+  - else
 
-          - else
+    .pblock.form
+      :ruby
+        if @chapter
+          url = "/manage/chapters/#{@chapter.id}/course_wares"
+        else
+          url = "/manage/course_wares"
+        end
+
+      = simple_form_for @course_ware, :url => url do |f|
+        - if !@chapter
+          .chapter-select
+            .s-course
+              %label 请先选择课程与章节
+              %select.course-id
+                %option{:value => 0} 请选择课程
+                - Course.of_creator(current_user).each do |c|
+                  %option{:value => c.id}
+                    #{c.name}(共#{c.chapters.count}章)
+            .s-chapter{:style => 'display:none;'}
+              %label 选择章节
+              %select.chapter-id{:name => :chapter_id}
+
+        .datas{:style => @chapter.nil? ? 'display:none;' : ''}
+          .form-inputs
+            = f.input :title, :input_html => {:class => 'xxlarge'}
+            = f.input :desc, :input_html => {:rows => 6, :class => 'xxlarge'}
+
             = f.input :file_entity_id, :as => :hidden
-
             .file
               .linked{:style => 'display:none;'}
                 .desc 附件文件：
                 .name
               .upload
                 - page_file_uploader
-                %a.btn.primary.course-ware-upload{:href => 'javascript:;'} 
+                %a.btn.inverse.course-ware-upload{:href => 'javascript:;'} 
                   %i.icon-upload.icon-white
                   %span 上传文件
 
-        .form-actions
-          = f.button :submit, :class => 'success'
-          %a.btn.cancel{:href => "/manage/chapters/#{@chapter.id}"}= t('common.form.cancel')
+          .form-actions
+            = f.button :submit, :class => 'success'
+            - if @chapter
+              %a.btn.cancel{:href => "/manage/chapters/#{@chapter.id}"}= t('common.form.cancel')
+            - else
+              %a.btn.cancel{:href => "/"}= t('common.form.cancel')

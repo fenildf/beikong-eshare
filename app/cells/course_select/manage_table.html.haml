@@ -2,28 +2,8 @@
   - table.add_column :name do |user|
     = user_link user
 
-  - table.add_column :wish do |user|
-    - if user.course_intent(:first) == @course
-      第一志愿
-    - elsif user.course_intent(:second) == @course
-      第二志愿
-    - elsif user.course_intent(:third) == @course
-      第三志愿
-    - else
-      无
-
-  / - table.add_column :first do |user|
-  /   - if user.course_intent(:first) == @course
-  /     .has-intent
-  /       %i.icon-ok
-  / - table.add_column :second do |user|
-  /   - if user.course_intent(:second) == @course
-  /     .has-intent
-  /       %i.icon-ok
-  / - table.add_column :third do |user|
-  /   - if user.course_intent(:third) == @course
-  /     .has-intent
-  /       %i.icon-ok
+  - table.add_column :total_credit do |user|
+    = user.selected_courses.sum{|c| c.credit || 0}
 
   - table.add_column :status do |user|
     = course_select_status_label user, @course
@@ -31,7 +11,7 @@
   - table.add_column :ops do |user|
     %a.btn.mini.success-flat.accept{:href => 'javascript:;', :data => {:'user-id' => user.id, :'course-id' => @course.id}} 
       %i.icon-ok.icon-white
-      %span 批准
+      %span 通过
     %a.btn.mini.danger-flat.reject{:href => 'javascript:;', :data => {:'user-id' => user.id, :'course-id' => @course.id}} 
       %i.icon-ban-circle.icon-white
-      %span 拒绝
+      %span 不通过

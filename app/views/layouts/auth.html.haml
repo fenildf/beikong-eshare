@@ -1,13 +1,12 @@
 - content_for :javascript do
   = javascript_include_tag '/pjax/jquery.pjax'
-  = render_cell :layout, :google_analytics_code if R::INTERNET
 
 !!!
-- simple_page_layout 'MINDPIN EduShare', :html_lang => :zh, :body_class => 'auth' do
-  - if R::INTERNET
-    = page_wallpaper '/assets/wallpaper/auth-wallpaper.jpg'
-  - if R::INHOUSE
-    = page_wallpaper '/assets/wallpaper/auth-wallpaper-inhouse.jpg'
+- simple_page_layout 'EduShare', :html_lang => :zh, :body_class => 'auth' do
+  - if :xuanke == @for
+    = page_wallpaper '/assets/wallpaper/auth-wallpaper-inhouse-xk.jpg'
+  - else
+    = page_wallpaper '/assets/wallpaper/auth-wallpaper-inhouse-es.jpg'
 
   .page-content
     = yield

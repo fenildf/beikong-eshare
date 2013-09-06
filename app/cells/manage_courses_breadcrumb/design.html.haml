@@ -1,0 +1,31 @@
+- ftitle = '课程编排'
+
+- case @model
+  - when nil
+    .page-manage-courses-breadcrumb
+      %ul.page-breadcrumb
+        %li.active= ftitle
+
+  - when Course
+    :ruby
+      course = @model
+    .page-manage-courses-breadcrumb
+      %ul.page-breadcrumb
+        %li
+          %a{:href => '/manage/courses/design'}= ftitle
+          %span.divider /
+        %li.active= course.name
+
+  - when Chapter
+    :ruby
+      chapter = @model
+      course = chapter.course
+    .page-manage-courses-breadcrumb
+      %ul.page-breadcrumb
+        %li
+          %a{:href => '/manage/courses/design'}= ftitle
+          %span.divider /
+        %li
+          %a{:href => "/manage/courses/#{course.id}"}= course.name
+          %span.divider /
+        %li.active= chapter.title

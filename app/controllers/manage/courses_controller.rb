@@ -1,19 +1,21 @@
 class Manage::CoursesController < ApplicationController
   before_filter :authenticate_user!
-  layout :get_layout
-  def get_layout
-    return 'manage'
-  end
   
+  before_filter :set_subsystem
+  def set_subsystem
+    @subsystem = :xuanke
+  end
+
+  # 课程申报
   def index
     authorize! :manage, Course
 
     if current_user.is_manager?
-      @courses = Course.page(params[:page])
+      @courses = Course.approve_status_with_not_yes.page(params[:page])
       return
     end
 
-    @courses = Course.where(:creator_id => current_user.id).page(params[:page])
+    @courses = Course.of_creator(current_user).page(params[:page])
   end
 
   def new
@@ -30,8 +32,9 @@ class Manage::CoursesController < ApplicationController
     authorize! :manage, Course
 
     @course = current_user.courses.build(params[:course])
-    if @course.save
-      @course.replace_public_tags(params[:course_tags], current_user)
+    if @course.save 
+      @course.set_teacher_users params[:teacher_ids]
+      # @course.replace_public_tags(params[:course_tags], current_user)
       flash[:success] = '课程申报已经创建'
       return redirect_to :action => :index
     end
@@ -42,8 +45,9 @@ class Manage::CoursesController < ApplicationController
     @course = Course.find params[:id]
     authorize! :manage, @course
 
-    if @course.update_attributes(params[:course]) && 
-      @course.replace_public_tags(params[:course_tags], current_user)
+    if @course.update_attributes(params[:course])
+      @course.set_teacher_users params[:teacher_ids]
+      # @course.replace_public_tags(params[:course_tags], current_user)
       flash[:success] = '课程申报修改成功'
       return redirect_to :action => :index
     end
@@ -66,6 +70,12 @@ class Manage::CoursesController < ApplicationController
     end
 
     redirect_to :action => :index, :q => cookies[:last_course_filter]
+  end
+
+  # -----------------------------
+
+  def design
+    @courses = Course.of_creator(current_user).page(params[:page])
   end
 
   def download_import_sample

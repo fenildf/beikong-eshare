@@ -1,9 +1,5 @@
 class Manage::ChaptersController < ApplicationController
   before_filter :authenticate_user!
-  layout :get_layout
-  def get_layout
-    return 'manage'
-  end
   
   def show
     @chapter = Chapter.find params[:id]

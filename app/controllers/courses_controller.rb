@@ -5,10 +5,8 @@ class CoursesController < ApplicationController
   
   layout Proc.new { |controller|
     case controller.action_name
-    when 'show', 'users_rank', 'questions', 'notes'
+    when 'show', 'users_rank', 'questions', 'notes', 'chs'
       return 'course_show'
-    when 'index', 'sch_select'
-      return 'grid'
     else
       return 'application'
     end
@@ -26,6 +24,9 @@ class CoursesController < ApplicationController
   end
 
   def show
+    if params[:index].blank?
+      return redirect_to :action => :questions
+    end
   end
 
   def manage
@@ -90,5 +91,8 @@ class CoursesController < ApplicationController
 
   def notes
     @notes = @course.notes.page params[:page]
+  end
+
+  def chs
   end
 end

@@ -1,7 +1,8 @@
 class AccountCell < Cell::Rails
   helper :application
 
-  def sign_in_form
+  def sign_in_form(opts = {})
+    @for = opts[:for]
     render
   end
 
@@ -14,7 +15,8 @@ class AccountCell < Cell::Rails
     render
   end
 
-  def sign_logo
+  def sign_logo(opts = {})
+    @for = opts[:for]
     render
   end
 end

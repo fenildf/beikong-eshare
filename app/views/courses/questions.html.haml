@@ -8,6 +8,10 @@
         %h3 总共 #{@course.questions.count} 个提问
         = render_cell :questions, :gridlist, :user => current_user, :questions => @questions
   .sidep33
+    %a.btn.success-flat.ask{:href => "/questions/new?course_id=#{@course.id}"} 
+      %i.icon-plus.icon-white
+      %span 发起提问
+
     .pblock.course-questions-stat
       .cpart
         .st

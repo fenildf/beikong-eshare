@@ -172,8 +172,8 @@ module ApplicationHelper
     rrr = {
       :student => '学生',
       :teacher => '老师',
-      :admin => '系统管理员',
-      :manager => '教务领导'
+      :admin => '网络管理员',
+      :manager => '教学处/教研室'
     }
 
     user.roles.map {|role|
@@ -272,26 +272,53 @@ module ApplicationHelper
   # 返回 选中 未选中 等待志愿分配 未申请 四种状态
   def course_select_status_label(user, course)
     if course.selected_users.include?(user)
+      if course.intent_student_users.include?(user)
+        return capture_haml {
+          haml_tag 'span.page-course-select-status.pass', '申请成功'
+        }
+      end
+
       return capture_haml {
-        haml_tag 'span.page-course-select-status.pass', '选中'
+        haml_tag 'span.page-course-select-status.pass', '调剂成功'
       }
+
     end
 
     if course.be_reject_selected_users.include?(user)
       return capture_haml {
-        haml_tag 'span.page-course-select-status.reject', '未选中'
+        haml_tag 'span.page-course-select-status.reject', '申请未过'
       }
     end
 
     if course.intent_student_users.include?(user)
       return capture_haml {
-        haml_tag 'span.page-course-select-status.wait', '等待志愿分配'
+        haml_tag 'span.page-course-select-status.wait', '等待处理'
       }
     end
 
     return capture_haml {
       haml_tag 'span.page-course-select-status.no', '未申请'
     }
+  end
+
+  def course_intent_stat_label(course)
+      min = course.least_user_count
+      max = course.most_user_count
+      count = course.intent_student_count
+
+      if count == 0
+        return '无人选'
+      end
+
+      if min && count < min
+        return '人数过少'
+      end
+
+      if max && count > max
+        return '人数过多'
+      end
+
+      return '人数适合'
   end
 
   def course_selected_stat_label(course)

@@ -1,0 +1,56 @@
+$sidebar-width:100px;  
+.page-sidebar {
+  background-color:white;
+  position:fixed;
+  width:$sidebar-width;
+  margin-top:0;
+  margin-right:20px;
+  top:31px;left:0px;bottom:0;
+  z-index:3;
+  border-right:solid 1px #DDDDDD;
+  padding-top:10px;
+
+  .avatar {
+    padding:0 0 10px 10px;
+    img {
+      width:60px;height:60px;
+    }
+  }
+
+  .page-navlist {
+    .nav {
+      @include border-radius(0 !important);
+      a {
+        @include border-radius(0 !important);
+        border:0 none !important;
+        color:#555;
+
+        i {
+          float:left !important;
+          margin:2px 5px 0 -6px !important;
+        }
+
+        &:hover{color:#555;}
+        &:hover {
+          i {opacity:0.75 !important;}
+        }
+      }
+      .active a {
+        background-color:#f4f4f4 !important;
+        color:#333 !important;
+        box-shadow:none !important;
+        text-shadow:none !important;
+        padding:8px 14px !important;
+
+        i {background-image:url(/assets/compoents/glyphicons-halflings.png) !important;}
+      }
+    }
+  }
+
+}
+
+body.admin { 
+  .page-sidebar {
+    top:30px;
+  }
+}

@@ -1,0 +1,17 @@
+- content_for :header do
+  = render_cell :manage_courses_breadcrumb, :design, :model => @course
+
+.page-courses-design
+  - if @courses.blank?
+    .pblock.desc
+      %span 你目前还没有发起任何课程申报，你需要在
+      %a.btn.inverse.small{:href => '/manage/courses'} 课程申报页
+      %span 申报新的课程
+
+  - else
+    .pblock.desc
+      - c1 = Course.of_creator(current_user).count
+      你目前负责 #{c1} 项课程，你可以在这里对课程进行章节编排
+
+    .courses-tables
+      = render_cell :admin, :course_manage_design_tables, :courses => @courses, :user => current_user
