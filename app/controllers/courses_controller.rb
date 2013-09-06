@@ -7,8 +7,6 @@ class CoursesController < ApplicationController
     case controller.action_name
     when 'show', 'users_rank', 'questions', 'notes', 'chs'
       return 'course_show'
-    when 'index', 'sch_select'
-      return 'grid'
     else
       return 'application'
     end

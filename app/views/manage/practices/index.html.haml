@@ -1,0 +1,24 @@
+- content_for :header do
+  %h1 检查作业
+
+.page-manage-homeworks
+  .pblock.desc
+    %b= current_user.name
+    %span 老师你好，你可以在这里检查学生的作业完成情况。
+
+  .pblock.table
+    = page_data_table(:practices, @practices, :striped, :bordered) do |table|
+      - table.add_column :course do |p|
+        = course_link p.chapter.course
+      - table.add_column :chapter do |p|
+        = p.chapter.title
+      - table.add_column :title
+      - table.add_column :submit_count do |p|
+        = p.submitted_users.count
+      - table.add_column :ops do |p|
+        %a.btn.inverse.small.design{:href => "/manage/practices/#{p.id}/edit"}
+          %i.icon-pencil.icon-white
+          %span 修改
+        %a.btn.inverse.small.design{:href => "/manage/practices/#{p.id}"}
+          %i.icon-ok.icon-white
+          %span 检查

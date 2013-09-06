@@ -15,11 +15,16 @@
       你还没有申报任何课程，请通过顶部按钮发起新课程申报
 
   - else
-    .pblock.desc
-      - c1 = Course.of_creator(current_user).count
-      - c2 = Course.of_creator(current_user).approve_status_with_yes.count
+    - if current_user.is_teacher?
+      .pblock.desc
+        - c1 = Course.of_creator(current_user).count
+        - c2 = Course.of_creator(current_user).approve_status_with_yes.count
 
-      发起课程申报并等待领导审批。目前你已申报 #{c1} 项课程，其中 #{c2} 项课程通过审核
+        发起课程申报并等待领导审批。目前你已申报 #{c1} 项课程，其中 #{c2} 项课程通过审核
+
+    - if current_user.is_manager?
+      .pblock.desc
+        查看课程信息，并进行审批。审批通过的课程将进入课程中心。
 
     - if msg = flash[:success]
       .pblock.success

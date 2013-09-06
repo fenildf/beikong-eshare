@@ -1,37 +1,43 @@
+- content_for :header do
+  %h1 课程中心
+
 .page-courses-index
-  .mainp75
+  .pblock.desc
+    这里列出了所有已经开放的线上课程，共 #{Course.approve_status_with_yes.count} 项课程
+
+  .mainp75{:style => 'margin-top:5px;padding-right:0;'}
     .all-courses
-      - if current_user.is_student?
-        - courses = current_user.selected_courses
-        - if courses.blank?
-          .course-blank
-            你目前没有选中任何课程
+      - courses = Course.approve_status_with_yes.page(params[:page])
+      - if courses.blank?
+        .course-blank
+          目前还没有课程
 
-        - else
-          - courses.each do |course|
-            = render_cell :course, :smallcard, :course => course, :user => current_user
-
-      - if current_user.is_admin? || current_user.is_manager?
-        - courses = Course.approve_status_with_yes
-        - if courses.blank?
-          .course-blank
-            目前还没有课程
-
-        - else
-          - courses.each do |course|
-            = render_cell :course, :smallcard, :course => course, :user => current_user
-
-      - if current_user.is_teacher?
-        - courses = current_user.courses.approve_status_with_yes
-        - if courses.blank?
-          .course-blank
-            目前还没有通过审批的课程
-
-        - else
-          - courses.each do |course|
-            = render_cell :course, :smallcard, :course => course, :user => current_user
+      - else
+        - courses.each do |course|
+          = render_cell :course, :smallcard, :course => course, :user => current_user
+        .clearfix
+        .paginate= paginate courses
         
-  .sidep25
+  .sidep25{:style => 'margin-top:5px;'}
+    - if current_user.is_teacher?
+      .pblock.teacher-func
+        .ddesc
+          %b= current_user.name
+          %span 老师你好，你可以通过课程中心对目前系统中的公开课程进行浏览，也可以快速访问下列课程功能。
+
+        :ruby
+          funcs = [
+            {:title => '课程申报', :desc => '申报新课程，提交给领导进行审核', :link => '/manage/courses'},
+            {:title => '课程编排', :desc => '编排课程下的章节内容，对编排好的课程进行预览', :link => '/manage/courses/design'},
+            {:title => '上传课件', :desc => '给指定的课程上传 PPT/PDF 等课件', :link => '/manage/course_wares/new'},
+          ]
+
+        .funcs
+          - funcs.each do |f|
+            .func
+              %a.title{:href => f[:link]}= f[:title]
+              .desc= f[:desc]
+
     - if current_user.is_student?
       %a.select-courses{:href => '/select_course_intents'}
         %i.icon-ok-sign.icon-white

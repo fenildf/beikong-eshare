@@ -74,16 +74,17 @@ SimpleNavbar::Base.config do
 
     # 课程中心
     nav :courses, :url => '/courses' do
+      controller :courses
     end
 
     # 布置作业
     nav :new_practice, :url => '/manage/practices/new' do
-      controller :'manage/practices'
+      controller :'manage/practices', :only => [:new]
     end
 
     # 检查作业
     nav :check_practice, :url => '/manage/practices' do
-      controller :'manage/practices'
+      controller :'manage/practices', :except => [:new] 
     end
 
     # 成绩登记

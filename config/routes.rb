@@ -181,6 +181,10 @@ Eshare::Application.routes.draw do
       end
     end
 
+    resources :practices, :shallow => true do
+      
+    end
+
     resources :select_course_intents, :shallow => true do
       collection do
         get :list

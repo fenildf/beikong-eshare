@@ -15,8 +15,10 @@ jQuery ->
           @show_chapter(course_id)
 
       @form.delegate 'select.chapter-id', 'change', =>
-        chapter_id = @$course_select.val()
+        chapter_id = @$chapter_select.val()
+        console.log chapter_id
         if chapter_id == '0'
+          console.log 1
           @form.find('.datas').slideUp()
         else
           @form.find('.datas').slideDown()
@@ -45,3 +47,4 @@ jQuery ->
 
 
   new CourseWareChapterSelector jQuery('.page-course-ware-form form')
+  new CourseWareChapterSelector jQuery('.page-manage-practice-new form')

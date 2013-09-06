@@ -1,0 +1,35 @@
+- content_for :header do
+  %h1 布置作业
+
+.page-manage-practice-new
+  .pblock.desc
+    %b= current_user.name
+    %span 老师你好，你可以在这里为学生布置作业。
+
+  .pblock.form
+    = simple_form_for @practice, :url => '/manage/practices' do |f|
+      .chapter-select
+        .s-course
+          %label 请先选择课程与章节
+          %select.course-id
+            %option{:value => 0} 请选择课程
+            - Course.of_creator(current_user).each do |c|
+              %option{:value => c.id}
+                #{c.name}(共#{c.chapters.count}章)
+        .s-chapter{:style => 'display:none;'}
+          %label 选择章节
+          %select.chapter-id{:name => :chapter_id}
+
+      .datas{:style => 'display:none;'}
+        .form-inputs
+          = f.input :title
+          = f.input :content, :input_html => {:rows => 6, :class => 'xxlarge'}
+
+          %input.file{:name => :file_entity_id, :type => :hidden}
+          - page_file_uploader
+          %a.btn.inverse.practice-attach-upload{:href => 'javascript:;'} 
+            %i.icon-upload.icon-white
+            %span 上传附件
+
+        .form-actions{:style => 'margin-top:20px;'}
+          = f.button :submit, '确定创建', :class => 'success'

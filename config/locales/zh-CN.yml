@@ -150,6 +150,10 @@ zh-CN:
         title: 公告标题
         content: 公告内容
 
+      practice:
+        title: 作业标题
+        content: 作业要求
+
     errors:
       models:
         course:
@@ -402,6 +406,12 @@ zh-CN:
         status: 评价状态
         ops: 操作
         count: 已提交问卷数
+
+      practices:
+        course: 课程
+        chapter: 章节
+        title: 作业标题
+        ops: 操作
 
   devise:
     failure:

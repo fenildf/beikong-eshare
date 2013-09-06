@@ -1561,6 +1561,11 @@ body.coding {
       background:lighten(#81B0F6, 10%) !important;
     }
   }
+
+  &.block {
+    display:block;
+    margin-bottom:10px;
+  }
 }
 
 // ------------
@@ -1966,7 +1971,7 @@ img.page-avatar {
     a.course-link {
       display:block;
       background:white;
-      margin:0 5px;
+      margin:0 10px 0 0;
       margin-bottom:10px;
       @include border-radius(3px);
       box-shadow:0 1px 0 #e7e7e7;
@@ -2156,6 +2161,17 @@ img.page-avatar {
         background-color:#f4f4f4;
         text-decoration:none;
       }
+    }
+  }
+
+  .teacher-func {
+    .ddesc {
+      margin-bottom:20px;
+    }
+
+    .funcs .func {
+      margin-bottom:20px;
+      a.title {font-weight:bold;}
     }
   }
 }
@@ -3375,7 +3391,18 @@ img.page-avatar {
       margin-right:20px;
     }
   }
+}
 
+.page-manage-practice-new {
+  .chapter-select {
+    margin-bottom:20px;
+    overflow:hidden;
+
+    .s-course, .s-chapter {
+      float:left;
+      margin-right:20px;
+    }
+  }
 }
 
 .page-manage-chapter-show, .page-manage-course-show {
