@@ -2,8 +2,6 @@ class AnnouncementsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :pre_load
 
-  layout 'grid'
-
   before_filter :set_subsystem
   def set_subsystem
     @subsystem = :xuanke

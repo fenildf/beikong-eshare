@@ -322,6 +322,19 @@ class Course < ActiveRecord::Base
       hash
     end
 
+    def course_weekdays_stat_debug
+      hash = Hash.new Hash.new
+
+      12.times do |m|
+        0.upto 6 do |w|
+          hash[m][w] = rand(10) + rand(50)
+        end
+      end
+
+      hash[:max] = 60
+      hash
+    end
+
     # 统计已学的，未学的，正在学的课程的个数
     def course_read_stat
       sql = %~

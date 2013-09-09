@@ -411,7 +411,15 @@ zh-CN:
         course: 课程
         chapter: 章节
         title: 作业标题
+        submit_count: 已提交人数
+        checked_count: 已检查人数
         ops: 操作
+
+      practice_students:
+        name: 学生姓名
+        ops: 操作
+        status: 作业完成状态
+        score: 作业评分
 
   devise:
     failure:

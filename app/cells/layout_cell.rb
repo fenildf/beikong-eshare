@@ -58,4 +58,10 @@ class LayoutCell < Cell::Rails
     @user = opts[:user]
     render
   end
+
+  def file_uploader(opts = {})
+    @name = opts[:name] || 'file_entity_id'
+    @multi = opts[:multi] || false
+    render
+  end
 end

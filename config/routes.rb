@@ -9,6 +9,7 @@ Eshare::Application.routes.draw do
   get '/dashboard' => 'index#dashboard'
   get '/plan' => 'index#plan'
   get '/teacher_home' => 'index#teacher_home'
+  get '/admin_home' => 'index#admin_home'
 
   # install
   get '/install' => 'install#index'

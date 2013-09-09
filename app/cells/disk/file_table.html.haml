@@ -1,0 +1,15 @@
+= page_data_table(:files, @media_resources, :striped, :bordered) do |table|
+  - table.add_column(:name) do |mr|
+    = link_to "/disk/file?path=#{mr.path}" do
+      %i.icon-file
+      %span= mr.name
+
+  - table.add_column(:size_str)
+  - table.add_column(:fileops_time)
+  - table.add_column(:ops) do |mr|
+    %a.btn.gray.mini.look{:href => "/disk/file?path=#{mr.path}"}
+      %i.icon-download
+      %span 下载
+    %a.btn.danger.mini.delete{:href => 'javascript:;', :data => {:url => "/disk?path=#{mr.path}"}}
+      %i.icon-trash.icon-white
+      %span 删除

@@ -1,0 +1,26 @@
+- content_for :header do
+  %h1
+    %a{:href => '/manage/practices'} 检查作业
+    %span /
+    %span= @practice.title
+
+:ruby
+  @student_users = User.with_role(:student).page params[:page]
+
+.page-practice-manage-show
+  .pblock.table
+    = page_data_table(:practice_students, @student_users, :striped, :bordered) do |table|
+      - table.add_column :name do |u|
+        = avatar_link u, :small
+        = user_link u
+
+      - table.add_column :status do |u|
+        - ['已完成', '已完成'][rand(2) - 1]
+
+      - table.add_column :score do |u|
+        = rand(40) + 60
+
+      - table.add_column :ops do |u|
+        %a.btn.inverse.small.design{:href => "/practices/#{@practice.id}/check?user_id=#{u.id}"}
+          %i.icon-ok.icon-white
+          %span 查看详细

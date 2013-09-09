@@ -93,8 +93,8 @@ SimpleNavbar::Base.config do
     end
 
     # 文件共享
-    nav :file_upload, :url => '/files/upload' do
-      controller :files
+    nav :file_upload, :url => '/disk' do
+      controller :disk
     end
 
     # 在线答疑
