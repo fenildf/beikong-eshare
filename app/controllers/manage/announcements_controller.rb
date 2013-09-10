@@ -2,8 +2,6 @@ class Manage::AnnouncementsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :pre_load
 
-  layout 'grid'
-
   def pre_load
     @announcement = Announcement.find(params[:id]) if params[:id]
   end

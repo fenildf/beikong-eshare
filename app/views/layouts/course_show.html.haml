@@ -7,7 +7,6 @@
 !!!
 - simple_page_layout title, :html_lang => :zh, :body_class => 'course' do
   = render_cell :layout, :topnav, :user => current_user
-  = render_cell :layout, :searchbar, :user => current_user
 
   .page-layout-course-show
     = render_cell :course, :sidebar, :course => @course, :user => current_user

@@ -33,21 +33,19 @@ zh-CN:
       courses: 课程中心
 
     student:
-      select_course: 选课中心
-      courses: 我的课程
-      teacher-surveys: 教师评价
+      index: 学生首页
+      select_course: 在线选课
+      courses: 课程中心
+      practices: 课程作业
+      file_upload: 文件共享
+      questions: 在线提问
+      friends: 好友关注
+      dashboard: 公共动态
       announcements: 公告查看
-
-    student_eshare:
-      courses: 我的课程
-      dashboard: 动态
-      user: 个人
-      questions: 问答
-
-      learning_plan: 计划
       teacher-surveys: 教师评价
-      select_course: 选课中心
-      announcements: 公告查看
+      user: 个人主页
+      my_teams: 我的班级
+      stat: 统计信息
 
     account:
       edit: 基础信息设置
@@ -381,6 +379,7 @@ zh-CN:
         ops: 操作
         for_role: 针对角色
         readed: 是否已读
+        updated_at: 公告时间
 
 
       categories:
@@ -414,6 +413,7 @@ zh-CN:
         submit_count: 已提交人数
         checked_count: 已检查人数
         ops: 操作
+        submitted: 是否已提交
 
       practice_students:
         name: 学生姓名

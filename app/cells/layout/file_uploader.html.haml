@@ -2,9 +2,9 @@
   %input{:name => @name, :type => :hidden}
   .file
 
-    .linked{:style => 'display:none;'}
-      .desc 附件文件：
-      .name
+    .linked{:style => @uploaded_file_name ? '' : 'display:none;'}
+      .fjdesc 附件文件：
+      .name= @uploaded_file_name || ''
 
     .upload
 
@@ -20,9 +20,9 @@
       .foot
         %a.btn.inverse.addfile{:href => 'javascript:;'} 
           %i.icon-upload.icon-white
-          %span 上传文件
+          %span= @uploaded_file_name ? '重新上传' : '上传文件'
 
         - if @multi
-          %span.desc 你可以一次选择多个文件上传
+          %span.spandesc 你可以一次选择多个文件上传
         - else
-          %span.desc 选择一个文件上传
+          %span.spandesc 选择一个文件上传

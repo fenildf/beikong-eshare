@@ -25,7 +25,7 @@ class CoursesController < ApplicationController
 
   def show
     if params[:index].blank?
-      return redirect_to :action => :questions
+      return redirect_to :action => :chs
     end
   end
 

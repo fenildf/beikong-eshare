@@ -10,10 +10,13 @@ class IndexController < ApplicationController
     return redirect_to "/admin_home" if current_user.is_admin?
     return redirect_to "/teacher_home" if current_user.is_teacher?
     return redirect_to "/manage/courses" if current_user.is_manager?
-    return redirect_to "/select_course_intents" if current_user.is_student?
+    return redirect_to "/student_home" if current_user.is_student?
   end
 
   def teacher_home
+  end
+
+  def student_home
   end
 
   def dashboard

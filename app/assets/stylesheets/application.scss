@@ -207,6 +207,11 @@ body {
     &.form {
       padding-bottom:20px;
     }
+
+    hr {
+      border-top:dashed 1px #e7e7e7 !important;
+    }
+
   }
   .pblock.table {
     padding:0;
@@ -1607,7 +1612,14 @@ body.coding {
 }
 
 .page-file-show {
-  width:700px;
+  .attrs {
+    margin-bottom:20px;
+    .attr {
+      overflow:hidden;
+      .t {float:left;width:100px;text-align:right;}
+      .p {float:left;margin-left:10px;}
+    }
+  }
 }
 
 .page-file-uploader {
@@ -3384,7 +3396,7 @@ img.page-avatar {
   .linked {
     padding:10px;
     border-bottom:dashed 1px rgba(black, 0.3);
-    .desc {margin-bottom:5px;}
+    .fjdesc {margin-bottom:5px;}
     .name {
       font-weight:bold;
     }
@@ -3402,7 +3414,7 @@ img.page-avatar {
 
     .foot {
       .btn.addfile{ margin-bottom:10px; }
-      span.desc {
+      span.spandesc {
         display:inline-block;
         height:30px;line-height:30px;
         margin-left:10px;
@@ -5361,17 +5373,7 @@ form .input.page-form-tag-inputer {
   }
 }
 
-.page-manage-announcements {
-  .pblock.table {
-    margin-top:-16px;
-  }
-}
-
 .page-announcement-show {
-  .pblock.show {
-    margin-top:-16px;
-    padding-bottom:20px;
-  }
 
   .f {
     overflow:hidden;

@@ -33,7 +33,7 @@ class SessionsController < Devise::SessionsController
     if params[:to] == 'xuanke'
       redirect_path = '/'
     else
-      redirect_path = '/courses'
+      redirect_path = '/'
     end
 
     flash[:sign_in_to] = params[:sign_in_to]

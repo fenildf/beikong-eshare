@@ -52,21 +52,22 @@ class CourseWare < ActiveRecord::Base
 
   scope :by_chapter, lambda{|chapter| {:conditions => ['chapter_id = ?', chapter.id]} }
 
-  before_save :process_media_resource
-  def process_media_resource
-    return true if file_entity.blank?
+  # 八中暂不开启此逻辑
+  # before_save :process_media_resource
+  # def process_media_resource
+  #   return true if file_entity.blank?
 
-    if media_resource.blank? || media_resource.file_entity != file_entity
+  #   if media_resource.blank? || media_resource.file_entity != file_entity
 
-      path = "/课件/#{chapter.course.name}/#{file_entity.attach_file_name}"
+  #     path = "/课件/#{chapter.course.name}/#{file_entity.attach_file_name}"
 
-      resource = MediaResource.put_file_entity(creator, path, file_entity)
-      kind = file_entity.content_kind
+  #     resource = MediaResource.put_file_entity(creator, path, file_entity)
+  #     kind = file_entity.content_kind
       
-      self.kind = kind
-      self.media_resource = resource
-    end
-  end
+  #     self.kind = kind
+  #     self.media_resource = resource
+  #   end
+  # end
 
   before_save :set_total_count_by_kind!
   def set_total_count_by_kind!
