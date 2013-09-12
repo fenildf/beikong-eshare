@@ -228,19 +228,19 @@ module ApplicationHelper
 
     if status == 'WAITING'
       return capture_haml {
-        haml_tag 'span.page-course-apprive-status.waiting', '等待审核'
+        haml_tag 'span.state.default.waiting', '等待审核'
       }
     end
 
     if status == 'YES'
       return capture_haml {
-        haml_tag 'span.page-course-apprive-status.yes', '审核通过'
+        haml_tag 'span.state.success.yes', '审核通过'
       }
     end
 
     if status == 'NO'
       return capture_haml {
-        haml_tag 'span.page-course-apprive-status.no', '未通过'
+        haml_tag 'span.state.error.no', '未通过'
       }
     end
   end

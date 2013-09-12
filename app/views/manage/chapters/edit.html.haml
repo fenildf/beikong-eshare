@@ -1,5 +1,10 @@
-- content_for :header do
-  = render_cell :manage_courses_breadcrumb, :design_form, :model => @chapter
+- content_for :header_v2 do
+  %h1
+    %a{:href => '/manage/courses/design'} 课程编排
+    %span /
+    %a{:href => "/manage/courses/#{@chapter.course.id}"}= @chapter.course.name
+    %span /
+    %span 修改章节信息
 
 .pblock.form
   = simple_form_for @chapter, :url => "/manage/chapters/#{@chapter.id}" do |f|
@@ -8,4 +13,4 @@
       = f.input :desc, :input_html => {:rows => 6, :class => :xxlarge}
     .form-actions
       = f.button :submit, :class => 'success'
-      %a.btn.cancel{:href => "/manage/courses/#{@course.id}"}= t('common.form.cancel')
+      %a.btn.cancel{:href => "/manage/chapters/#{@chapter.id}"}= t('common.form.cancel')

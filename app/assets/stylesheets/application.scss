@@ -9,6 +9,9 @@
 
 @import 'mixins';
 @import 'sidebar';
+@import 'listing';
+@import 'header_v2';
+@import 'js_table';
 
 html{
   overflow-x:hidden;
@@ -1339,9 +1342,17 @@ body.coding {
 
 // ------------------------
 
-.btn.mini i, .btn.small i{
-  margin-top:0 !important;
+.link-text {
+  border-bottom:dashed 1px;
+  margin-right:10px;
+
+  color:#444;
+
+  &.danger {
+    color:red;
+  }
 }
+
 .btn {
   &.danger {
     color:#fff !important;
@@ -3298,7 +3309,7 @@ img.page-avatar {
   }
 }
 
-.page-course-form {
+.course-simple-form {
   .form-inputs .creator {
     margin:10px 0 10px;
     padding-bottom:10px;
@@ -3477,6 +3488,23 @@ img.page-avatar {
       padding:0 3px;
       position:relative;top:1px;
       @include border-radius(2px);
+    }
+  }
+}
+
+.page-manage-course-show {
+  .baseinfo {
+    .data {
+      .cover {float:left;margin-right:20px;}
+      .ds {
+        .d {
+          max-width:500px;
+          margin-bottom:5px;
+          overflow:hidden;
+          .t {color:#666;}
+          .v {color:#111;}
+        }
+      }
     }
   }
 }

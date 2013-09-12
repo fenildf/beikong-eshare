@@ -20,7 +20,7 @@
       .foot
         %a.btn.inverse.addfile{:href => 'javascript:;'} 
           %i.icon-upload.icon-white
-          %span= @uploaded_file_name ? '重新上传' : '上传文件'
+          %span= @uploaded_file_name ? '重新上传' : @multi ? '选择文件' : '选择一个文件'
 
         - if @multi
           %span.spandesc 你可以一次选择多个文件上传

@@ -1,0 +1,27 @@
+span.state {
+  height:20px;
+  line-height:20px;
+  display:inline-block;
+
+  background-color:#666;
+  color:white;
+  font-weight:bold;
+  width:70px;
+  text-align:center;
+  font-size:12px;
+
+  @include border-radius(2px);
+  text-shadow:0 1px 1px rgba(0,0,0,0.2);
+
+  &.default {
+    background-color:#666;
+  }
+
+  &.success {
+    background-color:#6CC644;
+  }
+
+  &.error {
+    background-color:#BD2C00;
+  }
+}

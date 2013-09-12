@@ -50,6 +50,16 @@ class CourseCell < Cell::Rails
     render
   end
 
+  def baseinfo(opts = {})
+    @course = opts[:course]
+    render
+  end
+
+  def chapter_baseinfo(opts = {})
+    @chapter = opts[:chapter]
+    render
+  end
+
   def show_chapters(opts = {})
     @course = opts[:course]
     @user = opts[:user]
@@ -85,6 +95,16 @@ class CourseCell < Cell::Rails
   def sch_select_table(opts = {})
     @courses = opts[:courses]
     @user = opts[:user]
+    render
+  end
+
+  def chapter_table_ajax_form(opts = {})
+    @chapter = opts[:chapter]
+    render
+  end
+
+  def course_ware_table_ajax_form(opts = {})
+    @course_ware = opts[:course_ware]
     render
   end
 end

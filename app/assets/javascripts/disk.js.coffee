@@ -120,16 +120,18 @@ jQuery ->
   jQuery('.page-form-file-uploader').each ->
     new FileUploader jQuery(this)
 
+  jQuery(document).on 'mindpin-uploader:new-form-appended', (evt, form)->
+    jQuery(form).find('.page-form-file-uploader').each ->
+      new FileUploader jQuery(this)
+
 # ---------------- 以上是文件上传组件的封装，保证在页面上可以一行代码调用。
 
 # 但是不同的页面有特定的回调逻辑，分别写在下面。解耦之后不会太长。
 
 # 课件上传页面：选择文件后，自动将文件名填写到课件标题栏
 jQuery ->
-  if jQuery('.page-course-ware-form').length > 0
-    jQuery(document).on 'mindpin-file-uploader:added', (evt, file)->
-      $input = jQuery('input#course_ware_title')
-      $input.val(file.file_name) #if $input.val() == ''
+  jQuery(document).on 'mindpin-file-uploader:added', (evt, file)->
+    jQuery('input#course_ware_title').val(file.file_name)
 
 # 资源文件页面：文件上传完毕后，自动触发资源创建逻辑
 jQuery ->

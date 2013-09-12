@@ -1,0 +1,35 @@
+:ruby
+  chapter = @course_ware.chapter
+
+  if chapter
+    url = "/manage/chapters/#{chapter.id}/course_wares"
+  else
+    url = "/manage/course_wares"
+  end
+
+= simple_form_for @course_ware, :remote => true, :url => url do |f|
+  - if !chapter
+    .chapter-select
+      .s-course
+        %label 请先选择课程与章节
+        %select.course-id
+          %option{:value => 0} 请选择课程
+          - Course.of_creator(current_user).each do |c|
+            %option{:value => c.id}
+              #{c.name}(共#{c.chapters.count}章)
+      .s-chapter{:style => 'display:none;'}
+        %label 选择章节
+        %select.chapter-id{:name => :chapter_id}
+
+  .datas{:style => chapter.nil? ? 'display:none;' : ''}
+    .form-inputs
+      = f.input :title, :as => :hidden, :input_html => {:class => 'xxlarge'}
+      = f.input :desc, :as => :hidden, :input_html => {:rows => 6, :class => 'xxlarge'}
+
+      = render_cell :layout, :file_uploader, :name => 'course_ware[file_entity_id]'
+
+    .form-actions
+      %a.btn.success.submit{:href => 'javascript:;'}
+        %i.icon-ok.icon-white
+        %span 确定
+      %a.btn.gray-flat.cancel{:href => 'javascript:;'} 取消

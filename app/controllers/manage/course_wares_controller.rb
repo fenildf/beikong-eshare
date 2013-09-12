@@ -14,6 +14,14 @@ class Manage::CourseWaresController < ApplicationController
     else
       @course_ware = CourseWare.new
     end
+
+    if request.xhr?
+      return render :json => {
+        :html => (
+          render_cell :course, :course_ware_table_ajax_form, :course_ware => @course_ware
+        )
+      }
+    end
   end
 
   def import_javascript_course_ware
@@ -33,7 +41,14 @@ class Manage::CourseWaresController < ApplicationController
     @course_ware = @chapter.course_wares.build(params[:course_ware], :as => :upload)
     @course_ware.creator = current_user
     if @course_ware.save
-      flash[:success] = '课件创建完毕'
+      if request.xhr?
+        return render :json => {
+          :count => @chapter.course_wares.count,
+          :html => (
+            render_cell :course_ware, :manage_table, :course_wares => [@course_ware]
+          )
+        }
+      end
 
       return redirect_to "/manage/chapters/#{@chapter.id}"
     end
@@ -65,7 +80,10 @@ class Manage::CourseWaresController < ApplicationController
     @course_ware.destroy
 
     if request.xhr?
-      return render :json => {:status => 'ok'}
+      return render :json => {
+        :status => 'ok',
+        :count => @chapter.course_wares.count
+      }
     end
 
     return redirect_to "/manage/chapters/#{@chapter.id}"

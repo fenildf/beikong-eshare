@@ -26,6 +26,14 @@ class Manage::CoursesController < ApplicationController
   def edit
     @course = Course.find params[:id]
     authorize! :manage, @course
+
+    if request.xhr?
+      return render :json => {
+        :html => (
+          render_cell :admin, :course_ajax_edit_form, :course => @course, :user => current_user
+        )
+      }
+    end
   end
 
   def create
@@ -47,7 +55,14 @@ class Manage::CoursesController < ApplicationController
 
     if @course.update_attributes(params[:course])
       @course.set_teacher_users params[:teacher_ids]
-      # @course.replace_public_tags(params[:course_tags], current_user)
+      if request.xhr?
+        return render :json => {
+          :html => (
+            render_cell :course, :baseinfo, :course => @course
+          )
+        }
+      end
+
       flash[:success] = '课程申报修改成功'
       return redirect_to :action => :index
     end
