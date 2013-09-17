@@ -8,17 +8,17 @@
   - table.add_column :updated_at
 
   - table.add_column(:ops) do |ch|
-    %a.btn.mini.gray{:href => "/manage/chapters/#{ch.id}/edit"}
+    %a.link-text{:href => "/manage/chapters/#{ch.id}"}
       %i.icon-edit
-      %span= t('common.edit')
+      %span>= t('common.edit')
 
-    %a.btn.mini.danger.delete{:href => 'javascript:;', :data => {:url => "/manage/chapters/#{ch.id}"}}
+    %a.link-text.danger.delete{:href => 'javascript:;', :data => {:url => "/manage/chapters/#{ch.id}"}}
       %i.icon-remove.icon-white
-      %span= t('common.delete')
+      %span>= t('common.delete')
 
   - table.add_column :position do |ch|
-    %a.btn.mini.move-down.updown{:href => 'javascript:;', :data => {:method => :put, :url => "/manage/chapters/#{ch.id}/move_down"}}
+    %a.btn.mini.move-down.updown{:href => 'javascript:;', :title => '向上移动', :data => {:method => :put, :url => "/manage/chapters/#{ch.id}/move_down"}}
       %i.icon-arrow-down
 
-    %a.btn.mini.move-up.updown{:href => 'javascript:;', :data => {:method => :put, :url => "/manage/chapters/#{ch.id}/move_up"}}
+    %a.btn.mini.move-up.updown{:href => 'javascript:;', :title => '向下移动', :data => {:method => :put, :url => "/manage/chapters/#{ch.id}/move_up"}}
       %i.icon-arrow-up

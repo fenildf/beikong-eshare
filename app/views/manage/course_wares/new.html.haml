@@ -43,16 +43,7 @@
             = f.input :title, :input_html => {:class => 'xxlarge'}
             = f.input :desc, :input_html => {:rows => 6, :class => 'xxlarge'}
 
-            = f.input :file_entity_id, :as => :hidden
-            .file
-              .linked{:style => 'display:none;'}
-                .desc 附件文件：
-                .name
-              .upload
-                - page_file_uploader
-                %a.btn.inverse.course-ware-upload{:href => 'javascript:;'} 
-                  %i.icon-upload.icon-white
-                  %span 上传文件
+            = render_cell :layout, :file_uploader, :name => 'course_ware[file_entity_id]'
 
           .form-actions
             = f.button :submit, :class => 'success'

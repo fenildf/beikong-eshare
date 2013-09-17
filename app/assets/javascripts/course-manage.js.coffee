@@ -266,14 +266,18 @@ jQuery ->
       @setup()
 
     setup: ->
-      @$table.delegate 'td a.btn.delete', 'click', ->
+      that = this
+      @$table.delegate 'td a.delete', 'click', ->
         if confirm '确定要删除吗？'
           url = jQuery(this).data('url')
           tr = jQuery(this).closest('tr')
           jQuery.ajax
             url: url
             type: 'DELETE'
-            success: ->
+            success: (res)=>
+              that.$table.trigger 'mindpin-table:line-removed', {
+                count: res.count
+              }
               tr.fadeOut -> tr.remove()
 
   # jQuery('.page-data-table.courses').each ->

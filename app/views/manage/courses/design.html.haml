@@ -1,17 +1,29 @@
-- content_for :header do
-  = render_cell :manage_courses_breadcrumb, :design, :model => @course
+- content_for :header_v2 do
+  %h1 课程编排
+  .desc 
+    %b= current_user.name
+    %span 老师，你好。
+    %span 你可以在这里对由你所负责的课程进行章节编排。
+
+  .btns
+    %a.btn.success{:href => '/manage/courses/new'}
+      %i.icon-plus.icon-white
+      %span 申报新课程
 
 .page-courses-design
   - if @courses.blank?
-    .pblock.desc
-      %span 你目前还没有发起任何课程申报，你需要在
-      %a.btn.inverse.small{:href => '/manage/courses'} 课程申报页
-      %span 申报新的课程
+    .blankslate
+      %span.icon.icon-blackboard
+      %span.icon.icon-books
+      %span.icon.icon-triangle
+      %h3 你目前尚未创建任何课程
+      .desc 
+        %span 你需要先以通过
+        %a{:href => '/manage/courses'} 课程申报
+        %span 来创建新的课程
 
   - else
-    .pblock.desc
-      - c1 = Course.of_creator(current_user).count
-      你目前负责 #{c1} 项课程，你可以在这里对课程进行章节编排
-
     .courses-tables
       = render_cell :admin, :course_manage_design_tables, :courses => @courses, :user => current_user
+
+    .paginate= paginate @courses

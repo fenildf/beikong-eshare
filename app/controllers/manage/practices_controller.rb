@@ -27,4 +27,8 @@ class Manage::PracticesController < ApplicationController
   def index
     @practices = current_user.practices.page params[:page]
   end
+
+  def show
+    @practice = current_user.practices.find params[:id]
+  end
 end

@@ -270,3 +270,7 @@ jQuery ->
 
   jQuery('.page-course-form form .teachers a.add').each ->
     new TeacherSelector jQuery(this)
+
+  jQuery(document).on 'mindpin-uploader:new-form-appended', (evt, form)->
+    jQuery(form).find('.teachers a.add').each ->
+      new TeacherSelector jQuery(this)

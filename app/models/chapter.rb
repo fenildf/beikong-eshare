@@ -18,6 +18,11 @@ class Chapter < ActiveRecord::Base
 
   scope :by_course, lambda{|course| {:conditions => ['course_id = ?', course.id]} }
 
+  before_validation :set_default_value
+  def set_default_value
+    self.title = "无标题章节 - #{Time.now}" if self.title.blank?
+  end
+
   def prev
     self.class.by_course(course).where('position < ?', self.position).last
   end

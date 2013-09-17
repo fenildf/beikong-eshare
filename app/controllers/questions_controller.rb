@@ -4,8 +4,6 @@ class QuestionsController < ApplicationController
   before_filter :pre_load
   layout Proc.new { |controller|
     case controller.action_name
-    when 'index'
-      return 'grid'
     when 'show'
       return 'question_page'
     else

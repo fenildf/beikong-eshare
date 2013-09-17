@@ -2,9 +2,13 @@
   %h1 公告查看
 
 .page-manage-announcements
+  .pblock.desc
+    查看由教务处发布的公告
+
   - if flash[:success]
     .pblock.success
       = flash[:success]
+
   .pblock.table
     = page_data_table :announcements, @announcements, :striped, :bordered do |table|
       - table.add_column :title
@@ -21,5 +25,7 @@
         - else
           %b 未读
 
+      - table.add_column :updated_at
+
       - table.add_column :content do |a|
-        %a.btn.gray-flat.mini{:href => "/announcements/#{a.id}"} 点击查看
+        %a.btn.gray.mini{:href => "/announcements/#{a.id}"} 点击查看

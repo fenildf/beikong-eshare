@@ -93,13 +93,13 @@ SimpleNavbar::Base.config do
     end
 
     # 文件共享
-    nav :file_upload, :url => '/files/upload' do
-      controller :files
+    nav :file_upload, :url => '/disk' do
+      controller :disk
     end
 
     # 在线答疑
-    nav :questions, :url => '/manage/questions' do
-      controller :'manage/questions'
+    nav :questions, :url => '/questions' do
+      controller :'questions'
     end
 
     # 好友关注
@@ -123,34 +123,18 @@ SimpleNavbar::Base.config do
     end
 
     # 统计信息
-    nav :stat, :url => '/manage/stat/teacher' do
-      controller :'manage/stat'
+    nav :stat, :url => '/manage/stats/teacher' do
+      controller :'manage/stats'
     end
-
-    # nav :courses_manage, :url => '/manage/courses' do
-    #   controller :'manage/courses'
-    #   controller :'manage/chapters'
-    #   controller :'manage/course_wares'
-    #   controller :'manage/applies'
-    # end
-
-    # nav :select_course, :url => '/manage/select_course_intents' do
-    #   controller :'manage/select_course_intents'
-    # end
-
-    # nav :courses, :url => '/courses' do
-    #   controller :courses
-    #   controller :chapters
-    #   controller :course_wares
-    # end
-
-    # nav :teams, :url => '/teams' do
-    #   controller :teams
-    # end
   end
 
   # 学生
   rule :student do
+    # 学生首页
+    nav :index, :url => '/student_home' do
+      controller :index, :only => [:student_home]
+    end
+
     nav :select_course, :url => '/select_course_intents' do
       controller :select_course_intents
     end
@@ -161,33 +145,47 @@ SimpleNavbar::Base.config do
       controller :course_wares
     end
 
-    nav :'teacher-surveys', :url => '/surveys' do
-      controller :surveys
+    nav :practices, :url => '/practices' do
+      controller :practices
     end
 
-    nav :announcements, :url => '/announcements' do
-      controller :announcements
+    nav :file_upload, :url => '/disk' do
+      controller :disk
     end
-  end
 
-  rule :student_eshare do
-    nav :courses, :url => '/courses' do
-      controller :courses
-      controller :chapters
-      controller :course_wares
+    nav :questions, :url => '/questions' do
+      controller :questions
     end
+
+    # 好友关注
+    nav :friends, :url => '/friends' do
+      controller :friends
+    end 
 
     nav :dashboard, :url => '/dashboard' do
       controller :index, :only => :dashboard
     end
 
-    nav :user, :url => '/users/me' do
-      controller :users
-      controller :friends
+    nav :announcements, :url => '/announcements' do
+      controller :announcements
     end
 
-    nav :questions, :url => '/questions' do
-      controller :questions
+    nav :user, :url => '/users/me' do
+      controller :users
+    end
+
+    # 我的班级
+    nav :my_teams, :url => '/teams/of_teacher' do
+      controller :teams
+    end
+
+    # 统计信息
+    nav :stat, :url => '/manage/stats/teacher' do
+      controller :'manage/stats'
+    end
+
+    nav :'teacher-surveys', :url => '/surveys' do
+      controller :surveys
     end
   end
 
@@ -204,12 +202,6 @@ SimpleNavbar::Base.config do
 
     nav :userpage, :url => '/account/userpage' do
       controller :account, :only => :userpage
-    end
-
-    if R::INTERNET
-      nav :sync, :url => '/account/sync' do
-        controller :oauth, :only => :sync
-      end
     end
   end
 

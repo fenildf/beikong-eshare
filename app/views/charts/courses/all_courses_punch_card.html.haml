@@ -13,7 +13,7 @@
         - 1.upto 12 do |m|
           %td.v
             .count
-              - value = @stat[m][i]
+              - value = rand(20)
               - if value.present?
                 - radius = (value.to_f / max) ** 0.5 * 24
                 - radius = [radius, 3].max

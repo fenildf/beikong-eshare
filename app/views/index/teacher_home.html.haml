@@ -1,5 +1,5 @@
 - content_for :header do
-  %h1 欢迎使用易享在线课程系统
+  %h1 欢迎使用云课堂
   .fdesc
 
 .page-teacher-home
@@ -16,7 +16,7 @@
             {:title => '课程申报', :desc => '申报新课程，提交给领导进行审核', :link => '/manage/courses'},
             {:title => '课程编排', :desc => '编排课程下的章节内容，对编排好的课程进行预览', :link => '/manage/courses/design'},
             {:title => '上传课件', :desc => '给指定的课程上传 PPT/PDF 等课件', :link => '/manage/course_wares/new'},
-            {:title => '课程中心', :desc => '浏览系统内的所有公开课程', :link => '/course_wares'},
+            {:title => '课程中心', :desc => '浏览系统内的所有公开课程', :link => '/courses'},
           ]
         },
 
@@ -32,8 +32,8 @@
         {
           :module => '互动功能',
           :funcs => [
-            {:title => '文件共享', :desc => '上传文件，共享给其他人', :link => '/files/upload'},
-            {:title => '在线答疑', :desc => '在线回答学生提出的问题', :link => '/manage/questions'},
+            {:title => '文件共享', :desc => '上传文件，共享给其他人', :link => '/disk'},
+            {:title => '在线答疑', :desc => '在线回答学生提出的问题', :link => '/questions'},
             {:title => '好友关注', :desc => '关注其他用户为好友，查看他们的公开动态', :link => '/friends'}
           ]
         },
@@ -50,7 +50,7 @@
           :module => '教学功能',
           :funcs => [
             {:title => '我的班级', :desc => '老师查看自己负责的班级', :link => '/teams/of_teacher'},
-            {:title => '统计信息', :desc => '教学相关的统计信息汇总', :link => '/manage/stat/teacher'},
+            {:title => '统计信息', :desc => '教学相关的统计信息汇总', :link => '/manage/stats/teacher'},
           ]
         },
         

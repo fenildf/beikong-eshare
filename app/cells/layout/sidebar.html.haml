@@ -13,7 +13,4 @@
       = simple_navbar :teacher, :as_list, :with_icon
 
     - elsif @user.is_student?
-      - if :xuanke == @for
-        = simple_navbar :student, :as_list, :with_icon
-      - else
-        = simple_navbar :student_eshare, :as_list, :with_icon
+      = simple_navbar :student, :as_list, :with_icon

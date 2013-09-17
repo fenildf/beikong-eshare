@@ -1,25 +1,41 @@
-- content_for :header do
-  = render_cell :manage_courses_breadcrumb, :design, :model => @course
+- content_for :header_v2 do
+  %h1
+    %a{:href => '/manage/courses/design'} 课程编排
+    %span /
+    %span= @course.name
 
-  .btns
-    / %a.btn.gray-flat{:href => "/manage/courses/#{@course.id}/applies"}
-    /   %i.icon-list-alt
-    /   %span 选课管理
-    %a.btn.gray{:href => "/courses/#{@course.id}?preview=true"}
-      %i.icon-eye-open
-      %span 预览
-    %a.btn.success{:href => "/manage/courses/#{@course.id}/chapters/new"}
-      %i.icon-plus.icon-white
-      %span 增加章节
+  .desc
+    你正在对课程 #{@course.name} 进行章节编排，你可以增减章节或调整章节排序
 
 .page-manage-course-show
-  - if @chapters.blank?
-    .pblock.desc
-      课程 #{@course.name} 下还没有任何章节，点击上方的增加章节按钮来创建一个新的章节
+  .pblock.modelinfo
+    = render_cell :course, :baseinfo, :course => @course
 
-  - else
-    .pblock.desc
-      你正在对课程 #{@course.name} 进行章节编排，你可以增减章节或调整章节排序
-
+  .js-dyn-table{:class => @chapters.blank? ? 'blank' : ''}
     .pblock.table
-      = render_cell :course_ware, :manage_chapter_table, :chapters => @chapters
+      .new-line
+        .op
+          .desc.counter
+            %span 课程下现有
+            %b.count= @chapters.count
+            %span 个章节
+
+          %a.btn.success.new{:href => 'javascript:;', :data => {:url => "/manage/courses/#{@course.id}/chapters/new"}}
+            %i.icon-plus.icon-white
+            %span 增加章节
+
+      .tbl
+        = render_cell :course_ware, :manage_chapter_table, :chapters => @chapters
+
+    .blankslate
+      %span.icon.icon-blackboard
+      %span.icon.icon-books
+      %span.icon.icon-triangle
+
+      %h3
+        %span 课程
+        %span= @course.name
+        %span 下还没有任何章节
+
+      .desc 
+        点击上方的增加章节按钮来创建一个新的章节

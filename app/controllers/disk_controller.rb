@@ -21,7 +21,10 @@ class DiskController < ApplicationController
 
     render :json => {
       :id => resource.id,
-      :name => resource.name
+      :name => resource.name,
+      :html => (
+        render_cell :disk, :file_table, :media_resources => [resource]
+      )
     }
   end
 

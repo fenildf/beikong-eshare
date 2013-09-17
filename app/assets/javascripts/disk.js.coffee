@@ -59,73 +59,121 @@ jQuery ->
         func() if func
       , 600
 
-# ----------------------
-  
-  # 资源文件
-  new PageFileUploader jQuery('.page-file-uploader'), {
-    url : '/upload'
-    multiple : true
-    button : jQuery('a.media-resource-upload')
-    on_file_success : (file) ->
+  # 以上两个是基础类
 
-      dir = jQuery('.page-files-index').data('path')
-      if dir == '/'
-        param_path = "/#{file.file_name}" 
-      else 
-        param_path = "#{dir}/#{file.file_name}"
+  # 页面实现类
+  class FileUploader
+    constructor: (@$elm)->
+      @$uploader = @$elm.find('.page-file-uploader')
+      @$btn      = @$elm.find('a.btn.addfile')
+      @$linked   = @$elm.find('.linked')
+      @$input    = @$elm.find('input')
+      @$foot     = @$elm.find('.foot')
 
-      jQuery.ajax
-        url : '/disk/create'
-        type : 'POST'
-        data :
-          path : param_path
-          file_entity_id : file.file_entity_id
-        success : (res)->
-          console.log res
-          file.uploader_item.mark_success() if file.uploader_item
+      @multi = @$elm.data('multi') == 'multi'
 
-  }
+      @uploader = new PageFileUploader @$uploader, {
+        url: '/upload'
+        multiple: @multi
+        button: @$btn
+        on_file_added: (file)=>
+          jQuery(document).trigger 'mindpin-file-uploader:added', file
+          if @multi
+            @file_added_multi(file)
+          else
+            @file_added(file)
+        on_file_success: (file)=>
+          jQuery(document).trigger 'mindpin-file-uploader:success', file
+          if @multi
+            @file_success_multi(file)
+          else
+            @file_success(file)
+      }
 
-# ----------------------
+    file_added: (file)->
+      @$linked.slideUp()
+      @$foot.hide()
 
-  # 课程编辑 - 课件上传
-  new PageFileUploader jQuery('.page-file-uploader'), {
-    url : '/upload'
-    multiple : false
-    button : jQuery('a.btn.course-ware-upload')
-    on_file_added : (file) ->
-      jQuery('.page-course-ware-form .linked').slideUp()
-      jQuery('.page-course-ware-form .course-ware-upload').hide()
+      $fitems = @$elm.find('.item').not('.sample')
+      $fitems.first().remove() if $fitems.length > 1
 
-      fitems = jQuery('.page-file-uploader .item')
-      if fitems.length > 2
-        jQuery(fitems.get(1)).remove()
+    file_added_multi: (file)->
 
-      $input = jQuery('input#course_ware_title')
-      if $input.val() == ''
-        $input.val(file.file_name)
 
-    on_file_success : (file) ->
-      jQuery('input#course_ware_file_entity_id').val file.file_entity_id
+    file_success: (file)->
+      @$input.val(file.file_entity_id)
       file.uploader_item.mark_success() if file.uploader_item
 
-      setTimeout ->
-        jQuery('form a.btn.course-ware-upload').hide()
+      setTimeout =>
+        @$linked
+          .slideDown()
+          .find('.name').html(file.file_name)
+        @$foot
+          .show()
+          .find('a span').html('重新上传')
       , 700
-  }
 
-  # 作业附件上传
-  new PageFileUploader jQuery('.page-file-uploader'), {
-    url : '/upload'
-    multiple : false
-    button : jQuery('a.btn.practice-attach-upload')
-
-    on_file_success : (file) ->
-      jQuery('input.file').val file.file_entity_id
+    file_success_multi: (file)->
       file.uploader_item.mark_success() if file.uploader_item
-  }
+
+
+  jQuery('.page-form-file-uploader').each ->
+    new FileUploader jQuery(this)
+
+  jQuery(document).on 'mindpin-uploader:new-form-appended', (evt, form)->
+    jQuery(form).find('.page-form-file-uploader').each ->
+      new FileUploader jQuery(this)
+
+# ---------------- 以上是文件上传组件的封装，保证在页面上可以一行代码调用。
+
+# 但是不同的页面有特定的回调逻辑，分别写在下面。解耦之后不会太长。
+
+# 课件上传页面：选择文件后，自动将文件名填写到课件标题栏
+jQuery ->
+  jQuery(document).on 'mindpin-file-uploader:added', (evt, file)->
+    jQuery('input#course_ware_title').val(file.file_name)
+
+# 资源文件页面：文件上传完毕后，自动触发资源创建逻辑
+jQuery ->
+  if jQuery('.page-files-index').length > 0
+    jQuery(document).on 'mindpin-file-uploader:success', (evt, file)->
+      setTimeout =>
+        $elm = file.uploader_item.$elm
+        $elm.fadeOut -> $elm.remove()
+
+        dir = jQuery('.page-files-index').data('path')
+
+        param_path = 
+          if dir == '/'
+          then "/#{file.file_name}" 
+          else "#{dir}/#{file.file_name}"
+
+        jQuery.ajax
+          url : '/disk/create'
+          type : 'POST'
+          data :
+            path : param_path
+            file_entity_id : file.file_entity_id
+          success : (res)->
+            $tr = jQuery(res.html).find('tr').last()
+            jQuery('.page-data-table.files').append($tr)
+      , 700
+
+  # 删除资源文件
+    jQuery(document).delegate '.page-files-index .ops a.delete', 'click', ->
+      if confirm('确定要删除吗？')
+        $btn = jQuery(this)
+        url = $btn.data('url')
+        jQuery.ajax
+          url: url
+          type: 'delete'
+          success: (res)=>
+            $tr = $btn.closest('tr')
+            $tr.fadeOut -> $tr.remove()
+
 
 # ------------------------
+  # 头像上传和裁剪
 
   if jQuery('.page-account-avatar').length > 0
     _upload_f = ->
@@ -163,59 +211,48 @@ jQuery ->
         jQuery('.page-account-avatar form').submit()
 
 
-      # 头像上传
-      new PageFileUploader jQuery('.page-file-uploader'), {
-        url : '/upload'
-        multiple : false
-        button : jQuery('.page-account-avatar a.btn.avatar-upload')
-        on_file_success : (file) ->
-          if file.uploader_item
-            jQuery('input[name=file_entity_id]').val file.file_entity_id
+      jQuery(document).on 'mindpin-file-uploader:success', (evt, file)->
+        $img = jQuery("<img src='#{file.file_entity_url}' />")
+        $pimg = $img.clone()
 
-            file.uploader_item.mark_success =>
+        $img.hide().fadeIn()
+        $img.on 'load', =>
+          jQuery('.form-inputs .image').html $img
+          jQuery('.form-inputs .preview').html $pimg
 
-              $img = jQuery("<img src='#{file.file_entity_url}' />")
-              $pimg = $img.clone()
+          jQuery('.page-account-avatar .crop-avatars').slideUp(200)
+          jQuery('.page-account-avatar .upload .btn').hide()
+          jQuery('.page-account-avatar .form').show()
+        
+          setTimeout =>
+            origin_width  = jQuery('.form-inputs .image img').width()
+            origin_height = jQuery('.form-inputs .image img').height()
+            jQuery('input[name=origin_width]').val origin_width
+            jQuery('input[name=origin_height]').val origin_height
 
-              $img.hide().fadeIn()
-              $img.on 'load', =>
-                jQuery('.form-inputs .image').html $img
-                jQuery('.form-inputs .preview').html $pimg
+            $img.css('max-width', '100%')
 
-                jQuery('.page-account-avatar .crop-avatars').slideUp(200)
-                jQuery('.page-account-avatar .upload .btn').hide()
-                jQuery('.page-account-avatar .form').show()
-              
-                setTimeout =>
-                  origin_width  = jQuery('.form-inputs .image img').width()
-                  origin_height = jQuery('.form-inputs .image img').height()
-                  jQuery('input[name=origin_width]').val origin_width
-                  jQuery('input[name=origin_height]').val origin_height
+            $img.Jcrop
+              bgColor: 'black'
+              bgOpacity: 0.4
+              setSelect: [ 0, 0, 180, 180 ]
+              addClass: 'jcrop-dark'
+              bgFade: true
+              aspectRatio: 1
+              onChange: update_preview
+              onSelect: update_preview
+            , ->
+              this.ui.selection.addClass('jcrop-selection');
+              bounds = this.getBounds()
+              page_width = bounds[0]
+              page_height = bounds[1]
 
-                  $img.css('max-width', '100%')
-
-                  $img.Jcrop
-                    bgColor: 'black'
-                    bgOpacity: 0.4
-                    setSelect: [ 0, 0, 180, 180 ]
-                    addClass: 'jcrop-dark'
-                    bgFade: true
-                    aspectRatio: 1
-                    onChange: update_preview
-                    onSelect: update_preview
-                  , ->
-                    this.ui.selection.addClass('jcrop-selection');
-                    bounds = this.getBounds()
-                    page_width = bounds[0]
-                    page_height = bounds[1]
-
-                    jQuery('input[name=page_width]').val page_width
-                    jQuery('input[name=page_height]').val page_height
-                    jQuery('input[name=cx]').val 0
-                    jQuery('input[name=cy]').val 0
-                    jQuery('input[name=cw]').val 180
-                    jQuery('input[name=ch]').val 180
-                , 1
-      }
+              jQuery('input[name=page_width]').val page_width
+              jQuery('input[name=page_height]').val page_height
+              jQuery('input[name=cx]').val 0
+              jQuery('input[name=cy]').val 0
+              jQuery('input[name=cw]').val 180
+              jQuery('input[name=ch]').val 180
+          , 1
 
     _upload_f()

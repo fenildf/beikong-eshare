@@ -9,6 +9,8 @@ Eshare::Application.routes.draw do
   get '/dashboard' => 'index#dashboard'
   get '/plan' => 'index#plan'
   get '/teacher_home' => 'index#teacher_home'
+  get '/admin_home' => 'index#admin_home'
+  get '/student_home' => 'index#student_home'
 
   # install
   get '/install' => 'install#index'
@@ -173,6 +175,15 @@ end
 # 课程
 Eshare::Application.routes.draw do
   namespace :manage do
+    resources :course_scores, :shallow => true
+
+    resources :stats, :shallow => true do
+      collection do
+        get :teacher
+        get :student
+      end
+    end
+
     resources :applies, :shallow => true do
       collection do
         get :status_request
@@ -182,7 +193,6 @@ Eshare::Application.routes.draw do
     end
 
     resources :practices, :shallow => true do
-      
     end
 
     resources :select_course_intents, :shallow => true do
@@ -359,6 +369,20 @@ Eshare::Application.routes.draw do
       post :submit
       get :select_teacher
     end
+  end
+end
+
+Eshare::Application.routes.draw do
+  resources :teams, :shallow => true do
+    collection do
+      get :of_teacher
+      get :of_student
+    end
+  end
+end
+
+Eshare::Application.routes.draw do
+  resources :practices, :shallow => true do
   end
 end
 
