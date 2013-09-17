@@ -1,0 +1,65 @@
+- content_for :header do
+  %h1 欢迎使用云课堂
+  .fdesc
+
+.page-teacher-home
+  .pblock.desc
+    %b= current_user.name
+    %span 同学，你好！你可以通过本系统使用下列功能：
+
+  .pblock
+    :ruby
+      modules = [
+        {
+          :module => '课程功能',
+          :funcs => [
+            {:title => '在线选课', :desc => '在线选课，提交选课志愿', :link => '/select_course_intents'},
+            {:title => '课程中心', :desc => '浏览系统内的所有公开课程', :link => '/courses'},
+          ]
+        },
+
+        {
+          :module => '作业功能',
+          :funcs => [
+            {:title => '课程作业', :desc => '查看自己需要完成的课程作业', :link => '/practices'},
+          ]
+        },
+
+        {
+          :module => '互动功能',
+          :funcs => [
+            {:title => '文件共享', :desc => '上传文件，共享给其他人', :link => '/disk'},
+            {:title => '在线提问', :desc => '在线提出问题，让他人来帮助你', :link => '/questions'},
+            {:title => '好友关注', :desc => '关注其他用户为好友，查看他们的公开动态', :link => '/friends'},
+            {:title => '公共动态', :desc => '查看与个人相关的动态信息汇总', :link => '/dashboard'}
+          ]
+        },
+
+        {
+          :module => '公告功能',
+          :funcs => [
+            {:title => '公告查看', :desc => '查看教务处或任课老师发布的公告', :link => '/announcements'},
+          ]
+        },
+
+        {
+          :module => '教学功能',
+          :funcs => [
+            {:title => '个人主页', :desc => '查看自己的个人主页', :link => '/users/me'},
+            {:title => '我的班级', :desc => '查看自己所在的班级信息', :link => '/teams/of_student'},
+            {:title => '统计信息', :desc => '学习相关的统计信息汇总', :link => '/manage/stats/student'},
+            {:title => '教师评价', :desc => '填写调查表，对任课教师进行评价', :link => '/surveys'},
+          ]
+        },
+        
+      ]
+
+    .modules
+      - modules.each do |m|
+        .module
+          .mtitle= m[:module]
+          .funcs
+            - m[:funcs].each do |f|
+              .func
+                %a.title{:href => f[:link]}= f[:title]
+                .desc= f[:desc]

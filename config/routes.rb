@@ -8,6 +8,9 @@ Eshare::Application.routes.draw do
   root :to => 'index#index'
   get '/dashboard' => 'index#dashboard'
   get '/plan' => 'index#plan'
+  get '/teacher_home' => 'index#teacher_home'
+  get '/admin_home' => 'index#admin_home'
+  get '/student_home' => 'index#student_home'
 
   # install
   get '/install' => 'install#index'
@@ -24,6 +27,11 @@ Eshare::Application.routes.draw do
                        :registrations => :account,
                        :sessions => :sessions
                      }
+  devise_scope :user do 
+    get '/xk/sign_in' => 'sessions#new_xuanke'
+    get '/eshare/sign_in' => 'sessions#new_eshare'
+  end
+
 
   devise_scope :user do
     get 'account/avatar' => 'account#avatar'
@@ -167,12 +175,24 @@ end
 # 课程
 Eshare::Application.routes.draw do
   namespace :manage do
+    resources :course_scores, :shallow => true
+
+    resources :stats, :shallow => true do
+      collection do
+        get :teacher
+        get :student
+      end
+    end
+
     resources :applies, :shallow => true do
       collection do
         get :status_request
         get :status_accept
         get :status_reject
       end
+    end
+
+    resources :practices, :shallow => true do
     end
 
     resources :select_course_intents, :shallow => true do
@@ -182,11 +202,20 @@ Eshare::Application.routes.draw do
         put :accept
         put :reject
         post :batch_check
+        post :batch_check_one
       end
     end
     
+    resources :course_wares, :shallow => true do
+      collection do
+        get :get_select_widget
+      end
+    end
+
     resources :courses, :shallow => true do
       collection do
+        get :design # 课程编排
+
         get :download_import_sample
         get :import
         post :do_import
@@ -213,22 +242,11 @@ Eshare::Application.routes.draw do
         end
 
         resources :course_wares, :shallow => true do
-          collection do
-            get :import_javascript_course_ware
-            post :do_import_javascript_course_ware
-          end
-
           member do
             put :move_up
             put :move_down
             put :do_convert
             get :export_json
-          end
-
-          resources :javascript_steps, :shallow => true do
-            member do
-              get :form_html
-            end
           end
         end
       end
@@ -268,6 +286,8 @@ Eshare::Application.routes.draw do
   resources :select_course_intents, :shallow => true do
     collection do
       post :save
+      post :save_one # 单志愿
+      delete :remove_one
     end
   end
 end
@@ -281,6 +301,7 @@ Eshare::Application.routes.draw do
       get :users_rank
       get :questions
       get :notes
+      get :chs
     end
 
     collection do
@@ -348,6 +369,20 @@ Eshare::Application.routes.draw do
       post :submit
       get :select_teacher
     end
+  end
+end
+
+Eshare::Application.routes.draw do
+  resources :teams, :shallow => true do
+    collection do
+      get :of_teacher
+      get :of_student
+    end
+  end
+end
+
+Eshare::Application.routes.draw do
+  resources :practices, :shallow => true do
   end
 end
 

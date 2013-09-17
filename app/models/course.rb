@@ -119,6 +119,10 @@ class Course < ActiveRecord::Base
     :conditions => ['approve_status = ?', Course::APPROVE_STATUS_YES]
   scope :approve_status_with_no,
     :conditions => ['approve_status = ?', Course::APPROVE_STATUS_NO]
+  scope :approve_status_with_not_yes,
+    :conditions => ['approve_status <> ?', Course::APPROVE_STATUS_YES]
+
+  scope :of_creator, lambda { |creator| where(:creator_id => creator.id) }
 
   # 设置 approve_status 默认值
   before_validation :set_default_approve_status
@@ -315,6 +319,19 @@ class Course < ActiveRecord::Base
       end
 
       hash[:max] = max
+      hash
+    end
+
+    def course_weekdays_stat_debug
+      hash = Hash.new Hash.new
+
+      12.times do |m|
+        0.upto 6 do |w|
+          hash[m][w] = rand(10) + rand(50)
+        end
+      end
+
+      hash[:max] = 60
       hash
     end
 

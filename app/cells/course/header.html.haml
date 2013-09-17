@@ -2,6 +2,16 @@
   .cover= fit_image(@course.cover.versions[:normal].url, :width => 214, :height => 140)
   .data
     %h1= @course.name
+    .info
+      %span= @course.credit
+      %span 学分，
+      %span= @course.lesson_hour
+      %span 课时，
+      %span 上课时间：
+      %span= @course.time.blank? ? '--' : @course.time
+      %span ，地点：
+      %span= @course.location.blank? ? '--' : @course.location
+
 
     - desc  = @course.desc || t('common.course.course-no-desc')
     - short = truncate_u(desc, 32)

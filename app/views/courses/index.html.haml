@@ -1,21 +1,55 @@
-.page-courses-index
-  .mainp75
-    .all-courses
-      - Course.approve_status_with_yes.all.each do |course|
-        = render_cell :course, :smallcard, :course => course, :user => current_user
-        
-  .sidep25
-    %a.select-courses{:href => '/select_course_intents'}
-      %i.icon-ok-sign.icon-white
-      %span 去选课
+- content_for :header do
+  %h1 课程中心
 
-    .pblock
-      .chart
-        %h3.cp 个人学习情况统计
-        .cha
-          .desc
-            .d 课程总数
-            .c= Course.count
-          .page-chart.all-course-read-pie{:data => {:url => "/charts/courses/all_courses_read_pie"}}
+.page-courses-index
+  .pblock.desc
+    这里列出了所有已经开放的线上课程，共 #{Course.approve_status_with_yes.count} 项课程
+
+  .mainp75{:style => 'margin-top:5px;padding-right:0;'}
+    .all-courses
+      - courses = Course.approve_status_with_yes.page(params[:page])
+      - if courses.blank?
+        .course-blank
+          目前还没有课程
+
+      - else
+        - courses.each do |course|
+          = render_cell :course, :smallcard, :course => course, :user => current_user
+        .clearfix
+        .paginate= paginate courses
+        
+  .sidep25{:style => 'margin-top:5px;'}
+    - if current_user.is_teacher?
+      .pblock.teacher-func
+        .ddesc
+          %b= current_user.name
+          %span 老师你好，你可以通过课程中心对目前系统中的公开课程进行浏览，也可以快速访问下列课程功能。
+
+        :ruby
+          funcs = [
+            {:title => '课程申报', :desc => '申报新课程，提交给领导进行审核', :link => '/manage/courses'},
+            {:title => '课程编排', :desc => '编排课程下的章节内容，对编排好的课程进行预览', :link => '/manage/courses/design'},
+            {:title => '上传课件', :desc => '给指定的课程上传 PPT/PDF 等课件', :link => '/manage/course_wares/new'},
+          ]
+
+        .funcs
+          - funcs.each do |f|
+            .func
+              %a.title{:href => f[:link]}= f[:title]
+              .desc= f[:desc]
+
+    - if current_user.is_student?
+      %a.select-courses{:href => '/select_course_intents'}
+        %i.icon-ok-sign.icon-white
+        %span 去选课
+
+      .pblock
+        .chart
+          %h3.cp 个人学习情况统计
+          .cha
+            .desc
+              .d 课程总数
+              .c= Course.count
+            .page-chart.all-course-read-pie{:data => {:url => "/charts/courses/all_courses_read_pie"}}
 
   .clearfix

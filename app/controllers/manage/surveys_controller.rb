@@ -1,9 +1,5 @@
 class Manage::SurveysController < ApplicationController
   before_filter :authenticate_user!
-  layout :get_layout
-  def get_layout
-    return 'manage'
-  end
 
   def index
     @surveys = Survey.page(params[:page])

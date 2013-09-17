@@ -1,0 +1,28 @@
+.page-form-file-uploader{:data => {:multi => @multi ? 'multi' : 'single'}}
+  %input{:name => @name, :type => :hidden}
+  .file
+
+    .linked{:style => @uploaded_file_name ? '' : 'display:none;'}
+      .fjdesc 附件文件：
+      .name= @uploaded_file_name || ''
+
+    .upload
+
+      .page-file-uploader
+        .list
+          .item.sample{:style => 'display:none;'}
+            = page_progress_bar 62, :striped, :active
+            .meta
+              .filename foobarfoobarfoobarfoobarfoobarfoobarfoobar.zip
+              .size 1.6M
+              .percent 62%
+
+      .foot
+        %a.btn.inverse.addfile{:href => 'javascript:;'} 
+          %i.icon-upload.icon-white
+          %span= @uploaded_file_name ? '重新上传' : @multi ? '选择文件' : '选择一个文件'
+
+        - if @multi
+          %span.spandesc 你可以一次选择多个文件上传
+        - else
+          %span.spandesc 选择一个文件上传

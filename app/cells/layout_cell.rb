@@ -7,6 +7,7 @@ class LayoutCell < Cell::Rails
 
   def topnav(opts = {})
     @user = opts[:user]
+    @for = opts[:for]
     render
   end
 
@@ -29,6 +30,7 @@ class LayoutCell < Cell::Rails
 
   def sidebar(opts = {})
     @user = opts[:user]
+    @for = opts[:for]
     render
   end
 
@@ -54,6 +56,13 @@ class LayoutCell < Cell::Rails
 
   def medals_coding(opts = {})
     @user = opts[:user]
+    render
+  end
+
+  def file_uploader(opts = {})
+    @name = opts[:name] || 'file_entity_id'
+    @multi = opts[:multi] || false
+    @uploaded_file_name = opts[:uploaded_file_name]
     render
   end
 end

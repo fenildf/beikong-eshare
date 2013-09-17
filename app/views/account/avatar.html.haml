@@ -15,14 +15,11 @@
     .img.s2= avatar current_user, :normal
     .img.s3= avatar current_user, :small
 
-  .upload
-    - page_file_uploader
-    %a.btn.primary-flat.avatar-upload{:href => 'javascript:;'} 
-      %i.icon-upload.icon-white
-      %span 上传图片
+  = simple_form_for current_user, :url => '/account/avatar' do |f|
+    .upload
+      = render_cell :layout, :file_uploader
 
-  .form{:style => 'display:none;'}
-    = simple_form_for current_user, :url => '/account/avatar' do |f|
+    .form{:style => 'display:none;'}
       .form-inputs
         .right
           .preview
@@ -35,7 +32,6 @@
 
         .image{:style => 'max-width:60%;'}
 
-        %input{:type => :hidden, :name => :file_entity_id}
         %input{:type => :hidden, :name => :origin_width}
         %input{:type => :hidden, :name => :origin_height}
         %input{:type => :hidden, :name => :page_width}

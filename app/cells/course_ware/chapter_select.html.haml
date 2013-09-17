@@ -1,0 +1,5 @@
+%select.chapter-id{:name => :chapter_id}
+  %option{:value => 0} 请选择章节
+  - @course.chapters.each do |ch|
+    %option{:value => ch.id}
+      #{ch.title}

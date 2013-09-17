@@ -4,8 +4,6 @@ class QuestionsController < ApplicationController
   before_filter :pre_load
   layout Proc.new { |controller|
     case controller.action_name
-    when 'index'
-      return 'grid'
     when 'show'
       return 'question_page'
     else
@@ -22,7 +20,12 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question = Question.new
+    if params[:course_id].blank?
+      @question = Question.new
+    else
+      @question = Question.new
+      @question.course_id = params[:course_id]
+    end
   end
 
   def create
@@ -35,7 +38,11 @@ class QuestionsController < ApplicationController
       return render :text => 'params invalid', :status => 500
     end
     
-    return redirect_to @question if @question.save
+    if @question.course_id.blank?
+      return redirect_to @question if @question.save
+    else
+      return redirect_to @question.course if @question.save
+    end
     render :action => :new
   end
 

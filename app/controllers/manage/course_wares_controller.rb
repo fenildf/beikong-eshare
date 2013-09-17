@@ -1,9 +1,5 @@
 class Manage::CourseWaresController < ApplicationController
   before_filter :authenticate_user!
-  layout :get_layout
-  def get_layout
-    return 'manage'
-  end
   
   def index
     authorize! :manage, CourseWare
@@ -12,13 +8,19 @@ class Manage::CourseWaresController < ApplicationController
 
   def new
     authorize! :manage, CourseWare
-    @chapter = Chapter.find(params[:chapter_id])
-    @course_ware = @chapter.course_wares.new
+    if params[:chapter_id]
+      @chapter = Chapter.find(params[:chapter_id])
+      @course_ware = @chapter.course_wares.new
+    else
+      @course_ware = CourseWare.new
+    end
 
-    @for_web_video = params[:for] == 'web_video'
-
-    if R::INTERNET
-      @for_javascript = params[:for] == 'javascript'
+    if request.xhr?
+      return render :json => {
+        :html => (
+          render_cell :course, :course_ware_table_ajax_form, :course_ware => @course_ware
+        )
+      }
     end
   end
 
@@ -39,6 +41,15 @@ class Manage::CourseWaresController < ApplicationController
     @course_ware = @chapter.course_wares.build(params[:course_ware], :as => :upload)
     @course_ware.creator = current_user
     if @course_ware.save
+      if request.xhr?
+        return render :json => {
+          :count => @chapter.course_wares.count,
+          :html => (
+            render_cell :course_ware, :manage_table, :course_wares => [@course_ware]
+          )
+        }
+      end
+
       return redirect_to "/manage/chapters/#{@chapter.id}"
     end
     render :action => :new
@@ -56,6 +67,7 @@ class Manage::CourseWaresController < ApplicationController
     authorize! :manage, @course_ware
     @chapter = @course_ware.chapter
     if @course_ware.update_attributes(params[:course_ware], :as => :upload)
+      flash[:success] = '课件修改完毕'
       return redirect_to "/manage/chapters/#{@chapter.id}"
     end
     render :action => :edit
@@ -68,7 +80,10 @@ class Manage::CourseWaresController < ApplicationController
     @course_ware.destroy
 
     if request.xhr?
-      return render :json => {:status => 'ok'}
+      return render :json => {
+        :status => 'ok',
+        :count => @chapter.course_wares.count
+      }
     end
 
     return redirect_to "/manage/chapters/#{@chapter.id}"
@@ -123,6 +138,15 @@ class Manage::CourseWaresController < ApplicationController
       return
     end
     render :text => '课件不是编程教程类型，无法导出字符串'
+  end
+
+  def get_select_widget
+    @course = Course.find params[:course_id]
+    render :json => {
+      :status => :ok,
+      :count => @course.chapters.count,
+      :html => (render_cell :course_ware, :chapter_select, :course => @course)
+    }
   end
 
 end

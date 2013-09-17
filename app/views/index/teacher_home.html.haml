@@ -1,0 +1,67 @@
+- content_for :header do
+  %h1 欢迎使用云课堂
+  .fdesc
+
+.page-teacher-home
+  .pblock.desc
+    %b= current_user.name
+    %span 老师，你好！你可以通过本系统使用下列功能：
+
+  .pblock
+    :ruby
+      modules = [
+        {
+          :module => '课程功能',
+          :funcs => [
+            {:title => '课程申报', :desc => '申报新课程，提交给领导进行审核', :link => '/manage/courses'},
+            {:title => '课程编排', :desc => '编排课程下的章节内容，对编排好的课程进行预览', :link => '/manage/courses/design'},
+            {:title => '上传课件', :desc => '给指定的课程上传 PPT/PDF 等课件', :link => '/manage/course_wares/new'},
+            {:title => '课程中心', :desc => '浏览系统内的所有公开课程', :link => '/courses'},
+          ]
+        },
+
+        {
+          :module => '作业功能',
+          :funcs => [
+            {:title => '布置作业', :desc => '在课程下给学生布置作业', :link => '/manage/practices/new'},
+            {:title => '检查作业', :desc => '检查学生的作业提交情况', :link => '/manage/practices'},
+            {:title => '成绩登记', :desc => '登记学生的课程成绩', :link => '/manage/course_scores'},
+          ]
+        },
+
+        {
+          :module => '互动功能',
+          :funcs => [
+            {:title => '文件共享', :desc => '上传文件，共享给其他人', :link => '/disk'},
+            {:title => '在线答疑', :desc => '在线回答学生提出的问题', :link => '/questions'},
+            {:title => '好友关注', :desc => '关注其他用户为好友，查看他们的公开动态', :link => '/friends'}
+          ]
+        },
+
+        {
+          :module => '公告功能',
+          :funcs => [
+            {:title => '发布公告', :desc => '向学生发布公告', :link => '/manage/announcements/new'},
+            {:title => '查看公告', :desc => '查看上级领导发布的公告', :link => '/announcements'},
+          ]
+        },
+
+        {
+          :module => '教学功能',
+          :funcs => [
+            {:title => '我的班级', :desc => '老师查看自己负责的班级', :link => '/teams/of_teacher'},
+            {:title => '统计信息', :desc => '教学相关的统计信息汇总', :link => '/manage/stats/teacher'},
+          ]
+        },
+        
+      ]
+
+    .modules
+      - modules.each do |m|
+        .module
+          .mtitle= m[:module]
+          .funcs
+            - m[:funcs].each do |f|
+              .func
+                %a.title{:href => f[:link]}= f[:title]
+                .desc= f[:desc]

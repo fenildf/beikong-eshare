@@ -14,30 +14,6 @@ module ApplicationHelper
     return re
   end
 
-  def page_file_uploader
-    # .page-file-uploader
-    #   .list
-    #     .item.sample{:style => 'display:none;'}
-    #       = page_progress_bar 61, :striped, :active
-    #       .meta
-    #         .filename foobarfoobarfoobarfoobarfoobarfoobarfoobar.zip
-    #         .size 1.6M
-    #         .percent 62%
-
-    haml_tag '.page-file-uploader' do
-      haml_tag '.list' do
-        haml_tag 'div.item.sample', :style => 'display:none;' do
-          haml_concat page_progress_bar(62, :striped, :active)
-          haml_tag '.meta' do
-            haml_tag '.filename', 'foobarfoobarfoobarfoobarfoobarfoobarfoobar.zip'
-            haml_tag '.size', '1.6M'
-            haml_tag '.percent', '62%'
-          end
-        end
-      end
-    end
-  end
-
   def avatar(user, style = :normal)
     klass = ['page-avatar', style] * ' '
 
@@ -172,8 +148,8 @@ module ApplicationHelper
     rrr = {
       :student => '学生',
       :teacher => '老师',
-      :admin => '系统管理员',
-      :manager => '教务领导'
+      :admin => '网络管理员',
+      :manager => '教学处/教研室'
     }
 
     user.roles.map {|role|
@@ -252,19 +228,19 @@ module ApplicationHelper
 
     if status == 'WAITING'
       return capture_haml {
-        haml_tag 'span.page-course-apprive-status.waiting', '等待审核'
+        haml_tag 'span.state.default.waiting', '等待审核'
       }
     end
 
     if status == 'YES'
       return capture_haml {
-        haml_tag 'span.page-course-apprive-status.yes', '审核通过'
+        haml_tag 'span.state.success.yes', '审核通过'
       }
     end
 
     if status == 'NO'
       return capture_haml {
-        haml_tag 'span.page-course-apprive-status.no', '未通过'
+        haml_tag 'span.state.error.no', '未通过'
       }
     end
   end
@@ -272,26 +248,53 @@ module ApplicationHelper
   # 返回 选中 未选中 等待志愿分配 未申请 四种状态
   def course_select_status_label(user, course)
     if course.selected_users.include?(user)
+      if course.intent_student_users.include?(user)
+        return capture_haml {
+          haml_tag 'span.page-course-select-status.pass', '申请成功'
+        }
+      end
+
       return capture_haml {
-        haml_tag 'span.page-course-select-status.pass', '选中'
+        haml_tag 'span.page-course-select-status.pass', '调剂成功'
       }
+
     end
 
     if course.be_reject_selected_users.include?(user)
       return capture_haml {
-        haml_tag 'span.page-course-select-status.reject', '未选中'
+        haml_tag 'span.page-course-select-status.reject', '申请未过'
       }
     end
 
     if course.intent_student_users.include?(user)
       return capture_haml {
-        haml_tag 'span.page-course-select-status.wait', '等待志愿分配'
+        haml_tag 'span.page-course-select-status.wait', '等待处理'
       }
     end
 
     return capture_haml {
       haml_tag 'span.page-course-select-status.no', '未申请'
     }
+  end
+
+  def course_intent_stat_label(course)
+      min = course.least_user_count
+      max = course.most_user_count
+      count = course.intent_student_count
+
+      if count == 0
+        return '无人选'
+      end
+
+      if min && count < min
+        return '人数过少'
+      end
+
+      if max && count > max
+        return '人数过多'
+      end
+
+      return '人数适合'
   end
 
   def course_selected_stat_label(course)

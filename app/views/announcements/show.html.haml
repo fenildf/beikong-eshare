@@ -2,11 +2,11 @@
   %h1 查看公告 - #{@announcement.title}
   .btns
     - if current_user.is_manager?
-      %a.btn.gray-flat{:href => '/manage/announcements'}
+      %a.btn.gray{:href => '/manage/announcements'}
         %i.icon-chevron-left
         %span 返回公告列表
     - else
-      %a.btn.gray-flat{:href => '/announcements'}
+      %a.btn.gray{:href => '/announcements'}
         %i.icon-chevron-left
         %span 返回公告列表
 
@@ -18,3 +18,6 @@
     .f
       .t 公告正文：
       .v= simple_format(@announcement.content)
+    .f
+      .t 公告时间：
+      .v= @announcement.updated_at

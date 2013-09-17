@@ -1,0 +1,33 @@
+.baseinfo
+  .btns
+    %a.btn.inverse.edit{:href => 'javascript:;', :data => {:url =>"/manage/courses/#{@course.id}/edit"}}
+      %i.icon-edit
+      %span 修改课程信息
+
+    %a.btn.gray{:href => "/courses/#{@course.id}?preview=true"}
+      %i.icon-eye-open
+      %span 预览
+
+  .infodata
+    %h2= @course.name
+    .data
+      .cover= fit_image(@course.cover.versions[:normal].url, :width => 214, :height => 140)
+      .ds
+        .d
+          %span.t 学分：
+          %span.v= @course.credit
+        .d
+          %span.t 课时：
+          %span.v= @course.lesson_hour
+        .d
+          %span.t 上课时间：
+          %span.v= @course.time.blank? ? '--' : @course.time
+        .d
+          %span.t 上课地点：
+          %span.v= @course.location.blank? ? '--' : @course.location
+        .d
+          - desc = @course.desc.blank? ? t('common.course.course-no-desc') : @course.desc
+          %span.t 课程简介：
+          %span.v= simple_format(desc)
+
+      .clearfix

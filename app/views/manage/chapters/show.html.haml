@@ -1,31 +1,36 @@
-- content_for :header do
-  = render_cell :manage_courses_breadcrumb, :display, :model => @chapter
-
-  .btns
-    %a.btn.gray-flat{:href => "/manage/chapters/#{@chapter.id}/edit"}
-      %i.icon-edit
-      %span= t('common.edit')
-
-    .down-btns
-      %a.btn.down.success-flat{:href => 'javascript:;'}
-        %i.icon-chevron-down.icon-white
-        %span 增加课件
-
-      .menu
-        %a.btn.success-flat{:href => "/manage/chapters/#{@chapter.id}/course_wares/new"}
-          %i.icon-plus.icon-white
-          %span 一般课件
-        %a.btn.success-flat{:href => "/manage/chapters/#{@chapter.id}/course_wares/new?for=web_video"}
-          %i.icon-plus.icon-white
-          %span 增加网络视频
-        - if R::INTERNET
-          %a.btn.success-flat{:href => "/manage/chapters/#{@chapter.id}/course_wares/new?for=javascript"}
-            %i.icon-plus.icon-white
-            %span 增加 js 教程
-          %a.btn.success-flat{:href => "/manage/chapters/#{@chapter.id}/course_wares/import_javascript_course_ware"}
-            %i.icon-plus.icon-white
-            %span 导入 js 教程
+- content_for :header_v2 do
+  %h1
+    %a{:href => '/manage/courses/design'} 课程编排
+    %span /
+    %a{:href => "/manage/courses/#{@chapter.course.id}"}= @chapter.course.name
+    %span /
+    %span= @chapter.title
 
 .page-manage-chapter-show
-  .pblock.table
-    = render_cell :course_ware, :manage_table, :course_wares => @course_wares
+  .pblock.modelinfo
+    = render_cell :course, :chapter_baseinfo, :chapter => @chapter
+
+  .js-dyn-table{:class => @course_wares.blank? ? 'blank' : ''}
+    .pblock.table
+      .new-line
+        .op
+          .desc.counter
+            %span 章节下现有
+            %b.count= @course_wares.count
+            %span 个课件
+
+          %a.btn.success.new{:href => 'javascript:;', :data => {:url => "/manage/chapters/#{@chapter.id}/course_wares/new"}}
+            %i.icon-plus.icon-white
+            %span 上传课件
+            
+      .tbl
+        = render_cell :course_ware, :manage_table, :course_wares => @course_wares
+
+    .blankslate
+      %h3
+        %span 章节
+        %span= @chapter.title
+        %span 下还没有任何课件
+
+      .desc 
+        点击上方的上传课件按钮来增加课件
