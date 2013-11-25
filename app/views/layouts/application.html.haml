@@ -5,6 +5,8 @@
 
 !!!
 - simple_page_layout title, :html_lang => :zh, :body_class => 'app' do
+  = render "layouts/short_message"
+
   - if current_user.is_admin?
     = render_cell :layout, :topnav_admin, :user => current_user, :for => @subsystem
   - else
