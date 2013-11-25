@@ -31,6 +31,7 @@ class ChatBar
     subscription = @client.subscribe @chatbox.channel, (obj)=>
       if obj.sender.id == @chatbox.receiver.id || obj.sender.id == @user.id
         @chatbox.append_message(obj)
+        @chatbox.scroll()
 
     subscription.channel = @chatbox.channel
     @subscriptions.push subscription
@@ -72,11 +73,15 @@ class ChatBox
   clear_input: ->
     @$input.val("")
 
+  scroll: ->
+    height = @$chatlog[0].scrollHeight
+    @$chatlog.scrollTop(height);
+
   set_receiver: ($elm)->
     @receiver = $elm.data("contact") || new Contact($elm)
     @request_chatlog() if !@receiver.started
+    @set_log(@receiver.$log) if @receiver.started
     @set_channel()
-    @set_log(@receiver.$log)
     @$elm.find(".contact .name").html(@receiver.name)
     @chatbar.subscribe(@channel)
 
