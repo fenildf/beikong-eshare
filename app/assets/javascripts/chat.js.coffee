@@ -42,7 +42,8 @@ jQuery ->
       return if @subscriptions.some((sub)=> sub.channel == @chatbox.channel)
 
       subscription = @client.subscribe @chatbox.channel, (obj)=>
-        @chatbox.append_message(obj)
+        if obj.sender.id == @chatbox.receiver.id || obj.sender.id == @user.id
+          @chatbox.append_message(obj)
 
       subscription.channel = @chatbox.channel
       @subscriptions.push subscription
@@ -85,12 +86,11 @@ jQuery ->
       @$input.val("")
 
     set_receiver: ($elm)->
-      receiver = $elm.data("contact") || new Contact($elm)
-      @$log = receiver.$log
-      @$chatlog.html @$log
-      @receiver = receiver
-      @$elm.find(".contact .name").html(receiver.name)
+      @receiver = $elm.data("contact") || new Contact($elm)
       @set_channel()
+      @$log = @receiver.$log
+      @$chatlog.html @$log
+      @$elm.find(".contact .name").html(@receiver.name)
       @chatbar.subscribe(@channel)
 
     set_channel: ->
@@ -102,11 +102,11 @@ jQuery ->
     send_message: ->
       message = @$input.val()
       return if message.length == 0
-      @chatbar.client.publish(@channel, {sender: @sender, message: message})
+      @chatbar.client.publish(@channel, {sender: @sender, message: message, channel: @channel})
       @clear_input()
 
   jQuery(document).on "faye_ready", (evt, client)->
-    chatbar = new ChatBar(jQuery(".page-chat-bar"), client)
-    chatbox = new ChatBox(chatbar)
+    window.chatbar = new ChatBar(jQuery(".page-chat-bar"), client)
+    window.chatbox = new ChatBox(chatbar)
 
     console.log chatbar, chatbox
