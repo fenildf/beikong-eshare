@@ -39,9 +39,9 @@ describe CourseFeedTimelime do
         @question_1 = FactoryGirl.create(:question, :course_ware => @course_ware_1, :creator => @user_1)
         # 做练习
         @practice_1.submit_by_user(@user_1)
-        @practice_record_11 = @practice_1.records.where(:user_id => @user_1).first
+        @practice_record_11 = @practice_1.created_records.where(:user_id => @user_1).first
         @practice_2.submit_by_user(@user_1)
-        @practice_record_21 = @practice_2.records.where(:user_id => @user_1).first
+        @practice_record_21 = @practice_2.created_records.where(:user_id => @user_1).first
       }
 
       it{
@@ -77,9 +77,9 @@ describe CourseFeedTimelime do
         
           # 做练习
           @practice_3.submit_by_user(@user_1)
-          @practice_record_31 = @practice_3.records.where(:user_id => @user_1).first
+          @practice_record_31 = @practice_3.created_records.where(:user_id => @user_1).first
           @practice_4.submit_by_user(@user_1)
-          @practice_record_41 = @practice_4.records.where(:user_id => @user_1).first
+          @practice_record_41 = @practice_4.created_records.where(:user_id => @user_1).first
 
 
 
@@ -95,9 +95,9 @@ describe CourseFeedTimelime do
         
           # 做练习
           @practice_1.submit_by_user(@user_2)
-          @practice_record_12 = @practice_1.records.where(:user_id => @user_2).first
+          @practice_record_12 = @practice_1.created_records.where(:user_id => @user_2).first
           @practice_2.submit_by_user(@user_2)
-          @practice_record_22 = @practice_2.records.where(:user_id => @user_2).first
+          @practice_record_22 = @practice_2.created_records.where(:user_id => @user_2).first
 
 
 
@@ -113,9 +113,9 @@ describe CourseFeedTimelime do
         
           # 做练习
           @practice_3.submit_by_user(@user_2)
-          @practice_record_32 = @practice_3.records.where(:user_id => @user_2).first
+          @practice_record_32 = @practice_3.created_records.where(:user_id => @user_2).first
           @practice_4.submit_by_user(@user_2)
-          @practice_record_42 = @practice_4.records.where(:user_id => @user_2).first
+          @practice_record_42 = @practice_4.created_records.where(:user_id => @user_2).first
         }
 
         it{
@@ -201,9 +201,9 @@ describe CourseFeedTimelime do
       @question_1 = FactoryGirl.create(:question, :course_ware => @course_ware_1, :creator => @user_1)
       # 做练习
       @practice_1.submit_by_user(@user_1)
-      @practice_record_11 = @practice_1.records.where(:user_id => @user_1).first
+      @practice_record_11 = @practice_1.created_records.where(:user_id => @user_1).first
       @practice_2.submit_by_user(@user_1)
-      @practice_record_21 = @practice_2.records.where(:user_id => @user_1).first
+      @practice_record_21 = @practice_2.created_records.where(:user_id => @user_1).first
 
       @course_2.course_feed_timeline.should == []
       @user_2.course_feed_timeline.should == []
@@ -230,9 +230,9 @@ describe CourseFeedTimelime do
     
       # 做练习
       @practice_3.submit_by_user(@user_1)
-      @practice_record_31 = @practice_3.records.where(:user_id => @user_1).first
+      @practice_record_31 = @practice_3.created_records.where(:user_id => @user_1).first
       @practice_4.submit_by_user(@user_1)
-      @practice_record_41 = @practice_4.records.where(:user_id => @user_1).first
+      @practice_record_41 = @practice_4.created_records.where(:user_id => @user_1).first
 
 
 
@@ -248,9 +248,9 @@ describe CourseFeedTimelime do
     
       # 做练习
       @practice_1.submit_by_user(@user_2)
-      @practice_record_12 = @practice_1.records.where(:user_id => @user_2).first
+      @practice_record_12 = @practice_1.created_records.where(:user_id => @user_2).first
       @practice_2.submit_by_user(@user_2)
-      @practice_record_22 = @practice_2.records.where(:user_id => @user_2).first
+      @practice_record_22 = @practice_2.created_records.where(:user_id => @user_2).first
 
 
 
@@ -266,9 +266,9 @@ describe CourseFeedTimelime do
     
       # 做练习
       @practice_3.submit_by_user(@user_2)
-      @practice_record_32 = @practice_3.records.where(:user_id => @user_2).first
+      @practice_record_32 = @practice_3.created_records.where(:user_id => @user_2).first
       @practice_4.submit_by_user(@user_2)
-      @practice_record_42 = @practice_4.records.where(:user_id => @user_2).first
+      @practice_record_42 = @practice_4.created_records.where(:user_id => @user_2).first
     
 
       @user_1.course_feed_timeline.map(&:to).should == [
