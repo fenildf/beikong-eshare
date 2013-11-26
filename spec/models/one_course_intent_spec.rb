@@ -14,9 +14,11 @@ describe OneCourseIntent do
     @course_4 = FactoryGirl.create :course, :approve_status => Course::APPROVE_STATUS_YES,
       :least_user_count => 2, :most_user_count => 3, :credit => 5
 
+    @group_tree_node1 = FactoryGirl.create :group_tree_node
+    @group_tree_node2 = FactoryGirl.create :group_tree_node
 
-    @team_1 = FactoryGirl.create :team
-    @team_2 = FactoryGirl.create :team
+    # @team_1 = FactoryGirl.create :team
+    # @team_2 = FactoryGirl.create :team
 
     @user_1 = FactoryGirl.create :user, :role => :student
     @user_2 = FactoryGirl.create :user, :role => :student
@@ -25,22 +27,30 @@ describe OneCourseIntent do
     @user_5 = FactoryGirl.create :user, :role => :student
     @user_6 = FactoryGirl.create :user, :role => :student
 
-    @team_1.add_member(@user_1)
-    @team_1.add_member(@user_2)
-    @team_1.add_member(@user_3)
+    @group_tree_node1.add_user(@user_1)
+    @group_tree_node1.add_user(@user_2)
+    @group_tree_node1.add_user(@user_3)
 
-    @team_2.add_member(@user_4)
-    @team_2.add_member(@user_5)
-    @team_2.add_member(@user_6)
+    @group_tree_node2.add_user(@user_4)
+    @group_tree_node2.add_user(@user_5)
+    @group_tree_node2.add_user(@user_6)
+
+    # @team_1.add_member(@user_1)
+    # @team_1.add_member(@user_2)
+    # @team_1.add_member(@user_3)
+
+    # @team_2.add_member(@user_4)
+    # @team_2.add_member(@user_5)
+    # @team_2.add_member(@user_6)
   }
 
   it{
-    @course_1.intent_users(:team => @team_1).should == []
+    @course_1.intent_users(:group_tree_node => @group_tree_node1).should == []
     @course_1.intent_users.should == []
   }
 
   it{
-    @course_1.intent_users_count(:team => @team_1).should == 0
+    @course_1.intent_users_count(:group_tree_node => @group_tree_node1).should == 0
     @course_1.intent_users_count.should == 0
   }
 
@@ -75,14 +85,14 @@ describe OneCourseIntent do
     }
 
     it{
-      @course_1.intent_users(:team => @team_1).should == [@user_1]
-      @course_1.intent_users(:team => @team_2).should == []
+      @course_1.intent_users(:group_tree_node => @group_tree_node1).should == [@user_1]
+      @course_1.intent_users(:group_tree_node => @group_tree_node2).should == []
       @course_1.intent_users.should == [@user_1]
     }
 
     it{
-      @course_1.intent_users_count(:team => @team_1).should == 1
-      @course_1.intent_users_count(:team => @team_2).should == 0
+      @course_1.intent_users_count(:group_tree_node => @group_tree_node1).should == 1
+      @course_1.intent_users_count(:group_tree_node => @group_tree_node2).should == 0
       @course_1.intent_users_count.should == 1
     }
 
@@ -109,14 +119,14 @@ describe OneCourseIntent do
       }
 
       it{
-        @course_1.intent_users(:team => @team_1).should =~ [@user_1, @user_2]
-        @course_1.intent_users(:team => @team_2).should == []
+        @course_1.intent_users(:group_tree_node => @group_tree_node1).should =~ [@user_1, @user_2]
+        @course_1.intent_users(:group_tree_node => @group_tree_node2).should == []
         @course_1.intent_users.should =~ [@user_1, @user_2]
       }
 
       it{
-        @course_1.intent_users_count(:team => @team_1).should == 2
-        @course_1.intent_users_count(:team => @team_2).should == 0
+        @course_1.intent_users_count(:group_tree_node => @group_tree_node1).should == 2
+        @course_1.intent_users_count(:group_tree_node => @group_tree_node2).should == 0
         @course_1.intent_users_count.should == 2
       }
 
@@ -135,14 +145,14 @@ describe OneCourseIntent do
         }
 
         it{
-          @course_1.intent_users(:team => @team_1).should =~ [@user_1, @user_2, @user_3]
-          @course_1.intent_users(:team => @team_2).should == [@user_4]
+          @course_1.intent_users(:group_tree_node => @group_tree_node1).should =~ [@user_1, @user_2, @user_3]
+          @course_1.intent_users(:group_tree_node => @group_tree_node2).should == [@user_4]
           @course_1.intent_users.should =~ [@user_1, @user_2, @user_3, @user_4]
         }
 
         it{
-          @course_1.intent_users_count(:team => @team_1).should == 3
-          @course_1.intent_users_count(:team => @team_2).should == 1
+          @course_1.intent_users_count(:group_tree_node => @group_tree_node1).should == 3
+          @course_1.intent_users_count(:group_tree_node => @group_tree_node2).should == 1
           @course_1.intent_users_count.should == 4
         }
 
@@ -213,7 +223,7 @@ describe OneCourseIntent do
     }
 
     it{
-      courses = CourseIntent.intent_course_ranking(:team => @team_2)
+      courses = CourseIntent.intent_course_ranking(:group_tree_node => @group_tree_node2)
       courses.first.should == @course_3
       courses.should =~ [@course_3, @course_1, @course_2, @course_4]
     }

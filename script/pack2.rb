@@ -33,14 +33,24 @@ defpack 2, :depends => [1] do
 
   p "创建两个班级"
 
-  team_1 = Team.create!(:name => '一班', :teacher_user => team_1_teacher)
+  group_tree_node = GroupTreeNode.create(
+                      :name => 'ZHANGSAN',
+                      :kind => GroupTreeNode::TEACHER,
+                      :parent_id => nil,
+                      :manage_user => team_1_teacher.first
+                    )
   team_1_students.each do |user|
-    team_1.add_member(user)
+    group_tree_node.add_user(user)
   end
 
-  team_2 = Team.create!(:name => '二班', :teacher_user => team_2_teacher)
+  group_tree_node = GroupTreeNode.create(
+                      :name => 'LISI',
+                      :kind => GroupTreeNode::TEACHER,
+                      :parent_id => nil,
+                      :manage_user => team_2_teacher.first
+                    )
   team_2_students.each do |user|
-    team_2.add_member(user)
+    group_tree_node.add_user(user)
   end
 
   has_intent_users = team_1_students[0..4] + team_2_students[5..9]
