@@ -1,4 +1,6 @@
 class GroupTreeNode < ActiveRecord::Base
+  acts_as_nested_set
+  
   TEACHER = "TEACHER"
   STUDENT = "STUDENT"
 
