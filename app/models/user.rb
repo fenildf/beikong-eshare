@@ -175,4 +175,5 @@ class User < ActiveRecord::Base
   include CourseScore::UserMethods
   include CourseIntent::UserMethods
   include CourseWare::UserMethods
+  include UserGenderMethods
 end

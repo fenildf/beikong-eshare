@@ -38,6 +38,17 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    
+    AttrsConfig.create(
+      :role       => 'teacher',
+      :field      => 'gender',
+      :field_type => 'integer'
+    )
+    AttrsConfig.create(
+      :role       => 'student',
+      :field      => 'gender',
+      :field_type => 'integer'
+    )
   end
 
   # solr设置
