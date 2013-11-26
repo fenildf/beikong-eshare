@@ -2,7 +2,6 @@
 -#see 用户设置->基本信息
 
 -user  = current_user
--email = user.email
 -name  = user.name
 
 -htitle '基本信息设置'
@@ -12,8 +11,6 @@
   .page-setting
     = flash_info
     = form_for user,:url=>"/auth/setting", :html=>{:method=>:put} do |f|
-      .field
-        .mail.bold 你的电子邮箱是 #{email}
       .field.need
         %label 用户名
         =text_field_tag :name, name

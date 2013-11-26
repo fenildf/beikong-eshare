@@ -8,7 +8,6 @@
       = simple_form_for @user, :url => "/admin/users/#{@user.id}" do |f|
         = f.input :login
         = f.input :name
-        = f.input :email
         
         = render_cell :admin, :form_user_role_select, :form_object => f
         

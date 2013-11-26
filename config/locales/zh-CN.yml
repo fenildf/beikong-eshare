@@ -102,7 +102,6 @@ zh-CN:
         password_confirmation: 确认密码
         remember_me: 记住登录状态
         avatar: 用户头像
-        email: EMail
         userpage_head: 个人页版头图片
         tagline: 个人签名档
 
@@ -187,10 +186,6 @@ zh-CN:
 
         user:
           attributes:
-            email:
-              blank: 邮箱未填写
-              taken: 邮箱已经注册过了
-              invalid: 邮箱格式不正确
             password:
               blank: 密码未填写
               confirmation: 两次密码输入不同
@@ -293,7 +288,6 @@ zh-CN:
         role: 角色
         login: 用户名
         name: 姓名
-        email: Email
         ops: 操作
         
       files:

@@ -33,7 +33,7 @@ describe User do
             User.import_excel file, :teacher
           }.to change{User.count}.by(3)
 
-          @user = User.find_by_email('hi2@gmail.com')
+          @user = User.find_by_name('hello2')
         }
 
         it {
@@ -53,7 +53,7 @@ describe User do
             User.import_excel file, :teacher
           }.to change{User.count}.by(3)
 
-          @user = User.find_by_email('hi2@gmail.com')
+          @user = User.find_by_name('hello2')
         }
 
         it {
