@@ -13,6 +13,10 @@ class IndexController < ApplicationController
     return redirect_to "/student_home" if current_user.is_student?
   end
 
+  def admin_home
+    # nothing
+  end
+
   def teacher_home
   end
 

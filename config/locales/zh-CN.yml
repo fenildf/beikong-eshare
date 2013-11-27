@@ -1,7 +1,7 @@
 zh-CN:
   simple-navbar:
     admin:
-      home: 首页
+      index: 首页
       users_manage: 用户管理
       categories_manage: 分类管理
       select_course: 学生申请

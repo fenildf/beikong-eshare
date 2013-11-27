@@ -483,6 +483,7 @@ body.admin, body.app, body.account, body.help, body.error, body.course{
   .page-top-nav .page-navbar{
     .navbar-inner {
       min-height:30px !important;
+      box-shadow:none;
     }
 
     ul.nav {
@@ -1529,6 +1530,9 @@ body.coding {
     box-shadow:none;
     color:#fff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    @include border-radius(0);
+    border:none;
+    border-bottom:solid 2px rgba(black, 0.1);
     &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
       background:#EA5C58 !important;
       color:#fff;
@@ -1553,6 +1557,9 @@ body.coding {
     background-repeat: repeat-x;
     border-color:rgba(black, 0.1);
     box-shadow:none;
+    @include border-radius(0);
+    border:0 none;
+    border-bottom:solid 2px rgba(black, 0.1);
     &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
       background:#eee !important;
     }
@@ -5536,6 +5543,156 @@ form .input.page-form-tag-inputer {
           font-size:16px;
         }
       }
+    }
+  }
+}
+
+.page-admin-users {
+  .group-tree {
+    background-color:#f7f7f7;
+    border-left:solid 1px #e7e7e7;
+    border-right:solid 1px #e7e7e7;
+    position:fixed;
+    width:320px;
+    top:31px;
+    left:106px;
+    bottom:0;
+    z-index:2;
+
+    .head {
+      overflow:hidden;
+      a.h {
+        width:50%;
+        background:#fff;
+        float:left;
+        height:50px;line-height:50px;
+        text-align:center;
+        color:#444;
+        text-decoration:none;
+        font-weight:bold;
+
+        @include border-box;
+        border-bottom:solid 1px #e7e7e7;
+        border-right:solid 1px #e7e7e7;
+        &:last-child {
+          border-right:0 none;
+        }
+        
+        &.active {
+          background-color:#f7f7f7;
+          border-bottom:solid 1px transparent;
+        }
+      }
+    }
+
+    .tree {
+      position:absolute;
+      top:60px;left:0;right:-6px;bottom:0;
+
+      .nano-content{
+        padding-top:1px;
+      }
+      .pane {
+        right:5px + 6px;
+        opacity:0.5 !important;
+      }
+
+      .group {
+        .data {
+          display: block;
+          padding:9px 0px 9px 15px;
+          color:#444;
+          text-decoration:none;
+          position:relative;
+          cursor:pointer;
+          border-top:solid 1px transparent;
+          border-bottom:dashed 1px #e7e7e7;
+          margin-top:-1px;
+
+          i {
+            opacity:0.8;
+            float:left;margin-top:3px;
+            &.icon-leaf {
+              color:green;
+            }
+          }
+          .name {
+            margin-left:20px;
+            margin-right:56px;
+            min-height:20px;line-height:20px;
+          }
+
+          .op {
+            display:none;
+            position:absolute;
+            width:26px;height:26px;line-height:26px;
+            text-align:center;
+            top:50%;right:30px;margin-top:-13px;
+            background-color:rgba(#81BC03, 0.9);
+            border-bottom:solid 2px rgba(black, 0.1);
+            @include border-box;
+            color:white;
+            text-decoration:none;
+
+            i {
+              margin-top:6px;
+              margin-left:7px;
+              opacity:0.9;
+            }
+          }
+        }
+
+        &.active > .data {
+          background-color:#fff;
+          // color:white;
+          border-top:solid 1px #e7e7e7;
+          border-bottom:solid 1px #e7e7e7;
+          margin-right:-6px;
+          padding-right:6px;
+
+          i.icon-leaf {opacity:1;}
+
+          .op {
+            display:block;
+            &:hover {
+              background-color:#81BC03;
+              border-bottom:solid 2px rgba(black, 0.2);
+              i {opacity:1;}
+            }
+          }
+        }
+
+        &:not(.active) > .data:hover {
+          background-color:#f1f1f1;
+          i {opacity:1;}
+        }
+      }
+    }
+  }
+
+  .group-detail {
+    background-color:#fff;
+    border-left:solid 1px #e7e7e7;
+    border-right:solid 1px #e7e7e7;
+    position:fixed;
+    top:31px;
+    left:432px;
+    right:5px;
+    bottom:0;
+    z-index:1;
+
+    .head {
+      border-bottom:solid 1px #e7e7e7;
+      height:50px;line-height:50px;
+      padding:0 20px;
+      font-weight:bold;
+      @include border-box;
+    }
+
+    .table {
+      margin-left:-1px;
+      margin-top:-1px;
+      margin-right:-1px;
     }
   }
 }

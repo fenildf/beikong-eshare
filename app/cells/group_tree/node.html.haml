@@ -1,0 +1,18 @@
+:ruby
+  padding = 10 + @depth * 20
+  has_children = !@node.children.blank?
+
+.group{:class => @depth == 0 ? 'active' : '', :data => {:id => @node.id, :name => @node.name}}
+  .data{:style => "padding-left:#{padding}px;"}
+    - if has_children
+      %i.toggle.icon-minus-sign
+    - else
+      %i.icon-leaf
+    .name= @node.name
+    %a.op.add-child{:title => '增加子分组'}
+      %i.icon-plus
+
+  .children
+    - if has_children
+      - @node.children.each do |child|
+        = render_cell :group_tree, :node, :node => child, :depth => @depth + 1

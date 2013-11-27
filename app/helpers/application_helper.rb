@@ -147,7 +147,7 @@ module ApplicationHelper
     return '' if user.blank? || user.roles.blank?
     rrr = {
       :student => '学生',
-      :teacher => '老师',
+      :teacher => '教职工',
       :admin => '网络管理员',
       :manager => '教学处/教研室'
     }

@@ -109,6 +109,11 @@ Eshare::Application.routes.draw do
     root :to => 'index#index'
 
     resources :users do
+      collection do
+        get :teachers, :action => :index, :tab => :teachers
+        get :students, :action => :index, :tab => :students
+      end
+
       member do
         get :student_attrs
         get :teacher_attrs
