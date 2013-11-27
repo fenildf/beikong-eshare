@@ -11,7 +11,7 @@ describe GroupTreeNode do
     @group_tree_node = GroupTreeNode.create(
                           :name => @name_1,
                           :kind => GroupTreeNode::TEACHER,
-                          :parent_id => nil,
+                          :parent => nil,
                           :manage_user => user
                         )
     @group_tree_node1 = GroupTreeNode.create(
@@ -25,8 +25,6 @@ describe GroupTreeNode do
                           :manage_user => user
                         ).move_to_child_of(@group_tree_node1)
 
-    p "AAAA " + @group_tree_node.self_and_descendants.count.to_s
-    p "BBBB " + @group_tree_node2.self_and_ancestors.count.to_s
   }
 
   describe '创建 group_tree_node' do
@@ -35,7 +33,7 @@ describe GroupTreeNode do
         GroupTreeNode.create(
           :name => @name_1,
           :kind => GroupTreeNode::TEACHER,
-          :parent_id => nil,
+          :parent => nil,
           :manage_user => user
         )
       }.to change{GroupTreeNode.count}.by(1)
@@ -45,14 +43,14 @@ describe GroupTreeNode do
       group_tree_node = GroupTreeNode.create(
                           :name => @name_1,
                           :kind => GroupTreeNode::TEACHER,
-                          :parent_id => nil,
+                          :parent => nil,
                           :manage_user => user
                         )
       expect{
         GroupTreeNode.create(
           :name => @name_2,
           :kind => GroupTreeNode::TEACHER,
-          :parent_id => group_tree_node.id,
+          :parent => group_tree_node,
           :manage_user => user
         )
       }.to change{GroupTreeNode.count}.by(1)
@@ -63,13 +61,25 @@ describe GroupTreeNode do
   describe '#add_user(user)' do
     it '给子节点增加user 1' do
       @group_tree_node2.add_user(user1)
-      @group_tree_node1.group_tree_node_users.find_by_user_id(user1.id).blank?.should == false
-      @group_tree_node.group_tree_node_users.find_by_user_id(user1.id).blank?.should == false
+
+      @group_tree_node2.reload
+      @group_tree_node1.reload
+      @group_tree_node.reload
+
+      @group_tree_node2.users.include?(user1).should == true
+      @group_tree_node1.users.include?(user1).should == true
+      @group_tree_node.users.include?(user1).should == true
     end
 
     it '给子节点增加user 2' do
       @group_tree_node1.add_user(user1)
-      @group_tree_node.group_tree_node_users.find_by_user_id(user1.id).blank?.should == false
+      
+      @group_tree_node2.reload
+      @group_tree_node1.reload
+      @group_tree_node.reload
+
+      @group_tree_node1.users.include?(user1).should == true
+      @group_tree_node.users.include?(user1).should == true
     end
 
   end
@@ -77,13 +87,24 @@ describe GroupTreeNode do
   describe '#remove_user(user)' do
     before{
       @group_tree_node2.add_user(user2)
+      @group_tree_node2.reload
+      @group_tree_node1.reload
+      @group_tree_node.reload
+    }
+
+    it{
+      @group_tree_node2.users.include?(user2).should == true
     }
 
     it '移除父节点User' do
       @group_tree_node.remove_user(user2)
 
-      @group_tree_node1.group_tree_node_users.find_by_user_id(user2.id).blank?.should == true
-      @group_tree_node2.group_tree_node_users.find_by_user_id(user2.id).blank?.should == true
+      @group_tree_node2.reload
+      @group_tree_node1.reload
+      @group_tree_node.reload
+
+      @group_tree_node1.users.include?(user2).should == false
+      @group_tree_node2.users.include?(user2).should == false
     end
   end
 end
