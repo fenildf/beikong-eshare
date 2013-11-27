@@ -205,8 +205,6 @@ class User < ActiveRecord::Base
   include CourseWareReading::UserMethods
   include TagFollow::UserMethods
   include Omniauth::UserMethods
-  include Team::UserMethods
-  include TeamMembership::UserMethods
   include WeiboFriends
   include Note::UserMethods
   include CourseAttitude::UserMethods
@@ -216,4 +214,6 @@ class User < ActiveRecord::Base
   include CourseScore::UserMethods
   include CourseIntent::UserMethods
   include CourseWare::UserMethods
+  include GroupTreeNode::UserMethods
+  include GroupTreeNodeUser::UserMethods
 end

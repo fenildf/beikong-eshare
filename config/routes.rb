@@ -378,15 +378,6 @@ Eshare::Application.routes.draw do
 end
 
 Eshare::Application.routes.draw do
-  resources :teams, :shallow => true do
-    collection do
-      get :of_teacher
-      get :of_student
-    end
-  end
-end
-
-Eshare::Application.routes.draw do
   resources :practices, :shallow => true do
   end
 end

@@ -10,14 +10,14 @@ class OneCourseIntent < ActiveRecord::Base
 
   module ClassMethods
     def intent_course_ranking(options = {})
-      team = options[:team]
+      group_tree_node = options[:group_tree_node]
 
-      team_join_sql = team.blank? ? "" : %`
-        INNER JOIN team_memberships 
+      group_tree_node_join_sql = group_tree_node.blank? ? "" : %`
+        INNER JOIN group_tree_node_users 
         ON 
-          team_memberships.user_id = one_course_intents.user_id
+          group_tree_node_users.user_id = one_course_intents.user_id
             AND
-          team_memberships.team_id = #{team.id}
+          group_tree_node_users.group_tree_node_id = #{group_tree_node.id}
       `
 
       ocis_join_sql = %`
@@ -25,7 +25,7 @@ class OneCourseIntent < ActiveRecord::Base
         (
           SELECT one_course_intents.course_id, IFNULL(count(one_course_intents.user_id), 0) as count
           FROM one_course_intents
-          #{team_join_sql}
+          #{group_tree_node_join_sql}
           GROUP BY one_course_intents.course_id
         ) AS ocis
         ON ocis.course_id = courses.id
@@ -84,7 +84,7 @@ class OneCourseIntent < ActiveRecord::Base
     end
 
     def intent_users(options = {})
-      team = options[:team]
+      group_tree_node = options[:group_tree_node]
       order_by_sql = %`
         one_course_intents.created_at ASC
       `
@@ -97,36 +97,36 @@ class OneCourseIntent < ActiveRecord::Base
             AND 
           one_course_intents.course_id = #{self.id}
       `
-      return User.joins(oci_join_sql).order(order_by_sql) if team.blank?
+      return User.joins(oci_join_sql).order(order_by_sql) if group_tree_node.blank?
       
-      team_join_sql = %`
-        INNER JOIN team_memberships 
+      group_tree_node_join_sql = %`
+        INNER JOIN group_tree_node_users 
         ON 
-          team_memberships.user_id = one_course_intents.user_id
+          group_tree_node_users.user_id = one_course_intents.user_id
             AND
-          team_memberships.team_id = #{team.id}
+          group_tree_node_users.group_tree_node_id = #{group_tree_node.id}
       `
 
-      User.joins(oci_join_sql).joins(team_join_sql).order(order_by_sql)
+      User.joins(oci_join_sql).joins(group_tree_node_join_sql).order(order_by_sql)
     end
 
     def intent_users_count(options = {})
-      team = options[:team]
+      group_tree_node = options[:group_tree_node]
 
-      if team.blank?
+      if group_tree_node.blank?
         return OneCourseIntent.where(:course_id => self.id).count
       end
 
-      team_join_sql = %`
-        INNER JOIN team_memberships 
+      group_tree_node_join_sql = %`
+        INNER JOIN group_tree_node_users 
         ON 
-          team_memberships.user_id = one_course_intents.user_id
+          group_tree_node_users.user_id = one_course_intents.user_id
             AND
-          team_memberships.team_id = #{team.id}
+          group_tree_node_users.group_tree_node_id = #{group_tree_node.id}
       `
 
       return OneCourseIntent
-        .joins(team_join_sql)
+        .joins(group_tree_node_join_sql)
         .where(:course_id => self.id).count
     end
 
