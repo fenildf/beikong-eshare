@@ -14,6 +14,9 @@ class GroupTreeNode < ActiveRecord::Base
   has_many :group_tree_node_users
   has_many :users, :through => :group_tree_node_users
 
+  scope :with_teacher, :conditions => ["kind = ?", TEACHER]
+  scope :with_student, :conditions => ["kind = ?", STUDENT]
+
   def add_user(user)
     self.self_and_ancestors.each do |node|
       node.group_tree_node_users.create(:user => user)
@@ -24,6 +27,11 @@ class GroupTreeNode < ActiveRecord::Base
     self.self_and_descendants.each do |node|
       node.group_tree_node_users.find_by_user_id(user.id).destroy()
     end
+  end
+
+  def destroy
+    return if self.children.count != 0 || self.users.count != 0
+    super
   end
 
   module UserMethods

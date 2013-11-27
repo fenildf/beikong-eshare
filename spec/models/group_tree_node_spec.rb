@@ -30,6 +30,23 @@ describe GroupTreeNode do
     @group_tree_node.parent.should == nil
   }
 
+  it {
+    @group_tree_node2.destroy
+    GroupTreeNode.find_by_id(@group_tree_node2.id).blank?.should == true
+  }
+
+  it '删除有子组的群组失败' do
+    @group_tree_node.destroy
+    GroupTreeNode.find_by_id(@group_tree_node.id).blank?.should == false
+  end
+
+  it '删除有人的群组失败' do
+    @group_tree_node2.add_user(user1)
+    @group_tree_node2.reload
+    @group_tree_node2.destroy
+    GroupTreeNode.find_by_id(@group_tree_node2.id).blank?.should == false
+  end
+
   describe '创建 group_tree_node' do
     it '创建 成功' do
       expect{
