@@ -10,7 +10,6 @@ class GroupTreeNode < ActiveRecord::Base
 
   validates :kind, :presence => true, :inclusion=> [TEACHER,STUDENT]
   validates :name, :presence => true
-  validates :manage_user, :presence => true
 
   has_many :group_tree_node_users
   has_many :users, :through => :group_tree_node_users
