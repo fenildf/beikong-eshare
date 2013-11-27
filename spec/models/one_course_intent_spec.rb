@@ -17,9 +17,6 @@ describe OneCourseIntent do
     @group_tree_node1 = FactoryGirl.create :group_tree_node
     @group_tree_node2 = FactoryGirl.create :group_tree_node
 
-    # @team_1 = FactoryGirl.create :team
-    # @team_2 = FactoryGirl.create :team
-
     @user_1 = FactoryGirl.create :user, :role => :student
     @user_2 = FactoryGirl.create :user, :role => :student
     @user_3 = FactoryGirl.create :user, :role => :student
@@ -35,13 +32,6 @@ describe OneCourseIntent do
     @group_tree_node2.add_user(@user_5)
     @group_tree_node2.add_user(@user_6)
 
-    # @team_1.add_member(@user_1)
-    # @team_1.add_member(@user_2)
-    # @team_1.add_member(@user_3)
-
-    # @team_2.add_member(@user_4)
-    # @team_2.add_member(@user_5)
-    # @team_2.add_member(@user_6)
   }
 
   it{

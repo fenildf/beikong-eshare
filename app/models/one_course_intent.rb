@@ -99,7 +99,7 @@ class OneCourseIntent < ActiveRecord::Base
       `
       return User.joins(oci_join_sql).order(order_by_sql) if group_tree_node.blank?
       
-      team_join_sql = %`
+      group_tree_node_join_sql = %`
         INNER JOIN group_tree_node_users 
         ON 
           group_tree_node_users.user_id = one_course_intents.user_id
@@ -107,7 +107,7 @@ class OneCourseIntent < ActiveRecord::Base
           group_tree_node_users.group_tree_node_id = #{group_tree_node.id}
       `
 
-      User.joins(oci_join_sql).joins(team_join_sql).order(order_by_sql)
+      User.joins(oci_join_sql).joins(group_tree_node_join_sql).order(order_by_sql)
     end
 
     def intent_users_count(options = {})

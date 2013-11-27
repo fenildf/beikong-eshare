@@ -11,7 +11,6 @@ describe GroupTreeNode do
     @group_tree_node = GroupTreeNode.create(
                           :name => @name_1,
                           :kind => GroupTreeNode::TEACHER,
-                          :parent => nil,
                           :manage_user => user
                         )
     @group_tree_node1 = GroupTreeNode.create(
@@ -27,13 +26,16 @@ describe GroupTreeNode do
 
   }
 
+  it{
+    @group_tree_node.parent.should == nil
+  }
+
   describe '创建 group_tree_node' do
     it '创建 成功' do
       expect{
         GroupTreeNode.create(
           :name => @name_1,
           :kind => GroupTreeNode::TEACHER,
-          :parent => nil,
           :manage_user => user
         )
       }.to change{GroupTreeNode.count}.by(1)
@@ -43,7 +45,6 @@ describe GroupTreeNode do
       group_tree_node = GroupTreeNode.create(
                           :name => @name_1,
                           :kind => GroupTreeNode::TEACHER,
-                          :parent => nil,
                           :manage_user => user
                         )
       expect{
