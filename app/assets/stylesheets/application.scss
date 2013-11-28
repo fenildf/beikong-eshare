@@ -5696,11 +5696,11 @@ form .input.page-form-tag-inputer {
     .form-overflow {
       position:fixed;
       top:0;left:0;bottom:0;right:0;
-      background-color:rgba(black, 0.1);
+      background-color:rgba(black, 0.5);
     }
     .add-child-form, .edit-form{
       position:absolute;
-      border:solid 1px #e7e7e7;
+      border:solid 1px #fff;
       background-color:#fff;
       padding:7px;
       position: relative;
@@ -5712,7 +5712,7 @@ form .input.page-form-tag-inputer {
       // opacity:0.5; 
 
       .h {
-        margin-bottom:10px;
+        margin-bottom:20px;
         a.close {
           display:block;
           float:left;
@@ -5735,11 +5735,14 @@ form .input.page-form-tag-inputer {
 
       input {
         width:300px;
+        margin-bottom:20px;
       }
 
       a.btn {
         float:left;
         margin-right:10px;
+        padding-left:20px;
+        padding-right:20px;
       }
     }
   }
