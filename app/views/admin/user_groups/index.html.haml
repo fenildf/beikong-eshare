@@ -1,8 +1,8 @@
 .page-admin-users
   .group-tree
     .head
-      %a.h.teachers{:class => @tab == :teachers ? 'active' : '', :href => '/admin/user_groups/teachers'} 教职工
-      %a.h.students{:class => @tab == :students ? 'active' : '', :href => '/admin/user_groups/students'} 学生
+      %a.h.teachers{:class => @tab == :teachers ? 'active' : '', :href => '/admin/user_groups/teachers'} 教职工分组
+      %a.h.students{:class => @tab == :students ? 'active' : '', :href => '/admin/user_groups/students'} 学生分组
 
     .tree.nano
       .nano-content
@@ -36,7 +36,7 @@
 
   .group-detail
     .head
-      .name 全部
+      .name= @root.name
       .ops
         %a.btn.delete.danger-flat{:href => 'javascript:;', :style=>'display:none;'}
           %i.icon-trash

@@ -5681,7 +5681,9 @@ form .input.page-form-tag-inputer {
         }
 
         &:not(.active) > .data:hover {
-          background-color:#e0e0e0;
+          background-color:white;
+          border-top:dashed 1px #ccc;
+          border-left:dashed 1px #ccc;
           i {opacity:1;}
         }
       }
