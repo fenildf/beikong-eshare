@@ -1,12 +1,5 @@
 module UserGenderMethods
   def self.included(base)
-    base.validates :gender, 
-      :inclusion => { :in => [nil,'', '男', '女'] },
-      :if => lambda { |user| user.role?(:student) }
-    base.validates :gender, 
-      :inclusion => { :in => [nil,'', '男', '女'] },
-      :if => lambda { |user| user.role?(:teacher) }
-
     base.after_save :_build_gender
   end
 
