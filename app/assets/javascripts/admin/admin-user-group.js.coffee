@@ -2,8 +2,8 @@ class GroupTree
   constructor: (@$elm, @group_detail)->
     @init_nano_scroller()
 
-    @add_child_form = new AddChildForm jQuery('.group-add-child')
-    @add_child_form.tree = @
+    @form_widget = new FormWidget jQuery('.group-forms')
+    @form_widget.tree = @
 
     @bind_events()
 
@@ -22,7 +22,11 @@ class GroupTree
 
     @$elm.delegate 'a.add-child', 'click', (evt)->
       $btn = jQuery(this)
-      that.add_child_form.show_on($btn)
+      that.form_widget.show_new_form_on($btn)
+
+    @$elm.delegate 'a.edit', 'click', (evt)->
+      $btn = jQuery(this)
+      that.form_widget.show_edit_form_on($btn)
 
   select_group: ($group)->
     @$elm.find('.group').removeClass('active')
@@ -75,43 +79,100 @@ class GroupTree
   add_child_to: ($parent_group, $child_group)->
     $parent_group.find('> .children').append $child_group
 
-    $toggle = $parent_group.find(' > .data i.toggle')
-
-    if $toggle.hasClass('icon-plus-sign')
-      @toggle $parent_group
-    else
-      $toggle.removeClass('icon-leaf').addClass('icon-minus-sign')
-
+    $child_group.hide().fadeIn 200, =>
+    
+    @refresh_group_icon $parent_group
     @init_nano_scroller()
 
-class AddChildForm
+  remove_group: ($group)->
+    $prev = $group.prev('.group')
+    $next = $group.next('.group')
+    $parent = $group.parents('.group').first()
+
+    $g = 
+      if $prev.length > 0 then $prev
+      else if $next.length > 0 then $next
+      else $parent
+
+
+    $group.fadeOut 200, =>
+      $group.remove()
+      @refresh_group_icon $parent
+      @select_group $g
+
+  refresh_group_icon: ($group)->
+    $toggle = $group.find(' > .data i.toggle')
+
+    if $group.find('.children .group').length == 0
+      $toggle
+        .removeClass('icon-minus-sign')
+        .removeClass('icon-plus-sign')
+        .addClass('icon-leaf')
+
+    else
+      $toggle
+        .removeClass('icon-leaf')
+        .addClass('icon-minus-sign')
+
+
+class FormWidget
   constructor: (@$elm)->
-    @$overflow = @$elm.find('.add-child-form-overflow')
-    @$form = @$elm.find('.add-child-form')
+    @$overflow = @$elm.find('.form-overflow')
+    @$new_form = @$elm.find('.add-child-form')
+    @$edit_form = @$elm.find('.edit-form')
 
     @bind_events()
 
   bind_events: ->
     that = @
-    @$form.delegate 'a.close', 'click', (evt)->
+    @$new_form.delegate 'a.close', 'click', (evt)->
       that.hide()
 
-    @$form.delegate 'a.submit', 'click', (evt)->
+    @$edit_form.delegate 'a.close', 'click', (evt)->
+      that.hide()
+
+    @$new_form.delegate 'a.submit', 'click', (evt)->
+      that.submit_new_form()
+
+    @$new_form.find('input').keypress (evt)->
+      if evt.which == 13
+        that.submit_new_form()
+
+    @$edit_form.delegate 'a.submit', 'click', (evt)->
+      that.submit_edit_form()
+
+    @$edit_form.find('input').keypress (evt)->
+      if evt.which == 13
+        that.submit_edit_form()
+
+  submit_new_form: ->
+    jQuery.ajax
+      method: 'POST'
+      url: '/admin/user_groups'
+      data:
+        parent_group_id:    @parent_group_id
+        parent_group_depth: @parent_group_depth
+        kind:               @parent_group_kind
+        name:               @$new_form.find('input').val()
+      success: (res)=>
+        $new_group = jQuery(res.html)
+        @tree.add_child_to @$parent_group, $new_group
+
+        @hide()
+
+  submit_edit_form: ->
       jQuery.ajax
-        method: 'POST'
-        url: '/admin/user_groups'
+        method: 'PUT'
+        url: "/admin/user_groups/#{@edit_group_id}"
         data:
-          parent_group_id:    that.parent_group_id
-          parent_group_depth: that.parent_group_depth
-          kind:               that.parent_group_kind
-          name:               that.$form.find('input').val()
-        success: (res)->
-          $new_group = jQuery(res.html)
-          that.tree.add_child_to that.$parent_group, $new_group
+          name: @$edit_form.find('input').val()
+        success: (res)=>
+          @$edit_group.find('> .data .name').html res.name
+          @$edit_group.data('name', res.name)
 
-          that.hide()
+          @hide()
 
-  show_on: ($btn)->
+  show_new_form_on: ($btn)->
     @$parent_group      = $btn.closest('.group')
     @parent_group_id    = @$parent_group.data('id')
     @parent_group_depth = @$parent_group.data('depth')
@@ -120,17 +181,33 @@ class AddChildForm
     offset = $btn.offset()
 
     @$overflow.fadeIn(200)
-    @$form
+    @$new_form
       .css
-        left: offset.left - 6
-        top: offset.top - 6
+        left: offset.left - 8
+        top: offset.top - 8
       .fadeIn(200)
 
-    @$form.find('input').val('')
+    @$new_form.find('input').val('').select()
+
+  show_edit_form_on: ($btn)->
+    @$edit_group      = $btn.closest('.group')
+    @edit_group_id    = @$edit_group.data('id')
+
+    offset = $btn.offset()
+
+    @$overflow.fadeIn(200)
+    @$edit_form
+      .css
+        left: offset.left - 8
+        top: offset.top - 8
+      .fadeIn(200)
+
+    @$edit_form.find('input').val(@$edit_group.data('name')).select()
 
   hide:->
     @$overflow.fadeOut(200)
-    @$form.fadeOut(200)
+    @$new_form.fadeOut(200)
+    @$edit_form.fadeOut(200)
 
 class GroupDetail
   constructor: (@$elm)->
@@ -143,9 +220,22 @@ class GroupDetail
       $group = that.tree.$elm.find(".group[data-id=#{id}]")
       that.tree.select_group $group
 
+    @$elm.delegate '.head .ops a.delete', 'click', ->
+      # if xxx
+        # 组里有人，还不能删
+
+      if confirm "确定要删除 “#{that.$current_group.data('name')}” 吗？"
+        jQuery.ajax
+          method: 'DELETE'
+          url: "/admin/user_groups/#{that.$current_group.data('id')}"
+          success: ->
+            that.tree.remove_group that.$current_group
+
   load: ($group)->
     @set_head $group
     @set_ops $group
+
+    @$current_group = $group
 
   set_head: ($group)->
     str = "<span class='node'>#{$group.data('name')}</span>"
@@ -163,7 +253,10 @@ class GroupDetail
     if $group.data('id') == 0
       @$elm.find('a.delete').hide()
     else
-      @$elm.find('a.delete').show()
+      if $group.find('.children .group').length == 0
+        @$elm.find('a.delete').show()
+      else
+        @$elm.find('a.delete').hide()
 
 jQuery ->
   group_detail = new GroupDetail jQuery('.page-admin-users .group-detail').first()

@@ -39,4 +39,29 @@ class Admin::UserGroupsController < ApplicationController
       )
     }
   end
+
+  def update
+    group = GroupTreeNode.find params[:id]
+
+    name = params[:name]
+    name = name.blank? ? '新分组' : name
+
+    group.name = name
+    group.save
+
+    render :json => {
+      :name => name
+    }
+  end
+
+  def destroy
+    group = GroupTreeNode.find params[:id]
+    if group.destroy
+      return render :json => {
+        :status => :ok
+      }
+    end
+
+    render :status => 404
+  end
 end
