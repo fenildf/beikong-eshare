@@ -2,12 +2,12 @@
   padding = 10 + @depth * 20
   has_children = !@node.children.blank?
 
-.group{:class => @depth == 0 ? 'active' : '', :data => {:id => @node.id, :name => @node.name}}
+.group{:class => @depth == 0 ? 'active' : '', :data => {:id => @node.id, :name => @node.name, :depth => @depth, :kind => @node.kind}}
   .data{:style => "padding-left:#{padding}px;"}
     - if has_children
       %i.toggle.icon-minus-sign
     - else
-      %i.icon-leaf
+      %i.toggle.icon-leaf
     .name= @node.name
     %a.op.add-child{:title => '增加子分组'}
       %i.icon-plus

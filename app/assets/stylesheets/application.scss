@@ -1491,6 +1491,9 @@ body.coding {
     box-shadow:none;
     color:#fff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    @include border-radius(0);
+    border:none;
+    border-bottom:solid 2px rgba(black, 0.1);
     &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
       background:#61C261 !important;
       color:#fff;
@@ -5670,6 +5673,62 @@ form .input.page-form-tag-inputer {
     }
   }
 
+  .group-add-child {
+    position:fixed;
+    top:0;left:0;
+    z-index:99;
+
+    .add-child-form-overflow {
+      position:fixed;
+      top:0;left:0;bottom:0;right:0;
+      background-color:rgba(black, 0.1);
+    }
+    .add-child-form {
+      position:absolute;
+      border:solid 1px #e7e7e7;
+      background-color:#fff;
+      padding:6px;
+      position: relative;
+
+      width:322px;
+      top:50px;
+      left:256px;
+
+      // opacity:0.5; 
+
+      .h {
+        margin-bottom:10px;
+        a.close {
+          display:block;
+          float:left;
+          width:26px;height:26px;line-height:26px;
+          text-align:center;
+          background-color:#CECECE;
+          border-bottom:solid 2px rgba(black, 0.1);
+          @include border-box;
+          color:white;
+          text-decoration:none;
+          &:hover {
+            background-color:#eee;
+          }
+        }
+        .t {
+          margin-left:36px;
+          height:26px;line-height:26px;
+        }
+      }
+
+      input {
+        width:300px;
+      }
+
+      a.btn {
+        float:left;
+        margin-right:10px;
+      }
+    }
+  }
+
   .group-detail {
     background-color:#fff;
     border-left:solid 1px #e7e7e7;
@@ -5683,10 +5742,27 @@ form .input.page-form-tag-inputer {
 
     .head {
       border-bottom:solid 1px #e7e7e7;
-      height:50px;line-height:50px;
       padding:0 20px;
       font-weight:bold;
       @include border-box;
+
+      .name {
+        float:left;
+        height:50px;line-height:50px;
+
+        .node {
+          margin-right:10px;
+          i {
+            margin-left:10px;
+            opacity: 0.5;
+          }
+        }
+      }
+
+      .ops {
+        margin-top:10px;
+        float:right;
+      }
     }
 
     .table {

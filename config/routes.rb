@@ -108,12 +108,14 @@ Eshare::Application.routes.draw do
   namespace :admin do
     root :to => 'index#index'
 
-    resources :users do
+    resources :user_groups do
       collection do
         get :teachers, :action => :index, :tab => :teachers
         get :students, :action => :index, :tab => :students
       end
+    end
 
+    resources :users do
       member do
         get :student_attrs
         get :teacher_attrs

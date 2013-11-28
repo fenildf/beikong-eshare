@@ -3,35 +3,6 @@ class Admin::UsersController < ApplicationController
 
   def index
     authorize! :manage, User
-    @users = User.page(params[:page]).order('id DESC').like_filter(@query = params[:q])
-
-    @tab = params[:tab] || :teachers
-
-    require 'ostruct'
-    @root_groups = [
-      OpenStruct.new(:name => '初中部', :id => 0),
-      OpenStruct.new(:name => '高中部', :id => 1, :children => [
-        OpenStruct.new(:name => '2016届', :id => 2),
-        OpenStruct.new(:name => '2015届', :id => 3),
-        OpenStruct.new(:name => '2014届', :id => 4),
-      ]),
-      OpenStruct.new(:name => '素质班', :id => 5),
-      OpenStruct.new(:name => '我的名字就是长你能拿我怎么样我的名字就是长你能拿我怎么样', :id => 6, :children => [
-        OpenStruct.new(:name => 'test-1', :id => 7),
-        OpenStruct.new(:name => 'test-2', :id => 8),
-      ]),
-      OpenStruct.new(:name => '有关部门-1', :id => 9),
-      OpenStruct.new(:name => '有关部门-2', :id => 10),
-      OpenStruct.new(:name => '有关部门-3', :id => 11),
-      OpenStruct.new(:name => '有关部门-4', :id => 12),
-      OpenStruct.new(:name => '有关部门-5', :id => 13),
-      OpenStruct.new(:name => '有关部门-6', :id => 14),
-      OpenStruct.new(:name => '有关部门-7', :id => 15),
-      OpenStruct.new(:name => '有关部门-8', :id => 16),
-      OpenStruct.new(:name => '有关部门-9', :id => 17),
-      OpenStruct.new(:name => '有关部门-10', :id => 18),
-      OpenStruct.new(:name => '有关部门-11', :id => 19),
-    ]
   end
 
   def edit

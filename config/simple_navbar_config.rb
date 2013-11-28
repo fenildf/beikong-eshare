@@ -4,8 +4,8 @@ SimpleNavbar::Base.config do
       controller :index, :only => [:admin_home]
     end
 
-    nav :users_manage, :url => '/admin/users' do
-      controller :'admin/users'
+    nav :users_manage, :url => '/admin/user_groups' do
+      controller :'admin/user_groups'
     end
 
     nav :select_course, :url => '/manage/select_course_intents' do

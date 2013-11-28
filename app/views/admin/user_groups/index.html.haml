@@ -1,0 +1,52 @@
+:ruby
+  tab_str = {
+    :teachers => '教职工',
+    :students => '学生'
+  }[@tab]
+
+  tab_kind = {
+    :teachers => GroupTreeNode::TEACHER,
+    :students => GroupTreeNode::STUDENT
+  }[@tab]
+
+.page-admin-users
+  .group-tree
+    .head
+      %a.h.teachers{:class => @tab == :teachers ? 'active' : '', :href => '/admin/user_groups/teachers'} 教职工
+      %a.h.students{:class => @tab == :students ? 'active' : '', :href => '/admin/user_groups/students'} 学生
+
+    .tree.nano
+      .nano-content
+        :ruby
+          root = OpenStruct.new({
+            :id => '0',
+            :name => "全体#{tab_str}",
+            :children => @root_groups,
+            :kind => tab_kind
+          })
+
+        = render_cell :group_tree, :node, :node => root
+
+  .group-add-child
+    .add-child-form-overflow{:style => 'display:none;'}
+    .add-child-form{:style => 'display:none;'}
+      .h
+        %a.close{:href => 'javascript:;', :title => '关闭'}
+          %i.icon-minus
+        .t 增加新的子分组
+      .fields
+        %input{:type => :text, :name => :name, :placeholder => '请输入分组名'}
+      .submits
+        %a.btn.success-flat.submit{:href => 'javascript:;'} 确定
+        %a.btn.gray-flat.close{:href => 'javascript:;'} 取消
+        .clearfix
+
+
+  .group-detail
+    .head
+      .name 全部
+      .ops
+        %a.btn.delete.danger-flat{:href => 'javascript:;', :style=>'display:none;'}
+          %i.icon-trash
+          %span 删除当前分组
+      .clearfix
