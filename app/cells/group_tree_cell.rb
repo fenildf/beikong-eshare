@@ -6,4 +6,9 @@ class GroupTreeCell < Cell::Rails
     @depth = opts[:depth] || 0
     render
   end
+
+  def show(opts = {})
+    @node = opts[:node]
+    render
+  end
 end

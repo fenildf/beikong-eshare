@@ -9,11 +9,11 @@ class Admin::UserGroupsController < ApplicationController
     @tab = params[:tab] || :teachers
 
     if @tab == :teachers
-      @root_groups = GroupTreeNode.roots.with_teacher
+      @root = _root_group(GroupTreeNode::TEACHER)
     end
 
     if @tab == :students
-      @root_groups = GroupTreeNode.roots.with_student
+      @root = _root_group(GroupTreeNode::STUDENT)
     end
   end
 
@@ -63,5 +63,42 @@ class Admin::UserGroupsController < ApplicationController
     end
 
     render :status => 404
+  end
+
+  def show
+    id = params[:id]
+    kind = params[:kind]
+
+    if id == '0'
+      group = _root_group(kind)
+    else
+      group = GroupTreeNode.find id
+    end
+
+    return render :json => {
+      :rid => params[:rid],
+      :html => (
+        render_cell :group_tree, :show, :node => group
+      )
+    }
+  end
+
+  def _root_group(kind)
+    if kind == GroupTreeNode::TEACHER
+      root_groups = GroupTreeNode.roots.with_teacher
+      str = '教职工'
+    end
+
+    if kind == GroupTreeNode::STUDENT
+      root_groups = GroupTreeNode.roots.with_student
+      str = '学生'
+    end
+
+    OpenStruct.new({
+      :id => '0',
+      :name => "全体#{str}",
+      :children => root_groups,
+      :kind => kind
+    })
   end
 end

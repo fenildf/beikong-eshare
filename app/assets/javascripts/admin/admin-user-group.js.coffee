@@ -79,7 +79,7 @@ class GroupTree
   add_child_to: ($parent_group, $child_group)->
     $parent_group.find('> .children').append $child_group
 
-    $child_group.hide().fadeIn 200, =>
+    $child_group.hide().fadeIn 200
     
     @refresh_group_icon $parent_group
     @init_nano_scroller()
@@ -231,11 +231,30 @@ class GroupDetail
           success: ->
             that.tree.remove_group that.$current_group
 
+    @$elm.delegate '.detail .children .child', 'click', ->
+      id = jQuery(this).data('id')
+      $group = that.tree.$elm.find(".group[data-id=#{id}]")
+      that.tree.select_group $group
+
   load: ($group)->
     @set_head $group
     @set_ops $group
 
     @$current_group = $group
+
+    @request_id = Math.random() + ""
+
+    @$elm.find('.detail').html '<div class="loading">正在载入……</div>'
+    jQuery.ajax
+      method: 'GET'
+      url: "/admin/user_groups/#{$group.data('id')}"
+      data:
+        rid: @request_id
+        kind: $group.data('kind')
+      success: (res)=>
+        if res.rid == @request_id
+          @$elm.find('.detail').html res.html
+
 
   set_head: ($group)->
     str = "<span class='node'>#{$group.data('name')}</span>"

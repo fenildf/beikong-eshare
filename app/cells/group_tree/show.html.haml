@@ -1,0 +1,9 @@
+:ruby
+  children = @node.children
+
+.chds
+  .title 共 #{children.count} 个子分组
+  .children
+    - children.each do |child|
+      .child{:data => {:id => "#{child.id}"}}= child.name
+    .clearfix

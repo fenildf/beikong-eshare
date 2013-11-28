@@ -1,14 +1,3 @@
-:ruby
-  tab_str = {
-    :teachers => '教职工',
-    :students => '学生'
-  }[@tab]
-
-  tab_kind = {
-    :teachers => GroupTreeNode::TEACHER,
-    :students => GroupTreeNode::STUDENT
-  }[@tab]
-
 .page-admin-users
   .group-tree
     .head
@@ -17,15 +6,7 @@
 
     .tree.nano
       .nano-content
-        :ruby
-          root = OpenStruct.new({
-            :id => '0',
-            :name => "全体#{tab_str}",
-            :children => @root_groups,
-            :kind => tab_kind
-          })
-
-        = render_cell :group_tree, :node, :node => root
+        = render_cell :group_tree, :node, :node => @root
 
   .group-forms
     .form-overflow{:style => 'display:none;'}
@@ -61,3 +42,6 @@
           %i.icon-trash
           %span 删除当前分组
       .clearfix
+
+    .detail
+      = render_cell :group_tree, :show, :node => @root

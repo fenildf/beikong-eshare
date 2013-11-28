@@ -5777,10 +5777,42 @@ form .input.page-form-tag-inputer {
       }
     }
 
-    .table {
-      margin-left:-1px;
-      margin-top:-1px;
-      margin-right:-1px;
+    .detail {
+      .loading{
+        margin:10px;
+        padding:10px;
+        background-color:#ffffda;
+      }
+
+      .chds {
+        border-bottom:dashed 1px #e7e7e7;
+
+        .title{
+          padding:10px 20px;;
+          font-weight:bold;
+        }
+
+        .children {
+          padding:10px 20px 0;
+          .child {
+            float:left;
+            width:120px;height:90px;
+            background-color:#f7f7f7;
+            margin-right:20px;
+            margin-bottom:20px;
+            @include border-box;
+            padding:20px;
+            text-align:center;
+            border:solid 2px #e7e7e7;
+            @include border-radius(3px);
+            cursor:pointer;
+            @include transition(all ease-out 0.2s);
+            &:hover {
+              background-color:#ffffda;
+            }
+          }
+        }
+      }
     }
   }
 }
