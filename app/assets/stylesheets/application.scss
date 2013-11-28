@@ -5552,9 +5552,8 @@ form .input.page-form-tag-inputer {
 
 .page-admin-users {
   .group-tree {
-    background-color:#f7f7f7;
-    border-left:solid 1px #e7e7e7;
-    border-right:solid 1px #e7e7e7;
+    background-color:#f0f0f0;
+    border-right:solid 1px #ddd;
     position:fixed;
     width:320px;
     top:31px;
@@ -5566,7 +5565,7 @@ form .input.page-form-tag-inputer {
       overflow:hidden;
       a.h {
         width:50%;
-        background:#fff;
+        background:#fafafa;
         float:left;
         height:50px;line-height:50px;
         text-align:center;
@@ -5575,14 +5574,14 @@ form .input.page-form-tag-inputer {
         font-weight:bold;
 
         @include border-box;
-        border-bottom:solid 1px #e7e7e7;
-        border-right:solid 1px #e7e7e7;
+        border-bottom:solid 1px #ddd;
+        border-right:solid 1px #ddd;
         &:last-child {
           border-right:0 none;
         }
         
         &.active {
-          background-color:#f7f7f7;
+          background-color:#f0f0f0;
           border-bottom:solid 1px transparent;
         }
       }
@@ -5604,13 +5603,15 @@ form .input.page-form-tag-inputer {
         .data {
           display: block;
           padding:9px 0px 9px 15px;
-          color:#444;
+          color:#000;
           text-decoration:none;
           position:relative;
           cursor:pointer;
           border-top:solid 1px transparent;
-          border-bottom:dashed 1px #e7e7e7;
+          border-bottom:dashed 1px #ccc;
+          border-left:solid 1px transparent;
           margin-top:-1px;
+          margin-right:6px;
 
           i {
             opacity:0.8;
@@ -5657,9 +5658,10 @@ form .input.page-form-tag-inputer {
         &.active > .data {
           background-color:#fff;
           // color:white;
-          border-top:solid 1px #e7e7e7;
-          border-bottom:solid 1px #e7e7e7;
-          margin-right:-6px;
+          border-top:solid 1px #ddd;
+          border-bottom:solid 1px #ddd;
+          border-left:solid 1px #ddd;
+          margin-right:5px;
           padding-right:6px;
 
           i.icon-leaf {opacity:1;}
@@ -5678,7 +5680,7 @@ form .input.page-form-tag-inputer {
         }
 
         &:not(.active) > .data:hover {
-          background-color:#f1f1f1;
+          background-color:#e0e0e0;
           i {opacity:1;}
         }
       }
@@ -5747,7 +5749,7 @@ form .input.page-form-tag-inputer {
     border-right:solid 1px #e7e7e7;
     position:fixed;
     top:31px;
-    left:432px;
+    left:426px;
     right:5px;
     bottom:0;
     z-index:1;
@@ -5760,7 +5762,7 @@ form .input.page-form-tag-inputer {
 
       .name {
         float:left;
-        height:50px;line-height:50px;
+        height:49px;line-height:49px;
 
         .node {
           margin-right:10px;
