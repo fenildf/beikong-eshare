@@ -97,6 +97,7 @@ zh-CN:
       user:
         login: 用户名
         name: 姓名
+        gender: 性别
         current_password: 当前密码
         password: 密码
         password_confirmation: 确认密码

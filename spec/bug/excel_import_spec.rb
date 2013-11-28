@@ -14,7 +14,6 @@ describe "修复当excel里用户名栏为数字时的导入错误" do
       users = subject
       u = users.first
       u.valid?
-      p u.errors
       u.errors.should be_blank
     }
   }

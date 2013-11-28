@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
          :recoverable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :login, :password, :password_confirmation, :remember_me
+  attr_accessible :login, :password, :gender, :password_confirmation, :remember_me
   # attr_accessible :title, :body
 
   validates :login, :format => {:with => /\A\w+\z/, :message => '只允许数字、字母和下划线'},
@@ -70,10 +70,10 @@ class User < ActiveRecord::Base
                     :updater => lambda {AttrsConfig.get(:teacher)}
 
   # 导入文件
-  simple_excel_import :teacher, :fields => [:login, :name],
+  simple_excel_import :teacher, :fields => [:login, :name, :gender],
                                 :default => {:role => :teacher}
 
-  simple_excel_import :student, :fields => [:login, :name],
+  simple_excel_import :student, :fields => [:login, :name, :gender],
                                 :default => {:role => :student}
 
   def self.import_excel(excel_file, role, password = '1234')

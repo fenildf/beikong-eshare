@@ -1,14 +1,42 @@
 module UserGenderMethods
   def self.included(base)
-    base.validates :student_attrs_gender, 
-      :inclusion => { :in => [nil, "", "男", "女"] },
+    base.validates :gender, 
+      :inclusion => { :in => [nil,'', '男', '女'] },
       :if => lambda { |user| user.role?(:student) }
-    base.validates :teacher_attrs_gender, 
-      :inclusion => { :in => [nil, "", "男", "女"] },
+    base.validates :gender, 
+      :inclusion => { :in => [nil,'', '男', '女'] },
       :if => lambda { |user| user.role?(:teacher) }
+
+    base.after_save :_build_gender
+  end
+
+  def _build_gender
+    return true if self.role.blank?
+    return true if !@has_set_gender
+
+    if role?(:teacher)
+      self.teacher_attrs_gender = _parse_gender_str_to_int(@gender)
+      self._clear_set_gender_flag
+      # 这里不用 self.save
+      # 是因为这里如果运行 self.save 
+      # 会导致 redis-search 插件的一个逻辑抛出异常
+      # --- fushang318
+      self.teacher_attrs.save
+    end
+    if role?(:student)
+      self.student_attrs_gender = _parse_gender_str_to_int(@gender)
+      self._clear_set_gender_flag
+      # 这里不用 self.save
+      # 是因为这里如果运行 self.save 
+      # 会导致 redis-search 插件的一个逻辑抛出异常
+      # --- fushang318
+      self.student_attrs.save
+    end
   end
 
   def gender
+    return @gender if @has_set_gender
+
     if role?(:teacher)
       return _parse_gender_int_to_str(self.teacher_attrs_gender)
     end
@@ -19,12 +47,12 @@ module UserGenderMethods
   end
 
   def gender=(gender)
-    if role?(:teacher)
-      self.teacher_attrs_gender = _parse_gender_str_to_int(gender)
-    end
-    if role?(:student)
-      self.student_attrs_gender = _parse_gender_str_to_int(gender)
-    end
+    @gender = gender
+    @has_set_gender = true
+  end
+
+  def _clear_set_gender_flag
+    @has_set_gender = false
   end
 
   def _parse_gender_int_to_str(num)
