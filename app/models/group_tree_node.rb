@@ -34,6 +34,26 @@ class GroupTreeNode < ActiveRecord::Base
     super
   end
 
+  def move_to_child_of(other_group_tree_node)
+    if other_group_tree_node.is_a?(Fixnum)
+      group = GroupTreeNode.find(other_group_tree_node)
+    else
+      group = other_group_tree_node
+    end
+    return if group.users.count != 0
+    super
+  end
+
+  # 查询直接在这个分组里的人
+  def direct_members
+    self.users
+  end
+
+  # 查询在这个分组以及这个分组所有的下级分组里的人
+  def nest_members
+    self.users
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :manage_group_tree_nodes,
