@@ -2,27 +2,33 @@
 
 defpack 5 do
   student_path = Rails.root.join('script/data/student.xlsx')
-  student_data = Util.parse_excel(student_path, :student)
+  p "导入学生"
+  student_data_arr = Util.parse_excel(student_path, :student)
+  Util.import_user_by_data(student_data_arr)
 
   teacher_path = Rails.root.join('script/data/teacher.xlsx')
-  teacher_data = Util.parse_excel(teacher_path, :teacher)
-
-  # {:login=>"t13352", :name=>"邹闻", :gender=>"", :group=>"英语教研组", :role=>:teacher}
+  p "导入老师"
+  teacher_data_arr = Util.parse_excel(teacher_path, :teacher)
+  Util.import_user_by_data(teacher_data_arr)
 end
 
 class Util
-  def self.import_user_by_data(data)
-    if data[:role] == :teacher
-      group_kind = GroupTreeNode::TEACHER
-    elsif data[:role] == :student
-      group_kind = GroupTreeNode::STUDENT
-    end
-    group_str = data.delete :group
-
-    user = User.create!(data)
-    if !group_str.blank?
-      group = self.build_group(group_str, group_kind)
-      group.add_user(user)
+  def self.import_user_by_data(data_arr)
+    count = data_arr.count
+    data_arr.each_with_index do |data,index|
+      p "#{index+1}/#{count}"
+      if data[:role] == :teacher
+        group_kind = GroupTreeNode::TEACHER
+      elsif data[:role] == :student
+        group_kind = GroupTreeNode::STUDENT
+      end
+      group_str = data.delete :group
+      data[:password] = '1234'
+      user = User.create!(data)
+      if !group_str.blank?
+        group = self.build_group(group_str, group_kind)
+        group.add_user(user)
+      end
     end
   end
 
@@ -61,7 +67,7 @@ class Util
   def self.parse_excel(path, role)
     file = File.open(path,"r")
     spreadsheet = SimpleExcelImport::ImportFile.open_spreadsheet(file)
-    data = []
+    data_arr = []
     (2..spreadsheet.last_row).each do |i|
       row = spreadsheet.row(i)
 
@@ -79,9 +85,8 @@ class Util
         :role   => role
       }
 
-      data << params
-      p params
+      data_arr << params
     end
-    return data
+    return data_arr
   end
 end
