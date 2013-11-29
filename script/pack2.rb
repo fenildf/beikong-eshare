@@ -26,24 +26,32 @@ defpack 2, :depends => [1] do
     courses << course
   end
 
-  team_1_teacher = teachers[5]
-  team_2_teacher = teachers[6]
-  team_1_students = students[0..9]
-  team_2_students = students[10..19]
+  group_1_teacher = teachers[5]
+  group_2_teacher = teachers[6]
+  group_1_students = students[0..9]
+  group_2_students = students[10..19]
 
   p "创建两个班级"
 
-  team_1 = Team.create!(:name => '一班', :teacher_user => team_1_teacher)
-  team_1_students.each do |user|
-    team_1.add_member(user)
+  group_tree_node = GroupTreeNode.create(
+                      :name => 'ZHANGSAN',
+                      :kind => GroupTreeNode::TEACHER,
+                      :manage_user => group_1_teacher
+                    )
+  group_1_students.each do |user|
+    group_tree_node.add_user(user)
   end
 
-  team_2 = Team.create!(:name => '二班', :teacher_user => team_2_teacher)
-  team_2_students.each do |user|
-    team_2.add_member(user)
+  group_tree_node = GroupTreeNode.create(
+                      :name => 'LISI',
+                      :kind => GroupTreeNode::TEACHER,
+                      :manage_user => group_2_teacher
+                    )
+  group_2_students.each do |user|
+    group_tree_node.add_user(user)
   end
 
-  has_intent_users = team_1_students[0..4] + team_2_students[5..9]
+  has_intent_users = group_1_students[0..4] + group_2_students[5..9]
 
   p "10 个 随机选择随机选择志愿"
 

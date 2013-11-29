@@ -17,13 +17,13 @@ class SelectCourseIntent < ActiveRecord::Base
     # 志愿课程排行
     def intent_course_ranking(options = {})
       flag = options[:flag]
-      team = options[:team]
+      group_tree_node = options[:group_tree_node]
 
-      return __course_ranking(team) if flag.blank?
-      return __course_ranking_with_flag(flag, team)
+      return __course_ranking(group_tree_node) if flag.blank?
+      return __course_ranking_with_flag(flag, group_tree_node)
     end
 
-    def __course_ranking(team)
+    def __course_ranking(group_tree_node)
       sql = %`
         SELECT courses.*,  C1, C2, C3, (IFNULL(C1, 0) + IFNULL(C2, 0) + IFNULL(C3, 0)) AS TOTAL FROM courses
 
@@ -31,7 +31,7 @@ class SelectCourseIntent < ActiveRecord::Base
         (
           SELECT count(1) AS C1, first_course_id
           FROM select_course_intents
-          #{___team_joins_sub_sql(team)}
+          #{___group_tree_node_joins_sub_sql(group_tree_node)}
           WHERE first_course_id IS NOT NULL
           GROUP BY first_course_id
         ) AS F1 ON courses.id = F1.first_course_id
@@ -40,7 +40,7 @@ class SelectCourseIntent < ActiveRecord::Base
         (
           SELECT count(1) AS C2, second_course_id
           FROM select_course_intents
-          #{___team_joins_sub_sql(team)}
+          #{___group_tree_node_joins_sub_sql(group_tree_node)}
           WHERE second_course_id IS NOT NULL
           GROUP BY second_course_id
         ) AS F2 ON courses.id = F2.second_course_id
@@ -49,7 +49,7 @@ class SelectCourseIntent < ActiveRecord::Base
         (
           SELECT count(1) AS C3, third_course_id
           FROM select_course_intents
-          #{___team_joins_sub_sql(team)}
+          #{___group_tree_node_joins_sub_sql(group_tree_node)}
           WHERE third_course_id IS NOT NULL
           GROUP BY third_course_id
         ) AS F3 ON courses.id = F3.third_course_id
@@ -59,7 +59,7 @@ class SelectCourseIntent < ActiveRecord::Base
       Course.find_by_sql(sql)
     end
 
-    def __course_ranking_with_flag(flag, team)
+    def __course_ranking_with_flag(flag, group_tree_node)
       column_name = "#{flag}_course_id"
 
       sql = %`
@@ -69,7 +69,7 @@ class SelectCourseIntent < ActiveRecord::Base
         (
           SELECT count(1) AS C, #{column_name}
           FROM select_course_intents
-          #{___team_joins_sub_sql(team)}
+          #{___group_tree_node_joins_sub_sql(group_tree_node)}
           WHERE #{column_name} IS NOT NULL
           GROUP BY #{column_name}
         ) AS F1 ON courses.id = F1.#{column_name}
@@ -79,13 +79,13 @@ class SelectCourseIntent < ActiveRecord::Base
       Course.find_by_sql(sql)
     end
 
-    def ___team_joins_sub_sql(team)
-      team.blank? ? '' : %~
-        JOIN team_memberships 
+    def ___group_tree_node_joins_sub_sql(group_tree_node)
+      group_tree_node.blank? ? '' : %~
+        JOIN group_tree_node_users 
         ON 
-          team_memberships.user_id = select_course_intents.user_id
+          group_tree_node_users.user_id = select_course_intents.user_id
             AND
-          team_memberships.team_id = #{team.id}
+          group_tree_node_users.group_tree_node_id = #{group_tree_node.id}
       ~
     end
     
@@ -102,9 +102,9 @@ class SelectCourseIntent < ActiveRecord::Base
 
     def intent_users_count(options = {})
       flag = options[:flag]
-      team = options[:team]
+      group_tree_node = options[:group_tree_node]
 
-      if team.blank?
+      if group_tree_node.blank?
         if flag.present?
           return SelectCourseIntent.where("#{flag}_course_id" => self.id).count
         end
@@ -115,25 +115,25 @@ class SelectCourseIntent < ActiveRecord::Base
 
         return SelectCourseIntent
           .where("#{flag}_course_id" => self.id)
-          .joins("INNER JOIN team_memberships ON team_memberships.user_id = select_course_intents.user_id AND team_memberships.team_id = #{team.id}")
+          .joins("INNER JOIN group_tree_node_users ON group_tree_node_users.user_id = select_course_intents.user_id AND group_tree_node_users.group_tree_node_id = #{group_tree_node.id}")
           .count()
       end
       return SelectCourseIntent
         .where("first_course_id = ? OR second_course_id = ? OR third_course_id = ?", self.id, self.id, self.id)
-        .joins("INNER JOIN team_memberships ON team_memberships.user_id = select_course_intents.user_id AND team_memberships.team_id = #{team.id}")
+        .joins("INNER JOIN group_tree_node_users ON group_tree_node_users.user_id = select_course_intents.user_id AND group_tree_node_users.group_tree_node_id = #{group_tree_node.id}")
         .count()
     end
 
     def intent_users(options = {})
       flag = options[:flag]
-      team = options[:team]
+      group_tree_node = options[:group_tree_node]
 
-      return __intent_users_with_flag(flag, team) if flag.present?
+      return __intent_users_with_flag(flag, group_tree_node) if flag.present?
 
-      __intent_users_without_flag(team)
+      __intent_users_without_flag(group_tree_node)
     end
 
-    def __intent_users_with_flag(flag, team)
+    def __intent_users_with_flag(flag, group_tree_node)
       column_name = "#{flag}_course_id"
       sci_joins = %`
         INNER JOIN 
@@ -143,12 +143,12 @@ class SelectCourseIntent < ActiveRecord::Base
             AND 
           select_course_intents.#{column_name} = #{self.id}
       `
-      return User.joins(sci_joins) if team.blank?
+      return User.joins(sci_joins) if group_tree_node.blank?
 
-      User.joins(sci_joins).joins(___intent_users_sub_sql(team))
+      User.joins(sci_joins).joins(___intent_users_sub_sql(group_tree_node))
     end
 
-    def __intent_users_without_flag(team)
+    def __intent_users_without_flag(group_tree_node)
       sci_joins = %`
         INNER JOIN 
           select_course_intents 
@@ -164,19 +164,19 @@ class SelectCourseIntent < ActiveRecord::Base
           )
       `
 
-      return User.joins(sci_joins) if team.blank?
+      return User.joins(sci_joins) if group_tree_node.blank?
 
-      User.joins(sci_joins).joins(___intent_users_sub_sql(team))
+      User.joins(sci_joins).joins(___intent_users_sub_sql(group_tree_node))
     end
 
-    def ___intent_users_sub_sql(team)
+    def ___intent_users_sub_sql(group_tree_node)
       %`
         INNER JOIN
-          team_memberships
+          group_tree_node_users
         ON
-          team_memberships.user_id = users.id
+          group_tree_node_users.user_id = users.id
             AND
-          team_memberships.team_id = #{team.id}
+          group_tree_node_users.group_tree_node_id = #{group_tree_node.id}
       `
     end
   end

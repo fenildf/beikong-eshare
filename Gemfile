@@ -80,6 +80,9 @@ gem 'iconv', '1.0.2'
 # 分类目录
 gem 'awesome_nested_set'
 
+# 树形嵌套组件
+gem 'awesome_nested_set'
+
 # 权限管理
 gem "cancan", "~> 1.6.10"
 
