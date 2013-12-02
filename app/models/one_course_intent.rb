@@ -1,5 +1,5 @@
 class OneCourseIntent < ActiveRecord::Base
-  attr_accessible :user, :course
+  attr_accessible :user, :course, :content
 
   belongs_to :user
   belongs_to :course
@@ -44,10 +44,10 @@ class OneCourseIntent < ActiveRecord::Base
       self.one_course_intents.where(:course_id => course.id).destroy_all
     end
 
-    def add_course_intent(course)
+    def add_course_intent(course, content = nil)
       return if intent_courses.include?(course)
 
-      self.one_course_intents.create(:course => course)
+      self.one_course_intents.create(:course => course, :content => content)
     end
   end
 

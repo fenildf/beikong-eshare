@@ -196,6 +196,18 @@ describe OneCourseIntent do
     end
   end
 
+  context "add course_intent have content" do
+    before{
+      Timecop.travel(Time.now + 1.second) do
+        @user_1.add_course_intent(@course_1,'我是附言')
+      end
+    }
+
+    it{
+      @user_1.one_course_intents.last.content.should == '我是附言'
+    }
+  end
+
   context 'ranking' do
     before{
       @user_1.add_course_intent(@course_1)
