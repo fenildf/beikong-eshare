@@ -111,12 +111,12 @@ zh-CN:
       user:
         login: 登陆账号
         name: 姓名
+        gender: 性别
         current_password: 当前密码
         password: 密码
         password_confirmation: 确认密码
         remember_me: 记住登录状态
         avatar: 用户头像
-        email: EMail
         userpage_head: 个人页版头图片
         tagline: 个人签名档
 
@@ -201,10 +201,6 @@ zh-CN:
 
         user:
           attributes:
-            email:
-              blank: 邮箱未填写
-              taken: 邮箱已经注册过了
-              invalid: 邮箱格式不正确
             password:
               blank: 密码未填写
               confirmation: 两次密码输入不同
@@ -307,7 +303,6 @@ zh-CN:
         role: 用户角色
         login: 登陆账号
         name: 姓名
-        email: Email
         ops: 操作
         gender: 性别
         

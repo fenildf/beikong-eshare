@@ -28,7 +28,6 @@ class UserMaker < BaseMaker
 			login:    "#{_name_template(num)}", 
 			name:     real_name, 
 			password: 1234, 
-			email:    "#{_name_template(num)}@edu.dev",
 			role:     self.type,
       avatar:   avatar
 		}

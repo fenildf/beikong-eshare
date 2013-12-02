@@ -1485,7 +1485,7 @@ body.coding {
   }
 
   &.success-flat {
-    background: #5AB55A !important;
+    background: #8CC11A !important;
     background-repeat: repeat-x;
     border-color:transparent;
     box-shadow:none;
@@ -1495,7 +1495,7 @@ body.coding {
     border:none;
     border-bottom:solid 2px rgba(black, 0.1);
     &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
-      background:#61C261 !important;
+      background:#81BC03 !important;
       color:#fff;
     }
   }
@@ -5796,32 +5796,55 @@ form .input.page-form-tag-inputer {
         border-bottom:dashed 1px #e7e7e7;
 
         .title{
-          padding:20px 20px 0;
-          font-weight:bold;
+          // font-weight:bold;
+          display:inline-block;
+          height:40px;line-height:40px;
+          margin-top:10px;
+          padding:0 20px 0 20px;
+          vertical-align:top;
+          color:#666;
         }
 
         .children {
-          padding:10px 10px 0;
+          display:inline-block;
+          vertical-align:top;
+          font-size:0;
           .child {
-            float:left;
-            @include border-box;
-            padding:10px 20px 20px;
-            background-color:#3BA4E3;
+            display:inline-block;
+            vertical-align:top;
+            margin-top:14px;
+            margin-bottom:14px;
             margin-right:10px;
-            margin-bottom:10px;
+
+            @include border-box;
+            padding:0 10px;
+            height:32px;line-height:30px;
+            background-color:lighten(#3BA4E3, 10%);
             text-align:center;
-            border:solid 2px rgba(black, 0.2);
+            border:solid 1px rgba(black, 0.2);
             @include border-radius(3px);
             cursor:pointer;
             @include transition(all ease-out 0.2s);
             color:white;
+            // color:rgba(black, 0.5);
             text-shadow:0 0 1px black;
             font-weight:bold;
-            font-size:13px;
+            font-size:14px;
             &:hover {
-              background-color:lighten(#3BA4E3, 10%);
+              background-color:lighten(#3BA4E3, 15%);
             }
           }
+        }
+      }
+
+      .ops {
+        float:left;
+        background:red;
+        margin-top:10px;
+        margin-left:10px;
+        a.btn{
+          width:86px;height:29px;
+          line-height:31px;
         }
       }
 
@@ -5830,6 +5853,7 @@ form .input.page-form-tag-inputer {
         padding:10px;
         // background-color:blue;
         position:relative;
+        margin-left:120px;
 
         .table {
           position:absolute;

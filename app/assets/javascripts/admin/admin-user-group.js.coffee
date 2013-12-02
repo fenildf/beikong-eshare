@@ -84,6 +84,8 @@ class GroupTree
     @refresh_group_icon $parent_group
     @init_nano_scroller()
 
+    @select_group $parent_group
+
   remove_group: ($group)->
     $prev = $group.prev('.group')
     $next = $group.next('.group')
@@ -103,16 +105,21 @@ class GroupTree
   refresh_group_icon: ($group)->
     $toggle = $group.find(' > .data i.toggle')
 
+    # 如果已经没有子节点，则改图标为叶子
     if $group.find('.children .group').length == 0
       $toggle
         .removeClass('icon-minus-sign')
         .removeClass('icon-plus-sign')
         .addClass('icon-leaf')
 
+    # 如果有子节点，则改图标为展开（减号），且展开
     else
       $toggle
         .removeClass('icon-leaf')
         .addClass('icon-minus-sign')
+
+      $group.find('.children').slideDown 200, =>
+        @init_nano_scroller()
 
 
 class FormWidget
@@ -144,6 +151,9 @@ class FormWidget
     @$edit_form.find('input').keypress (evt)->
       if evt.which == 13
         that.submit_edit_form()
+
+    @$overflow.on 'click', (evt)->
+      that.hide()
 
   submit_new_form: ->
     jQuery.ajax

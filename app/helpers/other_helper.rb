@@ -23,11 +23,6 @@ module OtherHelper
     user.name
   end
 
-  def user_email(user)
-    return "未知用户" if user.blank?
-    user.email
-  end
-
   def flash_info
     re = ''
 

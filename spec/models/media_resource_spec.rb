@@ -656,7 +656,6 @@ describe MediaResource do
       @ben7th = User.create!(
         :login => 'ben7th',
         :name  => 'ben7th',
-        :email => 'ben7th@sina.com',
         :password => '123456',
         :role     => :teacher
       )
@@ -749,7 +748,6 @@ describe MediaResource do
       @ben7th = User.create!(
         :login => 'ben7th',
         :name  => 'ben7th',
-        :email => 'ben7th@sina.com',
         :password => '123456',
         :role     => :teacher
       )
@@ -850,7 +848,6 @@ describe MediaResource do
       @ben7th = User.create!(
         :login => 'ben7th',
         :name  => 'ben7th',
-        :email => 'ben7th@sina.com',
         :password => '123456',
         :role     => :teacher
       )

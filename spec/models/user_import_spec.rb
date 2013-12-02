@@ -1,19 +1,6 @@
 require "spec_helper"
 
 describe User do
-  before {
-    @current_inhouse = R::INHOUSE
-    @current_internet = R::INTERNET
-
-    R::INHOUSE = true
-    R::INTERNET = false
-  }
-
-  after {
-    R::INHOUSE = @current_inhouse
-    R::INTERNET = @current_internet
-  }
-
   describe "import file" do
     it "should raise format error" do
       file = File.new 'spec/data/user_import_test_files/incorrect_excel.aaa'
@@ -33,11 +20,15 @@ describe User do
             User.import_excel file, :teacher
           }.to change{User.count}.by(3)
 
-          @user = User.find_by_email('hi2@gmail.com')
+          @user = User.find_by_name('hello2')
         }
 
         it {
           @user.login.should == 'aaa2'
+        }
+
+        it {
+          @user.gender.should == '女'
         }
 
         it {
@@ -50,10 +41,10 @@ describe User do
           file = File.new 'spec/data/user_import_test_files/user.xlsx'
 
           expect{
-            User.import_excel file, :teacher
+            User.import_excel file, :student
           }.to change{User.count}.by(3)
 
-          @user = User.find_by_email('hi2@gmail.com')
+          @user = User.find_by_name('hello2')
         }
 
         it {
@@ -61,17 +52,14 @@ describe User do
         }
 
         it {
-          @user.role?(:teacher).should == true
+          @user.gender.should == '女'
+        }
+
+        it {
+          @user.role?(:student).should == true
         }
       end
 
-      it "import openoffice format" do
-        file = File.new 'spec/data/user_import_test_files/user.sxc'
-        
-        expect{
-          User.import_excel file, :teacher
-        }.to change{User.count}.by(3)
-      end
     end
 
     context "import student excel files" do
@@ -93,13 +81,6 @@ describe User do
         }.to change{User.count}.by(3)
       end
 
-      it "import openoffice format" do
-        file = File.new 'spec/data/user_import_test_files/user.sxc'
-       
-        expect{
-          User.import_excel file, :student
-        }.to change{User.count}.by(3)
-      end
     end
   end
 end

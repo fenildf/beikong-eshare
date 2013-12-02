@@ -2,7 +2,6 @@ ActiveRecord::Base.transaction do
 p "导入 admin 用户"
 User.create!(:login => 'admin', 
             :name => '管理员', 
-            :email => 'admin@edu.dev', 
             :password => '1234', 
             :role => :admin)
 p "导入 admin 用户完成"
@@ -13,7 +12,6 @@ Dir["/download/user_avatar/*.jpg"].each_with_index do |avatar_path, index|
   name = File.basename(avatar_path,'.jpg')
   User.create!(:login => "mindpin#{index+1}", 
               :name => name, 
-              :email => "mindpin#{index+1}@edu.dev", 
               :password => '1234',
               :avatar => File.new(avatar_path),
               :role => :teacher)
