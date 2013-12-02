@@ -5804,12 +5804,11 @@ form .input.page-form-tag-inputer {
           padding:10px 10px 0;
           .child {
             float:left;
-            width:120px;height:67.5px;
+            @include border-box;
+            padding:10px 20px 20px;
             background-color:#3BA4E3;
             margin-right:10px;
             margin-bottom:10px;
-            @include border-box;
-            padding:20px;
             text-align:center;
             border:solid 2px rgba(black, 0.2);
             @include border-radius(3px);
@@ -5817,6 +5816,8 @@ form .input.page-form-tag-inputer {
             @include transition(all ease-out 0.2s);
             color:white;
             text-shadow:0 0 1px black;
+            font-weight:bold;
+            font-size:13px;
             &:hover {
               background-color:lighten(#3BA4E3, 10%);
             }

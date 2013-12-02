@@ -109,7 +109,7 @@ zh-CN:
 
     attributes:
       user:
-        login: 用户名
+        login: 登陆账号
         name: 姓名
         current_password: 当前密码
         password: 密码
@@ -304,11 +304,12 @@ zh-CN:
     data_table:
       users:
         id: ID
-        role: 角色
-        login: 用户名
+        role: 用户角色
+        login: 登陆账号
         name: 姓名
         email: Email
         ops: 操作
+        gender: 性别
         
       files:
         name: 文件名
