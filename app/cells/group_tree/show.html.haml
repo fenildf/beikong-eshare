@@ -28,6 +28,11 @@
         - table.add_column(:login)
         - table.add_column(:name)
         - table.add_column(:gender)
+        - table.add_column(:group) do |user|
+          - user.joined_group_tree_nodes.each do |group|
+            - if group.children.count == 0
+              .group= group.name
+
   .paginate
     = paginate @users, :params => {:controller => :user_groups, :action => :show}
     .pinfo

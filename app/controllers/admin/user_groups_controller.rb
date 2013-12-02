@@ -71,7 +71,9 @@ class Admin::UserGroupsController < ApplicationController
 
     if id == '0'
       group = _root_group(kind)
-      users = User.without_group.page(params[:page])
+
+      role = params[:kind].downcase
+      users = User.with_role(role).page(params[:page])
     else
       group = GroupTreeNode.find id
       users = group.direct_members.page(params[:page])

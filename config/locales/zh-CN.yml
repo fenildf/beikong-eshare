@@ -305,6 +305,7 @@ zh-CN:
         name: 姓名
         ops: 操作
         gender: 性别
+        group: 所在分组
         
       files:
         name: 文件名

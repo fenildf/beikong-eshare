@@ -311,6 +311,8 @@ class GroupDetail
         @$elm.find('a.delete').hide()
 
 jQuery ->
+  return if jQuery('.page-admin-users').length == 0
+
   group_detail = new GroupDetail jQuery('.page-admin-users .group-detail').first()
   group_tree = new GroupTree jQuery('.page-admin-users .group-tree').first(), group_detail
   group_detail.tree = group_tree
