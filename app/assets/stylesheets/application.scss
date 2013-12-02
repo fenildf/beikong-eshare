@@ -5601,6 +5601,21 @@ form .input.page-form-tag-inputer {
       }
 
       .group {
+        &.new .data{
+          &:before {
+            content:"新";
+            position:absolute;
+            font-size:12px;
+            top:10px;left:5px;
+            background-color:red;
+            color:white;
+            @include border-radius(3px);
+            width:16px;height:16px;line-height:16px;
+            text-align:center;
+            opacity:0.6;
+          }
+        }
+
         .data {
           display: block;
           padding:9px 0px 9px 15px;
@@ -5695,7 +5710,7 @@ form .input.page-form-tag-inputer {
     top:0;left:0;
     z-index:99;
 
-    .form-overflow {
+    .form-overlay {
       position:fixed;
       top:0;left:0;bottom:0;right:0;
       background-color:rgba(black, 0.5);

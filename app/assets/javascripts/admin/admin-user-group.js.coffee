@@ -33,6 +33,7 @@ class GroupTree
     $group.addClass('active')
     @group_detail.load $group
     @scroll_to $group
+    $group.removeClass('new')
 
   toggle: ($group)->
     $toggle = $group.find(' > .data i.toggle')
@@ -77,6 +78,7 @@ class GroupTree
     , 1
 
   add_child_to: ($parent_group, $child_group)->
+    $child_group.addClass('new')
     $parent_group.find('> .children').append $child_group
 
     $child_group.hide().fadeIn 200
@@ -124,7 +126,7 @@ class GroupTree
 
 class FormWidget
   constructor: (@$elm)->
-    @$overflow = @$elm.find('.form-overflow')
+    @$overlay = @$elm.find('.form-overlay')
     @$new_form = @$elm.find('.add-child-form')
     @$edit_form = @$elm.find('.edit-form')
 
@@ -152,7 +154,7 @@ class FormWidget
       if evt.which == 13
         that.submit_edit_form()
 
-    @$overflow.on 'click', (evt)->
+    @$overlay.on 'click', (evt)->
       that.hide()
 
   submit_new_form: ->
@@ -190,7 +192,7 @@ class FormWidget
 
     offset = $btn.offset()
 
-    @$overflow.fadeIn(200)
+    @$overlay.fadeIn(200)
     @$new_form
       .css
         left: offset.left - 8
@@ -205,7 +207,7 @@ class FormWidget
 
     offset = $btn.offset()
 
-    @$overflow.fadeIn(200)
+    @$overlay.fadeIn(200)
     @$edit_form
       .css
         left: offset.left - 8
@@ -215,7 +217,7 @@ class FormWidget
     @$edit_form.find('input').val(@$edit_group.data('name')).select()
 
   hide:->
-    @$overflow.fadeOut(200)
+    @$overlay.fadeOut(200)
     @$new_form.fadeOut(200)
     @$edit_form.fadeOut(200)
 
