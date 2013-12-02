@@ -15,6 +15,7 @@ class ChatBar
     @subscriptions = []
 
     @attach_listeners()
+    @status("online")
 
   attach_listeners: ->
     that = @
@@ -22,10 +23,22 @@ class ChatBar
       that.chatbox.$elm.fadeIn()
       that.chatbox.set_receiver(jQuery(this))
 
+    jQuery(window).on "unload", =>
+      @status("offline")
+      @client.disconnect()
+
+    @client.subscribe "/user_status", (obj)->
+      console.log "#{obj.name}上线啦！" if obj.status == "online"
+      console.log "#{obj.name}下线啦！" if obj.status == "offline"
+
+
   connect_chatbox: (chatbox)->
     @chatbox = chatbox
 
-  subscribe: ->
+  status: (status)->
+    @client.publish("/user_status", jQuery.extend(@user, {status: status}))
+
+  start_chat: ->
     return if @subscriptions.some((sub)=> sub.channel == @chatbox.channel)
 
     subscription = @client.subscribe @chatbox.channel, (obj)=>
@@ -45,6 +58,7 @@ class ChatBox
     @$close    = @$elm.find(".close")
     @$chatlog  = @$elm.find(".chatlog")
     @$button   = @$elm.find(".inputer .btn")
+    @$name     = @$elm.find(".contact .name")
 
     @attach_listeners()
 
@@ -82,8 +96,8 @@ class ChatBox
     @request_chatlog() if !@receiver.started
     @set_log(@receiver.$log) if @receiver.started
     @set_channel()
-    @$elm.find(".contact .name").html(@receiver.name)
-    @chatbar.subscribe(@channel)
+    @$name.html(@receiver.name)
+    @chatbar.start_chat()
 
   set_log: ($log)->
     @$log = $log
@@ -135,6 +149,7 @@ jQuery ->
     jQuery.getScript "#{faye_server_url}/client.js",
     =>
       faye_client = new Faye.Client(faye_server_url)
+      faye_client.disable("autodisconnect")
       jQuery(document).trigger("faye_ready", faye_client)
     =>
       console.log "无法连接到Faye即时聊天服务器"
