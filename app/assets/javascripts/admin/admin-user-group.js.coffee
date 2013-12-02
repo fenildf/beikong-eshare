@@ -236,24 +236,47 @@ class GroupDetail
       $group = that.tree.$elm.find(".group[data-id=#{id}]")
       that.tree.select_group $group
 
-  load: ($group)->
+    @$elm.delegate '.paginate li:not(.active) a', 'click', (evt)->
+      evt.preventDefault()
+
+      url = jQuery(this).prop('href')
+      match = url.match(/page=(\d+)/)
+      page = if match == null then 1 else match[1]
+
+      that.load that.$current_group, page
+
+  load: ($group, page)->
     @set_head $group
     @set_ops $group
 
-    @$current_group = $group
-
     @request_id = Math.random() + ""
 
-    @$elm.find('.detail').html '<div class="loading">正在载入……</div>'
+    if @$current_group != $group
+      @$current_group = $group
+      @change_page = false
+      @$elm.find('.detail').html '<div class="loading">正在载入……</div>'
+    else
+      @change_page = true
+
     jQuery.ajax
       method: 'GET'
       url: "/admin/user_groups/#{$group.data('id')}"
       data:
         rid: @request_id
         kind: $group.data('kind')
+        page: page
       success: (res)=>
         if res.rid == @request_id
-          @$elm.find('.detail').html res.html
+          if @change_page
+            $new_usrs = jQuery("<div>#{res.html}</div>").find('.usrs')
+            $old_usrs = @$elm.find('.detail .usrs')
+            $old_usrs.after($new_usrs)
+            $old_usrs.remove()
+          else
+            @$elm.find('.detail').html res.html
+
+          jQuery(document).trigger 'group:data-loaded'
+
 
 
   set_head: ($group)->
@@ -281,3 +304,17 @@ jQuery ->
   group_detail = new GroupDetail jQuery('.page-admin-users .group-detail').first()
   group_tree = new GroupTree jQuery('.page-admin-users .group-tree').first(), group_detail
   group_detail.tree = group_tree
+
+  group_tree.select_group group_tree.$elm.find(".group[data-id=0]")
+
+  table_resize = =>
+    h = jQuery(window).height() - 31 - 71 - jQuery('.detail .chds').height()
+    jQuery('.detail .usrs').height(h).fadeIn(100)
+
+  table_resize()
+
+  jQuery(window).resize ->
+    table_resize()
+
+  jQuery(document).on 'group:data-loaded', ->
+    table_resize()

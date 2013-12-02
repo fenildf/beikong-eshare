@@ -87,6 +87,20 @@ zh-CN:
         create: 创建公告
         update: 更新公告
 
+    page_entries_info:
+      one_page:
+        display_entries:
+          # zero: "No %{entry_name} found"
+          # one: "Displaying <b>1</b> %{entry_name}"
+          # other: "Displaying <b>all %{count}</b> %{entry_name}"
+          zero: "没有任何记录"
+          one: "总共 <b>%{total}</b> 条记录"
+          other: "总共 <b>%{total}</b> 条记录"
+      more_pages:
+        display_entries: 
+          # "Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b> in total"
+          "总共 <b>%{total}</b> 条记录，当前显示第 <b>%{first} - %{last}</b> 条"
+
   activerecord:
     models:
       user: 用户

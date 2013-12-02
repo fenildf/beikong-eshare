@@ -9,6 +9,7 @@ class GroupTreeCell < Cell::Rails
 
   def show(opts = {})
     @node = opts[:node]
+    @users = opts[:users]
     render
   end
 end

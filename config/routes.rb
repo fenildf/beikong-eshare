@@ -112,6 +112,8 @@ Eshare::Application.routes.draw do
       collection do
         get :teachers, :action => :index, :tab => :teachers
         get :students, :action => :index, :tab => :students
+
+        get :users
       end
     end
 

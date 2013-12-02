@@ -71,17 +71,21 @@ class Admin::UserGroupsController < ApplicationController
 
     if id == '0'
       group = _root_group(kind)
+      users = User.without_group.page(params[:page])
     else
       group = GroupTreeNode.find id
+      users = group.direct_members.page(params[:page])
     end
 
     return render :json => {
       :rid => params[:rid],
       :html => (
-        render_cell :group_tree, :show, :node => group
+        render_cell :group_tree, :show, :node => group, :users => users
       )
     }
   end
+
+private
 
   def _root_group(kind)
     if kind == GroupTreeNode::TEACHER
