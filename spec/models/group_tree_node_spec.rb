@@ -57,6 +57,8 @@ describe GroupTreeNode do
     User.with_group.should == []
     @group_tree_node.add_user(@user)
     User.with_group.should =~ [@user]
+    User.with_student_group.should =~ []
+    User.with_teacher_group.should =~ [@user]
   end
 
   it "用户加入的分组" do
