@@ -53,6 +53,12 @@ describe GroupTreeNode do
     User.without_group.should =~ [@user1, @user2]
   end
 
+  it "找到还没有在任何分组的人" do
+    User.with_group.should == []
+    @group_tree_node.add_user(@user)
+    User.with_group.should =~ [@user]
+  end
+
   it "用户加入的分组" do
     @user.joined_group_tree_nodes.should == []
     @group_tree_node.add_user(@user)

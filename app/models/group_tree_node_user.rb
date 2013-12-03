@@ -26,6 +26,12 @@ class GroupTreeNodeUser < ActiveRecord::Base
         group_tree_node_users.user_id is null
       `
       )
+      base.scope :with_group, base.joins(%`
+        INNER JOIN
+          group_tree_node_users
+        ON
+          group_tree_node_users.user_id = users.id
+      `).group('users.id')
     end
 
   end
