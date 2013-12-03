@@ -69,9 +69,12 @@ class Admin::UserGroupsController < ApplicationController
     id = params[:id]
     kind = params[:kind]
 
-    if id == '0'
+    if id == '-1'
+      group = _non_group(kind)
+      role = params[:kind].downcase
+      users = User.with_role(role).without_group.page(params[:page])
+    elsif id == '0'
       group = _root_group(kind)
-
       role = params[:kind].downcase
       users = User.with_role(role).page(params[:page])
     else
@@ -102,8 +105,25 @@ private
 
     OpenStruct.new({
       :id => '0',
-      :name => "全体#{str}",
+      :name => "已分组#{str}",
       :children => root_groups,
+      :kind => kind
+    })
+  end
+
+  def _non_group(kind)
+    if kind == GroupTreeNode::TEACHER
+      str = '教职工'
+    end
+
+    if kind == GroupTreeNode::STUDENT
+      str = '学生'
+    end
+
+    OpenStruct.new({
+      :id => '-1',
+      :name => "未分组#{str}",
+      :children => [],
       :kind => kind
     })
   end

@@ -1,21 +1,27 @@
 :ruby
   children = @node.children
 
+  is_non = @node.id == '-1'
+
 .chds
-  .title 共 <b>#{children.count}</b> 个子分组
-  .children
-    - children.each do |child|
-      .child{:data => {:id => "#{child.id}"}}
-        %i.icon-user
-        %span= child.name
-    .clearfix
+  - if is_non
+    .title 这里显示了所有未分组用户
+  - else
+    .title 共 <b>#{children.count}</b> 个子分组
+    .children
+      - children.each do |child|
+        .child{:data => {:id => "#{child.id}"}}
+          %i.icon-user
+          %span= child.name
+      .clearfix
 
-.ops
-  %a.btn.add-user.success-flat{:href => 'javascript:;'}
-    %i.icon-plus-sign-alt
-    %span 增加用户
+- if !is_non
+  .ops
+    %a.btn.add-user.success-flat{:href => 'javascript:;'}
+      %i.icon-plus-sign-alt
+      %span 增加用户
 
-.usrs{:style => 'display:none;'}
+.usrs{:style => 'display:none;', :class => is_non ? 'non' : ''}
   .table
     .header-bg
     .table-inner
