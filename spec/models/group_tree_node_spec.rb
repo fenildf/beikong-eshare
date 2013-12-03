@@ -53,6 +53,12 @@ describe GroupTreeNode do
     User.without_group.should =~ [@user1, @user2]
   end
 
+  it "找到还没有在任何分组的人" do
+    User.with_group.should == []
+    @group_tree_node.add_user(@user)
+    User.with_group.should =~ [@user]
+  end
+
   it "用户加入的分组" do
     @user.joined_group_tree_nodes.should == []
     @group_tree_node.add_user(@user)
@@ -60,7 +66,7 @@ describe GroupTreeNode do
     @user.joined_group_tree_nodes.should == [@group_tree_node]
     @group_tree_node2.add_user(@user)
     @user.reload
-    @user.joined_group_tree_nodes.should =~ [@group_tree_node2,@group_tree_node,@group_tree_node1]
+    @user.joined_group_tree_nodes.should =~ [@group_tree_node2,@group_tree_node]
   end
 
   describe '创建 group_tree_node' do
@@ -100,9 +106,13 @@ describe GroupTreeNode do
       @group_tree_node1.reload
       @group_tree_node.reload
 
-      @group_tree_node2.users.include?(@user1).should == true
-      @group_tree_node1.users.include?(@user1).should == true
-      @group_tree_node.users.include?(@user1).should == true
+      @group_tree_node2.direct_members.include?(@user1).should == true
+      @group_tree_node1.direct_members.include?(@user1).should == false
+      @group_tree_node.direct_members.include?(@user1).should == false
+
+      @group_tree_node2.nest_members.include?(@user1).should == true
+      @group_tree_node1.nest_members.include?(@user1).should == true
+      @group_tree_node.nest_members.include?(@user1).should == true
     end
 
     it '给子节点增加user 2' do
@@ -112,8 +122,11 @@ describe GroupTreeNode do
       @group_tree_node1.reload
       @group_tree_node.reload
 
-      @group_tree_node1.users.include?(@user1).should == true
-      @group_tree_node.users.include?(@user1).should == true
+      @group_tree_node1.direct_members.include?(@user1).should == true
+      @group_tree_node.direct_members.include?(@user1).should == false
+
+      @group_tree_node1.nest_members.include?(@user1).should == true
+      @group_tree_node.nest_members.include?(@user1).should == true
     end
 
   end
@@ -127,42 +140,20 @@ describe GroupTreeNode do
     }
 
     it{
-      @group_tree_node2.users.include?(@user2).should == true
+      @group_tree_node2.direct_members.include?(@user2).should == true
     }
 
-    it '移除父节点User' do
-      @group_tree_node.remove_user(@user2)
+    it  do
+      @group_tree_node2.remove_user(@user2)
 
       @group_tree_node2.reload
       @group_tree_node1.reload
       @group_tree_node.reload
 
-      @group_tree_node1.users.include?(@user2).should == false
-      @group_tree_node2.users.include?(@user2).should == false
+      @group_tree_node2.direct_members.include?(@user2).should == false
+      @group_tree_node1.nest_members.include?(@user2).should == false
+      @group_tree_node.nest_members.include?(@user2).should == false
     end
-  end
-
-  it '如果分组里有人，就不能添加子分组' do
-    @group_tree_node2.users.count.should == 0
-    group_3 = GroupTreeNode.create!(
-      :name => 'group_3',
-      :parent => @group_tree_node2,
-      :kind => GroupTreeNode::TEACHER
-    )
-    group_3 = GroupTreeNode.find(group_3.id)
-    group_3.parent.should == @group_tree_node2
-
-    @group_tree_node2.add_user(@user)
-    @group_tree_node2.reload
-    @group_tree_node2.users.count.should == 1
-
-    group_4 = GroupTreeNode.create!(
-      :name => 'group_4',
-      :kind => GroupTreeNode::TEACHER
-    )
-    group_4.move_to_child_of(@group_tree_node2)
-    group_4 = GroupTreeNode.find(group_4.id)
-    group_4.parent.should == nil
   end
 
 end

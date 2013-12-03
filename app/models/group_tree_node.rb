@@ -18,29 +18,15 @@ class GroupTreeNode < ActiveRecord::Base
   scope :with_student, :conditions => ["kind = ?", STUDENT]
 
   def add_user(user)
-    self.self_and_ancestors.each do |node|
-      node.group_tree_node_users.create(:user => user)
-    end
+    self.group_tree_node_users.create(:user => user)
   end
 
   def remove_user(user)
-    self.self_and_descendants.each do |node|
-      node.group_tree_node_users.find_by_user_id(user.id).destroy()
-    end
+    self.group_tree_node_users.find_by_user_id(user.id).destroy()
   end
 
   def destroy
     return if self.children.count != 0 || self.users.count != 0
-    super
-  end
-
-  def move_to_child_of(other_group_tree_node)
-    if other_group_tree_node.is_a?(Fixnum)
-      group = GroupTreeNode.find(other_group_tree_node)
-    else
-      group = other_group_tree_node
-    end
-    return if group.users.count != 0
     super
   end
 
@@ -51,7 +37,7 @@ class GroupTreeNode < ActiveRecord::Base
 
   # 查询在这个分组以及这个分组所有的下级分组里的人
   def nest_members
-    self.users
+    User.nest_members_of(self)
   end
 
   module UserMethods
@@ -59,6 +45,29 @@ class GroupTreeNode < ActiveRecord::Base
       base.has_many :manage_group_tree_nodes,
         :class_name  => :GroupTreeNode,
         :foreign_key => :manage_user_id 
+
+      base.scope :nest_members_of, lambda{ |group_tree_node|
+        base.joins(
+          %`
+            INNER JOIN
+              group_tree_node_users
+            ON
+              users.id = group_tree_node_users.user_id
+          `
+        ).joins(
+          %`
+          INNER JOIN
+            group_tree_nodes
+          ON
+            group_tree_node_users.group_tree_node_id = group_tree_nodes.id
+          `
+        ).where(%`
+          group_tree_nodes.lft >= #{group_tree_node.lft}
+            AND 
+          group_tree_nodes.rgt <= #{group_tree_node.rgt}
+        `
+        ).group("users.id")
+      }
     end
   end
 end
