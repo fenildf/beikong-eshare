@@ -13,20 +13,20 @@
     if @node.kind == GroupTreeNode::STUDENT
       str = '学生'
     end
-    name = "未分组#{str}"
+    name = "全体#{str}"
 
-  .group{:data => {:id => "-1", :name => name, :depth => '-1', :kind => @node.kind}}
+  .group.active{:data => {:id => "-1", :name => name, :depth => '-1', :kind => @node.kind}}
     .data{:style => "padding-left:#{padding}px;"}
-      %i.toggle.icon-leaf
+      %i.toggle.icon-user
       .name= name
 
-.group{:class => is_root ? 'active' : '', :data => {:id => "#{@node.id}", :name => @node.name, :depth => @depth, :kind => @node.kind}}
+.group{:data => {:id => "#{@node.id}", :name => @node.name, :depth => @depth, :kind => @node.kind}}
   .data{:style => "padding-left:#{padding}px;"}
     - if has_children
       %i.toggle.icon-minus-sign
     - else
       %i.toggle.icon-leaf
-    .name= @node.name
+    .name= @node.name + @node.id.to_s
     .ops
       - if !is_root
         %a.op.edit{:title => '修改组名', :href => 'javascript:;'}

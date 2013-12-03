@@ -1,44 +1,26 @@
 .page-user-selector{:style => 'display:none;'}
   .btns
-    %a.btn.inverse-flat.close{:href => 'javascript:;'} 
+    %a.btn.inverse-flat.close{:href => 'javascript:;'}
       %i.icon-chevron-left.icon-white
       %span 关闭
     %span 
       %span 增加用户到分组：
-      %span.group-name %{name}
+      %span.group-name= @node.name
 
   .data
-    .data-users
-      .title 
-        %i.icon-user
-        %span 从下列用户中选择
-      .usr-table
-        .header-bg
-        .table-inner
-          = page_data_table(:users, User.all, :striped, :bordered) do |table|
-            - table.add_line_data(:role)
-            - table.add_column(:id) do |user|
-              = "##{user.id}"
-            - table.add_column(:role) do |user|
-              = user_roles_str user
-            - table.add_column(:login)
-            - table.add_column(:name)
-            - table.add_column(:gender)
-            - table.add_column(:group) do |user|
-              - user.joined_group_tree_nodes.each do |group|
-                - if group.children.count == 0
-                  .group= group.name
+    .data-tree
+      .tree.nano
+        .nano-content
+          = render_cell :group_tree, :node, :node => @root
 
-    .results
-      .title 
-        %span 已选择 
-        %span.count %{user.count}
-        %span 个用户
-      .result-users
-        - 50.times do
-          .user{:data => {:id => ''}} 
-            %i.icon-user
-            %span.login %{login} 
-            %span.name %{name}
-            %span.remove{:href => 'javascript:;'}
-              %i.icon-remove
+    .data-from-group-users
+      = page_data_table(:users, @users, :striped, :bordered) do |table|
+        - table.add_line_data(:role)
+        - table.add_column(:select) do |user|
+          %input{:type => :checkbox, :data => {:id => "#{user.id}"}}
+        - table.add_column(:login)
+        - table.add_column(:name)
+
+    .data-to-group-users
+      - @node.nest_members.each do |user|
+        .user= user.name

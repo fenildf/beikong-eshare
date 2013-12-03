@@ -14,6 +14,9 @@ class GroupTreeCell < Cell::Rails
   end
 
   def user_selector(opts = {})
+    @node = opts[:node]
+    @root = opts[:root]
+    @users = opts[:users]
     render
   end
 end

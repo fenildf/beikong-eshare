@@ -46,4 +46,4 @@
     .detail
       / ajax loading
 
-= render_cell :group_tree, :user_selector
+= render_cell :group_tree, :user_selector, :node => @root, :root => @root, :users => User.page(1)

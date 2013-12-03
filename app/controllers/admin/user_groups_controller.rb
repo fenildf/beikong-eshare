@@ -71,21 +71,48 @@ class Admin::UserGroupsController < ApplicationController
 
     if id == '-1'
       group = _non_group(kind)
-      role = params[:kind].downcase
-      users = User.with_role(role).without_group.page(params[:page])
+      users = User.with_role(kind.downcase).without_group.page(params[:page])
     elsif id == '0'
       group = _root_group(kind)
-      role = params[:kind].downcase
-      users = User.with_role(role).page(params[:page])
+      users = User.with_role(kind.downcase).with_group.page(params[:page])
     else
       group = GroupTreeNode.find id
-      users = group.direct_members.page(params[:page])
+      users = group.nest_members.page(params[:page])
     end
 
     return render :json => {
       :rid => params[:rid],
       :html => (
         render_cell :group_tree, :show, :node => group, :users => users
+      )
+    }
+  end
+
+  def add_user_form
+    to_group_id   = params[:id]
+    from_group_id = params[:from]
+    kind          = params[:kind]
+
+    to_group   = GroupTreeNode.find to_group_id
+
+    if from_group_id == '-1'
+      from_group = _non_group(kind)
+      users = User.with_role(kind.downcase).without_group.page(params[:page])
+    elsif from_group_id == '0'
+      from_group = _root_group(kind)
+      users = User.with_role(kind.downcase).with_group.page(params[:page])
+    else
+      from_group = GroupTreeNode.find from_group_id
+      users = from_group.nest_members.page(params[:page])
+    end
+
+    return render :json => {
+      :rid => params[:rid],
+      :html => (
+        render_cell :group_tree, :user_selector, 
+                                 :node => to_group, 
+                                 :root => _root_group(kind),
+                                 :users => users
       )
     }
   end
@@ -107,7 +134,8 @@ private
       :id => '0',
       :name => "已分组#{str}",
       :children => root_groups,
-      :kind => kind
+      :kind => kind,
+      :nest_members => []
     })
   end
 

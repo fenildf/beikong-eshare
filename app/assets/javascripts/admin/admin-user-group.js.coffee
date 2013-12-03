@@ -29,6 +29,7 @@ class GroupTree
       that.form_widget.show_edit_form_on($btn)
 
   select_group: ($group)->
+    @$current_group = $group
     @$elm.find('.group').removeClass('active')
     $group.addClass('active')
     @group_detail.load $group
@@ -130,6 +131,8 @@ class FormWidget
     @$new_form = @$elm.find('.add-child-form')
     @$edit_form = @$elm.find('.edit-form')
 
+    @$add_user_form = jQuery('.page-user-selector')
+
     @bind_events()
 
   bind_events: ->
@@ -155,6 +158,13 @@ class FormWidget
         that.submit_edit_form()
 
     @$overlay.on 'click', (evt)->
+      that.hide()
+
+    # -------------
+    jQuery(document).delegate '.group-detail .add-user', 'click', (evt)->
+      that.show_add_user_form()
+
+    @$add_user_form.delegate '.btns .btn.close', 'click', (evt)->
       that.hide()
 
   submit_new_form: ->
@@ -199,7 +209,7 @@ class FormWidget
         top: offset.top - 8
       .fadeIn(200)
 
-    @$new_form.find('input').val('').select()
+    @$new_form.find('input').val('').focus()
 
   show_edit_form_on: ($btn)->
     @$edit_group      = $btn.closest('.group')
@@ -216,10 +226,47 @@ class FormWidget
 
     @$edit_form.find('input').val(@$edit_group.data('name')).select()
 
+  show_add_user_form: ->
+    @$add_user_form.find('.data-group-users').html('正在载入……')
+    
+    id   = @tree.$current_group.data('id')
+    kind = @tree.$current_group.data('kind')
+
+    from_id = @$add_user_form.find('.group.active').first().data('id')
+
+    jQuery.ajax
+      method: 'GET'
+      url: "/admin/user_groups/#{id}/add_user_form"
+      data:
+        from: from_id
+        kind: kind
+      success: (res)=>
+        $new_table = jQuery(res.html).find('.data-group-users table')
+        @$add_user_form.find('.data-group-users').html $new_table
+
+    @$overlay.fadeIn(200)
+    @$add_user_form.css
+      right: '-70%'
+      opacity: 0
+    .show()
+    .animate
+      right: 0
+      opacity: 1
+    , 200
+
   hide:->
     @$overlay.fadeOut(200)
     @$new_form.fadeOut(200)
     @$edit_form.fadeOut(200)
+
+    @$add_user_form.css
+      right: 0
+      opacity: 1
+    .animate {
+      right: '-70%'
+      opacity: 0
+    }, 300, => 
+      @$add_user_form.hide()
 
 class GroupDetail
   constructor: (@$elm)->
@@ -319,7 +366,7 @@ jQuery ->
   group_tree = new GroupTree jQuery('.page-admin-users .group-tree').first(), group_detail
   group_detail.tree = group_tree
 
-  group_tree.select_group group_tree.$elm.find(".group[data-id=0]")
+  group_tree.select_group group_tree.$elm.find(".group[data-id=-1]")
 
   table_resize = =>
     h = jQuery(window).height() - 31 - 71 - jQuery('.detail .chds').height()

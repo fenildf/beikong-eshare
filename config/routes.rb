@@ -115,6 +115,10 @@ Eshare::Application.routes.draw do
 
         get :users
       end
+
+      member do
+        get :add_user_form
+      end
     end
 
     resources :users do
