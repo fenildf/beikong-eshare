@@ -25,6 +25,17 @@ class GroupTreeNode < ActiveRecord::Base
     self.group_tree_node_users.find_by_user_id(user.id).destroy()
   end
 
+  def replace_users(replace_users)
+    current_users = self.users
+
+    # find add users
+    add_users = replace_users - current_users
+    add_users.each{|user|self.add_user(user)}
+    # find remove users
+    remove_users = current_users - replace_users
+    remove_users.each{|user|self.remove_user(user)}
+  end
+
   def destroy
     return if self.children.count != 0 || self.users.count != 0
     super
