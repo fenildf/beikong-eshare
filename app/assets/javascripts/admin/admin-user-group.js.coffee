@@ -413,7 +413,7 @@ class GroupDetail
       $group = that.tree.$elm.find(".group[data-id=#{id}]")
       that.tree.select_group $group
 
-    @$elm.delegate '.head .ops a.delete', 'click', ->
+    @$elm.delegate '.head .ops a.delete:not(.disabled)', 'click', ->
       # if xxx
         # 组里有人，还不能删
 
@@ -438,10 +438,22 @@ class GroupDetail
 
       that.load that.$current_group, page
 
+  hide_delete_btn: ->
+    @$elm.find('a.delete')
+      .show()
+      .addClass('disabled')
+      .attr('title', '分组不是空的，不能删除')
+
+  show_delete_btn: ->
+    @$elm.find('a.delete')
+      .show()
+      .removeClass('disabled')
+      .attr('title', '删除当前分组')
+
   load: ($group, page)->
 
     @set_head $group
-    @set_ops $group
+    @$elm.find('a.delete').hide()
 
     @request_id = Math.random() + ""
 
@@ -468,6 +480,7 @@ class GroupDetail
             # $old_usrs.remove()
           # else
           @$elm.find('.detail').html res.html
+          @set_ops $group
 
           jQuery(document).trigger 'group:data-loaded'
 
@@ -486,16 +499,16 @@ class GroupDetail
     @$elm.find('.head .name').html(str)
 
   set_ops: ($group)->
-    if $group.data('id') == '-1'
+    if $group.data('id') == -1
       @$elm.find('a.delete').hide()
     else if $group.data('id') == 0
       @$elm.find('a.delete').hide()
     else if $group.find('.children .group').length > 0
-      @$elm.find('a.delete').hide()
+      @hide_delete_btn()
     else if jQuery('.group-detail tr.user').length > 0
-      @$elm.find('a.delete').hide()
+      @hide_delete_btn()
     else
-      @$elm.find('a.delete').show()
+      @show_delete_btn()
 
 jQuery ->
   return if jQuery('.page-admin-users').length == 0
