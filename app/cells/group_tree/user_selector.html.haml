@@ -14,19 +14,30 @@
           = render_cell :group_tree, :node, :node => @root
 
     .data-from-group-users
-      = page_data_table(:users, @users, :striped, :bordered) do |table|
-        - table.add_line_data(:role)
-        - table.add_line_data(:id)
-        - table.add_line_data(:name)
-        - table.add_column(:select) do |user|
-          %input{:type => :checkbox, :data => {:id => "#{user.id}"}}
-        - table.add_column(:login)
-        - table.add_column(:name)
+      .table
+        .header-bg
+        .table-inner
+          = page_data_table(:users, @users, :striped, :bordered) do |table|
+            - table.add_line_data(:role)
+            - table.add_line_data(:id)
+            - table.add_line_data(:name)
+            - table.add_column(:select) do |user|
+              %input{:type => :checkbox, :data => {:id => "#{user.id}"}}
+            - table.add_column(:login)
+            - table.add_column(:name)
+    
+    - members = @node.nest_members
+
+    .data-selected-count
+      %span 已选中
+      %span.count= members.count
+      %span 人
 
     .data-to-group-users
-      - @node.nest_members.each do |user|
-        .usr{:data => {:id => "#{user.id}"}}
-          %i.icon-user
-          %span= user.name
-          %a.remove{:href => 'javascript:;', :title => '移除用户'}
-            %i.icon-remove
+      .udata
+        - members.each do |user|
+          .usr{:data => {:id => "#{user.id}"}}
+            %i.icon-user
+            %span= user.name
+            %a.remove{:href => 'javascript:;', :title => '移除用户'}
+              %i.icon-remove

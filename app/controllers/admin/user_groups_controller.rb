@@ -123,7 +123,7 @@ class Admin::UserGroupsController < ApplicationController
 
     user_ids = (params[:user_ids] || []).uniq.compact
 
-    to_group.replace_users user_ids.map {|id| User.find(id)}
+    to_group.change_nest_members user_ids.map {|id| User.find(id)}
 
     render :json => {
       :to_group => to_group_id,

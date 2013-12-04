@@ -5722,11 +5722,16 @@ form .input.page-form-tag-inputer {
     position:absolute;
     left:241px;
     top:50px;bottom:0;
-    right:300px;
-    padding:5px;
-    overflow-y:scroll;
+    right:300px - 1;
+    // padding:5px;
+    // overflow-y:scroll;
+    border-right:solid 1px #E7E7E7;
+
     table th.select {
       width:20px;
+    }
+    table th.login {
+      width:60px;
     }
 
     tr.checked {
@@ -5735,13 +5740,78 @@ form .input.page-form-tag-inputer {
         color:white;
       }
     }
+
+    .table {
+      position:absolute;
+      border:solid 1px #e7e7e7;
+      padding-top:36px;
+      top:5px;
+      left:5px;right:5px;
+      bottom:5px;
+
+      .header-bg {
+        height:36px;
+        position:absolute;
+        top:0;right:0;left:0;
+        border-bottom:solid 2px rgba(black, 0.2);
+        // background-color:#eeeeee;
+      }
+
+      .table-inner {
+        height:100%;
+        overflow-x:hidden;
+        overflow-y:auto;
+        margin-left:-1px;
+        margin-right:-1px;
+
+        table {
+          width:100%;
+          overflow-x:hidden;
+          overflow-y:auto;
+
+          thead tr th {
+            padding:0;
+
+            .th-inner {
+              position:absolute;
+              top:0;
+              line-height:36px;
+              // border-left:solid 1px rgba(black, 0.2);
+              // margin-left:-1px;
+              padding-left:8px;
+              color:black;
+            }
+
+            &.id {width:80px;}
+            &.role {width:120px;}
+            &.login {width:120px;}
+            &.name {width:120px;}
+            &.gender {width:80px;}
+          }
+        }
+      }
+    }
+  }
+
+  .data-selected-count {
+    position:absolute;
+    right:0;
+    width:300px;
+    top:50px;
+    height:44px;line-height:43px;
+    border-bottom:solid 2px #B8B8B8;
+    @include border-box;
+    padding-left:20px;
+    span.count{
+      font-weight:bold;
+    }
   }
 
   .data-to-group-users {
     position:absolute;
     right:0;
     width:300px - 10px;
-    top:50px;
+    top:100px;
     bottom:0;
     overflow-y:scroll;
     padding:5px;
@@ -6169,6 +6239,25 @@ form .input.page-form-tag-inputer {
                 &.name {width:120px;}
                 &.gender {width:80px;}
               }
+            }
+          }
+        }
+
+        .table {
+          td.group a.group {
+            float:left;margin-right:3px;
+            background-color:lighten(#3BA4E3, 10%);
+            height:20px;line-height:20px;
+            color:white;
+            padding:0 5px;
+            text-decoration:none;
+            font-size:13px;
+            @include border-radius(2px);
+            text-shadow: 0 0 1px black;
+            border: solid 1px rgba(0, 0, 0, 0.2);
+            font-weight:bold;
+            &:hover {
+              background-color:lighten(#3BA4E3, 15%);
             }
           }
         }

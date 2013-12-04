@@ -30,7 +30,7 @@
   .ops
     %a.btn.add-user.success-flat{:href => 'javascript:;'}
       %i.icon-plus-sign-alt
-      %span 增加用户
+      %span 分配用户
 
 - if @users.blank?
   .blank{:class => is_non_root ? 'non' : ''}
@@ -51,9 +51,7 @@
           - table.add_column(:name)
           - table.add_column(:gender)
           - table.add_column(:group) do |user|
-            - user.joined_group_tree_nodes.each do |group|
-              - if group.children.count == 0
-                .group= group.name
+            = user_groups_tag user
 
     .paginate
       = paginate @users, :params => {:controller => :user_groups, :action => :show}

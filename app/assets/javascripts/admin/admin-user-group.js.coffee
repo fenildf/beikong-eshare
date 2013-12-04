@@ -199,6 +199,40 @@ class FormWidget
       that.check_user_tr $tr, false
       that.do_change_group_user()
 
+    @$add_user_form.delegate '.data-tree .data', 'click', (evt)->
+      $from_group = jQuery(this).closest('.group')
+      that.$add_user_form.find('.data-tree .group').removeClass('active')
+      $from_group.addClass('active')
+      
+      from_id = $from_group.data('id')
+      id   = that.tree.$current_group.data('id')
+      kind = that.tree.$current_group.data('kind')
+
+      jQuery.ajax
+        method: 'GET'
+        url: "/admin/user_groups/#{id}/add_user_form"
+        data:
+          from: from_id
+          kind: kind
+        success: (res)=>
+          $new_table = jQuery(res.html).find('.data-from-group-users .table')
+          $new_table.find('th.select .th-inner').html("<input type=checkbox />")
+          
+          $users = jQuery(res.html).find('.data-to-group-users .usr')
+
+          # 填充数据
+          that.$add_user_form.find('.data-from-group-users').html $new_table
+          that.$add_user_form.find('.data-to-group-users').html $users
+          that.$add_user_form.find('.data-selected-count span.count').html $users.length
+
+          # 勾上必要的勾
+          $users.each ->
+            id = jQuery(this).data('id')
+            $new_table.find("tr.user[data-id=#{id}]")
+              .addClass('checked')
+              .find('input').prop('checked', true)
+
+
   check_user_tr: ($tr, checked)->
     id = $tr.data('id')
     name = $tr.data('name')
@@ -214,6 +248,7 @@ class FormWidget
                           </a>
                         </div>")
     else
+      $tr.prop('checked', false)
       $tr.removeClass('checked')
       @$add_user_form.find(".data-to-group-users .usr[data-id=#{id}]").remove()
 
@@ -223,6 +258,8 @@ class FormWidget
       user_ids.push jQuery(this).data('id')
 
     group_id = @tree.$current_group.data('id')
+
+    @$add_user_form.find('.data-selected-count span.count').html user_ids.length
 
     jQuery.ajax
       method: 'PUT'
@@ -307,7 +344,7 @@ class FormWidget
         from: from_id
         kind: kind
       success: (res)=>
-        $new_table = jQuery(res.html).find('.data-from-group-users table')
+        $new_table = jQuery(res.html).find('.data-from-group-users .table')
         $new_table.find('th.select .th-inner').html("<input type=checkbox />")
         
         $users = jQuery(res.html).find('.data-to-group-users .usr')
@@ -315,6 +352,7 @@ class FormWidget
         # 填充数据
         @$add_user_form.find('.data-from-group-users').html $new_table
         @$add_user_form.find('.data-to-group-users').html $users
+        @$add_user_form.find('.data-selected-count span.count').html $users.length
 
         # 勾上必要的勾
         $users.each ->
@@ -360,6 +398,11 @@ class GroupDetail
       $group = that.tree.$elm.find(".group[data-id=#{id}]")
       that.tree.select_group $group
 
+    @$elm.delegate '.table td.group a.group', 'click', ->
+      id = jQuery(this).data('id')
+      $group = that.tree.$elm.find(".group[data-id=#{id}]")
+      that.tree.select_group $group
+
     @$elm.delegate '.head .ops a.delete', 'click', ->
       # if xxx
         # 组里有人，还不能删
@@ -386,7 +429,7 @@ class GroupDetail
       that.load that.$current_group, page
 
   load: ($group, page)->
-    
+
     @set_head $group
     @set_ops $group
 
@@ -433,13 +476,16 @@ class GroupDetail
     @$elm.find('.head .name').html(str)
 
   set_ops: ($group)->
-    if $group.data('id') == 0
+    if $group.data('id') == '-1'
+      @$elm.find('a.delete').hide()
+    else if $group.data('id') == 0
+      @$elm.find('a.delete').hide()
+    else if $group.find('.children .group').length > 0
+      @$elm.find('a.delete').hide()
+    else if jQuery('.group-detail tr.user').length > 0
       @$elm.find('a.delete').hide()
     else
-      if $group.find('.children .group').length == 0
-        @$elm.find('a.delete').show()
-      else
-        @$elm.find('a.delete').hide()
+      @$elm.find('a.delete').show()
 
 jQuery ->
   return if jQuery('.page-admin-users').length == 0

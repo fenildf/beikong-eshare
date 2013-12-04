@@ -455,6 +455,49 @@ module ApplicationHelper
       end
   end
 
+  module UserGroupHelper
+    def user_groups_tag(user)
+      groups = []
+      user.joined_group_tree_nodes.each do |group|
+        gs = groups.clone
+
+        # 遍历 gs
+        parent_flag = false
+        gs.each do |g|
+          # 如果新组的祖先节点在旧组里，移除
+          if _is_parent(g, group)
+            groups = groups - [g]
+            next
+          end
+
+          # 如果新组的子孙节点在旧组里，不加入新组
+          if _is_parent(group, g)
+            parent_flag = true
+            next
+          end
+        end
+
+        if !parent_flag
+          groups << group
+        end
+      end
+
+      capture_haml {
+        haml_tag 'div.groups' do
+          groups.each do |g|
+            haml_tag 'a.group', g.name, :href => 'javascript:;', :data => {:id => g.id.to_s}
+          end
+        end
+      }
+    end
+
+  private
+    def _is_parent(ga, gb)
+      return ga.lft < gb.lft && gb.rgt < ga.rgt
+    end
+  end
+
   include FeedHelper
   include TimeHelper
+  include UserGroupHelper
 end
