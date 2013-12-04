@@ -23,16 +23,20 @@ class GroupTree
     @$elm.delegate 'a.add-child', 'click', (evt)->
       $btn = jQuery(this)
       that.form_widget.show_new_form_on($btn)
+      evt.stopPropagation()
 
     @$elm.delegate 'a.edit', 'click', (evt)->
       $btn = jQuery(this)
       that.form_widget.show_edit_form_on($btn)
+      evt.stopPropagation()
 
   select_group: ($group)->
     @$current_group = $group
     @$elm.find('.group').removeClass('active')
     $group.addClass('active')
+
     @group_detail.load $group
+
     @scroll_to $group
     $group.removeClass('new')
 
@@ -189,6 +193,12 @@ class FormWidget
 
       that.do_change_group_user()
 
+    @$add_user_form.delegate '.data-to-group-users a.remove', 'click', (evt)->
+      user_id = jQuery(this).closest('.usr').data('id')
+      $tr = that.$add_user_form.find("tr[data-id=#{user_id}]")
+      that.check_user_tr $tr, false
+      that.do_change_group_user()
+
   check_user_tr: ($tr, checked)->
     id = $tr.data('id')
     name = $tr.data('name')
@@ -196,7 +206,13 @@ class FormWidget
     if checked
       $tr.addClass('checked')
       @$add_user_form.find('.data-to-group-users')
-        .append jQuery("<div class='usr'>#{name}</div>").attr('data-id', id)
+        .append jQuery("<div class='usr' data-id=#{id}>
+                          <i class='icon-user' />
+                          <span>#{name}</span>
+                          <a class='remove' href='javascript:;' title='移除用户'>
+                            <i class='icon-remove' />
+                          </a>
+                        </div>")
     else
       $tr.removeClass('checked')
       @$add_user_form.find(".data-to-group-users .usr[data-id=#{id}]").remove()
@@ -291,11 +307,21 @@ class FormWidget
         from: from_id
         kind: kind
       success: (res)=>
-        console.log res
         $new_table = jQuery(res.html).find('.data-from-group-users table')
         $new_table.find('th.select .th-inner').html("<input type=checkbox />")
-        console.log $new_table
+        
+        $users = jQuery(res.html).find('.data-to-group-users .usr')
+
+        # 填充数据
         @$add_user_form.find('.data-from-group-users').html $new_table
+        @$add_user_form.find('.data-to-group-users').html $users
+
+        # 勾上必要的勾
+        $users.each ->
+          id = jQuery(this).data('id')
+          $new_table.find("tr.user[data-id=#{id}]")
+            .addClass('checked')
+            .find('input').prop('checked', true)
 
     @$overlay.fadeIn(200)
     @$add_user_form.css
@@ -320,6 +346,8 @@ class FormWidget
       opacity: 0
     }, 300, => 
       @$add_user_form.hide()
+
+    @tree.select_group @tree.$current_group
 
 class GroupDetail
   constructor: (@$elm)->
@@ -358,17 +386,18 @@ class GroupDetail
       that.load that.$current_group, page
 
   load: ($group, page)->
+    
     @set_head $group
     @set_ops $group
 
     @request_id = Math.random() + ""
 
-    if @$current_group != $group
-      @$current_group = $group
-      @change_page = false
-      @$elm.find('.detail').html '<div class="loading">正在载入……</div>'
-    else
-      @change_page = true
+    # if @$current_group != $group
+    @$current_group = $group
+    @change_page = false
+    @$elm.find('.detail').html '<div class="loading">正在载入……</div>'
+    # else
+    #   @change_page = true
 
     jQuery.ajax
       method: 'GET'
@@ -379,13 +408,13 @@ class GroupDetail
         page: page
       success: (res)=>
         if res.rid == @request_id
-          if @change_page
-            $new_usrs = jQuery("<div>#{res.html}</div>").find('.usrs')
-            $old_usrs = @$elm.find('.detail .usrs')
-            $old_usrs.after($new_usrs)
-            $old_usrs.remove()
-          else
-            @$elm.find('.detail').html res.html
+          # if @change_page
+            # $new_usrs = jQuery("<div>#{res.html}</div>").find('.usrs')
+            # $old_usrs = @$elm.find('.detail .usrs')
+            # $old_usrs.after($new_usrs)
+            # $old_usrs.remove()
+          # else
+          @$elm.find('.detail').html res.html
 
           jQuery(document).trigger 'group:data-loaded'
 

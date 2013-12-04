@@ -5752,6 +5752,12 @@ form .input.page-form-tag-inputer {
       background-color:#3879D9;
       color:white;
       padding:0 10px;
+      position:relative;
+
+      a.remove {
+        color:white;
+        float:right;
+      }
     }
   }
 }

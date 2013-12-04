@@ -25,4 +25,8 @@
 
     .data-to-group-users
       - @node.nest_members.each do |user|
-        .user= user.name
+        .usr{:data => {:id => "#{user.id}"}}
+          %i.icon-user
+          %span= user.name
+          %a.remove{:href => 'javascript:;', :title => '移除用户'}
+            %i.icon-remove
