@@ -160,12 +160,62 @@ class FormWidget
     @$overlay.on 'click', (evt)->
       that.hide()
 
-    # -------------
+    # ------------- add-user-form
+
     jQuery(document).delegate '.group-detail .add-user', 'click', (evt)->
       that.show_add_user_form()
 
     @$add_user_form.delegate '.btns .btn.close', 'click', (evt)->
       that.hide()
+
+    @$add_user_form.delegate '.data-from-group-users table th.select input', 'change', (evt)->
+      if jQuery(this).prop('checked')
+        that.$add_user_form.find('table td.select input').each ->
+          jQuery(this).prop('checked', true)
+          that.check_user_tr jQuery(this).closest('tr'), true
+
+      else
+        that.$add_user_form.find('table td.select input').each ->
+          jQuery(this).prop('checked', false)
+          that.check_user_tr jQuery(this).closest('tr'), false
+
+      that.do_change_group_user()
+
+    @$add_user_form.delegate '.data-from-group-users table td.select input', 'change', (evt)->
+      if jQuery(this).prop('checked')
+        that.check_user_tr jQuery(this).closest('tr'), true
+      else
+        that.check_user_tr jQuery(this).closest('tr'), false
+
+      that.do_change_group_user()
+
+  check_user_tr: ($tr, checked)->
+    id = $tr.data('id')
+    name = $tr.data('name')
+    
+    if checked
+      $tr.addClass('checked')
+      @$add_user_form.find('.data-to-group-users')
+        .append jQuery("<div class='usr'>#{name}</div>").attr('data-id', id)
+    else
+      $tr.removeClass('checked')
+      @$add_user_form.find(".data-to-group-users .usr[data-id=#{id}]").remove()
+
+  do_change_group_user: ->
+    user_ids = []
+    @$add_user_form.find(".data-to-group-users .usr").each ->
+      user_ids.push jQuery(this).data('id')
+
+    group_id = @tree.$current_group.data('id')
+
+    jQuery.ajax
+      method: 'PUT'
+      url: "/admin/user_groups/#{group_id}/do_change_users"
+      data:
+        user_ids: user_ids
+      success: (res)->
+        console.log res
+
 
   submit_new_form: ->
     jQuery.ajax
@@ -227,7 +277,7 @@ class FormWidget
     @$edit_form.find('input').val(@$edit_group.data('name')).select()
 
   show_add_user_form: ->
-    @$add_user_form.find('.data-group-users').html('正在载入……')
+    @$add_user_form.find('.data-from-group-users').html('正在载入……')
     
     id   = @tree.$current_group.data('id')
     kind = @tree.$current_group.data('kind')
@@ -241,8 +291,11 @@ class FormWidget
         from: from_id
         kind: kind
       success: (res)=>
-        $new_table = jQuery(res.html).find('.data-group-users table')
-        @$add_user_form.find('.data-group-users').html $new_table
+        console.log res
+        $new_table = jQuery(res.html).find('.data-from-group-users table')
+        $new_table.find('th.select .th-inner').html("<input type=checkbox />")
+        console.log $new_table
+        @$add_user_form.find('.data-from-group-users').html $new_table
 
     @$overlay.fadeIn(200)
     @$add_user_form.css

@@ -118,6 +118,7 @@ Eshare::Application.routes.draw do
 
       member do
         get :add_user_form
+        put :do_change_users
       end
     end
 

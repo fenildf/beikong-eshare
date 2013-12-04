@@ -74,7 +74,7 @@ class Admin::UserGroupsController < ApplicationController
       users = User.with_role(kind.downcase).without_group.page(params[:page])
     elsif id == '0'
       group = _root_group(kind)
-      users = User.with_role(kind.downcase).with_group.page(params[:page])
+      users = User.with_group_of(kind).page(params[:page])
     else
       group = GroupTreeNode.find id
       users = group.nest_members.page(params[:page])
@@ -114,6 +114,18 @@ class Admin::UserGroupsController < ApplicationController
                                  :root => _root_group(kind),
                                  :users => users
       )
+    }
+  end
+
+  def do_change_users
+    to_group_id = params[:id]
+    to_group   = GroupTreeNode.find to_group_id
+
+    user_ids = params[:user_ids]
+
+    render :json => {
+      :to_group => to_group_id,
+      :users => user_ids
     }
   end
 

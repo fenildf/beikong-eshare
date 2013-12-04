@@ -56,6 +56,21 @@ class GroupTreeNodeUser < ActiveRecord::Base
         ON
           group_tree_node_users.group_tree_node_id = group_tree_nodes.id
       `).where("group_tree_nodes.kind = '#{GroupTreeNode::TEACHER}'").group('users.id')
+
+      base.scope :with_group_of, lambda { |kind|
+        base.joins(%`
+          INNER JOIN
+            group_tree_node_users
+          ON
+            group_tree_node_users.user_id = users.id
+        `).joins(%`
+          INNER JOIN
+            group_tree_nodes
+          ON
+            group_tree_node_users.group_tree_node_id = group_tree_nodes.id
+        `).where("group_tree_nodes.kind = '#{kind}'").group('users.id')
+      }
+
     end
 
   end

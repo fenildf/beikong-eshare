@@ -26,7 +26,7 @@
       %i.toggle.icon-minus-sign
     - else
       %i.toggle.icon-leaf
-    .name= @node.name + @node.id.to_s
+    .name= @node.name
     .ops
       - if !is_root
         %a.op.edit{:title => '修改组名', :href => 'javascript:;'}

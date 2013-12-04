@@ -16,6 +16,8 @@
     .data-from-group-users
       = page_data_table(:users, @users, :striped, :bordered) do |table|
         - table.add_line_data(:role)
+        - table.add_line_data(:id)
+        - table.add_line_data(:name)
         - table.add_column(:select) do |user|
           %input{:type => :checkbox, :data => {:id => "#{user.id}"}}
         - table.add_column(:login)
