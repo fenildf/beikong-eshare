@@ -197,10 +197,17 @@ class FormWidget
       that.do_change_group_user()
 
     @$add_user_form.delegate '.data-to-group-users a.remove', 'click', (evt)->
-      user_id = jQuery(this).closest('.usr').data('id')
+      $usr = jQuery(this).closest('.usr')
+      user_id = $usr.data('id')
+      $usr.remove()
+
       $tr = that.$add_user_form.find("tr[data-id=#{user_id}]")
       that.check_user_tr $tr, false
+      
+
       that.do_change_group_user()
+
+
 
     @$add_user_form.delegate '.data-tree .data', 'click', (evt)->
       $from_group = jQuery(this).closest('.group')
@@ -251,7 +258,7 @@ class FormWidget
                           </a>
                         </div>")
     else
-      $tr.prop('checked', false)
+      $tr.find('input').prop('checked', false)
       $tr.removeClass('checked')
       @$add_user_form.find(".data-to-group-users .usr[data-id=#{id}]").remove()
 
