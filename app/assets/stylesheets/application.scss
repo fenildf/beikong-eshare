@@ -5727,11 +5727,11 @@ form .input.page-form-tag-inputer {
     // overflow-y:scroll;
     border-right:solid 1px #E7E7E7;
 
-    table th.select {
+    table td.select {
       width:20px;
     }
-    table th.login {
-      width:60px;
+    table td.login {
+      width:120px;
     }
 
     tr.checked {
@@ -5781,12 +5781,6 @@ form .input.page-form-tag-inputer {
               padding-left:8px;
               color:black;
             }
-
-            &.id {width:80px;}
-            &.role {width:120px;}
-            &.login {width:120px;}
-            &.name {width:120px;}
-            &.gender {width:80px;}
           }
         }
       }
@@ -5811,7 +5805,7 @@ form .input.page-form-tag-inputer {
     position:absolute;
     right:0;
     width:300px - 10px;
-    top:100px;
+    top:94px;
     bottom:0;
     overflow-y:scroll;
     padding:5px;

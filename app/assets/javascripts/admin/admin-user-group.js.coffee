@@ -185,11 +185,14 @@ class FormWidget
 
       that.do_change_group_user()
 
-    @$add_user_form.delegate '.data-from-group-users table td.select input', 'change', (evt)->
-      if jQuery(this).prop('checked')
-        that.check_user_tr jQuery(this).closest('tr'), true
+    @$add_user_form.delegate '.data-from-group-users table tr', 'click', (evt)->
+      $tr = jQuery(this)
+      if !$tr.hasClass('checked')
+        $tr.find('input').prop 'checked', true
+        that.check_user_tr $tr, true
       else
-        that.check_user_tr jQuery(this).closest('tr'), false
+        $tr.find('input').prop 'checked', false
+        that.check_user_tr $tr, false
 
       that.do_change_group_user()
 
