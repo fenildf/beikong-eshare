@@ -17,7 +17,7 @@
 
   .group.active{:data => {:id => "-1", :name => name, :depth => '-1', :kind => @node.kind}}
     .data{:style => "padding-left:#{padding}px;"}
-      %i.toggle.icon-user
+      %i.toggle.icon-group
       .name= name
 
 .group{:data => {:id => "#{@node.id}", :name => @node.name, :depth => @depth, :kind => @node.kind}}

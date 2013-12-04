@@ -324,7 +324,7 @@ class FormWidget
       top = jQuery(window).height() - 160
 
     @$overlay.fadeIn(200)
-    @$edit_form
+    @$new_form
       .css
         left: left
         top: top
@@ -358,8 +358,10 @@ class FormWidget
     
     id   = @tree.$current_group.data('id')
     kind = @tree.$current_group.data('kind')
+    name = @tree.$current_group.data('name')
 
-    from_id = @$add_user_form.find('.group.active').first().data('id')
+    # from_id = @$add_user_form.find('.group.active').first().data('id')
+    from_id = '-1' # 每次打开都定在第一个节点
 
     jQuery.ajax
       method: 'GET'
@@ -378,6 +380,8 @@ class FormWidget
         $users = jQuery(res.html).find('.data-to-group-users .usr')
 
         # 填充数据
+        @$add_user_form.find('.btns .group-name').html(name)
+
         @$add_user_form.find('.data-tree').html $tree
         $tree.find('.group.active').removeClass('active')
         $tree.find(".group[data-id=#{from_id}]").addClass('active')

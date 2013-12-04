@@ -5446,6 +5446,7 @@ form .input.page-form-tag-inputer {
   top:31px;
   z-index:3;
 }
+
 .page-teacher-selector {
   position:fixed;
   // top:81px;
@@ -5530,57 +5531,6 @@ form .input.page-form-tag-inputer {
   @extend .page-teacher-selector;
   z-index:99;
 
-  .usr-table {
-    position:absolute;
-    border:solid 1px #e7e7e7;
-    padding-top:36px;
-    top:90px - 1px;
-    left:-1px;right:348px;
-    bottom:0px;
-
-    .header-bg {
-      height:36px;
-      position:absolute;
-      top:0;right:0;left:0;
-      border-bottom:solid 2px rgba(black, 0.2);
-      background-color:#eeeeee;
-    }
-
-    .table-inner {
-      height:100%;
-      overflow-x:hidden;
-      overflow-y:auto;
-      margin-left:-1px;
-      margin-right:-1px;
-
-      table {
-        width:100%;
-        overflow-x:hidden;
-        overflow-y:auto;
-
-        thead tr th {
-          padding:0;
-
-          .th-inner {
-            position:absolute;
-            top:0;
-            line-height:36px;
-            // border-left:solid 1px rgba(black, 0.2);
-            // margin-left:-1px;
-            padding-left:8px;
-            color:black;
-          }
-
-          &.id {width:80px;}
-          &.role {width:120px;}
-          &.login {width:120px;}
-          &.name {width:120px;}
-          &.gender {width:80px;}
-        }
-      }
-    }
-  }
-
   .results {
     position:relative;
     .result-users {
@@ -5614,6 +5564,32 @@ form .input.page-form-tag-inputer {
       }
 
       .group {
+        &[data-id='0'], &[data-id='-1']{
+          > .data .name {
+            font-weight:bold;
+            color:#024EF3;
+          }
+          > .data i.toggle {
+            // color: darken(#68B9E9, 20%);
+            color:#024EF3
+          }
+        }
+
+        &[data-id='0']{
+          > .data {
+            position:relative;
+            border-bottom-style:solid !important;
+            border-bottom-color:#BDBDBD !important;
+            &:after {
+              content:'';
+              position:absolute;
+              bottom:0;left:0;right:0;
+              height:1px;
+              background-color:#BDBDBD;
+            }
+          }
+        }
+
         &.new .data{
           &:before {
             content:"新";
@@ -5692,11 +5668,10 @@ form .input.page-form-tag-inputer {
     // overflow-y:scroll;
     border-right:solid 1px #E7E7E7;
 
-    table td.select {
-      width:20px;
-    }
-    table td.login {
-      width:120px;
+    table td, table th{
+      &.select {width:20px;}
+      &.login {width:80px;}
+      &.name {width:80px;}
     }
 
     tr.checked {
@@ -5748,6 +5723,26 @@ form .input.page-form-tag-inputer {
             }
           }
         }
+      }
+    }
+
+    .table {
+      td.group a.group {
+        float:left;margin-right:3px;
+        background-color:lighten(#3BA4E3, 10%);
+        height:20px;line-height:20px;
+        color:white;
+        padding:0 5px;
+        text-decoration:none;
+        font-size:13px;
+        @include border-radius(2px);
+        text-shadow: 0 0 1px black;
+        border: solid 1px rgba(0, 0, 0, 0.2);
+        font-weight:bold;
+        // &:hover {
+        //   background-color:lighten(#3BA4E3, 15%);
+        // }
+        cursor:default;
       }
     }
   }
@@ -5869,6 +5864,32 @@ form .input.page-form-tag-inputer {
       }
 
       .group {
+        &[data-id='0'], &[data-id='-1']{
+          > .data .name {
+            font-weight:bold;
+            color:#024EF3;
+          }
+          > .data i.toggle {
+            // color: darken(#68B9E9, 20%);
+            color:#024EF3
+          }
+        }
+
+        &[data-id='0']{
+          > .data {
+            position:relative;
+            border-bottom-style:solid !important;
+            border-bottom-color:#BDBDBD !important;
+            &:after {
+              content:'';
+              position:absolute;
+              bottom:0;left:0;right:0;
+              height:1px;
+              background-color:#BDBDBD;
+            }
+          }
+        }
+
         &.new .data{
           &:before {
             content:"新";

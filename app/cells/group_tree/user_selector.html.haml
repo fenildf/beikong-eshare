@@ -25,6 +25,8 @@
               %input{:type => :checkbox, :data => {:id => "#{user.id}"}}
             - table.add_column(:login)
             - table.add_column(:name)
+            - table.add_column(:group) do |user|
+              = user_groups_tag user
     
     - members = @node.nest_members
 
