@@ -71,14 +71,14 @@ describe GroupTreeNode do
     @user.joined_group_tree_nodes.should =~ [@group_tree_node2,@group_tree_node]
   end
 
-  it "" do
-    @group_tree_node2.replace_users([@user2])
+  it "change_nest_members" do
+    @group_tree_node2.change_nest_members([@user2])
     @group_tree_node2.reload
     @group_tree_node2.users.should =~ [@user2]
-    @group_tree_node2.replace_users([@user2, @user])
+    @group_tree_node2.change_nest_members([@user2, @user])
     @group_tree_node2.reload
     @group_tree_node2.users.should =~ [@user2, @user]
-    @group_tree_node2.replace_users([@user1])
+    @group_tree_node2.change_nest_members([@user1])
     @group_tree_node2.reload
     @group_tree_node2.users.should =~ [@user1]
   end

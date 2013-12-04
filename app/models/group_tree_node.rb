@@ -25,15 +25,26 @@ class GroupTreeNode < ActiveRecord::Base
     self.group_tree_node_users.find_by_user_id(user.id).destroy()
   end
 
-  def replace_users(replace_users)
-    current_users = self.users
+  def remove_nest_user(user)
+    user.group_tree_node_users.joins(%`
+      INNER JOIN 
+        group_tree_nodes
+      ON
+        group_tree_nodes.id = group_tree_node_users.group_tree_node_id
+    `).where(
+      "group_tree_nodes.lft >= #{self.lft} AND group_tree_nodes.rgt <= #{self.rgt}"
+    ).destroy_all
+  end
+
+  def change_nest_members(replace_users)
+    current_users = self.nest_members
 
     # find add users
     add_users = replace_users - current_users
     add_users.each{|user|self.add_user(user)}
     # find remove users
     remove_users = current_users - replace_users
-    remove_users.each{|user|self.remove_user(user)}
+    remove_users.each{|user|self.remove_nest_user(user)}
   end
 
   def destroy
