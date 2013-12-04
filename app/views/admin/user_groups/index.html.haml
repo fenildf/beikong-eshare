@@ -13,7 +13,7 @@
     .add-child-form{:style => 'display:none;'}
       .h
         %a.close{:href => 'javascript:;', :title => '关闭'}
-          %i.icon-minus
+          %i.icon-remove
         .t 增加新的子分组
       .fields
         %input{:type => :text, :name => :name, :placeholder => '请输入分组名', :onclick => 'this.select()'}
@@ -25,7 +25,7 @@
     .edit-form{:style => 'display:none;'}
       .h
         %a.close{:href => 'javascript:;', :title => '关闭'}
-          %i.icon-minus
+          %i.icon-remove
         .t 修改分组名称
       .fields
         %input{:type => :text, :name => :name, :placeholder => '请输入分组名', :onclick => 'this.select()'}

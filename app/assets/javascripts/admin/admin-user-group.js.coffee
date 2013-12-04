@@ -226,7 +226,9 @@ class FormWidget
           kind: kind
         success: (res)=>
           $new_table = jQuery(res.html).find('.data-from-group-users .table')
-          $new_table.find('th.select .th-inner').html("<input type=checkbox />")
+
+          if $new_table.find('td').length > 0
+            $new_table.find('th.select .th-inner').html("<input type=checkbox />")
           
           $users = jQuery(res.html).find('.data-to-group-users .usr')
 
@@ -315,11 +317,17 @@ class FormWidget
 
     offset = $btn.offset()
 
+    left = offset.left - 8
+    top = offset.top - 8
+
+    if top + 140 > jQuery(window).height()
+      top = jQuery(window).height() - 160
+
     @$overlay.fadeIn(200)
-    @$new_form
+    @$edit_form
       .css
-        left: offset.left - 8
-        top: offset.top - 8
+        left: left
+        top: top
       .fadeIn(200)
 
     @$new_form.find('input').val('').focus()
@@ -330,11 +338,17 @@ class FormWidget
 
     offset = $btn.offset()
 
+    left = offset.left - 8
+    top = offset.top - 8
+
+    if top + 140 > jQuery(window).height()
+      top = jQuery(window).height() - 160
+
     @$overlay.fadeIn(200)
     @$edit_form
       .css
-        left: offset.left - 8
-        top: offset.top - 8
+        left: left
+        top: top
       .fadeIn(200)
 
     @$edit_form.find('input').val(@$edit_group.data('name')).select()
@@ -357,7 +371,9 @@ class FormWidget
         $tree = jQuery(res.html).find('.data-tree .tree')
 
         $new_table = jQuery(res.html).find('.data-from-group-users .table')
-        $new_table.find('th.select .th-inner').html("<input type=checkbox />")
+
+        if $new_table.find('td').length > 0
+          $new_table.find('th.select .th-inner').html("<input type=checkbox />")
         
         $users = jQuery(res.html).find('.data-to-group-users .usr')
 
