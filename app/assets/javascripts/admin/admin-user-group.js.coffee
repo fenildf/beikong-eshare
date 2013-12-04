@@ -142,10 +142,10 @@ class FormWidget
   bind_events: ->
     that = @
     @$new_form.delegate 'a.close', 'click', (evt)->
-      that.hide()
+      that.hide(true)
 
     @$edit_form.delegate 'a.close', 'click', (evt)->
-      that.hide()
+      that.hide(true)
 
     @$new_form.delegate 'a.submit', 'click', (evt)->
       that.submit_new_form()
@@ -354,12 +354,18 @@ class FormWidget
         from: from_id
         kind: kind
       success: (res)=>
+        $tree = jQuery(res.html).find('.data-tree .tree')
+
         $new_table = jQuery(res.html).find('.data-from-group-users .table')
         $new_table.find('th.select .th-inner').html("<input type=checkbox />")
         
         $users = jQuery(res.html).find('.data-to-group-users .usr')
 
         # 填充数据
+        @$add_user_form.find('.data-tree').html $tree
+        $tree.find('.group.active').removeClass('active')
+        $tree.find(".group[data-id=#{from_id}]").addClass('active')
+
         @$add_user_form.find('.data-from-group-users').html $new_table
         @$add_user_form.find('.data-to-group-users').html $users
         @$add_user_form.find('.data-selected-count span.count').html $users.length
@@ -381,7 +387,7 @@ class FormWidget
       opacity: 1
     , 200
 
-  hide:->
+  hide: (is_in_cancel)->
     @$overlay.fadeOut(200)
     @$new_form.fadeOut(200)
     @$edit_form.fadeOut(200)
@@ -395,7 +401,8 @@ class FormWidget
     }, 300, => 
       @$add_user_form.hide()
 
-    @tree.select_group @tree.$current_group
+    if !is_in_cancel
+      @tree.select_group @tree.$current_group
 
 class GroupDetail
   constructor: (@$elm)->
