@@ -424,7 +424,7 @@ body.auth{
 
       .logo-inhouse {
         width:500px;height:200px;
-        background:url(eshare-logo-inhouse.png) no-repeat;
+        background:url(eshare-logo-inhouse-eshare.png) no-repeat;
         position:absolute;
         top:50%;
         left:50%;
@@ -437,17 +437,17 @@ body.auth{
       }
 
       .logo-3rd {
-        width:120px;
-        height:120px;
-        position:absolute;
-        top:50%;
-        left:50%;
-        margin-left:-180px - 120px;
-        margin-top:-200px + 35px;
+        // width:120px;
+        // height:120px;
+        // position:absolute;
+        // top:50%;
+        // left:50%;
+        // margin-left:-180px - 120px;
+        // margin-top:-200px + 35px;
 
-        border:solid 5px white;
-        @include border-radius(3px);
-        background:white url(bk-logo-100.png) no-repeat 10px 10px;
+        // border:solid 5px white;
+        // @include border-radius(3px);
+        // background:white url(bk-logo-100.png) no-repeat 10px 10px;
       }
     }
 
