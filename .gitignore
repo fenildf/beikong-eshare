@@ -8,7 +8,6 @@
 .fseventsd
 
 dump.rdb
-Gemfile.lock
 
 tmp/
 vendor/bundle/*

@@ -1,0 +1,525 @@
+GIT
+  remote: git://github.com/fushang318/mina.git
+  revision: 93f5ca5d1c9588a59859704302543710af7b37d0
+  tag: v0.2.0fix
+  specs:
+    mina (0.2.0)
+      open4
+      rake
+
+GIT
+  remote: git://github.com/huacnlee/redis-search.git
+  revision: 55c1dd0d61ab97a6822746df4f166e4effeb3f00
+  specs:
+    redis-search (0.9.0)
+      chinese_pinyin (>= 0.3.0)
+      redis (>= 2.1.1)
+      redis-namespace (>= 1.0.2)
+
+GIT
+  remote: git://github.com/kaid/dynamic_attrs.git
+  revision: 98506c8befc25c1643f023043fb0a667a332756c
+  tag: v0.0.1
+  specs:
+    dynamic_attrs (0.1.0)
+      activerecord (~> 3.2.12)
+      railties (~> 3.2.12)
+
+GIT
+  remote: git://github.com/kaid/simple-credit.git
+  revision: e544bf89a2d8be2fe7e18b80deae84ebc69d2934
+  tag: 0.0.5
+  specs:
+    simple-credit (0.0.2)
+      activerecord (= 3.2.12)
+
+GIT
+  remote: git://github.com/kaid/simple-medals.git
+  revision: 6e7c2c72cad180cb528b7bc267842305f26219eb
+  tag: 0.0.2
+  specs:
+    simple-medals (0.0.1)
+      activerecord (= 3.2.12)
+
+GIT
+  remote: git://github.com/kaid/simple_comment.git
+  revision: e353d34c053d5caf1a6955762db3ed50dfd04279
+  specs:
+    simple_comment (0.0.1)
+      activerecord (= 3.2.12)
+
+GIT
+  remote: git://github.com/mindpin/file-part-upload.git
+  revision: 2553928f44ff1930d9e9dea4d49b4187cd2a831c
+  tag: 0.0.8
+  specs:
+    file-part-upload (0.0.1)
+
+GIT
+  remote: git://github.com/mindpin/mindpin-feeds
+  revision: 21d39beeccf9a1a4f2d6c9a53d6ac2fe04fd569f
+  tag: 0.1.3
+  specs:
+    mindpin-feeds (0.0.0)
+
+GIT
+  remote: git://github.com/mindpin/mindpin-simple-tags.git
+  revision: 9dc74210b76f18a43c955139c6c6db3f9c5406f6
+  tag: 0.0.4
+  specs:
+    mindpin-simple-tags (0.0.0)
+
+GIT
+  remote: git://github.com/mindpin/roles-field.git
+  revision: 888ee30014e47f12225f901649026b905c81544d
+  specs:
+    roles-field (0.0.2.1)
+
+GIT
+  remote: git://github.com/mindpin/simple-excel-import.git
+  revision: 8c10a0fbec3226016a4b6488d56550676cbe2e17
+  tag: 0.0.2.7
+  specs:
+    simple-excel-import (0.0.2.5)
+      axlsx (= 1.3.5)
+      roo (= 1.10.3)
+
+GIT
+  remote: git://github.com/mindpin/simple-images
+  revision: d1d67c541598fdaaced7c874b69917bcfe86b8c4
+  tag: 0.0.4
+  specs:
+    simple-images (0.0.2)
+
+GIT
+  remote: git://github.com/mindpin/simple-navbar.git
+  revision: 1e366c314d359c7cb5c7dc5b0486d914e7f61067
+  tag: 0.0.1
+  specs:
+    simple-navbar (0.0.1)
+      simple-page-compoents
+
+GIT
+  remote: git://github.com/mindpin/simple-page-compoents
+  revision: ec2207a0b10ed322e91c80f5d551dd50b93cdb03
+  tag: 0.0.7.8
+  specs:
+    simple-page-compoents (0.0.7.3)
+
+GIT
+  remote: git://github.com/mindpin/simple-page-layout
+  revision: 12accb31d0b8c513317bf12360af608988e83b42
+  tag: 0.0.3
+  specs:
+    simple-page-layout (0.0.3)
+
+GIT
+  remote: git://github.com/mindpin/simple-redis-cache.git
+  revision: 364e8172ff13ee3ee21d989eccf5a2dafdee9d01
+  tag: 0.0.2
+  specs:
+    simple-redis-cache (0.0.0)
+      redis (= 3.0.3)
+
+GIT
+  remote: git://github.com/mindpin/simple-survey.git
+  revision: e2d94de49ba2596c2bc1ce6c5bde49f1b25d7379
+  tag: 0.0.8
+  specs:
+    simple-survey (0.0.0)
+      iconv (= 1.0.2)
+      roo (= 1.10.3)
+
+GEM
+  remote: http://ruby.taobao.org/
+  specs:
+    actionmailer (3.2.12)
+      actionpack (= 3.2.12)
+      mail (~> 2.4.4)
+    actionpack (3.2.12)
+      activemodel (= 3.2.12)
+      activesupport (= 3.2.12)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      journey (~> 1.0.4)
+      rack (~> 1.4.5)
+      rack-cache (~> 1.2)
+      rack-test (~> 0.6.1)
+      sprockets (~> 2.2.1)
+    activemodel (3.2.12)
+      activesupport (= 3.2.12)
+      builder (~> 3.0.0)
+    activerecord (3.2.12)
+      activemodel (= 3.2.12)
+      activesupport (= 3.2.12)
+      arel (~> 3.0.2)
+      tzinfo (~> 0.3.29)
+    activeresource (3.2.12)
+      activemodel (= 3.2.12)
+      activesupport (= 3.2.12)
+    activesupport (3.2.12)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    acts_as_paranoid (0.4.2)
+      activerecord (~> 3.2)
+    addressable (2.3.5)
+    arel (3.0.2)
+    awesome_nested_set (2.1.6)
+      activerecord (>= 3.0.0)
+    awesome_print (1.1.0)
+    axlsx (1.3.5)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (>= 0.9.5)
+    bcrypt-ruby (3.1.2)
+    builder (3.0.4)
+    cancan (1.6.10)
+    capybara (2.0.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 1.0.0)
+    carrierwave (0.8.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+    cells (3.8.8)
+      actionpack (>= 3.0)
+      railties (>= 3.0)
+    celluloid (0.12.4)
+      facter (>= 1.6.12)
+      timers (>= 1.0.0)
+    childprocess (0.3.9)
+      ffi (~> 1.0, >= 1.0.11)
+    chinese_pinyin (0.4.2)
+    coffee-rails (3.2.2)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.2.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.3)
+    colorize (0.5.8)
+    connection_pool (1.1.0)
+    cookiejar (0.3.0)
+    coveralls (0.6.7)
+      colorize
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      thor
+    daemons (1.1.9)
+    database_cleaner (0.9.1)
+    devise (2.2.4)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (~> 3.1)
+      warden (~> 1.2.1)
+    diff-lcs (1.2.4)
+    docsplit (0.7.2)
+    em-http-request (1.1.0)
+      addressable (>= 2.3.4)
+      cookiejar
+      em-socksify (>= 0.3)
+      eventmachine (>= 1.0.3)
+      http_parser.rb (>= 0.6.0.beta.2)
+    em-socksify (0.3.0)
+      eventmachine (>= 1.0.0.beta.4)
+    erubis (2.7.0)
+    eventmachine (1.0.3)
+    execjs (2.0.1)
+    facter (1.7.2)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
+    faye (0.8.9)
+      cookiejar (>= 0.3.0)
+      em-http-request (>= 0.3.0)
+      eventmachine (>= 0.12.0)
+      faye-websocket (>= 0.4.0)
+      rack (>= 1.0.0)
+      yajl-ruby (>= 1.0.0)
+    faye-rails (1.0.10)
+      eventmachine (~> 1.0.0)
+      faye (~> 0.8.9)
+    faye-websocket (0.6.3)
+      eventmachine (>= 0.12.0)
+      websocket-driver (>= 0.2.0)
+    ffi (1.9.0)
+    haml (4.0.0)
+      tilt
+    hashie (1.2.0)
+    hike (1.2.3)
+    htmlentities (4.3.1)
+    http_parser.rb (0.6.0.beta.2)
+    httpauth (0.2.0)
+    i18n (0.6.5)
+    iconv (1.0.2)
+    journey (1.0.4)
+    jquery-rails (2.2.1)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.0.2)
+      jquery-rails
+      railties (>= 3.1.0)
+    json (1.7.7)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+    kgio (2.8.0)
+    mail (2.4.4)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mime-types (1.25)
+    mini_magick (3.5.0)
+      subexec (~> 0.2.1)
+    mini_portile (0.5.1)
+    multi_json (1.7.9)
+    multipart-post (1.2.0)
+    mysql2 (0.3.11)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
+    oauth2 (0.8.1)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      rack (~> 1.2)
+    omniauth (1.1.4)
+      hashie (>= 1.2, < 3)
+      rack
+    omniauth-github (1.1.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
+    omniauth-oauth2 (1.1.1)
+      oauth2 (~> 0.8.0)
+      omniauth (~> 1.0)
+    omniauth-weibo-oauth2 (0.3.0)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
+    open4 (1.3.0)
+    orm_adapter (0.4.0)
+    pacecar (1.5.3)
+    polyglot (0.3.3)
+    pr_geohash (1.0.0)
+    rack (1.4.5)
+    rack-cache (1.2)
+      rack (>= 0.4)
+    rack-protection (1.5.0)
+      rack
+    rack-ssl (1.3.3)
+      rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
+    rails (3.2.12)
+      actionmailer (= 3.2.12)
+      actionpack (= 3.2.12)
+      activerecord (= 3.2.12)
+      activeresource (= 3.2.12)
+      activesupport (= 3.2.12)
+      bundler (~> 1.0)
+      railties (= 3.2.12)
+    railties (3.2.12)
+      actionpack (= 3.2.12)
+      activesupport (= 3.2.12)
+      rack-ssl (~> 1.3.2)
+      rake (>= 0.8.7)
+      rdoc (~> 3.4)
+      thor (>= 0.14.6, < 2.0)
+    raindrops (0.11.0)
+    rake (10.1.0)
+    rdoc (3.12.2)
+      json (~> 1.4)
+    redis (3.0.3)
+    redis-namespace (1.3.1)
+      redis (~> 3.0.0)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    rmmseg-cpp (0.2.9)
+    rmmseg-cpp-huacnlee (0.2.9)
+    roo (1.10.3)
+      nokogiri (>= 1.5.6)
+      rubyzip (>= 0.9.9)
+      spreadsheet (> 0.6.4)
+    rsolr (1.0.9)
+      builder (>= 2.1.2)
+    rspec-cells (0.1.7)
+      cells (~> 3.4)
+      railties (>= 3.0, < 4.1)
+      rspec-rails (~> 2.2)
+    rspec-core (2.13.1)
+    rspec-expectations (2.13.0)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.13.1)
+    rspec-rails (2.13.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 2.13.0)
+      rspec-expectations (~> 2.13.0)
+      rspec-mocks (~> 2.13.0)
+    ruby-ole (1.2.11.7)
+    ruby-progressbar (1.0.2)
+    rubyzip (0.9.9)
+    sass (3.2.10)
+    sass-rails (3.2.6)
+      railties (~> 3.2.0)
+      sass (>= 3.1.10)
+      tilt (~> 1.3)
+    selenium-webdriver (2.35.1)
+      childprocess (>= 0.2.5)
+      multi_json (~> 1.0)
+      rubyzip (< 1.0.0)
+      websocket (~> 1.0.4)
+    sidekiq (2.8.0)
+      celluloid (~> 0.12.0)
+      connection_pool (~> 1.0)
+      multi_json (~> 1)
+      redis (~> 3)
+      redis-namespace
+    sidekiq-limit_fetch (1.4)
+      sidekiq (>= 2.6.5, < 3)
+    simple_form (2.0.2)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
+    sinatra (1.3.0)
+      rack (~> 1.3)
+      rack-protection (~> 1.1)
+      tilt (~> 1.3)
+    slim (1.3.8)
+      temple (~> 0.6.3)
+      tilt (~> 1.3.3)
+    spreadsheet (0.8.9)
+      ruby-ole (>= 1.0)
+    sprockets (2.2.2)
+      hike (~> 1.2)
+      multi_json (~> 1.0)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
+    subexec (0.2.3)
+    sunspot (2.0.0)
+      pr_geohash (~> 1.0)
+      rsolr (~> 1.0.7)
+    sunspot-rails-tester (1.0.0)
+      sunspot_rails (>= 1.2)
+      sunspot_solr (>= 1.2)
+    sunspot_rails (2.0.0)
+      nokogiri
+      sunspot (= 2.0.0)
+    sunspot_solr (2.0.0)
+    temple (0.6.6)
+    thin (1.5.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+    thor (0.18.1)
+    tilt (1.3.7)
+    timecop (0.6.1)
+    timers (1.1.0)
+    treetop (1.4.15)
+      polyglot
+      polyglot (>= 0.3.1)
+    turbo-sprockets-rails3 (0.3.2)
+      railties (> 3.2.8, < 4.0.0)
+      sprockets (>= 2.0.0)
+    tzinfo (0.3.37)
+    uglifier (2.2.1)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.0, >= 1.0.2)
+    unicorn (4.6.2)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
+    warden (1.2.3)
+      rack (>= 1.0)
+    websocket (1.0.7)
+    websocket-driver (0.2.3)
+    weibo_2 (0.1.1)
+      hashie (~> 1.2.0)
+      json (~> 1.7.3)
+      oauth2 (~> 0.8.0)
+      rest-client (~> 1.6.7)
+    xpath (1.0.0)
+      nokogiri (~> 1.3)
+    yajl-ruby (1.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  acts_as_paranoid (~> 0.4.0)
+  awesome_nested_set
+  awesome_print
+  cancan (~> 1.6.10)
+  capybara (= 2.0.2)
+  carrierwave (= 0.8.0)
+  cells (= 3.8.8)
+  chinese_pinyin (= 0.4.2)
+  coffee-rails (~> 3.2.1)
+  coveralls
+  database_cleaner (= 0.9.1)
+  devise (= 2.2.4)
+  docsplit (= 0.7.2)
+  dynamic_attrs!
+  factory_girl_rails (~> 4.2.1)
+  faye-rails (~> 1.0.8)
+  file-part-upload!
+  haml (= 4.0.0)
+  iconv (= 1.0.2)
+  jquery-rails (= 2.2.1)
+  jquery-ui-rails (= 4.0.2)
+  json (= 1.7.7)
+  kaminari (= 0.14.1)
+  mina!
+  mindpin-feeds!
+  mindpin-simple-tags!
+  mini_magick (= 3.5.0)
+  mysql2 (= 0.3.11)
+  omniauth-github (~> 1.1.0)
+  omniauth-weibo-oauth2
+  pacecar (= 1.5.3)
+  rails (= 3.2.12)
+  redis-search!
+  rmmseg-cpp
+  rmmseg-cpp-huacnlee (= 0.2.9)
+  roles-field!
+  rspec-cells (= 0.1.7)
+  rspec-rails (= 2.13.0)
+  ruby-progressbar (~> 1.0.2)
+  rubyzip (= 0.9.9)
+  sass-rails (~> 3.2.3)
+  sidekiq (= 2.8.0)
+  sidekiq-limit_fetch (= 1.4)
+  simple-credit!
+  simple-excel-import!
+  simple-images!
+  simple-medals!
+  simple-navbar!
+  simple-page-compoents!
+  simple-page-layout!
+  simple-redis-cache!
+  simple-survey!
+  simple_comment!
+  simple_form (= 2.0.2)
+  sinatra (= 1.3.0)
+  slim (= 1.3.8)
+  sunspot-rails-tester (= 1.0.0)
+  sunspot_rails (= 2.0.0)
+  thin (~> 1.5.1)
+  timecop (= 0.6.1)
+  turbo-sprockets-rails3 (= 0.3.2)
+  uglifier (>= 1.0.3)
+  unicorn (= 4.6.2)
+  weibo_2 (~> 0.1.1)
