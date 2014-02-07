@@ -69,6 +69,13 @@ class CourseWare < ActiveRecord::Base
   #   end
   # end
 
+  # 八中的逻辑，只更改kind，不更改media_resource
+  before_save :set_kind_by_file_entity
+  def set_kind_by_file_entity
+    return true if file_entity.blank?
+    self.kind = file_entity.content_kind
+  end
+
   before_save :set_total_count_by_kind!
   def set_total_count_by_kind!
     self.total_count = 1000 if self.is_video?

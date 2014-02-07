@@ -133,7 +133,8 @@ gem 'dynamic_attrs',
 ## 文件分段上传
 gem 'file-part-upload', 
     :git => 'git://github.com/mindpin/file-part-upload.git',
-    :tag => '0.0.8'
+    :tag => '0.0.9'
+    # 0.0.9 修正了文件读权限的问题
 
 ## excel导入和示例生成
 gem 'simple-excel-import',
