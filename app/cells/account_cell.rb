@@ -19,4 +19,8 @@ class AccountCell < Cell::Rails
     @for = opts[:for]
     render
   end
+
+  def sign_in_form_bk
+    render
+  end
 end

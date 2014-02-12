@@ -50,8 +50,8 @@ GIT
 
 GIT
   remote: git://github.com/mindpin/file-part-upload.git
-  revision: 2553928f44ff1930d9e9dea4d49b4187cd2a831c
-  tag: 0.0.8
+  revision: 552ad6e479b6813aef07b6c5e72dcad354bae0ea
+  tag: 0.0.9
   specs:
     file-part-upload (0.0.1)
 

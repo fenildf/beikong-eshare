@@ -45,12 +45,17 @@ class SessionsController < Devise::SessionsController
   end
 
   def destroy
-    # redirect_path = after_sign_out_path_for(resource_name)
-    if params[:to] == 'xuanke'
-      redirect_path = '/xk/sign_in'
-    else
-      redirect_path = '/eshare/sign_in'
-    end
+    # # redirect_path = after_sign_out_path_for(resource_name)
+    # if params[:to] == 'xuanke'
+    #   redirect_path = '/xk/sign_in'
+    # else
+    #   redirect_path = '/eshare/sign_in'
+    # end
+
+    bk_logout_url = ApplicationController::BEIKONG_CL_DOMAIN + "/uas/authLogoutAction.a?" +
+            # "becom_authlogout_url=http://#{request.host_with_port}/account/sign_out&" +
+            "becom_authlogout_url=http://#{request.host_with_port}&" +
+            "becom_authlogout_key=#{session[:bk_crosslogin_auth_key]}"
 
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
     set_flash_message :notice, :signed_out if signed_out && is_navigational_format?
@@ -59,7 +64,10 @@ class SessionsController < Devise::SessionsController
     # support returning empty response on GET request
     respond_to do |format|
       format.all { head :no_content }
-      format.any(*navigational_formats) { redirect_to redirect_path }
+      format.any(*navigational_formats) { 
+        # redirect_to redirect_path 
+        redirect_to bk_logout_url
+      }
     end
   end
 end

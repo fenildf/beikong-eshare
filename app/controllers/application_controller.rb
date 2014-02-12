@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include ApplicationMethods
+  include BeikongCrossloginMethods
 
   def flash_error(arg)
     flash[:error] = arg.is_a?(String) ? arg : arg.errors.messages.values.first

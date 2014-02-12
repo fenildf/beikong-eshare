@@ -12,6 +12,9 @@ Eshare::Application.routes.draw do
   get '/admin_home' => 'index#admin_home'
   get '/student_home' => 'index#student_home'
 
+  # bk crosslogin
+  get '/bk_login' => 'index#bk_login'
+
   # install
   get '/install' => 'install#index'
   get '/install/:step' => 'install#step'

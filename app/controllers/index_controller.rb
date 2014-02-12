@@ -1,5 +1,5 @@
 class IndexController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index]
+  before_filter :authenticate_user!, :except => [:index, :bk_login]
   layout 'dashboard', :only => [:dashboard]
 
   def index
@@ -29,5 +29,10 @@ class IndexController < ApplicationController
 
   def plan
     # 学习计划和教学计划页面
+  end
+
+  def bk_login
+    # 北控单点登录
+    render :layout => 'auth'
   end
 end
