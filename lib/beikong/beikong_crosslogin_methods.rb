@@ -12,7 +12,7 @@ crLEvZckg+ekrcrkgQIDAQAB
 
   def self.included(base)
     # 北控单点登录
-    base.before_filter :beikong_cross_login
+    # base.before_filter :beikong_cross_login
   end
 
   def beikong_cross_login
