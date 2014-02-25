@@ -38,6 +38,9 @@
     .head
       .name= @root.name
       .ops
+        %a.btn.create.success-flat{:href => '/admin/users/new'}
+          %i.icon-add
+          %span 增加用户
         %a.btn.delete.danger-flat{:href => 'javascript:;', :style=>'display:none;'}
           %i.icon-trash
           %span 删除当前分组

@@ -208,6 +208,8 @@ zh-CN:
             name:
               blank: 昵称未填写
               taken: 昵称已经被使用了
+            login:
+              taken: 登陆账号已经被使用了
             current_password:
               blank: 当前密码未填写
               invalid: 当前密码不正确

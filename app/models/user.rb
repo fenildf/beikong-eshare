@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 
   validates :name, :presence => true
 
+  default_scope order('users.id DESC')
+
   def self.find_for_database_authentication(conditions)
     login = conditions.delete(:login)
     self.where(:login => login).first

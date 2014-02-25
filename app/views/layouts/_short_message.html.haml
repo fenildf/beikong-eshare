@@ -1,4 +1,4 @@
-- if user_signed_in?
+- if user_signed_in? && !current_user.is_admin?
   .page-chat-bar{:data => {:'user-id' => current_user.id, :'user-name' => current_user.name}}
     .contacts
       - User.limit(20).where('id <> ?', current_user.id).each do |user|
