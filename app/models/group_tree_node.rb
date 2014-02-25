@@ -66,7 +66,10 @@ class GroupTreeNode < ActiveRecord::Base
     def self.included(base)
       base.has_many :manage_group_tree_nodes,
         :class_name  => :GroupTreeNode,
-        :foreign_key => :manage_user_id 
+        :foreign_key => :manage_user_id
+
+      base.has_many :group_tree_nodes,
+        :through => :group_tree_node_users
 
       base.scope :nest_members_of, lambda{ |group_tree_node|
         base.joins(

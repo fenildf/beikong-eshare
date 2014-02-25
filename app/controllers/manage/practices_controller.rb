@@ -5,6 +5,10 @@ class Manage::PracticesController < ApplicationController
     @practice = current_user.practices.build
   end
 
+  def edit
+    @practice = Practice.find params[:id]
+  end
+
   def create
     @chapter = Chapter.find params[:chapter_id]
 
@@ -22,6 +26,10 @@ class Manage::PracticesController < ApplicationController
     end
 
     render :new
+  end
+
+  def update
+    
   end
 
   def index

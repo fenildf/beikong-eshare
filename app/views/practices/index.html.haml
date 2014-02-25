@@ -9,9 +9,11 @@
   .pblock.table
     = page_data_table(:practices, @practices, :striped, :bordered) do |table|
       - table.add_column :course do |p|
-        = course_link p.chapter.course
+        - if p.chapter
+          = course_link p.chapter.course
       - table.add_column :chapter do |p|
-        = p.chapter.title
+        - if p.chapter
+          = p.chapter.title
       - table.add_column :title
       - table.add_column :submitted do |p|
         = '未完成'

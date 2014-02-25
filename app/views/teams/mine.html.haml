@@ -1,0 +1,13 @@
+- content_for :header do
+  %h1 我的班级
+
+- groups = current_user.group_tree_nodes
+
+.pblock.desc
+  你属于以下列出的 #{groups.count} 个用户分组。
+
+.page-user-groups
+  - groups.each do |group|
+    .group
+      .name= link_to group.name, "/teams/#{group.id}"
+      .count #{group.users.count} 名成员

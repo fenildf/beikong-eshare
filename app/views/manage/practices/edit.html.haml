@@ -1,0 +1,19 @@
+- content_for :header do
+  %h1 修改作业
+
+.page-manage-practice-edit
+  .pblock.desc
+    %b= current_user.name
+    %span 修改已经布置的作业。
+
+  .pblock.form
+    = simple_form_for @practice, :url => "/manage/practices/#{@practice.id}" do |f|
+      .datas
+        .form-inputs
+          = f.input :title
+          = f.input :content, :input_html => {:rows => 6, :class => 'xxlarge'}
+
+          = render_cell :layout, :file_uploader
+
+        .form-actions{:style => 'margin-top:20px;'}
+          = f.button :submit, '确定修改', :class => 'success'

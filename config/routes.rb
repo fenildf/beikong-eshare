@@ -394,6 +394,15 @@ Eshare::Application.routes.draw do
   end
 end
 
+# 班级
+Eshare::Application.routes.draw do
+  resources :teams, :shallow => true do
+    collection do
+      get :mine
+    end
+  end
+end
+
 # 用户反馈 INTERNET
 Eshare::Application.routes.draw do
   namespace :help do

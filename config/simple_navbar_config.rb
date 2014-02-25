@@ -118,7 +118,7 @@ SimpleNavbar::Base.config do
     end
 
     # 我的班级
-    nav :my_teams, :url => '/teams/of_teacher' do
+    nav :my_teams, :url => '/teams/mine' do
       controller :teams
     end
 
@@ -175,7 +175,7 @@ SimpleNavbar::Base.config do
     end
 
     # 我的班级
-    nav :my_teams, :url => '/teams/of_teacher' do
+    nav :my_teams, :url => '/teams/mine' do
       controller :teams
     end
 
