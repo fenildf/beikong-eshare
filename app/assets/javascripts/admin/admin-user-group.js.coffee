@@ -230,7 +230,7 @@ class FormWidget
         success: (res)=>
           that._fill_table_data_and_checkbox(res)
 
-    @$add_user_form.delegate '.paginate li:not(.active) a', 'click', (evt)->
+    @$add_user_form.delegate '.paginate li:not(.active):not(.disabled) a', 'click', (evt)->
       evt.preventDefault()
 
       url = jQuery(this).prop('href')
@@ -473,7 +473,7 @@ class GroupDetail
       $group = that.tree.$elm.find(".group[data-id=#{id}]")
       that.tree.select_group $group
 
-    @$elm.delegate '.paginate li:not(.active) a', 'click', (evt)->
+    @$elm.delegate '.paginate li:not(.active):not(.disabled) a', 'click', (evt)->
       evt.preventDefault()
 
       url = jQuery(this).prop('href')
