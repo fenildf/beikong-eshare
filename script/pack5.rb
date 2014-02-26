@@ -42,7 +42,7 @@ class Util
 
     first_group = group_names.shift
     # 创建或者查找根分组
-    current_group = GroupTreeNode.roots.find_by_name(first_group)
+    current_group = GroupTreeNode.roots.where(:name => first_group, :kind => group_kind).first
     if current_group.blank?
       current_group = GroupTreeNode.create!(
         :name => first_group,
