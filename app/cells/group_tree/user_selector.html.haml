@@ -4,7 +4,7 @@
       %i.icon-chevron-left.icon-white
       %span 关闭
     %span 
-      %span 增加用户到分组：
+      %span 选择用户，添加到分组：
       %span.group-name= @node.name
 
   .data
@@ -27,6 +27,11 @@
             - table.add_column(:name)
             - table.add_column(:group) do |user|
               = user_groups_tag user
+      .paginate
+        = paginate @users
+        .pinfo
+          = page_entries_info @users
+
     
     - members = @node.nest_members
 

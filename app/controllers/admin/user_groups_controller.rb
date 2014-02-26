@@ -95,10 +95,11 @@ class Admin::UserGroupsController < ApplicationController
 
     to_group   = GroupTreeNode.find to_group_id
 
-    if from_group_id == '-1'
+    case from_group_id
+    when '-1'
       from_group = _non_group(kind)
       users = User.with_role(kind.downcase).page(params[:page])
-    elsif from_group_id == '0'
+    when '0'
       from_group = _root_group(kind)
       users = User.with_role(kind.downcase).with_group.page(params[:page])
     else
