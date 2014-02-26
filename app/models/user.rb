@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   attr_accessible :login, :password, :gender, :password_confirmation, :remember_me
   # attr_accessible :title, :body
 
-  validates :login, :format => {:with => /\A\w+\z/, :message => '只允许数字、字母和下划线'},
+  validates :login, :format => {:with => /\A[\w-]+\z/, :message => '只允许数字、字母和下划线'},
                     :length => {:in => 3..20},
                     :presence => true,
                     :uniqueness => {:case_sensitive => false}
