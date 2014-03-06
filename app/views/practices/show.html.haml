@@ -1,0 +1,21 @@
+- content_for :header do
+  %h1 作业详情查看
+
+.page-practice-check
+  .pblock.practice{:style=>'padding-bottom:20px;'}
+    .title
+      %span{:style=>'font-weight:bold;'}= @practice.title
+    .content
+      :ruby
+        content = @practice.content
+        if content.blank?
+          content = '作业未填写具体要求说明'
+        end
+      %p= content
+    .time
+      %span 作业发布时间：
+      %span{:style=>'color:#cc3333;'}= @practice.created_at
+
+  .pblock.practice{:style=>'padding-bottom:20px;'}
+    %i.icon-flag
+    %span 我已经提交了这个作业

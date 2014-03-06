@@ -391,6 +391,9 @@ end
 
 Eshare::Application.routes.draw do
   resources :practices, :shallow => true do
+    member do 
+      get :check
+    end
   end
 end
 
