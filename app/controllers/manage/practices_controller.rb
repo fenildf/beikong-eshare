@@ -29,7 +29,20 @@ class Manage::PracticesController < ApplicationController
   end
 
   def update
-    
+    @practice = Practice.find params[:id]
+
+    @practice.title = params[:practice][:title]
+    @practice.content = params[:practice][:content]
+
+    if params[:file_entity_id].present?
+      @practice.attaches_attributes = [
+        {:file_entity => FileEntity.find(params[:file_entity_id]), :name => '附件'}
+      ]
+    end
+
+    @practice.save(:validate => false)
+
+    return redirect_to '/manage/practices'
   end
 
   def index
