@@ -169,6 +169,8 @@ Eshare::Application.routes.draw do
   post   '/disk/create' => 'disk#create'
   delete '/disk'        => 'disk#destroy'
   get    '/disk/file'   => 'disk#show'
+
+  get    '/disk/download' => 'disk#download'
 end
 
 # 问答和问答投票

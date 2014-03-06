@@ -45,6 +45,12 @@ class DiskController < ApplicationController
     _after_create_folder
   end
 
+  def download
+    @media_resource = MediaResource.get current_user, params[:path]
+    file_entity = @media_resource.file_entity
+    send_file file_entity.attach.path
+  end
+
   private
     def _current_dir_path
       path = params[:path]

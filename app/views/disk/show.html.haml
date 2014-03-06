@@ -19,7 +19,7 @@
         .t 上传者：
         .p= user_link @media_resource.creator
 
-    %a.btn.success{:href => ''}
+    %a.btn.success{:href => "/disk/download?path=#{@media_resource.path}"}
       %i.icon-download.icon-white
       %span 点此下载文件
 
