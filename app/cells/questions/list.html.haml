@@ -3,7 +3,8 @@
     - if qu
       = link_to truncate_u(qu.title, 140), qu
     - else
-      这个问题已经被删除了
+      %span{:style => 'font-weight:normal;color:#999;'}
+        这个问题已经过期了
   - add_foot :avatar do |qu|
     - if qu
       = avatar qu.creator, :small
