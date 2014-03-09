@@ -1,5 +1,26 @@
+# -*- coding: utf-8 -*-
 class GroupTreeNode < ActiveRecord::Base
   acts_as_nested_set
+
+  module GROUP_KIND
+    OTHER  = "OTHER"
+    GRADE  = "GRADE"
+    KCLASS = "KCLASS"
+
+    def self.all
+      [OTHER, GRADE, KCLASS]
+    end
+  end
+
+  module GRADE_KIND
+    OTHER  = "OTHER"
+    SENIOR = "SENIOR"
+    JUNIOR = "JUNIOR"
+
+    def self.all
+      [OTHER, SENIOR, JUNIOR]
+    end
+  end
 
   TEACHER = "TEACHER"
   STUDENT = "STUDENT"
@@ -11,11 +32,50 @@ class GroupTreeNode < ActiveRecord::Base
   validates :kind, :presence => true, :inclusion=> [TEACHER,STUDENT]
   validates :name, :presence => true
 
+  validates :group_kind, :inclusion => {:in => GROUP_KIND.all}
+  validates :group_kind, :uniqueness => {
+    :scope => :manage_user_id,
+    :if    => ->(node) {GROUP_KIND::KCLASS == node.group_kind}
+  }
+
+  validate do
+    case group_kind
+    when GROUP_KIND::OTHER
+      invalid_grade_kind_and_year_for(GROUP_KIND::OTHER) do
+        !grade_kind.blank? || !year.blank?
+      end
+    when GROUP_KIND::GRADE
+      invalid_grade_kind_and_year_for(GROUP_KIND::GRADE) do
+        !GRADE_KIND.all.include?(grade_kind) || year.blank?
+      end
+    when GROUP_KIND::KCLASS
+      invalid_grade_kind_and_year_for(GROUP_KIND::KCLASS) do
+        !grade_kind.blank?
+      end
+    end
+  end
+
+  after_move :set_year_to_parents
+
   has_many :group_tree_node_users
   has_many :users, :through => :group_tree_node_users
 
   scope :with_teacher, :conditions => ["kind = ?", TEACHER]
   scope :with_student, :conditions => ["kind = ?", STUDENT]
+
+  def set_year_to_parents
+    if parent && GROUP_KIND::GRADE == parent.group_kind &&
+       GROUP_KIND::KCLASS == group_kind && grade_kind.blank?
+
+      self.year = parent.year
+    end
+  end
+
+  def invalid_grade_kind_and_year_for(group_kind, &cond)
+    if instance_eval(&cond)
+      errors.add(:base, "Invalid grade_kind and year combination with GROUP_KIND::#{group_kind}")
+    end
+  end
 
   def add_user(user)
     self.group_tree_node_users.create(:user => user)
