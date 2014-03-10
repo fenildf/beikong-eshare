@@ -5,6 +5,7 @@ require './script/pack2'
 require './script/pack3'
 require './script/pack4'
 require './script/pack5'
+require './script/pack6'
 
 case ARGV[0]
 when 'clear-pack-records'
@@ -29,6 +30,7 @@ prompt = '
 3. 删除所有用户
 4. admin,manager
 5. 带分组的用户
+6. 导入 Category
 ==============================================
 
 '
@@ -36,9 +38,9 @@ prompt = '
 puts prompt
 
 def get_choice
-  print '请选择要导入的选项(1-5): '
+  print '请选择要导入的选项(1-6): '
   choice = gets.chomp.to_i
-  return choice if (1..5) === choice
+  return choice if (1..6) === choice
   get_choice
 end
 
