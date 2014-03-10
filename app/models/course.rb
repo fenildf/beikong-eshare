@@ -65,6 +65,8 @@ class Course < ActiveRecord::Base
                   :approve_status
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
+  belongs_to :category
+  scope :of_category, lambda{|category| where(:category_id => category.id)}
   has_many :chapters
   has_many :practices, :through => :chapters
   has_many :course_wares, :through => :chapters
