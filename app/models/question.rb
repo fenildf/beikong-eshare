@@ -5,6 +5,7 @@ class Question < ActiveRecord::Base
   include QuestionFeedTimelime::QuestionMethods
   include QuestionFollow::QuestionMethods
   include QuestionVote::QuestionMethods
+  include Attachment::ModelMethods
   
   attr_accessible :title, :content, :ask_to_user_id, :creator, :best_answer,
                   :course, :chapter, :course_ware, :reward, :course_id

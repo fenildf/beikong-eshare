@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class Answer < ActiveRecord::Base
   include AnswerCourseWare::AnswerMethods
+  include Attachment::ModelMethods
 
   attr_accessible :content, :question, :creator
 

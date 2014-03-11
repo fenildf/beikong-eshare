@@ -1,4 +1,6 @@
 class Announcement < ActiveRecord::Base
+  include Attachment::ModelMethods
+  
   FOR_ROLE_TEACHER = 'TEACHER'
   FOR_ROLE_STUDENT = 'STUDENT'
 
