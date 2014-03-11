@@ -29,8 +29,8 @@ describe Practice do
 
     it "创建习题附件" do
       expect{
-        @practice.attaches.create(:file_entity => @file_entity, :name => "附件")
-      }.to change{PracticeAttach.count}.by(1)
+        @practice.file_entities = [@file_entity]
+      }.to change{Attachment.count}.by(1)
     end
 
     describe "提交习题" do
@@ -130,16 +130,11 @@ describe Practice do
       @file_entity_1 = FactoryGirl.create(:file_entity)
       @file_entity_2 = FactoryGirl.create(:file_entity)
       
-      attaches_attributes = [
-        {:file_entity => @file_entity_1, :name => '附件1'},
-        {:file_entity => @file_entity_2, :name => '附件2'}
-      ]
-
       @practice = @chapter.practices.create(
         :title => '标题', 
         :content => "内容",
         :creator => @user,
-        :attaches_attributes => attaches_attributes
+        :file_entities => [@file_entity_1, @file_entity_2]
       )
 
     }
@@ -149,7 +144,7 @@ describe Practice do
     end
 
     it "习题附件数量正确" do 
-      @practice.attaches.count.should == 2    
+      @practice.file_entities.count.should == 2    
     end
 
   end

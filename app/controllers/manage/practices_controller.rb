@@ -16,9 +16,8 @@ class Manage::PracticesController < ApplicationController
     @practice.creator = current_user
 
     if params[:file_entity_id].present?
-      @practice.attaches_attributes = [
-        {:file_entity => FileEntity.find(params[:file_entity_id]), :name => '附件'}
-      ]
+      fe = FileEntity.find(params[:file_entity_id])
+      @practice.file_entities = [fe]
     end
 
     if @practice.save
@@ -35,9 +34,8 @@ class Manage::PracticesController < ApplicationController
     @practice.content = params[:practice][:content]
 
     if params[:file_entity_id].present?
-      @practice.attaches_attributes = [
-        {:file_entity => FileEntity.find(params[:file_entity_id]), :name => '附件'}
-      ]
+      fe = FileEntity.find(params[:file_entity_id])
+      @practice.file_entities = [fe]
     end
 
     @practice.save(:validate => false)

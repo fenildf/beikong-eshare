@@ -6,6 +6,7 @@ class Attachment < ActiveRecord::Base
 
   module ModelMethods
     def self.included(base)
+      base.attr_accessible :file_entities
       base.has_many :attachments, :as => :model
       base.has_many :file_entities, :through => :attachments
     end
