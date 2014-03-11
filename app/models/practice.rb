@@ -14,6 +14,20 @@ class Practice < ActiveRecord::Base
   scope :by_creator, lambda{|creator| where(:creator_id => creator.id) }
   scope :by_course, lambda{|course| joins(:chapter).where('chapters.course_id = ?', course.id) }
 
+  def add_upload(user, file_entity)
+    upload = self.uploads.by_creator(user).first
+    if upload.blank?
+      upload = self.uploads.create(:creator => user)
+    end
+    upload.file_entities << file_entity
+  end
+
+  def remove_upload(user, file_entity)
+    upload = self.uploads.by_creator(user).first
+    return if upload.blank?
+    upload.file_entities.delete file_entity
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :practices, :class_name => 'Practice', :foreign_key => :creator_id

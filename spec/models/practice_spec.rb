@@ -174,16 +174,12 @@ describe Practice do
         @file_entity_1 = FactoryGirl.create(:file_entity)
         @file_entity_2 = FactoryGirl.create(:file_entity)
 
-        @upload_params_1 = {:file_entity => @file_entity_1, :name => '提交物1', :creator => @user}
-        @upload_params_2 = {:file_entity => @file_entity_2, :name => '提交物2', :creator => @user}
-
-        @practice.uploads.create(@upload_params_1)
-        @practice.uploads.create(@upload_params_2)
+        @practice.add_upload(@user, @file_entity_1)
+        @practice.add_upload(@user, @file_entity_2)
       }
 
-
       it "数量正确" do
-        @practice.uploads.count.should == 2
+        @practice.uploads.by_creator(@user).first.file_entities.count.should == 2
       end
     end
 
