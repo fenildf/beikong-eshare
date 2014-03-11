@@ -126,6 +126,17 @@ class Course < ActiveRecord::Base
 
   scope :of_creator, lambda { |creator| where(:creator_id => creator.id) }
 
+  scope :by_category_grade_kclass, lambda {|category, grade, kclass|
+    q = "LEFT OUTER JOIN group_tree_nodes ON group_tree_nodes.manage_user_id = courses.creator_id"
+
+    joins(q)
+      .where(:category_id => category.id)
+      .where(:group_tree_nodes => {
+               :manage_user_id => kclass.manage_user_id,
+               :group_kind => GroupTreeNode::GROUP_KIND::KCLASS,
+               :parent_id  => grade.id})
+  }
+
   # 设置 approve_status 默认值
   before_validation :set_default_approve_status
   def set_default_approve_status
