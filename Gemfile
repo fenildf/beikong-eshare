@@ -42,6 +42,7 @@ end
 
 group :development do
   gem 'thin', '~> 1.5.1'
+  gem 'pry-rails'
 end
 
 gem 'jquery-rails', '2.2.1'
