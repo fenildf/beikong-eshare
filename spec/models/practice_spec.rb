@@ -33,14 +33,6 @@ describe Practice do
       }.to change{PracticeAttach.count}.by(1)
     end
 
-    it "创建习题提交物要求" do
-      expect{
-        @practice.requirements.create(:content => "要求")
-      }.to change{PracticeRequirement.count}.by(1)
-    end
-
-
-
     describe "提交习题" do
       before {
         @time = Time.now
@@ -169,16 +161,10 @@ describe Practice do
       @user = FactoryGirl.create(:user)
       @chapter = FactoryGirl.create(:chapter)
       
-      requirements_attributes = [
-        {:content => '要求1'},
-        {:content => '要求2'}
-      ]
-
       @practice = @chapter.practices.create(
         :title => '标题', 
         :content => '内容',
-        :creator => @user,
-        :requirements_attributes => requirements_attributes
+        :creator => @user
       )
 
     }
@@ -187,28 +173,22 @@ describe Practice do
       @practice.id.blank?.should == false
     end
 
-    it "习题附件数量正确" do 
-      @practice.requirements.count.should == 2    
-    end
-
     describe "习题提交物" do
       before {
        
-        @requirement = @practice.requirements.first
-
         @file_entity_1 = FactoryGirl.create(:file_entity)
         @file_entity_2 = FactoryGirl.create(:file_entity)
 
         @upload_params_1 = {:file_entity => @file_entity_1, :name => '提交物1', :creator => @user}
         @upload_params_2 = {:file_entity => @file_entity_2, :name => '提交物2', :creator => @user}
 
-        @requirement.uploads.create(@upload_params_1)
-        @requirement.uploads.create(@upload_params_2)
+        @practice.uploads.create(@upload_params_1)
+        @practice.uploads.create(@upload_params_2)
       }
 
 
       it "数量正确" do
-        @requirement.uploads.count.should == 2
+        @practice.uploads.count.should == 2
       end
     end
 
