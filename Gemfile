@@ -42,8 +42,9 @@ end
 
 group :development do
   gem 'thin', '~> 1.5.1'
-  gem 'pry-rails'
 end
+
+gem 'pry-rails', :group => ["development", "test"]
 
 gem 'jquery-rails', '2.2.1'
 gem 'jquery-ui-rails', '4.0.2'

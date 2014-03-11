@@ -97,7 +97,7 @@ class OneCourseIntent < ActiveRecord::Base
             AND 
           one_course_intents.course_id = #{self.id}
       `
-      return User.joins(oci_join_sql).order(order_by_sql) if group_tree_node.blank?
+      return User.unscoped.joins(oci_join_sql).order(order_by_sql) if group_tree_node.blank?
       
       group_tree_node_join_sql = %`
         INNER JOIN group_tree_node_users 
