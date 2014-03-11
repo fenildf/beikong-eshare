@@ -39,10 +39,9 @@ describe ActivityMembership do
       activity.add_member(user1)
       activity.add_member(user2)
       activity.add_member(user3)
+      activity.reload
     }
     it { activity.members.size.should == 3 }
-    it { activity.members[0].should == user1 }
-    it { activity.members[1].should == user2 }
-    it { activity.members[2].should == user3 }
+    it { activity.members.should =~ [user1, user2, user3] }
   end
 end

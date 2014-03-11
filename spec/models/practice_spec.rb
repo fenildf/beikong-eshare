@@ -255,7 +255,7 @@ describe Practice do
       }
 
       it "学生列表" do
-        @practice.submitted_users.should == [@student1, @student2]
+        @practice.submitted_users.should =~ [@student1, @student2]
       end
 
       it "完成作业的学生列表" do
