@@ -1,5 +1,4 @@
 require "spec_helper"
-require "pry"
 
 describe Course do
   describe ".by_category_grade_kclass(category, grade, kclass)" do

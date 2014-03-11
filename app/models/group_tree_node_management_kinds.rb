@@ -25,6 +25,8 @@ module GroupTreeNodeManagementKinds
     base.send :include, InstanceMethods
 
     base.instance_eval do
+      attr_accessible :group_kind, :grade_kind, :year
+
       validates :group_kind, :inclusion => {:in => GROUP_KIND.all}
       validates :group_kind, :uniqueness => {
         :scope => :manage_user_id,

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "spec_helper"
 
 if R::SELECT_COURSE_MODE == 'ONE'
@@ -156,7 +157,7 @@ describe OneCourseIntent do
           }
 
           it{
-            @course_1.selected_users.should == [@user_1, @user_2, @user_3]
+            @course_1.selected_users.should =~ [@user_1, @user_2, @user_3]
           }
 
           it{
