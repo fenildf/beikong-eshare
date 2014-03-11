@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Practice do
 
-  describe "创建单一习题" do
+  describe "创建习题" do
 
     before {
       @user = FactoryGirl.create(:user)
@@ -14,32 +14,27 @@ describe Practice do
 
     it "创建习题" do
       expect{
-        @chapter.practices.create(:title => '标题', :content => "内容", :creator => @user)
+        @chapter.practices.create(
+          :title => '标题', 
+          :content => "内容", 
+          :creator => @user
+        )
       }.to change{Practice.count}.by(1)
+    end
+
+    it "创建习题附件" do
+      expect{
+        @practice.file_entities = [@file_entity]
+      }.to change{Attachment.count}.by(1)
     end
 
     it "习题还未有任何提交" do
       @practice.created_records.count.should == 0
     end
 
-    it "应该还没提交" do
+    it "学生的习题提交状态" do
       @practice.in_submitted_status_of_user?(@user).should == false
     end
-
-
-    it "创建习题附件" do
-      expect{
-        @practice.attaches.create(:file_entity => @file_entity, :name => "附件")
-      }.to change{PracticeAttach.count}.by(1)
-    end
-
-    it "创建习题提交物要求" do
-      expect{
-        @practice.requirements.create(:content => "要求")
-      }.to change{PracticeRequirement.count}.by(1)
-    end
-
-
 
     describe "提交习题" do
       before {
@@ -50,30 +45,30 @@ describe Practice do
         end
       }
 
-      it "习题 && 用户唯一性" do
+      it "学生不能重复提交习题" do
         expect{
           @practice.submit_by_user(@user)
         }.to change{PracticeRecord.count}.by(0)
       end
 
 
-      it "已经提交" do
+      it "学生的习题提交状态" do
         @practice.in_submitted_status_of_user?(@user).should == true
       end
 
-      it "还没被批阅" do
+      it "学生的习题被批阅状态" do
         @practice.in_checked_status_of_user?(@user).should == false
       end
 
-      it "提交时间正确" do
+      it "习题的提交时间" do
         @practice.get_record_by_user(@user).submitted_at.to_i.should == @time.to_i
       end
 
-      it "批阅时间为空" do
+      it "习题的批阅时间" do
         @practice.get_record_by_user(@user).checked_at.blank?.should == true
       end
 
-      it "在线下提交 false" do
+      it "习题是否是线下提交" do
         @practice.in_submitted_offline_of_user?(@user).should == false
       end
 
@@ -98,11 +93,11 @@ describe Practice do
           @practice.get_record_by_user(@user).checked_at.to_i.should == @time.to_i
         end
 
-        it "score" do
+        it "习题的评分" do
           @practice.get_record_by_user(@user).score.should == @score
         end
 
-        it "comment" do
+        it "习题的评语" do
           @practice.get_record_by_user(@user).comment.should == @comment
         end
       end
@@ -126,93 +121,39 @@ describe Practice do
       
     end
 
-
-    
-
   end
 
-  describe "创建习题时连同创建多个附件" do
-    before {
-      @user = FactoryGirl.create(:user)
-      @chapter = FactoryGirl.create(:chapter)
-      @file_entity_1 = FactoryGirl.create(:file_entity)
-      @file_entity_2 = FactoryGirl.create(:file_entity)
-      
-      attaches_attributes = [
-        {:file_entity => @file_entity_1, :name => '附件1'},
-        {:file_entity => @file_entity_2, :name => '附件2'}
-      ]
-
-      @practice = @chapter.practices.create(
-        :title => '标题', 
-        :content => "内容",
-        :creator => @user,
-        :attaches_attributes => attaches_attributes
-      )
-
-    }
-
-    it "practice 创建成功" do
-      @practice.id.blank?.should == false
-    end
-
-    it "习题附件数量正确" do 
-      @practice.attaches.count.should == 2    
-    end
-
-  end
-
-
-
-  describe "创建习题时连同创建多个要求" do
+  describe "创建习题" do
     before {
       @user = FactoryGirl.create(:user)
       @chapter = FactoryGirl.create(:chapter)
       
-      requirements_attributes = [
-        {:content => '要求1'},
-        {:content => '要求2'}
-      ]
-
       @practice = @chapter.practices.create(
         :title => '标题', 
         :content => '内容',
-        :creator => @user,
-        :requirements_attributes => requirements_attributes
+        :creator => @user
       )
 
     }
 
     it "practice 创建成功" do
       @practice.id.blank?.should == false
-    end
-
-    it "习题附件数量正确" do 
-      @practice.requirements.count.should == 2    
     end
 
     describe "习题提交物" do
       before {
        
-        @requirement = @practice.requirements.first
-
         @file_entity_1 = FactoryGirl.create(:file_entity)
         @file_entity_2 = FactoryGirl.create(:file_entity)
 
-        @upload_params_1 = {:file_entity => @file_entity_1, :name => '提交物1', :creator => @user}
-        @upload_params_2 = {:file_entity => @file_entity_2, :name => '提交物2', :creator => @user}
-
-        @requirement.uploads.create(@upload_params_1)
-        @requirement.uploads.create(@upload_params_2)
+        @practice.add_upload(@user, @file_entity_1)
+        @practice.add_upload(@user, @file_entity_2)
       }
 
-
-      it "数量正确" do
-        @requirement.uploads.count.should == 2
-      end
+      it{
+        @practice.uploads.by_creator(@user).first.file_entities.count.should == 2
+      }
     end
-
-    
 
   end
 
@@ -244,7 +185,7 @@ describe Practice do
       end
     end
 
-    describe "学生提交作业" do
+    describe "学生提交习题" do
       before {
         @student1 = FactoryGirl.create(:user)
         @student2 = FactoryGirl.create(:user)
@@ -255,18 +196,18 @@ describe Practice do
       }
 
       it "学生列表" do
-        @practice.submitted_users.should == [@student1, @student2]
+        @practice.submitted_users.should =~ [@student1, @student2]
       end
 
-      it "完成作业的学生列表" do
+      it "完成习题的学生列表" do
         @practice.checked_users.should == []
       end
 
-      it "线下完成作业的学生列表" do
+      it "线下完成习题的学生列表" do
         @practice.submitted_offline_users.should == []
       end
 
-      describe "学生完成作业" do
+      describe "老师批阅学生的习题" do
         before {
           @score = 60
           @comment = 'hello comment'
