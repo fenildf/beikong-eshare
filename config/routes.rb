@@ -51,6 +51,7 @@ end
 # 搜索
 Eshare::Application.routes.draw do
   get 'search/:query' => 'search#search'
+  get 'search' => 'search#search'
 end
 
 # 标签

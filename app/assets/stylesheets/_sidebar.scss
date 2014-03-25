@@ -1,17 +1,16 @@
 $sidebar-width:100px;  
 .page-sidebar {
   background-color:white;
-  position:fixed;
+  position:absolute;
   width:$sidebar-width;
-  margin-top:0;
-  margin-right:20px;
-  top:31px;left:0px;bottom:0;
+  top:70px;left:0px;
   z-index:3;
-  border-right:solid 1px #DDDDDD;
-  padding-top:10px;
+  border-right:solid 1px #e7e7e7;
+  border-bottom:solid 2px #e7e7e7;
+  border-top:solid 1px #e7e7e7;
 
   .avatar {
-    padding:0 0 10px 10px;
+    margin:20px 0 20px 20px;
     img {
       width:60px;height:60px;
     }
@@ -47,10 +46,4 @@ $sidebar-width:100px;
     }
   }
 
-}
-
-body.admin { 
-  .page-sidebar {
-    top:30px;
-  }
 }

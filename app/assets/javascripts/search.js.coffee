@@ -12,6 +12,20 @@ jQuery ->
   jQuery('.page-search-bar .do-search').on 'click', ->
     search($input)
 
+# 20140325 top bar search
+jQuery ->
+  search = ($input)->
+    q = jQuery.trim $input.val()
+    if q.length > 0
+      location.href = "/search/#{q}"
+
+  $input = jQuery('.page-top-nav input.top-search')
+  $input.keydown (evt)=>
+    if evt.keyCode == 13
+      search($input)
+
+# ----------
+
 jQuery ->
   search = ($input)->
     q = jQuery.trim $input.val()
