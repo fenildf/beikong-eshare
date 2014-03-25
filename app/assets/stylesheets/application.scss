@@ -636,7 +636,7 @@ body.admin, body.app, body.account, body.help, body.error, body.course{
   }
 
   .page-content {
-    $sidebar-width : 100px;
+    $sidebar-width : 120px;
     margin-left:10px + $sidebar-width; //120
     // margin-top:20px;
     margin-right:20px;
@@ -963,6 +963,20 @@ body.error {
     &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
       background:lighten(#E86649, 10%) !important;
       color:#fff;
+    }
+  }
+
+  &.fav-flat {
+    background: #FFE255 !important;
+    background-repeat: repeat-x;
+    border-color:transparent;
+    box-shadow:none;
+    color:darken(#ffd637, 40%);
+    @include border-radius(0);
+    border:none;
+    border-bottom:solid 2px rgba(black, 0.1);
+    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
+      background:#FFD637 !important;
     }
   }
 
@@ -1653,7 +1667,7 @@ img.page-avatar {
   // inhouse 选课动态
   a.select-courses {
     height:50px;line-height:50px;
-    margin-bottom:20px;
+    margin-bottom:10px;
     font-size:16px;
     display:block;
     background-color:#DF6840;
@@ -1821,7 +1835,6 @@ img.page-avatar {
     margin-bottom:20px;
     padding:20px 20px 20px;
     position:relative;
-    overflow:hidden;
 
     .cover {
       // position:absolute;
@@ -1833,7 +1846,7 @@ img.page-avatar {
 
     .data {
       margin-left: 214px + 20px;
-      width:60%;
+      margin-right:140px;
 
       h1 {
         font-size:21px;
@@ -1861,6 +1874,37 @@ img.page-avatar {
         &.open {
           .short {display:none;}
           .long {display:block;}
+        }
+      }
+    }
+
+    .btns {
+      position:absolute;
+      right:0;
+
+      a.btn.join, a.btn.fav{
+        height:40px;line-height:40px;
+        width:130px;
+        position:relative;
+        left:10px;
+        display:block;
+        margin-bottom:15px;
+
+        &:after {
+          content:"";
+          display:block;
+          position:absolute;
+          border:solid 5px darken(#CECECE, 20%);
+          border-right-color:transparent;
+          border-bottom-color:transparent;
+          right:0;bottom:-12px;
+        }
+      }
+
+      a.btn.fav {
+        &:after {
+          border-top-color:darken(#CECECE, 20%);
+          border-left-color:darken(#CECECE, 20%);
         }
       }
     }
@@ -2042,7 +2086,7 @@ img.page-avatar {
 
   .page-course-page-navbar {
     margin-top:-21px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     .navbar-inner {
       height:40px;
@@ -2401,13 +2445,13 @@ img.page-avatar {
   }
 
   .course-content {
-    margin-left:250px;
+    margin-left:240px;
     min-width:730px;
     max-width:1030px;
 
     // background-color:white;
     padding:20px;
-    margin-top:20px;
+    margin-top:0px;
     margin-right:20px;
     margin-bottom:30px;
     

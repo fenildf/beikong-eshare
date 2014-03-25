@@ -1,4 +1,4 @@
-$sidebar-width:100px;  
+$sidebar-width:120px;  
 .page-sidebar {
   background-color:white;
   position:absolute;
@@ -10,7 +10,7 @@ $sidebar-width:100px;
   border-top:solid 1px #e7e7e7;
 
   .avatar {
-    margin:20px 0 20px 20px;
+    margin:20px 0 20px 30px;
     img {
       width:60px;height:60px;
     }
@@ -29,7 +29,7 @@ $sidebar-width:100px;
           margin:2px 5px 0 -6px !important;
         }
 
-        &:hover{color:#555;}
+        &:hover{color:#0066EC;}
         &:hover {
           i {opacity:0.75 !important;}
         }

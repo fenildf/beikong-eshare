@@ -134,27 +134,40 @@ SimpleNavbar::Base.config do
     nav :index, :url => '/student_home' do
       controller :index, :only => [:student_home]
     end
-
-    nav :select_course, :url => '/select_course_intents' do
-      controller :select_course_intents
-    end
     
-    nav :courses, :url => '/courses' do
-      controller :courses
-      controller :chapters
-      controller :course_wares
+    # 我的课程
+    nav :mine_courses, :url => '/courses/mine' do
+      controller :courses, :only => [:mine]
     end
 
+    # 收藏的课程
+    nav :fav_courses, :url => '/courses/fav' do
+      controller :courses, :only => [:fav]
+    end
+
+    # 课程作业
     nav :practices, :url => '/practices' do
       controller :practices
     end
 
+    # 文件共享
     nav :file_upload, :url => '/disk' do
       controller :disk
     end
 
-    nav :questions, :url => '/questions' do
-      controller :questions
+    # 提出的问题
+    nav :questions_iask, :url => '/questions/iask' do
+      controller :questions, :only => [:iask]
+    end
+
+    # 得到回答的问题
+    nav :questions_be_answered, :url => '/questions/be_answered' do
+      controller :questions, :only => [:be_answered]
+    end
+
+    # 关注的问题
+    nav :questions_fav, :url => '/questions/fav' do
+      controller :questions, :only => [:fav]
     end
 
     # 好友关注
@@ -162,16 +175,14 @@ SimpleNavbar::Base.config do
       controller :friends
     end 
 
+    # 公共动态
     nav :dashboard, :url => '/dashboard' do
       controller :index, :only => :dashboard
     end
 
+    # 公告查看
     nav :announcements, :url => '/announcements' do
       controller :announcements
-    end
-
-    nav :user, :url => '/users/me' do
-      controller :users
     end
 
     # 我的班级
@@ -184,6 +195,7 @@ SimpleNavbar::Base.config do
       controller :'manage/stats'
     end
 
+    # 教师评价
     nav :'teacher-surveys', :url => '/surveys' do
       controller :surveys
     end

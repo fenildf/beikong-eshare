@@ -46,6 +46,11 @@ zh-CN:
       user: 个人主页
       my_teams: 我的班级
       stat: 统计信息
+      mine_courses: 我的课程
+      fav_courses: 收藏的课程
+      questions_iask: 提出的问题
+      questions_be_answered: 得到的回答
+      questions_fav: 关注的问题
 
     account:
       edit: 基础信息设置

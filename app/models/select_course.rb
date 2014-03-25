@@ -99,6 +99,15 @@ class SelectCourse < ActiveRecord::Base
     def have_apply_request_limit?
       self.apply_request_limit.present? && self.apply_request_limit > 0
     end
+
+    def has_accept?(user)
+      record = user.select_course_records.by_course(self).first
+      if record && record.status == STATUS_ACCEPT
+        return true
+      end
+
+      return false
+    end
   end
 
   module UserMethods
@@ -121,6 +130,13 @@ class SelectCourse < ActiveRecord::Base
         self.select_course_records.create :course => course, :status => status.to_s
       else
         record.update_attributes(:status => status.to_s)
+      end
+    end
+
+    def cancel_select_course(course)
+      record = self.select_course_records.by_course(course).first
+      if record
+        record.destroy
       end
     end
 

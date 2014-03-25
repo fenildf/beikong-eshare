@@ -1,5 +1,27 @@
 .header
+  - if @user
+    .btns
+      - if @course.faved_by? @user
+        = link_to "/courses/#{@course.id}/unfav", :class=> 'btn fav fav-flat faved', :method => :post do
+          %i.icon-star
+          %span 取消收藏
+
+      - else
+        = link_to "/courses/#{@course.id}/fav", :class=> 'btn fav fav-flat', :method => :post do
+          %i.icon-star-empty
+          %span 加入收藏
+
+      - if @course.has_accept? @user
+        = link_to "/courses/#{@course.id}/exit", :class=> 'btn join gray-flat', :method => :post do
+          %i.icon-signout
+          %span 退出这门课程
+      - else
+        = link_to "/courses/#{@course.id}/join", :class=> 'btn join success-flat', :method => :post do
+          %i.icon-plus
+          %span 参加这门课程
+
   .cover= fit_image(@course.cover.versions[:normal].url, :width => 214, :height => 140)
+
   .data
     %h1= @course.name
     .info
@@ -37,3 +59,5 @@
 
 
     = render_cell :tags, :public, :model => @course
+
+  .clearfix

@@ -322,10 +322,16 @@ Eshare::Application.routes.draw do
       get :questions
       get :notes
       get :chs
+
+      post :fav
+      post :unfav
+      post :join
+      post :exit
     end
 
     collection do
       get :sch_select
+      get :mine
     end
 
     resources :chapters, :shallow => true do

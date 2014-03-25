@@ -47,6 +47,7 @@ class CourseCell < Cell::Rails
 
   def header(opts = {})
     @course = opts[:course]
+    @user = opts[:user]
     render
   end
 

@@ -16,6 +16,10 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id]) if params[:id]
   end
 
+  def mine
+    @courses = current_user.selected_courses.page(params[:page]).per(18)
+  end
+
   def index
   end
 
@@ -94,5 +98,25 @@ class CoursesController < ApplicationController
   end
 
   def chs
+  end
+
+  def fav
+    @course.set_fav current_user
+    redirect_to @course
+  end
+
+  def unfav
+    @course.cancel_fav current_user
+    redirect_to @course
+  end
+
+  def join
+    current_user.select_course SelectCourse::STATUS_ACCEPT, @course
+    redirect_to @course
+  end
+
+  def exit
+    current_user.cancel_select_course @course
+    redirect_to @course
   end
 end
