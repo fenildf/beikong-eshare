@@ -11,6 +11,7 @@ Eshare::Application.routes.draw do
   get '/teacher_home' => 'index#teacher_home'
   get '/admin_home' => 'index#admin_home'
   get '/student_home' => 'index#student_home'
+  get '/manager_home' => 'index#manager_home'
 
   # bk crosslogin
   get '/bk_login' => 'index#bk_login'
@@ -186,6 +187,7 @@ Eshare::Application.routes.draw do
       get :iask
       get :be_answered
       get :favs
+      get :answered
     end
 
     resources :answers do
@@ -207,6 +209,13 @@ Eshare::Application.routes.draw do
       collection do
         get :teacher
         get :student
+
+        get :courses
+        get :plans
+        get :answers
+        get :problem_book
+        get :progress
+        get :practices
       end
     end
 

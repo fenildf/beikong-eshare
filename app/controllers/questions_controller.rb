@@ -27,6 +27,10 @@ class QuestionsController < ApplicationController
     @questions = current_user.questions.be_answered.page(params[:page]).per(20)
   end
 
+  def answered
+    @questions = current_user.answered_questions.page(params[:page]).per(20)
+  end
+
   def favs
     @questions = current_user.follow_questions.page(params[:page]).per(20)
   end

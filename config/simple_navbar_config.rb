@@ -7,25 +7,15 @@ SimpleNavbar::Base.config do
     nav :users_manage, :url => '/admin/user_groups' do
       controller :'admin/user_groups'
     end
-
-    nav :select_course, :url => '/manage/select_course_intents' do
-      controller :'manage/select_course_intents'
-    end
-    
-    nav :courses, :url => '/courses' do
-      controller :courses
-      controller :chapters
-      controller :course_wares
-    end
-
-    nav :teacher_surveys_manage, :url => '/manage/surveys' do
-      controller :'manage/surveys'
-      controller :'manage/survey_results'
-    end
   end
 
-  # 教务管理
+  # 教学领导
   rule :manager do
+    # 领导首页
+    nav :index, :url => '/manager_home' do
+      controller :index, :only => [:manager_home]
+    end
+
     nav :courses_check, :url => '/manage/courses' do
       controller :'manage/courses'
       controller :'manage/chapters'
@@ -33,14 +23,33 @@ SimpleNavbar::Base.config do
       controller :'manage/applies'
     end
 
-    nav :select_course, :url => '/manage/select_course_intents' do
-      controller :'manage/select_course_intents'
+    nav :stat_courses, :url => '/manage/stats/courses' do
+      controller :'manage/stats', :only => [:courses]
     end
 
-    nav :courses, :url => '/courses' do
-      controller :courses
-      controller :chapters
-      controller :course_wares
+    nav :stat_plans, :url => '/manage/stats/plans' do
+      controller :'manage/stats', :only => [:plans]
+    end
+
+    nav :stat_answers, :url => '/manage/stats/answers' do
+      controller :'manage/stats', :only => [:answers]
+    end
+
+    nav :stat_problem_book, :url => '/manage/stats/problem_book' do
+      controller :'manage/stats', :only => [:problem_book]
+    end
+
+    nav :stat_progress, :url => '/manage/stats/progress' do
+      controller :'manage/stats', :only => [:progress]
+    end
+
+    nav :stat_practices, :url => '/manage/stats/practices' do
+      controller :'manage/stats', :only => [:course_create]
+    end
+
+    nav :teacher_surveys_manage, :url => '/manage/surveys' do
+      controller :'manage/surveys'
+      controller :'manage/survey_results'
     end
 
     nav :announcements, :url => '/manage/announcements' do
@@ -56,9 +65,8 @@ SimpleNavbar::Base.config do
       controller :index, :only => [:teacher_home]
     end
 
-    # 课程申报
     nav :course_submit, :url => '/manage/courses' do
-      controller :'manage/courses', :only => [:index, :new, :edit]
+      controller :'manage/courses', :only => [:index]
     end
 
     # 课程编排
@@ -87,25 +95,40 @@ SimpleNavbar::Base.config do
       controller :'manage/practices', :except => [:new] 
     end
 
-    # 成绩登记
-    nav :course_scores, :url => '/manage/course_scores' do
-      controller :'manage/course_scores'
-    end
-
     # 文件共享
     nav :file_upload, :url => '/disk' do
       controller :disk
     end
 
-    # 在线答疑
-    nav :questions, :url => '/questions' do
-      controller :'questions'
+    # 提出的问题
+    nav :questions_iask, :url => '/questions/iask' do
+      controller :questions, :only => [:iask]
+    end
+
+    # 得到回答的问题
+    nav :questions_be_answered, :url => '/questions/be_answered' do
+      controller :questions, :only => [:be_answered]
+    end
+
+    # 回答过的问题
+    nav :questions_answered, :url => '/questions/answered' do
+      controller :questions, :only => [:answered]
+    end
+
+    # 关注的问题
+    nav :questions_fav, :url => '/questions/favs' do
+      controller :questions, :only => [:favs]
     end
 
     # 好友关注
     nav :friends, :url => '/friends' do
       controller :friends
     end 
+
+    # 公共动态
+    nav :dashboard, :url => '/dashboard' do
+      controller :index, :only => :dashboard
+    end
 
     # 发布公告
     nav :new_announcements, :url => '/manage/announcements/new' do

@@ -25,12 +25,26 @@ zh-CN:
       courses: 课程中心
       questions: 在线答疑
       friends: 好友关注
+      questions_iask: 提出的问题
+      questions_be_answered: 得到的回答
+      questions_fav: 关注的问题
+      questions_answered: 回答的问题
+      dashboard: 公共动态
 
     manager:
+      index: 首页
       courses_check: 课程审批
       select_course: 学生申请
       announcements: 公告发布
       courses: 课程中心
+      teacher_surveys_manage: 教师评价
+
+      stat_courses: 课程统计
+      stat_plans: 教案统计
+      stat_answers: 问答统计
+      stat_problem_book: 错题本统计
+      stat_progress: 进度统计
+      stat_practices: 作业统计
 
     student:
       index: 学生首页

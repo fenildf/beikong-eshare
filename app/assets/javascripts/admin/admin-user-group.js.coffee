@@ -551,7 +551,7 @@ jQuery ->
   group_tree.select_group group_tree.$elm.find(".group[data-id=-1]")
 
   table_resize = =>
-    h = jQuery(window).height() - 31 - 71 - jQuery('.detail .chds').height()
+    h = jQuery(window).height() - 60 - 71 - jQuery('.detail .chds').height()
     jQuery('.detail .usrs').height(h).fadeIn(100)
 
   table_resize()

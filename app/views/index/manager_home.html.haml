@@ -1,0 +1,61 @@
+- content_for :header do
+  %h1 欢迎使用云课堂
+  .fdesc
+
+.page-teacher-home
+  .pblock.desc
+    %b= current_user.name
+    %span 老师，你好！你可以通过本系统使用下列功能：
+
+  :ruby
+    modules = [
+      {
+        :module => '课程功能',
+        :funcs => [
+          {:title => '课程审批', :desc => '编排和预览课程下的章节内容', :link => '/manage/courses', :icon => 'edit-sign'},
+        ]
+      },
+
+      {
+        :module => '统计功能',
+        :funcs => [
+          {:title => '课程统计', :desc => '课程相关统计信息', :link => '/manage/practices/new', :icon => 'building'},
+          {:title => '教案统计', :desc => '教案相关统计信息', :link => '/manage/practices/new', :icon => 'building'},
+          {:title => '问答统计', :desc => '问答相关统计信息', :link => '/manage/practices/new', :icon => 'building'},
+          {:title => '错题本统计', :desc => '错题本相关统计信息', :link => '/manage/practices/new', :icon => 'building'},
+          {:title => '进度统计', :desc => '进度相关统计信息', :link => '/manage/practices/new', :icon => 'building'},
+          {:title => '作业统计', :desc => '作业统相关统计信息', :link => '/manage/practices/new', :icon => 'building'},            
+        ]
+      },
+
+      {
+        :module => '教师评价',
+        :funcs => [
+          {:title => '教师评价', :desc => '查看教师的评价信息', :link => '/manage/surveys', :icon => 'flag'},
+        ]
+      },
+
+      {
+        :module => '公告功能',
+        :funcs => [
+          {:title => '发布公告', :desc => '向学生和教师发布公告', :link => '/manage/announcements/new', :icon => 'bell'},
+        ]
+      },
+      
+    ]
+
+  .modules
+    - modules.each do |m|
+      .module
+        .mtitle
+          %i.icon-circle-blank
+          %span= m[:module]
+        .funcs
+          - m[:funcs].each do |f|
+            - md5 = Digest::MD5.hexdigest f[:title]
+            - code = md5[0...6]
+            .func
+              .box
+                %i{:class => "icon-#{f[:icon]}", :style => "background-color:##{code};"}
+                %a.title{:href => f[:link]}= f[:title]
+                .desc= f[:desc]
