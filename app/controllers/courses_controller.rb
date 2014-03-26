@@ -25,6 +25,18 @@ class CoursesController < ApplicationController
   end
 
   def index
+    @groups = []
+
+    GroupTreeNode.roots.with_teacher.each do |g|
+      _r_group @groups, g
+    end
+  end
+
+  def _r_group(groups, group)
+    groups << group
+    group.children.each do |g|
+      _r_group groups, g
+    end
   end
 
   def sch_select
