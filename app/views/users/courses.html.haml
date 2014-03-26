@@ -1,5 +1,5 @@
 .page-user-courses
-  .courses
+  .courses{:style => 'position:relative;left:5px;'}
     - @courses.each do |course|
       = render_cell :course, :smallcard, :course => course, :user => current_user
 

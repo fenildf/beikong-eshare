@@ -748,7 +748,7 @@ body.admin {
 }
 
 body.account, body.help {
-  padding-top:30px;
+  padding-top:60px;
 
   .sidebar {
     width:230px;
@@ -774,7 +774,16 @@ body.account, body.help {
         i {opacity: 0.75;}
       }
     }
+
+    .page-navlist ul.nav {
+      @include border-radius(0 !important);
+      a {
+        @include border-radius(0 !important);
+      }
+    }
   }
+
+
   .page-content {
     margin-left:250px;
     min-width:730px;
@@ -792,7 +801,7 @@ body.account, body.help {
 }
 
 body.error {
-  padding-top:30px;
+  padding-top:60px;
 }
 
 .page-user-page-medals {
@@ -1383,7 +1392,7 @@ ul.page-breadcrumb {
       .creator {
         margin-top:20px;
         margin-bottom:-10px;
-        float:right;margin-right:0;
+        float:left;margin-right:0;
         .avatar {
           float:left;
           width:30px;height:30px;margin-right:10px;
@@ -4180,10 +4189,7 @@ form .input.page-form-tag-inputer {
 
 .page-surveys-index {
   .surveys-list {
-    margin: -20px;
-    margin-top: -21px;
     .survey {
-
       .tile-body {
         position:relative;
         width:600px;
@@ -4853,14 +4859,6 @@ form .input.page-form-tag-inputer {
   &.reject {
     background-color:#ffdada;
     color:#990000;
-  }
-}
-
-.page-surveys-index {
-  .pblock.desc {
-    background-color:#ffffda;
-    padding-bottom:20px;
-    margin-top: -16px;
   }
 }
 
@@ -5804,12 +5802,16 @@ form .input.page-form-tag-inputer {
 .page-user-groups {
   .group {
     border:solid 1px #e7e7e7;
-    border-bottom:solid 3px #d6d6d6;
+    border-bottom:solid 3px #68B9E9;
     background-color:white;
     @include border-radius(3px);
     box-shadow:0 1px 0 #E7E7E7;
     padding:20px;
     float:left;
+
+    margin-right:5px;
+    margin-bottom:5px;
+    width:200px;
 
     .name {
       text-align:center;

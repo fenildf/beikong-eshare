@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def courses
     @user = User.find params[:id]
-    @courses = @user.learning_courses.page params[:page]
+    @courses = @user.selected_courses.page params[:page]
   end
 
   def questions

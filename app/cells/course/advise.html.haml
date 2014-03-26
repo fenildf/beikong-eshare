@@ -3,7 +3,7 @@
   - if @courses.blank?
     .no-course
       %span> 学习过的课程太少，没有合适的推荐，
-      %a{:href => '/courses'} 去课程列表看看吧
+      %a{:href => '/courses'} 去课程中心看看吧
   - else
     .courses
       - @courses.each do |course|

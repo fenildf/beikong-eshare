@@ -182,6 +182,12 @@ Eshare::Application.routes.draw do
       post :unfollow
     end
 
+    collection do
+      get :iask
+      get :be_answered
+      get :favs
+    end
+
     resources :answers do
       member do
         put :vote_up
@@ -323,7 +329,7 @@ Eshare::Application.routes.draw do
       get :notes
       get :chs
 
-      post :fav
+      post :dofav
       post :unfav
       post :join
       post :exit
@@ -332,6 +338,7 @@ Eshare::Application.routes.draw do
     collection do
       get :sch_select
       get :mine
+      get :favs
     end
 
     resources :chapters, :shallow => true do

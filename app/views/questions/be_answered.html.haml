@@ -1,0 +1,7 @@
+- content_for :header do
+  %h1 我得到的回答
+
+.page-questions-index
+  .pblock
+    %h3.cp 我提出的以下 #{@questions.count} 个问题得到了回答
+    = render_cell :questions, :gridlist, :questions => @questions, :user => current_user

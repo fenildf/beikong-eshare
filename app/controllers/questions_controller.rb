@@ -19,6 +19,18 @@ class QuestionsController < ApplicationController
     @questions = Question.page(params[:page]).per(20)
   end
 
+  def iask
+    @questions = current_user.questions.page(params[:page]).per(20)
+  end
+
+  def be_answered
+    @questions = current_user.questions.be_answered.page(params[:page]).per(20)
+  end
+
+  def favs
+    @questions = current_user.follow_questions.page(params[:page]).per(20)
+  end
+
   def new
     if params[:course_id].blank?
       @question = Question.new

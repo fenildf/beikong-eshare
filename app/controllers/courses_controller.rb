@@ -20,6 +20,10 @@ class CoursesController < ApplicationController
     @courses = current_user.selected_courses.page(params[:page]).per(18)
   end
 
+  def favs
+    @courses = current_user.fav_courses.page(params[:page]).per(18)
+  end
+
   def index
   end
 
@@ -100,7 +104,7 @@ class CoursesController < ApplicationController
   def chs
   end
 
-  def fav
+  def dofav
     @course.set_fav current_user
     redirect_to @course
   end

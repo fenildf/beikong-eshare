@@ -17,6 +17,7 @@ class CourseFav < ActiveRecord::Base
   module UserMethods
     def self.included(base)
       base.has_many :course_favs
+      base.has_many :fav_courses, :through => :course_favs, :source => :course
     end
 
   end

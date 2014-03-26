@@ -141,8 +141,8 @@ SimpleNavbar::Base.config do
     end
 
     # 收藏的课程
-    nav :fav_courses, :url => '/courses/fav' do
-      controller :courses, :only => [:fav]
+    nav :fav_courses, :url => '/courses/favs' do
+      controller :courses, :only => [:favs]
     end
 
     # 课程作业
@@ -166,8 +166,8 @@ SimpleNavbar::Base.config do
     end
 
     # 关注的问题
-    nav :questions_fav, :url => '/questions/fav' do
-      controller :questions, :only => [:fav]
+    nav :questions_fav, :url => '/questions/favs' do
+      controller :questions, :only => [:favs]
     end
 
     # 好友关注
@@ -191,7 +191,7 @@ SimpleNavbar::Base.config do
     end
 
     # 统计信息
-    nav :stat, :url => '/manage/stats/teacher' do
+    nav :stat, :url => '/manage/stats/student' do
       controller :'manage/stats'
     end
 

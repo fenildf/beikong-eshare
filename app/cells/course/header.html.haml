@@ -7,7 +7,7 @@
           %span 取消收藏
 
       - else
-        = link_to "/courses/#{@course.id}/fav", :class=> 'btn fav fav-flat', :method => :post do
+        = link_to "/courses/#{@course.id}/dofav", :class=> 'btn fav fav-flat', :method => :post do
           %i.icon-star-empty
           %span 加入收藏
 
