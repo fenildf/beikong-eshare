@@ -1,0 +1,45 @@
+:ruby
+  form_url = ApplicationController::BEIKONG_CL_DOMAIN + "/uas/authNewAction.a"
+  auth_url = "http://" + request.host_with_port + "/bk_login"
+  auth_key = session[:bk_crosslogin_auth_key]
+  sys_id = ApplicationController::BEIKONG_SYS_ID
+
+  captcha_img_url = ApplicationController::BEIKONG_CL_DOMAIN + "/uas/captcha.jpg"
+
+.sign-in-form
+  = simple_form_for User.new, :as => :user, :url => form_url do |f|
+    .form-inputs
+      .input.string.required
+        %label.string.required.control-label{:for => :user_login}
+        %input.string.required{:type => :text, :name => :auth_username, :placeholder => '用户名', :size => 50}
+
+      .input.password.required
+        %label.password.required.control-label{:for => :user_password}
+        %input.password.required{:type => :password, :name => :auth_password, :placeholder => '密码', :size => 50}
+
+      .bk-captha
+        .input.captha.required
+          / %label.password.required.control-label{:for => :captha}
+          %input.password.required{:type => :password, :name => :auth_check_code, :placeholder => '验证码', :size => 50}
+
+        %img{:src => captcha_img_url}
+
+      %input{:type => :hidden, :name => :auth_url,      :value => auth_url}
+      %input{:type => :hidden, :name => :auth_key,      :value => auth_key}
+      %input{:type => :hidden, :name => :auth_logining, :value => '1'}
+      %input{:type => :hidden, :name => :sys_id,        :value => sys_id}
+
+    .form-actions
+      = f.button :submit, '登录云课堂', :class => 'large sign-in'
+
+    / .remember
+    /   = f.input :remember_me, :as => :boolean
+    .clearfix
+
+.sign-res-info{:style => 'display:none;'}
+  .info{:style => 'display:none;'}
+    %i.icon-info-sign
+    %span 提示信息
+  .info.ok{:style => 'display:none;'}
+    %i.icon-ok
+    %span 登录成功

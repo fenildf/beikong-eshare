@@ -1,10 +1,8 @@
 class Admin::UsersController < ApplicationController
   before_filter :authenticate_user!
-  layout 'manage'
 
   def index
     authorize! :manage, User
-    @users = User.page(params[:page]).order('id DESC').like_filter(@query = params[:q])
   end
 
   def edit
@@ -25,7 +23,7 @@ class Admin::UsersController < ApplicationController
     authorize! :manage, User
     @user = User.new(params[:user])
     if @user.save
-      return redirect_to :action => :index
+      return redirect_to '/admin/user_groups'
     end
     render :action => :new
   end

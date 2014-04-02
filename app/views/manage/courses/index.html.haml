@@ -2,7 +2,7 @@
   - if current_user.is_teacher?
     %h1 课程申报
     .btns
-      %a.btn.success-flat{:href => '/manage/courses/new'}
+      %a.btn.success{:href => '/manage/courses/new'}
         %i.icon-plus.icon-white
         %span 申报新课程
 
@@ -10,12 +10,28 @@
     %h1 课程审批
 
 .page-manage-courses
-  - if msg = flash[:success]
-    .pblock.success
-      %i.icon-ok
-      %span= msg
+  - if @courses.blank?
+    .pblock.desc
+      你还没有申报任何课程，请通过顶部按钮发起新课程申报
 
-  .courses-tables
-    = render_cell :admin, :course_manage_tables, :courses => @courses, :user => current_user
+  - else
+    - if current_user.is_teacher?
+      .pblock.desc
+        - c1 = Course.of_creator(current_user).count
+        - c2 = Course.of_creator(current_user).approve_status_with_yes.count
 
-  = paginate @courses
+        发起课程申报并等待领导审批。目前你已申报 #{c1} 项课程，其中 #{c2} 项课程通过审核
+
+    - if current_user.is_manager?
+      .pblock.desc
+        查看课程信息，并进行审批。审批通过的课程将进入课程中心。
+
+    - if msg = flash[:success]
+      .pblock.success
+        %i.icon-ok
+        %span= msg
+
+    .courses-tables
+      = render_cell :admin, :course_manage_tables, :courses => @courses, :user => current_user
+
+    = paginate @courses

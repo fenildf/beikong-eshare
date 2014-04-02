@@ -1,0 +1,11 @@
+- content_for :header do
+  %h1 统计信息
+
+.pblock
+  .chart
+    %h3.cp 个人学习情况统计
+    .cha
+      .desc
+        .d 课程总数
+        .c= Course.count
+      .page-chart.all-course-read-pie{:data => {:url => "/charts/courses/all_courses_read_pie"}}

@@ -2,6 +2,10 @@ class FriendsController < ApplicationController
   before_filter :authenticate_user!
   layout 'user_page', :only => [:followings, :followers]
 
+  def index
+    redirect_to "/friends/#{current_user.id}/followings"
+  end
+
   def followings
     @user = User.find(params[:id])
     @followings = @user.followings.page(params[:page]).per(20)

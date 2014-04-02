@@ -29,14 +29,13 @@ class InstallController < ApplicationController
   end
 
   def step1_submit
-    if params[:password].blank? || params[:email].blank? || params[:password] != params[:password_confirm]
+    if params[:password].blank? || params[:password] != params[:password_confirm]
       return redirect_to '/install/step1'
     end
 
     User.create(
       :login => 'admin', 
       :name => '管理员', 
-      :email => params[:email], 
       :password => params[:password], 
       :role => :admin)
     _set_install_step_count(2)

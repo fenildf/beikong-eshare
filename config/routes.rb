@@ -8,6 +8,13 @@ Eshare::Application.routes.draw do
   root :to => 'index#index'
   get '/dashboard' => 'index#dashboard'
   get '/plan' => 'index#plan'
+  get '/teacher_home' => 'index#teacher_home'
+  get '/admin_home' => 'index#admin_home'
+  get '/student_home' => 'index#student_home'
+  get '/manager_home' => 'index#manager_home'
+
+  # bk crosslogin
+  get '/bk_login' => 'index#bk_login'
 
   # install
   get '/install' => 'install#index'
@@ -24,6 +31,11 @@ Eshare::Application.routes.draw do
                        :registrations => :account,
                        :sessions => :sessions
                      }
+  devise_scope :user do 
+    get '/xk/sign_in' => 'sessions#new_xuanke'
+    get '/eshare/sign_in' => 'sessions#new_eshare'
+  end
+
 
   devise_scope :user do
     get 'account/avatar' => 'account#avatar'
@@ -40,6 +52,7 @@ end
 # 搜索
 Eshare::Application.routes.draw do
   get 'search/:query' => 'search#search'
+  get 'search' => 'search#search'
 end
 
 # 标签
@@ -100,6 +113,20 @@ Eshare::Application.routes.draw do
   namespace :admin do
     root :to => 'index#index'
 
+    resources :user_groups do
+      collection do
+        get :teachers, :action => :index, :tab => :teachers
+        get :students, :action => :index, :tab => :students
+
+        get :users
+      end
+
+      member do
+        get :add_user_form
+        put :do_change_users
+      end
+    end
+
     resources :users do
       member do
         get :student_attrs
@@ -144,6 +171,8 @@ Eshare::Application.routes.draw do
   post   '/disk/create' => 'disk#create'
   delete '/disk'        => 'disk#destroy'
   get    '/disk/file'   => 'disk#show'
+
+  get    '/disk/download' => 'disk#download'
 end
 
 # 问答和问答投票
@@ -152,6 +181,13 @@ Eshare::Application.routes.draw do
     member do
       post :follow
       post :unfollow
+    end
+
+    collection do
+      get :iask
+      get :be_answered
+      get :favs
+      get :answered
     end
 
     resources :answers do
@@ -167,12 +203,31 @@ end
 # 课程
 Eshare::Application.routes.draw do
   namespace :manage do
+    resources :course_scores, :shallow => true
+
+    resources :stats, :shallow => true do
+      collection do
+        get :teacher
+        get :student
+
+        get :courses
+        get :plans
+        get :answers
+        get :problem_book
+        get :progress
+        get :practices
+      end
+    end
+
     resources :applies, :shallow => true do
       collection do
         get :status_request
         get :status_accept
         get :status_reject
       end
+    end
+
+    resources :practices, :shallow => true do
     end
 
     resources :select_course_intents, :shallow => true do
@@ -182,11 +237,20 @@ Eshare::Application.routes.draw do
         put :accept
         put :reject
         post :batch_check
+        post :batch_check_one
       end
     end
     
+    resources :course_wares, :shallow => true do
+      collection do
+        get :get_select_widget
+      end
+    end
+
     resources :courses, :shallow => true do
       collection do
+        get :design # 课程编排
+
         get :download_import_sample
         get :import
         post :do_import
@@ -213,22 +277,11 @@ Eshare::Application.routes.draw do
         end
 
         resources :course_wares, :shallow => true do
-          collection do
-            get :import_javascript_course_ware
-            post :do_import_javascript_course_ware
-          end
-
           member do
             put :move_up
             put :move_down
             put :do_convert
             get :export_json
-          end
-
-          resources :javascript_steps, :shallow => true do
-            member do
-              get :form_html
-            end
           end
         end
       end
@@ -268,6 +321,8 @@ Eshare::Application.routes.draw do
   resources :select_course_intents, :shallow => true do
     collection do
       post :save
+      post :save_one # 单志愿
+      delete :remove_one
     end
   end
 end
@@ -281,10 +336,18 @@ Eshare::Application.routes.draw do
       get :users_rank
       get :questions
       get :notes
+      get :chs
+
+      post :dofav
+      post :unfav
+      post :join
+      post :exit
     end
 
     collection do
       get :sch_select
+      get :mine
+      get :favs
     end
 
     resources :chapters, :shallow => true do
@@ -347,6 +410,23 @@ Eshare::Application.routes.draw do
     member do
       post :submit
       get :select_teacher
+    end
+  end
+end
+
+Eshare::Application.routes.draw do
+  resources :practices, :shallow => true do
+    member do 
+      get :check
+    end
+  end
+end
+
+# 班级
+Eshare::Application.routes.draw do
+  resources :teams, :shallow => true do
+    collection do
+      get :mine
     end
   end
 end

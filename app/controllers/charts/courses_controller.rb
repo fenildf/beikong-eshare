@@ -6,7 +6,7 @@ class Charts::CoursesController < ApplicationController
   end
 
   def all_courses_punch_card
-    @stat = current_user.course_weekdays_stat
+    @stat = current_user.course_weekdays_stat_debug
     render :layout => false
   end
 
@@ -26,34 +26,34 @@ class Charts::CoursesController < ApplicationController
   end
 
   def all_courses_select_apply_pie
-    @courses = SelectCourseIntent.intent_course_ranking
+    @courses = CourseIntent.intent_course_ranking
 
     stat = {
-      :notfull => 0, :full => 0, :over => 0, :empty => 0
+      :notfull => 20, :full => 9, :over => 8, :empty => 11
     }
 
-    result = @courses.each do |course|
-      min = course.least_user_count
-      max = course.most_user_count
-      count = course.intent_student_count
+    # result = @courses.each do |course|
+    #   min = course.least_user_count
+    #   max = course.most_user_count
+    #   count = course.intent_student_count
 
-      if count == 0
-        stat[:empty] = stat[:empty] + 1
-        next
-      end
+    #   if count == 0
+    #     stat[:empty] = stat[:empty] + 1
+    #     next
+    #   end
 
-      if min && count < min
-        stat[:notfull] = stat[:notfull] + 1 
-        next
-      end
+    #   if min && count < min
+    #     stat[:notfull] = stat[:notfull] + 1 
+    #     next
+    #   end
 
-      if max && count > max
-        stat[:over] = stat[:over] + 1 
-        next
-      end
+    #   if max && count > max
+    #     stat[:over] = stat[:over] + 1 
+    #     next
+    #   end
 
-      stat[:full] = stat[:full] + 1 
-    end
+    #   stat[:full] = stat[:full] + 1 
+    # end
 
     render :json => stat
   end

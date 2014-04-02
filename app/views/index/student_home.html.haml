@@ -1,0 +1,74 @@
+- content_for :header do
+  %h1 欢迎使用云课堂
+  .fdesc
+
+.page-teacher-home
+  .pblock.desc
+    %b= current_user.name
+    %span 同学，你好！你可以通过本系统使用下列功能：
+
+  :ruby
+    modules = [
+      {
+        :module => '课程功能',
+        :funcs => [
+          {:title => '我的课程', :desc => '查看我选中的课程', :link => '/courses/mine', :icon => 'bookmark'},
+          {:title => '收藏的课程', :desc => '查看我收藏的课程', :link => '/courses/favs', :icon => 'star'},
+          {:title => '课程中心', :desc => '浏览系统内的所有公开课程', :link => '/courses', :icon => 'book'},
+        ]
+      },
+
+      {
+        :module => '作业功能',
+        :funcs => [
+          {:title => '课程作业', :desc => '查看自己需要完成的课程作业', :link => '/practices', :icon => 'copy'},
+        ]
+      },
+
+      {
+        :module => '互动功能',
+        :funcs => [
+          {:title => '文件共享', :desc => '上传文件，共享给其他人', :link => '/disk', :icon => 'share'},
+          {:title => '提出的问题', :desc => '我提出的问题', :link => '/questions/iask', :icon => 'question-sign'},
+          {:title => '得到的回答', :desc => '我得到回答的问题', :link => '/questions/iask', :icon => 'comment'},
+          {:title => '回答的问题', :desc => '我进行过回答的问题', :link => '/questions/iask', :icon => 'comment'},
+          {:title => '关注的问题', :desc => '我当前关注的问题', :link => '/questions/iask', :icon => 'star'},
+          {:title => '好友关注', :desc => '关注其他用户为好友，查看他们的公开动态', :link => '/friends'},
+          {:title => '公共动态', :desc => '查看与个人相关的动态信息汇总', :link => '/dashboard'}
+        ]
+      },
+
+      {
+        :module => '公告功能',
+        :funcs => [
+          {:title => '公告查看', :desc => '查看教务处或任课老师发布的公告', :link => '/announcements', :icon => 'info-sign'},
+        ]
+      },
+
+      {
+        :module => '教学功能',
+        :funcs => [
+          {:title => '个人主页', :desc => '查看自己的个人主页', :link => '/users/me', :icon => 'home'},
+          {:title => '我的班级', :desc => '查看自己所在的班级信息', :link => '/teams/of_student', :icon => 'sitemap'},
+          {:title => '统计信息', :desc => '学习相关的统计信息汇总', :link => '/manage/stats/student',  :icon => 'compass'},
+          {:title => '教师评价', :desc => '填写调查表，对任课教师进行评价', :link => '/surveys', :icon => 'flag'},
+        ]
+      },
+      
+    ]
+
+  .modules
+    - modules.each do |m|
+      .module
+        .mtitle
+          %i.icon-circle-blank
+          %span= m[:module]
+        .funcs
+          - m[:funcs].each do |f|
+            - md5 = Digest::MD5.hexdigest f[:title]
+            - code = md5[0...6]
+            .func
+              .box
+                %i{:class => "icon-#{f[:icon]}", :style => "background-color:##{code};"}
+                %a.title{:href => f[:link]}= f[:title]
+                .desc= f[:desc]

@@ -9,36 +9,85 @@
     teacher = @course.creator
   end
 
-= simple_form_for @course, :url => url do |f|
-  .form-inputs
-    = f.input :cid, :as => :hidden, :input_html => {:value => randstr}
+  other_teachers = @course.teacher_users
+  other_teachers_names = other_teachers.map{|t| t.name}.join('，')
+  other_teachers_ids = other_teachers.map{|t| t.id}.join(',')
 
-    = f.input :name
-    .creator
-      %b.teacher 主讲人：
-      %span= teacher.name
+.course-simple-form
+  = simple_form_for @course, :url => url do |f|
+    .form-inputs
+      = f.input :cid, :as => :hidden, :input_html => {:value => randstr}
 
-    .hour-credit
-      = f.input :lesson_hour, :input_html => {:class => :small}
-      = f.input :credit, :input_html => {:class => :small}
+      = f.input :name
+      .creator
+        .crea
+          %b 负责人：
+          %span= teacher.name
+        .teachers
+          %b 其他任课教师：
+          %span= other_teachers_names
+          %a.btn.success.add.mini{:href => 'javascript:;', :title => '点击添加其他教师'}
+            %i.icon-plus.icon-white
+          %input.teacher_ids{:name => 'teacher_ids', :type => :hidden, :value => other_teachers_ids}
 
-    .user-count
-      = f.input :least_user_count, :input_html => {:class => :small, :value => 5}
-      = f.input :most_user_count, :input_html => {:class => :small, :value => 20}
+      .hour-credit
+        = f.input :lesson_hour, :input_html => {:class => :small}
+        = f.input :credit, :input_html => {:class => :small}
 
-    .time-place
-      = f.input :time
-      = f.input :location
+      .user-count
+        = f.input :least_user_count, :input_html => {:class => :small}
+        = f.input :most_user_count, :input_html => {:class => :small}
 
-    .txt
-      = f.input :syllabus,      :input_html => {:class => :xxlarge}
-      = f.input :desc,          :input_html => {:rows => 6, :class => :xxlarge}
-      = f.input :teach_content, :input_html => {:rows => 6, :class => :xxlarge}
-      = f.input :teach_type,    :input_html => {:class => :xxlarge}
+      .time-place
+        = f.input :time
+        = f.input :location
 
-    .ccov
-      = f.input :cover, :as => :file
+      .txt
+        = f.input :desc,          :input_html => {:rows => 6, :class => :xxlarge}
+        = f.input :syllabus,      :input_html => {:rows => 6, :class => :xxlarge}
+        = f.input :teach_content, :input_html => {:rows => 6, :class => :xxlarge}
+        = f.input :teach_type,    :input_html => {:class => :xxlarge}
 
-  .form-actions
-    = f.button :submit, submit_label, :class => 'success-flat'
-    %a.btn.cancel.gray-flat{:href => '/manage/courses'}= t('common.form.cancel')
+      .ccov
+        = f.input :cover, :as => :file
+
+    .form-actions
+      = f.button :submit, submit_label, :class => 'success'
+      %a.btn.cancel.gray{:href => '/manage/courses'}= t('common.form.cancel')
+
+
+  .page-teacher-selector-overlay{:style => 'display:none;'}
+  .page-teacher-selector{:style => 'display:none;'}
+    .btns
+      %a.btn.inverse-flat.close{:href => 'javascript:;'} 
+        %i.icon-chevron-left.icon-white
+        %span 关闭
+      %span 设置任课教师
+
+    .data
+      .teachers
+        .title 从下列教师中选择
+        .teas
+          - User.with_role(:teacher).each do |tea|
+            - if tea.id == teacher.id
+              .teacher.creator.selected{:data => {:id => tea.id, :name => tea.name}}
+                %input{:autocomplete => :off, :type => :checkbox, :checked => true, :disabled => true}
+                %span.name= tea.name
+            - else
+              - if other_teachers.include? tea
+                .teacher.selected{:data => {:id => tea.id, :name => tea.name}}
+                  %input{:autocomplete => :off, :type => :checkbox, :checked => true}
+                  %span.name= tea.name
+              - else
+                .teacher{:data => {:id => tea.id, :name => tea.name}}
+                  %input{:autocomplete => :off, :type => :checkbox}
+                  %span.name= tea.name
+
+      .results
+        .title 
+          %span 已选择 
+          %span.count= other_teachers.length + 1 
+          %span 名教师
+        .creator #{teacher.name}（负责人）
+        - other_teachers.each do |t|
+          .teacher{:data => {:id => t.id}}= t.name

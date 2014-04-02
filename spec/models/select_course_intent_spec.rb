@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+if R::SELECT_COURSE_MODE == 'THREE'
 describe SelectCourseIntent do
   let(:user)     {FactoryGirl.create :user}
   let(:course)  {FactoryGirl.create :course}
@@ -56,4 +57,5 @@ describe SelectCourseIntent do
     end
 
   end
+end
 end

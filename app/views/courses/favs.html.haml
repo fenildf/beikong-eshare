@@ -1,0 +1,21 @@
+- content_for :header do
+  %h1 我收藏的课程
+
+- courses = @courses
+
+.page-courses-index
+  .pblock.desc
+    - if courses.count == 0
+      %span 你目前没有收藏任何课程
+    - else
+      %span 你目前收藏了 #{courses.count} 门课程
+
+  - if !courses.blank?
+    .mainp75{:style => 'margin-top:5px;padding-right:0;'}
+      .all-courses
+        - courses.each do |course|
+          = render_cell :course, :smallcard, :course => course, :user => current_user
+        .clearfix
+        .paginate= paginate courses
+
+  .clearfix

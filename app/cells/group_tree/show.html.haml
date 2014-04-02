@@ -1,0 +1,59 @@
+:ruby
+  children = @node.children
+
+  is_non  = @node.id == '-1'
+  is_root = @node.id == '0'
+
+  is_non_root = is_non || is_root
+
+  if @node.kind == GroupTreeNode::TEACHER
+    str = '教职工'
+  end
+
+  if @node.kind == GroupTreeNode::STUDENT
+    str = '学生'
+  end
+
+.chds
+  - if is_non
+    .title 这里显示了全体#{str}用户
+  - else
+    .title 共 <b>#{children.count}</b> 个下级分组
+    .children
+      - children.each do |child|
+        .child{:data => {:id => "#{child.id}"}}
+          %i.icon-user
+          %span= child.name
+      .clearfix
+
+- if !is_non_root
+  .ops
+    %a.btn.add-user.success-flat{:href => 'javascript:;'}
+      %i.icon-plus-sign-alt
+      %span 分配用户
+
+- if @users.blank?
+  .blank{:class => is_non_root ? 'non' : ''}
+    %i.icon-exclamation-sign
+    %span 当前分组下没有分配用户
+- else
+  .usrs{:style => 'display:none;', :class => is_non_root ? 'non' : ''}
+    .table
+      .header-bg
+      .table-inner
+        = page_data_table(:users, @users, :striped, :bordered) do |table|
+          - table.add_line_data(:role)
+          - table.add_column(:id) do |user|
+            = "##{user.id}"
+          - table.add_column(:role) do |user|
+            = user_roles_str user
+          - table.add_column(:login)
+          - table.add_column(:name)
+          - table.add_column(:gender)
+          - table.add_column(:group) do |user|
+            = user_groups_tag user
+
+    .paginate
+      = paginate @users, :params => {:controller => :user_groups, :action => :show}
+      .pinfo
+        = page_entries_info @users

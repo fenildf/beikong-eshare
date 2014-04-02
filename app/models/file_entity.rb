@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class FileEntity < ActiveRecord::Base
   include FileEntityConvertMethods
+  include FileEntityDownload
 
   if Rails.env == 'test'
     file_part_upload :path => File.join(R::UPLOAD_BASE_PATH, 'files/test/:class/:id/:name'),
@@ -24,7 +25,7 @@ class FileEntity < ActiveRecord::Base
       'png', 'svg',  'tif', 'gif'
     ],
     :document => [
-      'xls', 'doc', 'txt'
+      'xls', 'txt'
     ],
     :swf => [
       'swf'
@@ -37,6 +38,9 @@ class FileEntity < ActiveRecord::Base
     ],
     :flv => [
       'flv'
+    ],
+    :doc => [
+      'doc', 'docx'
     ]
   }
 

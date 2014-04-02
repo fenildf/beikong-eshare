@@ -1,12 +1,13 @@
 - content_for :header do
-  %h1 选课志愿提交情况 - #{@course.name}
-  .btns
+  .btns.front
     %a.btn.gray-flat{:href => '/manage/select_course_intents'}
       %i.icon-chevron-left
       %span 返回选课统计
-    %a.btn.success-flat{:href => "/manage/select_course_intents/adjust?course=#{@course.id}"}
+  %h1 学生申请提交情况 - #{@course.name}
+  .btns
+    %a.btn.success-flat{:href => "/manage/select_course_intents/adjust?course=#{@course.id}", :title => '进入学生调剂页面，将其他学生调剂到本课程内'}
       %i.icon-retweet.icon-white
-      %span 志愿调剂
+      %span 学生调剂
 
 .page-course-applies
   .stat
@@ -23,61 +24,58 @@
         .s
           .t 
             %span 目前已批准人数：
-            %b.c= @course.selected_users.count
+            %b.c.accept_count= @course.selected_users.count
         .s
-          .t
-            %span 目前人数状态：
-            %b.c= course_selected_stat_label @course
+          .t 
+            %span 目前已拒绝人数：
+            %b.c.reject_count= @course.be_reject_selected_users.count
+        / .s
+        /   .t
+        /     %span 目前人数状态：
+        /     %b.c= course_selected_stat_label @course
   
     .intent-bar
       .inner
         :ruby
-          first_count  = @course.intent_student_count(:flag => :first)
-          second_count = @course.intent_student_count(:flag => :second)
-          third_count  = @course.intent_student_count(:flag => :third)
-          total_count  = first_count + second_count + third_count
+          total_count = @course.intent_student_count
 
-          p1 = total_count > 0 ? first_count  * 100.0 / total_count : 0
-          p2 = total_count > 0 ? second_count * 100.0 / total_count : 0
-          p3 = total_count > 0 ? third_count  * 100.0 / total_count : 0
-
-          p1 = [p1, 1].max
-          p2 = [p2, 1].max
-          p3 = [p3, 1].max
-
-        .s.first
+        .s.total
           .t 
-            %span 第一志愿人数：
-            %b.c= first_count 
-          .bar{:style => "width:#{p1}%;"}
-        .s.second
-          .t 
-            %span 第二志愿人数：
-            %b.c= second_count
-          .bar{:style => "width:#{p2}%;"}
-        .s.third
-          .t 
-            %span 第三志愿人数：
-            %b.c= third_count
-          .bar{:style => "width:#{p3}%;"}
+            %span 志愿人数：
+            %b.c= total_count 
+        .s
+          .t
+            %span 目前志愿状态：
+            %b.c= course_intent_stat_label @course
+        .s
+          .t
+            %span 目前上课状态：
+            %b.c= course_selected_stat_label @course
 
     .batch-ops
       .inner
-        .s
-          %a.btn.inverse-flat{:href => "/manage/select_course_intents/batch_check?course=#{@course.id}&flag=first", :data => {:method =>:post, :confirm => "将批量批准所有第一志愿共 #{first_count} 人，确定吗？"}} 
-            %i.icon-ok.icon-white
-            %span 批量批准第一志愿
-        .s
-          %a.btn.inverse-flat{:href => "/manage/select_course_intents/batch_check?course=#{@course.id}&flag=second", :data => {:method =>:post, :confirm => "将批量批准所有第二志愿共 #{second_count} 人，确定吗？"}} 
-            %i.icon-ok.icon-white
-            %span 批量批准第二志愿
-        .s
-          %a.btn.inverse-flat{:href => "/manage/select_course_intents/batch_check?course=#{@course.id}&flag=third", :data => {:method =>:post, :confirm => "将批量批准所有第三志愿共 #{third_count} 人，确定吗？"}} 
-            %i.icon-ok.icon-white
-            %span 批量批准第三志愿
+        :ruby
+          hide_batch_btn = true
+
+          @course.intent_users.each do |user|
+            flag = user.is_accept_or_reject_select?(@course)
+            hide_batch_btn = hide_batch_btn && flag
+          end
+
+
+        - if hide_batch_btn
+          .s
+            目前所有学生申请已处理完毕
+        - else
+          .s
+            %a.btn.inverse-flat{:href => "/manage/select_course_intents/batch_check_one?course=#{@course.id}", :data => {:method =>:post, :confirm => "将批量处理所有志愿，按照志愿时间先到先得，确定吗？"}} 
+              %i.icon-ok.icon-white
+              %span 一键通过所有申请
 
     .clearfix
 
 
   .pblock.table{:style => 'margin-top:-16px;'}
     = render_cell :course_select, :manage_table, :users => @students, :course => @course
+
+  = paginate @students

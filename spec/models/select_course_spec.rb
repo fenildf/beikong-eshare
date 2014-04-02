@@ -1,3 +1,4 @@
+R::SELECT_COURSE_MODE = 'THREE'
 require "spec_helper"
 
 describe SelectCourse do

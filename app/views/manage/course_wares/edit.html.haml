@@ -17,38 +17,10 @@
           = f.input :chapter_id, :collection => @select_chapters.map{|chapter| [chapter.title, chapter.id]}, :label => '课件所在章节', :prompt => nil
           = f.input :file_entity_id, :as => :hidden
 
-          - if @course_ware.is_web_video? # 网络视频
-            :ruby
-              s = [
-                ['优酷 YOUKU', 'youku'],
-                ['新浪视频 SINA', 'sina'],
-                ['土豆视频 TUDOU', 'tudou']
-              ]
-
-            = f.input :kind, :collection => s, :label => '网络视频来源', :prompt => nil
-            = f.input :url, :label => '视频网址 URL', :input_html => {:class => 'xxlarge', :placeholder => 'http://'}
-
+          - if @course_ware.file_entity
+            = render_cell :layout, :file_uploader, :name => 'course_ware[file_entity_id]', :uploaded_file_name => @course_ware.file_entity.attach_file_name
           - else
-            - if @course_ware.file_entity
-              .file
-                .linked
-                  .desc 附件文件：
-                  .name= @course_ware.file_entity.attach_file_name
-                .upload
-                  - page_file_uploader
-                  %a.btn.primary.course-ware-upload{:href => 'javascript:;'} 
-                    %i.icon-upload.icon-white
-                    %span 重新上传
-            - else
-              .file
-                .linked{:style => 'display:none;'}
-                  .desc 附件文件：
-                  .name
-                .upload
-                  - page_file_uploader
-                  %a.btn.primary.course-ware-upload{:href => 'javascript:;'} 
-                    %i.icon-upload.icon-white
-                    %span 上传文件
+            = render_cell :layout, :file_uploader, :name => 'course_ware[file_entity_id]'
 
         .form-actions
           = f.button :submit, :class => 'success'

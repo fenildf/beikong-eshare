@@ -1,0 +1,11 @@
+- content_for :header do
+  %h1 我提出的问题
+  .btn-group
+    %a.btn.success-flat{:href => '/questions/new'}
+      %i.icon-plus.icon-white
+      %span 发起提问
+
+.page-questions-index
+  .pblock
+    %h3.cp 我一共提过 #{@questions.count} 个问题
+    = render_cell :questions, :gridlist, :questions => @questions, :user => current_user

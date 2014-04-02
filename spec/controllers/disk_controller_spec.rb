@@ -145,9 +145,5 @@ describe DiskController do
     it {
       response.should be_success
     }
-
-    it {
-      response.body.should have_css('.page-file-show > .file-name', :text => '样例.doc')
-    }
   end
 end

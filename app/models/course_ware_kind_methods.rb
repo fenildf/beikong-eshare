@@ -29,7 +29,7 @@ module CourseWareKindMethods
   end
 
   def is_local_video?
-    local_video_kinds = ['flv']
+    local_video_kinds = ['flv', 'video']
     local_video_kinds.include? self.kind.to_s
   end
 

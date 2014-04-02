@@ -17,5 +17,5 @@
         %label 针对以下角色
         = f.select :for_role, s, :label => '用户角色'
 
-      = f.button :submit, :class => 'success-flat'
-      %a.btn.cancel.gray-flat{:href => '/manage/announcements'}= t('common.form.cancel')
+      = f.button :submit, :class => 'success'
+      %a.btn.cancel.gray{:href => '/manage/announcements'}= t('common.form.cancel')

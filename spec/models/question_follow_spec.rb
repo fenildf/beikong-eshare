@@ -65,7 +65,7 @@ describe QuestionFollow do
       }
 
       it{
-        @question.follow_users.should == [@user, @question.creator]
+        @question.follow_users.should =~ [@user, @question.creator]
       }
 
       it{

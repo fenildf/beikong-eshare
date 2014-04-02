@@ -7,4 +7,7 @@ FactoryGirl.define do
     merged true
   end
 
+  trait :doc do
+    attach File.open("./spec/support/resources/test.doc")
+  end
 end

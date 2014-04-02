@@ -85,8 +85,8 @@ task :deploy => :environment do
     queue! "bundle"
     # invoke :'bundle:install'
     # invoke :'rails:db_migrate'
-    queue! "rake db:create RAILS_ENV=production"
-    queue! "rake db:migrate RAILS_ENV=production"
+    queue! "bundle exec rake db:create RAILS_ENV=production"
+    queue! "bundle exec rake db:migrate RAILS_ENV=production"
     invoke :'rails:assets_precompile'
 
     to :launch do

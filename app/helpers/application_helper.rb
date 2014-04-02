@@ -14,30 +14,6 @@ module ApplicationHelper
     return re
   end
 
-  def page_file_uploader
-    # .page-file-uploader
-    #   .list
-    #     .item.sample{:style => 'display:none;'}
-    #       = page_progress_bar 61, :striped, :active
-    #       .meta
-    #         .filename foobarfoobarfoobarfoobarfoobarfoobarfoobar.zip
-    #         .size 1.6M
-    #         .percent 62%
-
-    haml_tag '.page-file-uploader' do
-      haml_tag '.list' do
-        haml_tag 'div.item.sample', :style => 'display:none;' do
-          haml_concat page_progress_bar(62, :striped, :active)
-          haml_tag '.meta' do
-            haml_tag '.filename', 'foobarfoobarfoobarfoobarfoobarfoobarfoobar.zip'
-            haml_tag '.size', '1.6M'
-            haml_tag '.percent', '62%'
-          end
-        end
-      end
-    end
-  end
-
   def avatar(user, style = :normal)
     klass = ['page-avatar', style] * ' '
 
@@ -171,9 +147,9 @@ module ApplicationHelper
     return '' if user.blank? || user.roles.blank?
     rrr = {
       :student => '学生',
-      :teacher => '老师',
-      :admin => '系统管理员',
-      :manager => '教务领导'
+      :teacher => '教职工',
+      :admin => '网络管理员',
+      :manager => '教学处/教研室'
     }
 
     user.roles.map {|role|
@@ -252,19 +228,19 @@ module ApplicationHelper
 
     if status == 'WAITING'
       return capture_haml {
-        haml_tag 'span.page-course-apprive-status.waiting', '等待审核'
+        haml_tag 'span.state.default.waiting', '等待审核'
       }
     end
 
     if status == 'YES'
       return capture_haml {
-        haml_tag 'span.page-course-apprive-status.yes', '审核通过'
+        haml_tag 'span.state.success.yes', '审核通过'
       }
     end
 
     if status == 'NO'
       return capture_haml {
-        haml_tag 'span.page-course-apprive-status.no', '未通过'
+        haml_tag 'span.state.error.no', '未通过'
       }
     end
   end
@@ -272,26 +248,53 @@ module ApplicationHelper
   # 返回 选中 未选中 等待志愿分配 未申请 四种状态
   def course_select_status_label(user, course)
     if course.selected_users.include?(user)
+      if course.intent_student_users.include?(user)
+        return capture_haml {
+          haml_tag 'span.page-course-select-status.pass', '申请成功'
+        }
+      end
+
       return capture_haml {
-        haml_tag 'span.page-course-select-status.pass', '选中'
+        haml_tag 'span.page-course-select-status.pass', '调剂成功'
       }
+
     end
 
     if course.be_reject_selected_users.include?(user)
       return capture_haml {
-        haml_tag 'span.page-course-select-status.reject', '未选中'
+        haml_tag 'span.page-course-select-status.reject', '申请未过'
       }
     end
 
     if course.intent_student_users.include?(user)
       return capture_haml {
-        haml_tag 'span.page-course-select-status.wait', '等待志愿分配'
+        haml_tag 'span.page-course-select-status.wait', '等待处理'
       }
     end
 
     return capture_haml {
       haml_tag 'span.page-course-select-status.no', '未申请'
     }
+  end
+
+  def course_intent_stat_label(course)
+      min = course.least_user_count
+      max = course.most_user_count
+      count = course.intent_student_count
+
+      if count == 0
+        return '无人选'
+      end
+
+      if min && count < min
+        return '人数过少'
+      end
+
+      if max && count > max
+        return '人数过多'
+      end
+
+      return '人数适合'
   end
 
   def course_selected_stat_label(course)
@@ -452,6 +455,65 @@ module ApplicationHelper
       end
   end
 
+  module UserGroupHelper
+    # def user_groups_tag(user)
+    #   groups = []
+    #   user.joined_group_tree_nodes.each do |group|
+    #     gs = groups.clone
+
+    #     # 遍历 gs
+    #     parent_flag = false
+    #     gs.each do |g|
+    #       # 如果新组的祖先节点在旧组里，移除
+    #       if _is_parent(g, group)
+    #         groups = groups - [g]
+    #         next
+    #       end
+
+    #       # 如果新组的子孙节点在旧组里，不加入新组
+    #       if _is_parent(group, g)
+    #         parent_flag = true
+    #         next
+    #       end
+    #     end
+
+    #     if !parent_flag
+    #       groups << group
+    #     end
+    #   end
+
+    #   capture_haml {
+    #     haml_tag 'div.groups' do
+    #       groups.each do |g|
+    #         haml_tag 'a.group', g.name, :href => 'javascript:;', :data => {:id => g.id.to_s}
+    #       end
+    #     end
+    #   }
+    # end
+
+    def user_groups_tag(user)
+      groups = user.joined_group_tree_nodes.map { |g|
+        g.self_and_ancestors
+      }.flatten.uniq.sort { |a, b|
+        a.lft <=> b.lft
+      }
+
+      capture_haml {
+        haml_tag 'div.groups' do
+          groups.each do |g|
+            haml_tag 'a.group', g.name, :href => 'javascript:;', :data => {:id => g.id.to_s}
+          end
+        end
+      }
+    end
+
+  private
+    def _is_parent(ga, gb)
+      return ga.lft < gb.lft && gb.rgt < ga.rgt
+    end
+  end
+
   include FeedHelper
   include TimeHelper
+  include UserGroupHelper
 end

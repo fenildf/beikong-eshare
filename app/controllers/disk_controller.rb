@@ -21,7 +21,10 @@ class DiskController < ApplicationController
 
     render :json => {
       :id => resource.id,
-      :name => resource.name
+      :name => resource.name,
+      :html => (
+        render_cell :disk, :file_table, :media_resources => [resource]
+      )
     }
   end
 
@@ -40,6 +43,12 @@ class DiskController < ApplicationController
     path = params[:path]
     MediaResource.create_folder current_user, path
     _after_create_folder
+  end
+
+  def download
+    @media_resource = MediaResource.get current_user, params[:path]
+    file_entity = @media_resource.file_entity
+    send_file file_entity.attach.path
   end
 
   private

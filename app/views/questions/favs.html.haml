@@ -1,0 +1,7 @@
+- content_for :header do
+  %h1 我关注的问题
+
+.page-questions-index
+  .pblock
+    %h3.cp 我正在关注以下 #{@questions.count} 个问题
+    = render_cell :questions, :gridlist, :questions => @questions, :user => current_user

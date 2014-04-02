@@ -44,6 +44,8 @@ group :development do
   gem 'thin', '~> 1.5.1'
 end
 
+gem 'pry-rails', :group => ["development", "test"]
+
 gem 'jquery-rails', '2.2.1'
 gem 'jquery-ui-rails', '4.0.2'
 gem 'unicorn', '4.6.2'
@@ -80,6 +82,9 @@ gem 'iconv', '1.0.2'
 # 分类目录
 gem 'awesome_nested_set'
 
+# 树形嵌套组件
+gem 'awesome_nested_set'
+
 # 权限管理
 gem "cancan", "~> 1.6.10"
 
@@ -114,22 +119,24 @@ gem 'simple-page-layout',
 ## 在页面上显示图片的一些辅助方法
 gem 'simple-images',
     :git => 'git://github.com/mindpin/simple-images',
-    :tag => '0.0.3'
+    :tag => '0.0.4'
     # :path => '/web/songliang/simple-images'
 
 gem 'simple-page-compoents',
     :git => 'git://github.com/mindpin/simple-page-compoents',
-    :tag => '0.0.7.5'
+    :tag => '0.0.7.9'
     # :path => '/web/songliang/simple-page-compoents'
 
 ## 给指定 activerecord 模型动态添加属性
 gem 'dynamic_attrs',
-    :git => 'git://github.com/kaid/dynamic_attrs.git'
+    :git => 'git://github.com/kaid/dynamic_attrs.git',
+    :tag => 'v0.0.1'
 
 ## 文件分段上传
 gem 'file-part-upload', 
     :git => 'git://github.com/mindpin/file-part-upload.git',
-    :tag => '0.0.8'
+    :tag => '0.0.9'
+    # 0.0.9 修正了文件读权限的问题
 
 ## excel导入和示例生成
 gem 'simple-excel-import',

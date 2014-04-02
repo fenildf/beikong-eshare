@@ -2,4 +2,6 @@
   = page_navbar(:fixed_top, :color_inverse) do |navbar|
     - navbar.add_item('<i class="icon-home icon-white"></i>首页'.html_safe, '/admin')
     - navbar.add_item('设置管理员密码', '/account/edit')
-    - navbar.add_item('退出登录', '/account/sign_out')
+    - navbar.add_item("<i class='icon-book icon-white'></i>课程中心".html_safe, '/courses')
+    - navbar.add_item("<input class='top-search' name='q' type='text' placeholder='搜索课程内容…' /><i class='icon-search'></i>".html_safe, nil)
+    - navbar.add_item("<i class='icon-off icon-white'></i>退出登录".html_safe, '/account/sign_out')

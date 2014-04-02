@@ -1,90 +1,6 @@
 require 'spec_helper'
 
 describe CourseWare do
-
-  describe 'link file_entity' do
-    before do
-      @course_ware = FactoryGirl.create(:course_ware)
-      @user = FactoryGirl.create(:user)
-
-      @file_entity = FileEntity.create(
-        :attach => File.new(Rails.root.join("spec/data/file_entity.jpg")))
-
-    end
-
-    it{
-      @course_ware.file_entity.should == nil
-    }
-
-    describe 'set file_entity' do
-      before do
-        @course_ware.file_entity = @file_entity
-        @course_ware.save
-        @course_ware.reload
-        @media_resource = MediaResource.last
-      end
-
-      it {
-        @course_ware.file_entity.should == @file_entity  
-      }
-
-      it {
-        @course_ware.kind.should == 'image'
-      }
-
-      it {
-        MediaResource.last.file_entity.should == @file_entity
-      }
-
-      it {
-        @course_ware.media_resource.should == @media_resource
-      }
-
-      it {
-        @media_resource.destroy
-        @course_ware.reload
-        @course_ware.media_resource.should be_blank
-      }
-
-      describe 'update course_ware' do
-        before{
-          @course_ware.title = 'gai'
-          @course_ware.save
-          @course_ware.reload
-        }
-
-        it{
-          @course_ware.media_resource.should == @media_resource
-        }
-
-        describe 'update file_entity' do
-          before{
-            @file_entity_1 = FileEntity.create(
-              :attach => File.new(Rails.root.join("spec/data/file_entity.jpg")))
-
-            @course_ware.file_entity = @file_entity_1
-            @course_ware.save
-            @course_ware.reload
-          }
-
-          it{
-            @course_ware.media_resource.should_not == @media_resource
-          }
-
-          it{
-            @course_ware.file_entity.should == @file_entity_1
-          }
-
-          it{
-            @course_ware.media_resource.should == MediaResource.last
-          }
-        end
-      end
-    end
-
-  end
-
-
   context '课程进度: 记录课件的已读状态' do
     before do
       @course_ware   = FactoryGirl.create(:course_ware, :total_count => nil)
@@ -545,5 +461,18 @@ describe CourseWare do
     it { @cw_youku.youku_video.class.should == YoukuVideo }
     it { @cw_flv.youku_video.should be_blank }
   end
-
+  
+  describe '#UserMethods' do
+    before{
+      @user_1 = FactoryGirl.create(:user)
+      @user_2 = FactoryGirl.create(:user)
+      @course_ware = FactoryGirl.create :course_ware, :creator => @user_1
+    }
+    it {
+      @user_1.created_course_wares.include?(@course_ware).should === true
+    }
+    it {
+      @user_2.created_course_wares.include?(@course_ware).should === false
+    }
+  end
 end

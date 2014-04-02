@@ -9,31 +9,26 @@ class User < ActiveRecord::Base
          :recoverable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :login, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :login, :password, :gender, :password_confirmation, :remember_me
   # attr_accessible :title, :body
 
-  validates :login, :format => {:with => /\A\w+\z/, :message => '只允许数字、字母和下划线'},
+  validates :login, :format => {:with => /\A[\w-]+\z/, :message => '只允许数字、字母和下划线'},
                     :length => {:in => 3..20},
                     :presence => true,
-                    :uniqueness => {:case_sensitive => false},
-                    :unless => Proc.new { |user|
-                      user.login == user.email
-                    }
+                    :uniqueness => {:case_sensitive => false}
 
-  validates :email, :uniqueness => {:case_sensitive => false}
+  validates :name, :presence => true
 
-  if R::INHOUSE
-    validates :name, :presence => true
-  end
-
-  if R::INTERNET
-    validates :name, :presence => true,
-                     :uniqueness => {:case_sensitive => false}
-  end
+  default_scope order('users.id DESC')
 
   def self.find_for_database_authentication(conditions)
     login = conditions.delete(:login)
-    self.where(:login => login).first || self.where(:email => login).first
+    self.where(:login => login).first
+  end
+
+  # 关闭 devise 验证 email 的逻辑
+  def email_required?
+    false
   end
 
   # ------------ 以上是用户登录相关代码，不要改动
@@ -42,9 +37,9 @@ class User < ActiveRecord::Base
   validates :tagline, :length => {:in => 0..150}
 
   # 管理员修改基本信息
-  attr_accessible :login, :name, :email, :role, :as => :manage_change_base_info
+  attr_accessible :login, :name, :role, :as => :manage_change_base_info
   # 修改基本信息
-  attr_accessible :login, :name, :email, :as => :change_base_info
+  attr_accessible :login, :name, :as => :change_base_info
   # 修改密码
   attr_accessible :password, :password_confirmation, :as => :change_password
 
@@ -69,16 +64,6 @@ class User < ActiveRecord::Base
     self.role = :student if self.role.blank?
   end
 
-  before_validation :set_login_for_internet_version
-  def set_login_for_internet_version
-    if R::INTERNET
-      self.login = self.email if self.login.blank?
-      if self.id.blank?
-        self.password_confirmation = self.password
-      end
-    end
-  end
-
   # 分别为学生和老师增加动态字段
   include DynamicAttr::Owner
   has_dynamic_attrs :student_attrs,
@@ -87,10 +72,10 @@ class User < ActiveRecord::Base
                     :updater => lambda {AttrsConfig.get(:teacher)}
 
   # 导入文件
-  simple_excel_import :teacher, :fields => [:login, :name, :email],
+  simple_excel_import :teacher, :fields => [:login, :name, :gender],
                                 :default => {:role => :teacher}
 
-  simple_excel_import :student, :fields => [:login, :name, :email],
+  simple_excel_import :student, :fields => [:login, :name, :gender],
                                 :default => {:role => :student}
 
   def self.import_excel(excel_file, role, password = '1234')
@@ -110,7 +95,7 @@ class User < ActiveRecord::Base
     else
       {
         :conditions => [
-          'login like ? OR name like ? OR email = ? OR id = ?',
+          'login like ? OR name like ? OR id = ?',
           "%#{query}%", "%#{query}%", query, query
         ]
       }
@@ -123,35 +108,11 @@ class User < ActiveRecord::Base
 
   def self.create_of_find_oauth_sign_user(oauth_hash)
     return nil if R::INHOUSE
-
-    # 先尝试找
-    omniauth = Omniauth.find_by_uid(oauth_hash['uid'])
-    if omniauth.present?
-      user = omniauth.user
-      user.create_or_update_omniauth(oauth_hash)
-      return user
-    end
-
-    # 找不到就创建
-    name = "user#{randstr}"
-    login = "#{name}@example.com"
-    user = User.new ({
-      :login => login,
-      :email => login,
-      :name => name, 
-      :role => :student,
-      :password => '1234'
-    })
-    user.save
-    user.create_or_update_omniauth(oauth_hash)
-    user
   end
 
   # 判断是否还没有补充邮箱，密码等信息的只能用oauth登录的临时用户
   def is_oauth_sign_temp_user?
     return false if R::INHOUSE
-
-    return self.email.include? '@example.com'    
   end
 
   def follow(model)
@@ -205,8 +166,6 @@ class User < ActiveRecord::Base
   include CourseWareReading::UserMethods
   include TagFollow::UserMethods
   include Omniauth::UserMethods
-  include Team::UserMethods
-  include TeamMembership::UserMethods
   include WeiboFriends
   include Note::UserMethods
   include CourseAttitude::UserMethods
@@ -214,5 +173,9 @@ class User < ActiveRecord::Base
   include SimpleCredit::UserMethods
   include Report::UserMethods
   include CourseScore::UserMethods
-  include SelectCourseIntent::UserMethods
+  include CourseIntent::UserMethods
+  include CourseWare::UserMethods
+  include UserGenderMethods
+  include GroupTreeNode::UserMethods
+  include GroupTreeNodeUser::UserMethods
 end

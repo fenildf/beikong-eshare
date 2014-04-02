@@ -1,0 +1,15 @@
+.pblock
+  .cpart
+    %h3.cp 学生学习活跃度排名
+
+    - i = 0
+    - User.with_role(:student).limit(50).each do |c|
+      - i = i + 1
+      .c{:style=>'height:30px;line-height:30px;padding-bottom:10px;margin-bottom:10px;border-bottom:dotted 1px #e7e7e7;'}
+        .rank{:style=>'float:left;border-radius:20px;background-color:#FFA001;color:white;width:30px;height:30px;text-align:center;'}= i
+        .course{:style=>'margin-left:10px;float:left;'}
+          %span= avatar_link c, :small
+          %span= user_link c
+          %span{:style=>'color:red;font-size:12px;margin-left:5px;'}
+            %b ↑
+            %b #{rand(10)}

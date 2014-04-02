@@ -1,5 +1,5 @@
 .page-dashboard
-  .mainp66
+  .mainp66{:style => 'padding-right:10px;'}
     - if current_user.followings.count == 0
       .pblock
         = render_cell :follow, :recommend, :user => current_user
@@ -23,7 +23,5 @@
   .sidep33
     .pblock
       = render_cell :course, :recent_learning, :user => current_user
-    .pblock
-      = render_cell :tags, :learning, :user => current_user
     .pblock
       = render_cell :course, :advise, :user => current_user

@@ -5,10 +5,8 @@ class CoursesController < ApplicationController
   
   layout Proc.new { |controller|
     case controller.action_name
-    when 'show', 'users_rank', 'questions', 'notes'
+    when 'show', 'users_rank', 'questions', 'notes', 'chs'
       return 'course_show'
-    when 'index', 'sch_select'
-      return 'grid'
     else
       return 'application'
     end
@@ -18,7 +16,27 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id]) if params[:id]
   end
 
+  def mine
+    @courses = current_user.selected_courses.page(params[:page]).per(18)
+  end
+
+  def favs
+    @courses = current_user.fav_courses.page(params[:page]).per(18)
+  end
+
   def index
+    @groups = []
+
+    GroupTreeNode.roots.with_teacher.each do |g|
+      _r_group @groups, g
+    end
+  end
+
+  def _r_group(groups, group)
+    groups << group
+    group.children.each do |g|
+      _r_group groups, g
+    end
   end
 
   def sch_select
@@ -26,6 +44,9 @@ class CoursesController < ApplicationController
   end
 
   def show
+    if params[:index].blank?
+      return redirect_to :action => :chs
+    end
   end
 
   def manage
@@ -90,5 +111,28 @@ class CoursesController < ApplicationController
 
   def notes
     @notes = @course.notes.page params[:page]
+  end
+
+  def chs
+  end
+
+  def dofav
+    @course.set_fav current_user
+    redirect_to @course
+  end
+
+  def unfav
+    @course.cancel_fav current_user
+    redirect_to @course
+  end
+
+  def join
+    current_user.select_course SelectCourse::STATUS_ACCEPT, @course
+    redirect_to @course
+  end
+
+  def exit
+    current_user.cancel_select_course @course
+    redirect_to @course
   end
 end

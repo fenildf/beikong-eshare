@@ -52,20 +52,28 @@ class CourseWare < ActiveRecord::Base
 
   scope :by_chapter, lambda{|chapter| {:conditions => ['chapter_id = ?', chapter.id]} }
 
-  before_save :process_media_resource
-  def process_media_resource
-    return true if file_entity.blank?
+  # 八中暂不开启此逻辑
+  # before_save :process_media_resource
+  # def process_media_resource
+  #   return true if file_entity.blank?
 
-    if media_resource.blank? || media_resource.file_entity != file_entity
+  #   if media_resource.blank? || media_resource.file_entity != file_entity
 
-      path = "/课件/#{chapter.course.name}/#{file_entity.attach_file_name}"
+  #     path = "/课件/#{chapter.course.name}/#{file_entity.attach_file_name}"
 
-      resource = MediaResource.put_file_entity(creator, path, file_entity)
-      kind = file_entity.content_kind
+  #     resource = MediaResource.put_file_entity(creator, path, file_entity)
+  #     kind = file_entity.content_kind
       
-      self.kind = kind
-      self.media_resource = resource
-    end
+  #     self.kind = kind
+  #     self.media_resource = resource
+  #   end
+  # end
+
+  # 八中的逻辑，只更改kind，不更改media_resource
+  before_save :set_kind_by_file_entity
+  def set_kind_by_file_entity
+    return true if file_entity.blank?
+    self.kind = file_entity.content_kind
   end
 
   before_save :set_total_count_by_kind!
@@ -191,6 +199,12 @@ class CourseWare < ActiveRecord::Base
         :total_count => total_count,
         :steps => steps
       }.to_json
+    end
+  end
+  
+  module UserMethods
+    def self.included(base)
+      base.has_many :created_course_wares, :class_name => 'CourseWare', :foreign_key => :creator_id
     end
   end
 

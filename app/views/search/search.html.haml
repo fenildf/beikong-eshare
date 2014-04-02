@@ -1,21 +1,16 @@
 - content_for :header do
   %h1
-    %span
+    %span 搜索关键词
+    %span{:style => 'color:#ff6633;'}
       %b= @query
-    %span 搜索到以下结果
+    %span 得到以下结果
 
 .page-search
-  .cpart.courses
-    %h3.cp1 #{@course_search.total} 个课程
-    .clearfix
+  .pblock.desc
+    %span 搜索到 #{@course_search.total} 个课程
+
+  .cpart.courses{:style => 'padding:5px;'}
     .result
       - @course_search.results.each do |course|
         = render_cell :course, :smallcard, :course => course, :user => current_user
     .clearfix
-
-  .cpart.questions
-    %h3.cp1 #{@question_search.total} 个问答
-    .clearfix
-    .pblock
-      .result
-        = render_cell :questions, :list, :questions => @question_search.results, :user => current_user

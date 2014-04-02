@@ -17,6 +17,7 @@ class CourseFav < ActiveRecord::Base
   module UserMethods
     def self.included(base)
       base.has_many :course_favs
+      base.has_many :fav_courses, :through => :course_favs, :source => :course
     end
 
   end
@@ -28,7 +29,7 @@ class CourseFav < ActiveRecord::Base
 
     # 增加或修改收藏
     # options {:comment_content => '', :tags => ''}
-    def set_fav(user, options)
+    def set_fav(user, options = {})
       return if user.blank?
       course_fav = self.course_favs.by_user(user).first
       if course_fav.blank?
@@ -37,6 +38,18 @@ class CourseFav < ActiveRecord::Base
         course_fav.update_attributes(:comment_content => options[:comment_content])
       end
       self.set_tag_list(options[:tags]||"",:user => user)
+    end
+
+    def cancel_fav(user)
+      return if user.blank?
+      course_fav = self.course_favs.by_user(user).first
+      if course_fav
+        course_fav.destroy
+      end
+    end
+
+    def faved_by?(user)
+      !self.course_favs.by_user(user).blank?
     end
   end
 end

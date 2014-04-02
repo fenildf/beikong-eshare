@@ -1,4 +1,6 @@
 class R
   INHOUSE = false
   INTERNET = !INHOUSE
+  SELECT_COURSE_MODE = 'ONE'
+  LEAST_SELECT_CREDIT = 10
 end

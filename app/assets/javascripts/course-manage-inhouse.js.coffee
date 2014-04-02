@@ -42,6 +42,9 @@ jQuery ->
         $old_tr.after $new_tr
         $old_tr.remove()
 
+        jQuery('.stat .c.accept_count').html(res.accept_count)
+        jQuery('.stat .c.reject_count').html(res.reject_count)
+
   # 拒绝学生选课申请
   jQuery(document).on 'click', '.page-course-applies .students a.reject', ->
     user_id = jQuery(this).data('user-id')
@@ -58,6 +61,9 @@ jQuery ->
         $old_tr = jQuery(this).closest('tr')
         $old_tr.after $new_tr
         $old_tr.remove()
+
+        jQuery('.stat .c.accept_count').html(res.accept_count)
+        jQuery('.stat .c.reject_count').html(res.reject_count)
 
   # 学生选课列表的折叠展开
   class OpenClose
@@ -83,7 +89,7 @@ jQuery ->
     new OpenClose jQuery(this)
 
 
-# 新版选课
+# 新版选课（三志愿）
 jQuery ->
   class CourseSel
     constructor: (@$tables)->
@@ -92,7 +98,6 @@ jQuery ->
       that = this
 
       @$tables.delegate 'td input[type=radio]', 'change', ->
-        console.log 1
         # 让同一横排的不可点击
         $radio = jQuery(this)
         $td = $radio.closest('td')
@@ -129,3 +134,143 @@ jQuery ->
 
   jQuery('.page-student-select-course-intent-form .courses-tables').each ->
     new CourseSel jQuery(this)
+
+# 新版选课（单志愿）
+jQuery ->
+  class CourseSelOne
+    constructor: (@$tables)->
+      @setup()
+    setup: ->
+      that = this
+      
+      @$tables.delegate 'td a.do-select', 'click', ->
+        course_id = jQuery(this).data('id')
+        $table = jQuery(this).closest('table')
+        jQuery.ajax
+          url: '/select_course_intents/save_one'
+          type: 'POST'
+          data:
+            course_id: course_id
+          success: (res)->
+            $html = jQuery(res.html)
+            # 标签
+            $table.find('td.approved').html $html.find('td.approved').html()
+            # 按钮
+            $table.find('td.ops').html $html.find('td.ops').html()
+
+      @$tables.delegate 'td a.do-unselect', 'click', ->
+        if confirm('确定要撤销这个志愿吗？')
+          course_id = jQuery(this).data('id')
+          $table = jQuery(this).closest('table')
+          jQuery.ajax
+            url: '/select_course_intents/remove_one'
+            type: 'DELETE'
+            data:
+              course_id: course_id
+            success: (res)->
+              $html = jQuery(res.html)
+              # 标签
+              $table.find('td.approved').html $html.find('td.approved').html()
+              # 按钮
+              $table.find('td.ops').html $html.find('td.ops').html()
+
+
+
+  jQuery('.page-student-select-course-intent-form .courses-tables').each ->
+    new CourseSelOne jQuery(this)
+
+# 给课程增加任课老师
+jQuery ->
+  class TeacherSelector
+    constructor: (@$button)->
+      @$overlay = jQuery('.page-teacher-selector-overlay')
+      @$selector = jQuery('.page-teacher-selector')
+      @setup()
+
+      @init_selector()
+
+    setup: ->
+      @$button.on 'click', =>
+        @open()
+
+      @$selector.find('a.btn.close').on 'click', =>
+        @close()        
+
+      @$overlay.on 'click', =>
+        @close()      
+
+    open: ->
+      @$overlay.fadeIn(300)
+      @$selector.css
+        right: '-70%'
+        opacity: 0
+      .show()
+      .animate
+        right: 0
+        opacity: 1
+      , 300
+
+    close: ->
+      @$overlay.fadeOut(300)
+      @$selector.css
+        right: 0
+        opacity: 1
+      .animate {
+        right: '-70%'
+        opacity: 0
+      }, 300, => 
+        @$selector.hide()
+
+    init_selector: ->
+      that = this
+      @$selector.delegate '.teacher:not(.creator) input[type=checkbox]', 'change', ->
+        checked = jQuery(this).prop('checked')
+        user_id = jQuery(this).closest('.teacher').data('id')
+
+        if checked
+          that.select(user_id)
+        else
+          that.unselect(user_id)
+    
+    _get_selector_teacher: (user_id)->
+      @$selector.find(".teachers .teacher:not(.creator)[data-id=#{user_id}]")
+
+    _get_result_teacher: (user_id)->
+      @$selector.find(".results .teacher[data-id=#{user_id}]")
+
+    select: (user_id)->
+      $teacher = @_get_selector_teacher(user_id)
+      $teacher.addClass('selected')
+
+      @$selector.find('.results')
+        .append jQuery("<div class='teacher' data-id=#{user_id}>#{$teacher.data('name')}</div>")
+
+      @recount()
+
+    unselect: (user_id)->
+      $teacher = @_get_selector_teacher(user_id)
+      $teacher.removeClass('selected')
+
+      @_get_result_teacher(user_id).remove()
+
+      @recount()
+
+    recount: ->
+      user_ids = []
+      user_names = []
+      @$selector.find(".teachers .teacher:not(.creator).selected").each ->
+        user_ids.push jQuery(this).data('id')
+        user_names.push jQuery(this).data('name')
+      
+      jQuery('.form-inputs .teachers span')
+        .html if user_names.length > 0 then user_names.join('，') else '无'
+      jQuery('.form-inputs .teachers input.teacher_ids').val user_ids.join(',')
+
+      @$selector.find('span.count').html user_ids.length + 1
+
+  jQuery('.page-course-form form .teachers a.add').each ->
+    new TeacherSelector jQuery(this)
+
+  jQuery(document).on 'mindpin-uploader:new-form-appended', (evt, form)->
+    jQuery(form).find('.teachers a.add').each ->
+      new TeacherSelector jQuery(this)

@@ -18,7 +18,8 @@ class Course < ActiveRecord::Base
   include CourseDepend::CourseMethods
   include CourseData::CourseMethods
   include CourseScore::CourseMethods
-  include SelectCourseIntent::CourseMethods
+  include CourseIntent::CourseMethods
+  include CourseTeacher::CourseMethods
 
   simple_taggable
   BASE_TAGS = %w(
@@ -64,6 +65,8 @@ class Course < ActiveRecord::Base
                   :approve_status
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
+  belongs_to :category
+  scope :of_category, lambda{|category| where(:category_id => category.id)}
   has_many :chapters
   has_many :practices, :through => :chapters
   has_many :course_wares, :through => :chapters
@@ -101,6 +104,10 @@ class Course < ActiveRecord::Base
       APPROVE_STATUS_WAITING, APPROVE_STATUS_YES, APPROVE_STATUS_NO
     ] }
 
+
+  validates :least_user_count, :most_user_count, :lesson_hour, :credit,
+            :presence => true
+
   scope :unpublished, :conditions => {:status => STATUS_UNPUBLISHED}
   scope :published,   :conditions => {:status => STATUS_PUBLISHED}
   scope :maintenance, :conditions => {:status => STATUS_MAINTENANCE}
@@ -114,6 +121,21 @@ class Course < ActiveRecord::Base
     :conditions => ['approve_status = ?', Course::APPROVE_STATUS_YES]
   scope :approve_status_with_no,
     :conditions => ['approve_status = ?', Course::APPROVE_STATUS_NO]
+  scope :approve_status_with_not_yes,
+    :conditions => ['approve_status <> ?', Course::APPROVE_STATUS_YES]
+
+  scope :of_creator, lambda { |creator| where(:creator_id => creator.id) }
+
+  scope :by_category_grade_kclass, lambda {|category, grade, kclass|
+    q = "LEFT OUTER JOIN group_tree_nodes ON group_tree_nodes.manage_user_id = courses.creator_id"
+
+    joins(q)
+      .where(:category_id => category.id)
+      .where(:group_tree_nodes => {
+               :manage_user_id => kclass.manage_user_id,
+               :group_kind => GroupTreeNode::GROUP_KIND::KCLASS,
+               :parent_id  => grade.id})
+  }
 
   # 设置 approve_status 默认值
   before_validation :set_default_approve_status
@@ -310,6 +332,19 @@ class Course < ActiveRecord::Base
       end
 
       hash[:max] = max
+      hash
+    end
+
+    def course_weekdays_stat_debug
+      hash = Hash.new Hash.new
+
+      12.times do |m|
+        0.upto 6 do |w|
+          hash[m][w] = rand(10) + rand(50)
+        end
+      end
+
+      hash[:max] = 60
       hash
     end
 
