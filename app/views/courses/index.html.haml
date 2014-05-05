@@ -1,5 +1,7 @@
-- content_for :header do
-  %h1 课程中心
+.page-course-center-search
+  %label 课程中心
+  %input.course-search{:name => :q, :type => :text, :placeholder => '搜索要学习的课程'}
+  %a.do-search{:href => 'javascript:;'} 搜　索
 
 .page-courses-index
   .pblock.desc

@@ -1,0 +1,13 @@
+- title = t('common.site.title.app')
+
+- content_for :javascript do
+  = javascript_include_tag '/highcharts/js/highcharts'
+
+!!!
+- simple_page_layout title, :html_lang => :zh, :body_class => 'app course-center' do
+  = render_topnav
+
+  .page-layout-course-center
+    .page-content.grids-style.course-center
+      = yield
+      .clearfix

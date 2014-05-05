@@ -24,6 +24,22 @@ jQuery ->
     if evt.keyCode == 13
       search($input)
 
+# 20140429 课程中心
+jQuery ->
+  search = ($input)->
+    q = jQuery.trim $input.val()
+    if q.length > 0
+      location.href = "/search/#{q}"
+
+  $input = jQuery('.page-course-center-search input.course-search')
+  
+  $input.keydown (evt)->
+    if evt.keyCode == 13
+      search $input
+
+  jQuery('.page-course-center-search a.do-search').click ->
+    search $input
+
 # ----------
 
 jQuery ->

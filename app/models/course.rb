@@ -7,7 +7,6 @@ class Course < ActiveRecord::Base
   include CourseInteractive::CourseMethods
   include CourseSignModule
   include CourseReadPercent::CourseMethods
-  include CourseFeedTimelime::CourseMethods
   include YoukuVideoList::CourseMethods
   include TudouVideoList::CourseMethods
   include CourseFav::CourseMethods
@@ -15,8 +14,6 @@ class Course < ActiveRecord::Base
   include Note::CourseMethods
   include CourseAttitude::CourseMethods
   include CourseUpdateStatusMethods
-  include CourseDepend::CourseMethods
-  include CourseData::CourseMethods
   include CourseScore::CourseMethods
   include CourseIntent::CourseMethods
   include CourseTeacher::CourseMethods

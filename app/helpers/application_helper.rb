@@ -317,6 +317,14 @@ module ApplicationHelper
       return '人数适合'
   end
 
+  def render_topnav
+    if current_user.is_admin?
+      render_cell :layout, :topnav_admin, :user => current_user, :for => @subsystem
+    else
+      render_cell :layout, :topnav, :user => current_user, :for => @subsystem
+    end
+  end
+
   module FeedHelper
     def feed_icon(feed)
       capture_haml {
