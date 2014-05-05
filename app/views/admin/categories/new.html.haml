@@ -1,8 +1,15 @@
+- content_for :header_v2 do
+  %h1 创建新的科目
+  .desc 
+    输入科目名称，创建新的科目。科目将用于课程的分类。
+
 .page-admin-categories
-  = link_to 'categories', "/admin/categories"
+  .pblock.form
+    = simple_form_for @category, :url => "/admin/categories" do |f|
+      .form-inputs
+        = f.input :name
+        = f.input :parent_id, :as => :hidden, :input_html => { :value => params['parent_id'] } 
 
-  = simple_form_for @category, :url => "/admin/categories" do |f|
-    = f.input :name
-    = f.input :parent_id, :as => :hidden, :input_html => { :value => params['parent_id'] } 
-
-    = f.button :submit
+      .form-actions
+        = f.button :submit, :class => 'success-flat'
+        %a.btn.cancel.gray-flat{:href => '/admin/categories'}= t('common.form.cancel')

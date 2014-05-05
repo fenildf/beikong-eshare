@@ -1,11 +1,20 @@
+- content_for :header_v2 do
+  %h1 课程科目管理
+  .desc 
+    系统内的课程以多个科目进行划分，可以在这里管理课程科目。
+
+  .btns
+    %a.btn.success-flat{:href => '/admin/categories/new'}
+      %i.icon-plus.icon-white
+      %span 新建科目
+
 .page-admin-categories
+  - if @categories.blank?
+    .pblock.desc
+      %span 目前尚未创建任何科目。
+      %span 点击这里
+      %a{:href => '/admin/categories/new'} ＋创建新的科目
 
-  
-  = form_tag '/admin/categories/do_import', :method => :post, :multipart => true do
-    .field
-      = file_field_tag 'yaml_file'
-      = submit_tag '导入'
-
-  %ul
-    - @categories.each do |node|
-      = render '/admin/categories/tree', :node => node
+  - else
+    .pblock.table
+      = render_cell :categories, :table, :categories => @categories

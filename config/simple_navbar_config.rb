@@ -7,6 +7,10 @@ SimpleNavbar::Base.config do
     nav :users_manage, :url => '/admin/user_groups' do
       controller :'admin/user_groups'
     end
+
+    nav :categories_manage, :url => '/admin/categories' do
+      controller :'admin/categories'
+    end
   end
 
   # 教学领导

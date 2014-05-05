@@ -1771,6 +1771,22 @@ img.page-avatar {
       a.title {font-weight:bold;}
     }
   }
+
+  .categories-select {
+    select {
+      margin-bottom: 0;
+    }
+    label {
+      display:inline-block;
+      margin-bottom: 0;
+      line-height:30px;height:30px;
+    }
+
+    .count {
+      height:30px;line-height:30px;
+      float: right;
+    }
+  }
 }
 
 .page-user-courses{
@@ -5013,14 +5029,14 @@ form .input.page-form-tag-inputer {
   background-color:rgba(black, 0.5);
   left:0;right:0;bottom:0;
   // top:81px;
-  top:31px;
+  top:60px;
   z-index:3;
 }
 
 .page-teacher-selector {
   position:fixed;
   // top:81px;
-  top:31px;
+  top:60px;
   right:0px;
   width:70%;
   bottom:0px;
@@ -5913,4 +5929,7 @@ form .input.page-form-tag-inputer {
       color:#888;
     }
   }
+}
+
+.page-admin-categories {
 }

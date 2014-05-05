@@ -59,11 +59,16 @@ class Course < ActiveRecord::Base
                   :lesson_hour, :credit, 
                   :least_user_count, :most_user_count, 
                   :teach_type, :teach_content,
-                  :approve_status
+                  :approve_status,
+                  :category_id
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :category
-  scope :of_category, lambda{|category| where(:category_id => category.id)}
+
+  scope :of_category, lambda{ |category| 
+    where(:category_id => category.id)
+  }
+
   has_many :chapters
   has_many :practices, :through => :chapters
   has_many :course_wares, :through => :chapters

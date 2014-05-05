@@ -1,7 +1,8 @@
 class Category < ActiveRecord::Base
   attr_accessible :name, :parent_id
 
-  validates :name, :presence => true
+  validates :name, :presence => true,
+                   :uniqueness => {:case_sensitive => false}
 
   scope :by_name, lambda {|name|{:conditions => ['name = ?', name]}}
 

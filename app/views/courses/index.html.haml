@@ -1,12 +1,19 @@
+:ruby
+  @category = Category.find_by_id params[:category_id]
+
+  if !@category.blank?
+    @courses = Course.of_category(@category).approve_status_with_yes.page(params[:page])
+  else
+    @courses = Course.approve_status_with_yes.page(params[:page])
+  end
+
+
 .page-course-center-search
   %label 课程中心
   %input.course-search{:name => :q, :type => :text, :placeholder => '搜索要学习的课程'}
   %a.do-search{:href => 'javascript:;'} 搜　索
 
 .page-courses-index
-  .pblock.desc
-    这里列出了所有已经开放的线上课程，共 #{Course.approve_status_with_yes.count} 项课程
-
   - if current_user.is_teacher?
     .pblock.teacher-func
       .ddesc{:style => 'border-bottom:dashed 1px #ddd;padding-bottom:10px;'}
@@ -27,16 +34,31 @@
             .desc= f[:desc]
         .clearfix
 
-  .all-courses{:style => 'margin-top:10px;margin-right:-9px;'}
-    - courses = Course.approve_status_with_yes.page(params[:page])
-    - if courses.blank?
-      .course-blank
-        目前还没有课程
+  .pblock.desc{:style => 'display:none;'}
+    这里列出了所有已经开放的线上课程，共 #{Course.approve_status_with_yes.count} 项课程
 
-    - else
-      - courses.each do |course|
-        = render_cell :course, :smallcard, :course => course, :user => current_user
-      .clearfix
-      .paginate= paginate courses
+  .pblock.form
+    :ruby
+      options = options_for_select([["全部", 0]] + Category.all.map { |c|
+        [c.name, c.id]
+      }, params[:category_id] || 0)
+
+    .categories-select
+      %label 科目：
+      = select_tag :category, options
+
+      .count
+        %b= @courses.total_count
+        %span 个课程
+
+  - if @courses.blank?
+    .pblock.desc 没有课程
+  - else
+
+  .all-courses{:style => 'margin-top:10px;margin-right:-9px;'}
+    - @courses.each do |course|
+      = render_cell :course, :smallcard, :course => course, :user => current_user
+    .clearfix
+    .paginate= paginate @courses
 
   .clearfix

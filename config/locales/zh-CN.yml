@@ -3,7 +3,7 @@ zh-CN:
     admin:
       index: 首页
       users_manage: 用户管理
-      categories_manage: 分类管理
+      categories_manage: 科目管理
       select_course: 学生申请
       teacher_surveys_manage: 教师评价
       team_manage: 班级登记
@@ -105,6 +105,9 @@ zh-CN:
       announcement:
         create: 创建公告
         update: 更新公告
+      category:
+        create: 创建科目
+        update: 更新科目
 
     page_entries_info:
       one_page:
@@ -155,6 +158,7 @@ zh-CN:
         desc: 课程简介
         teach_content: 授课内容
         teach_type: 授课方式
+        category_id: 科目分类
 
       chapter:
         title: 章节标题
@@ -184,6 +188,9 @@ zh-CN:
       practice:
         title: 作业标题
         content: 作业要求
+
+      category:
+        name: 科目名称
 
     errors:
       models:
@@ -261,6 +268,11 @@ zh-CN:
               blank: 必须填写标题
             content:
               blank: 必须填写内容
+
+        category:
+          attributes:
+            name:
+              taken: 科目名称不允许重复
 
 
   views:
@@ -453,6 +465,11 @@ zh-CN:
         ops: 操作
         status: 作业完成状态
         score: 作业评分
+
+      categories:
+        name: 科目名称
+        courses_count: 科目下课程数量
+        ops: 操作
 
   devise:
     failure:

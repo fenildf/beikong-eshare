@@ -1,6 +1,5 @@
 class Admin::CategoriesController < ApplicationController
   before_filter :authenticate_user!
-  layout 'admin'
 
   before_filter :pre_load
 
@@ -22,8 +21,9 @@ class Admin::CategoriesController < ApplicationController
   def create
     @category = Category.new(params[:category])
     if @category.save
-      redirect_to "/admin/categories"
+      return redirect_to "/admin/categories"
     end
+    render :action => :new
   end
 
   def update

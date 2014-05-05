@@ -1,0 +1,9 @@
+.categories
+  - @categories.each do |c|
+    .category
+      .name= c.name
+      .ops
+        %a.edit{:href => "/admin/categories/#{c.id}/edit"}
+          %i.icon-edit
+          %span 修改
+        = link_to "delete", "/admin/categories/#{c.id}", :method => :delete, :confirm => t('common.delete_confirm')
