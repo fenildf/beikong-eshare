@@ -1033,7 +1033,7 @@ body.error {
   }
 
   &.success-flat {
-    background: #8CC11A !important;
+    background: #6FBC00 !important;
     background-repeat: repeat-x;
     border-color:transparent;
     box-shadow:none;
@@ -1043,7 +1043,7 @@ body.error {
     border:none;
     border-bottom:solid 2px rgba(black, 0.1);
     &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
-      background:#81BC03 !important;
+      background:darken(#6FBC00, 5%) !important;
       color:#fff;
     }
   }
@@ -1190,6 +1190,15 @@ body.error {
       overflow:hidden;
       .t {float:left;width:100px;text-align:right;}
       .p {float:left;margin-left:10px;}
+    }
+  }
+
+  .share-desc {
+    label {
+      margin-bottom:10px;
+    }
+    input.share {
+      width: 500px;
     }
   }
 }

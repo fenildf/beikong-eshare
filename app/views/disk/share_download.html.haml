@@ -1,0 +1,13 @@
+- content_for :header_v2 do
+  %h1
+    下载文件
+  .desc
+    下载由其他用户共享的文件
+
+.page-file-show
+  = render_cell :disk, :file_info, :media_resource => @media_resource, :user => current_user
+
+  .pblock.desc.download
+    %a.large.btn.success-flat{:href => "/disk/d/#{params[:download_id]}"}
+      %i.icon-download.icon-white
+      %span 点此下载文件

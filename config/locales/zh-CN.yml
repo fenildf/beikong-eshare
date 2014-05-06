@@ -347,6 +347,7 @@ zh-CN:
         size_str: 大小
         fileops_time: 修改日期
         ops: 操作
+        share: 分享
 
       students:
         name: 姓名

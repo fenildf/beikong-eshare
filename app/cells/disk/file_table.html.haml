@@ -7,9 +7,13 @@
   - table.add_column(:size_str)
   - table.add_column(:fileops_time)
   - table.add_column(:ops) do |mr|
-    %a.btn.gray.mini.look{:href => "/disk/file?path=#{mr.path}"}
+    %a.btn.inverse-flat.mini.look{:href => "/disk/file?path=#{mr.path}"}
       %i.icon-download
       %span 下载
-    %a.btn.danger.mini.delete{:href => 'javascript:;', :data => {:url => "/disk?path=#{mr.path}"}}
+    %a.btn.danger-flat.mini.delete{:href => 'javascript:;', :data => {:url => "/disk?path=#{mr.path}"}}
       %i.icon-trash.icon-white
       %span 删除
+  - table.add_column :share do |mr|
+    %a.btn.success-flat.mini.share{:href => "/disk/share?path=#{mr.path}"}
+      %i.icon-share
+      %span 分享

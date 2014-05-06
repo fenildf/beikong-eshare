@@ -39,6 +39,30 @@ class DiskController < ApplicationController
     @media_resource = MediaResource.get current_user, params[:path]
   end
 
+  def share
+    @media_resource = MediaResource.get current_user, params[:path]
+    render :show
+  end
+
+  def share_download
+    str = Base64.decode64 params[:download_id]
+    creator_id, media_resource_id = str.split ","
+
+    @creator = User.find_by_id creator_id
+    @media_resource = MediaResource.find_by_id media_resource_id
+  end
+
+  def do_share_download
+    str = Base64.decode64 params[:download_id]
+    creator_id, media_resource_id = str.split ","
+
+    @creator = User.find_by_id creator_id
+    @media_resource = MediaResource.find_by_id media_resource_id
+
+    file_entity = @media_resource.file_entity
+    send_file file_entity.attach.path, :filename => @media_resource.name
+  end
+
   def create_folder
     path = params[:path]
     MediaResource.create_folder current_user, path
@@ -48,7 +72,7 @@ class DiskController < ApplicationController
   def download
     @media_resource = MediaResource.get current_user, params[:path]
     file_entity = @media_resource.file_entity
-    send_file file_entity.attach.path
+    send_file file_entity.attach.path, :filename => @media_resource.name
   end
 
   private

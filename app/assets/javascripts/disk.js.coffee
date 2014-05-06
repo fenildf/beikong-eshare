@@ -1,4 +1,9 @@
 jQuery ->
+  if jQuery('.page-file-show').length > 0
+    jQuery('.page-file-show').delegate '.share-desc input', "click", (evt)->
+      jQuery(this).select()
+
+jQuery ->
 
   class PageFileUploader
     constructor: (@$elm, config) ->

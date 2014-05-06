@@ -171,6 +171,9 @@ Eshare::Application.routes.draw do
   post   '/disk/create' => 'disk#create'
   delete '/disk'        => 'disk#destroy'
   get    '/disk/file'   => 'disk#show'
+  get    '/disk/share'  => 'disk#share'
+  get    '/disk/s/:download_id' => 'disk#share_download'
+  get    '/disk/d/:download_id' => 'disk#do_share_download'
 
   get    '/disk/download' => 'disk#download'
 end
