@@ -224,7 +224,18 @@ body {
 
 body.auth{
   position:static;
-  background:url(wallpaper/auth-bg.png);
+  background:url(auth-ui/auth-bg.png);
+
+  .auth-logo {
+    width:600px;height:250px;
+    position:absolute;
+    left:50%;top:200px;
+    img {
+      position:relative;
+      left:-300px - 160px;
+    }
+  }
+
 
   .page-sign{
     background-color:rgba(white, 0.6);
@@ -438,50 +449,6 @@ body.auth{
         .info {
           color:darken(#339933, 10%);
         }
-      }
-    }
-
-    .ls {
-      position:fixed;
-      top:0;bottom:0;
-      left:0;right:$w;
-
-      .logo-common {
-        width:500px;height:200px;
-        background:url(eshare-logo.png) no-repeat;
-        position:absolute;
-        top:50%;
-        left:50%;
-        margin-top:-200px;
-        margin-left:-180px;
-      }
-
-      .logo-inhouse {
-        width:500px;height:200px;
-        background:url(eshare-logo-inhouse.png) no-repeat;
-        position:absolute;
-        top:50%;
-        left:50%;
-        margin-top:-200px;
-        margin-left:-180px;
-      }
-
-      &.xuanke .logo-inhouse {
-        background:url(eshare-logo-inhouse-xk.png) no-repeat;
-      }
-
-      .logo-3rd {
-        width:120px;
-        height:120px;
-        position:absolute;
-        top:50%;
-        left:50%;
-        margin-left:-180px - 120px;
-        margin-top:-200px + 35px;
-
-        border:solid 5px white;
-        @include border-radius(3px);
-        background:white url(bk-logo-100.png) no-repeat 10px 10px;
       }
     }
 

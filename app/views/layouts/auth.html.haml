@@ -3,10 +3,8 @@
 
 !!!
 - simple_page_layout 'EduShare', :html_lang => :zh, :body_class => 'auth' do
-  - if :xuanke == @for
-    = page_wallpaper '/assets/wallpaper/auth-wallpaper-inhouse-xk.jpg'
-  - else
-    = page_wallpaper '/assets/wallpaper/auth-wallpaper-inhouse-es.jpg'
+  = auth_wallpaper_tag
+  = auth_logo
 
   .page-content
     = yield

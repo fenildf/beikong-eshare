@@ -6,4 +6,7 @@ class R
 
   JAVA_STEP_TESTER_HOST = '127.0.0.1'
   JAVA_STEP_TESTER_PORT = 10001
+
+  # 登录界面的背景图和 logo
+  AUTH_SKIN = "default"
 end
