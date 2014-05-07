@@ -13,6 +13,8 @@ module AuthHelper
 
   private
     def _auth_skin
-      R::AUTH_SKIN || "default"
+      R::AUTH_SKIN
+    rescue
+      "default"
     end
 end
