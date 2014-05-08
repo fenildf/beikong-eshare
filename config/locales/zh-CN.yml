@@ -189,6 +189,10 @@ zh-CN:
         title: 作业标题
         content: 作业要求
 
+      practice_record:
+        submit_desc: 提交附言
+        score: 评分
+
       category:
         name: 科目名称
 
@@ -459,7 +463,9 @@ zh-CN:
         submit_count: 已提交人数
         checked_count: 已检查人数
         ops: 操作
-        submitted: 是否已提交
+        submitted: 作业完成状态
+        edit: 编辑
+        score: 作业评分
 
       practice_students:
         name: 学生姓名

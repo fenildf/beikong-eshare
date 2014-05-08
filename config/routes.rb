@@ -13,6 +13,8 @@ Eshare::Application.routes.draw do
   get '/student_home' => 'index#student_home'
   get '/manager_home' => 'index#manager_home'
 
+  get '/download_attach' => 'index#download_attach'
+
   # bk crosslogin
   get '/bk_login' => 'index#bk_login'
 
@@ -421,6 +423,12 @@ Eshare::Application.routes.draw do
   resources :practices, :shallow => true do
     member do 
       get :check
+      post :do_submit_record
+      put  :do_submit_record
+    end
+
+    collection do
+      put :do_check_score
     end
   end
 end

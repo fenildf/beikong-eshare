@@ -11,4 +11,9 @@ class DiskCell < Cell::Rails
     @user = opts[:user]
     render
   end
+
+  def attachments(opts = {})
+    @attachments = opts[:attachments]
+    render
+  end
 end

@@ -30,7 +30,14 @@ class Practice < ActiveRecord::Base
 
   module UserMethods
     def self.included(base)
-      base.has_many :practices, :class_name => 'Practice', :foreign_key => :creator_id
+      base.has_many :practices, 
+                    :class_name => 'Practice', 
+                    :foreign_key => :creator_id
+
+      # 被分配的作业
+      base.has_many :assigned_practices,
+                    :through => :selected_courses,
+                    :source => :practices
     end
   end
 

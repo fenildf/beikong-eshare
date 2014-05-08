@@ -1,26 +1,37 @@
-- content_for :header do
+- content_for :header_v2 do
   %h1
     %a{:href => '/manage/practices'} 检查作业
     %span /
     %span= @practice.title
-
-:ruby
-  @student_users = User.with_role(:student).page params[:page]
+  .desc
+    检查学生的作业提交
 
 .page-practice-manage-show
-  .pblock.table
-    = page_data_table(:practice_students, @student_users, :striped, :bordered) do |table|
-      - table.add_column :name do |u|
-        = avatar_link u, :small
-        = user_link u
+  .pblock.form
+    = render_cell :practice, :info, :practice => @practice
 
-      - table.add_column :status do |u|
-        - ['已完成', '已完成'][rand(2) - 1]
+  - if @practice.chapter.blank?
 
-      - table.add_column :score do |u|
-        = rand(40) + 60
+  - else
+    .pblock.desc
+      以下列出了所有上这门课的学生的作业提交情况
 
-      - table.add_column :ops do |u|
-        %a.btn.inverse.small.design{:href => "/practices/#{@practice.id}/check?user_id=#{u.id}"}
-          %i.icon-ok.icon-white
-          %span 查看详细
+    .pblock.table
+      :ruby
+        @student_users = @practice.chapter.course.selected_users
+
+      = page_data_table(:practice_students, @student_users, :striped, :bordered) do |table|
+        - table.add_column :name do |u|
+          = avatar_link u, :small
+          = user_link u
+
+        - table.add_column :status do |u|
+          %span= user_practice_status(u, @practice)
+
+        - table.add_column :score do |u|
+          = user_practice_score(u, @practice)
+
+        - table.add_column :ops do |u|
+          %a.btn.inverse-flat.small.design{:href => "/practices/#{@practice.id}/check?user_id=#{u.id}"}
+            %i.icon-ok.icon-white
+            %span 查看详细

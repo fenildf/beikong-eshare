@@ -1,5 +1,9 @@
 - content_for :header do
   %h1 检查作业
+  .btns
+    %a.btn.success-flat{:href => '/manage/practices/new'}
+      %i.icon-plus.icon-white
+      %span 布置作业
 
 .page-manage-homeworks
   .pblock.desc
@@ -19,10 +23,14 @@
         = p.submitted_users.count
       - table.add_column :checked_count do |p|
         = p.checked_users.count
+      - table.add_column :edit do |p|
+        %a.btn.inverse-flat.small{:href => "/manage/practices/#{p.id}/edit"}
+          %i.icon-edit.icon-white
+          %span 编辑修改
       - table.add_column :ops do |p|
-        %a.btn.inverse.small.design{:href => "/manage/practices/#{p.id}/edit"}
-          %i.icon-pencil.icon-white
-          %span 修改
-        %a.btn.inverse.small.design{:href => "/manage/practices/#{p.id}"}
+        %a.btn.success-flat.small{:href => "/manage/practices/#{p.id}"}
           %i.icon-ok.icon-white
           %span 检查
+        %a.btn.danger-flat.small{:href => "/manage/practices/#{p.id}", :data => {:method => :delete, :confirm => "确定要删除这个作业吗？"}}
+          %i.icon-trash
+          %span 删除

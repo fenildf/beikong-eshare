@@ -1,3 +1,7 @@
+# 学生提交的作业附件
+# 目前此模型和 practice_record 没有关联关系
+# 参考 http://s.4ye.me/xcw8p4
+
 class PracticeUpload < ActiveRecord::Base
   include Attachment::ModelMethods
 

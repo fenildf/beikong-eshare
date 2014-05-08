@@ -1,0 +1,11 @@
+.attachments
+  - @attachments.each do |attachment|
+    - file_entity = attachment.file_entity
+    - url = "/download_attach?file_entity_id=#{file_entity.id}"
+
+    .attachment
+      %i.icon-paper-clip
+      %span= file_entity.attach_file_name
+      %a.btn.primary-flat.small{:href => url, :style => 'margin-left:20px;'}
+        %i.icon-download
+        %span 下载

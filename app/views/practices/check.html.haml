@@ -2,24 +2,43 @@
   %h1 作业详情查看
 
 .page-practice-check
+  .pblock.form
+    = render_cell :practice, :info, :practice => @practice
+
+  - record = @practice.get_record_by_user(@user)
+
   .pblock.desc
-    作业检查时间已过期
+    %b= user_link @user
+    %span 目前提交状态：
+    %b= user_practice_status(@user, @practice)
 
-  .pblock.practice{:style=>'padding-bottom:20px;'}
-    .title
-      %span{:style=>'font-weight:bold;'}= @practice.title
-    .content
+    - if record.present? && record.score.present?
+      %span ，已获得打分：
+      %b= record.score
+
+  - if record.present?
+    .pblock.record.form
+      %h3{:style=>'margin-top:0;'} 提交附言
+      .submit-desc
+        %p= simple_format record.submit_desc
+      %hr
       :ruby
-        content = @practice.content
-        if content.blank?
-          content = '作业未填写具体要求说明'
-        end
-      %p= content
-    .time
-      %span 作业发布时间：
-      %span{:style=>'color:#cc3333;'}= @practice.created_at
+        uploads = @practice.uploads.by_creator(@user)
 
-  .pblock.practice{:style=>'padding-bottom:20px;'}
-    %i.icon-flag
-    %span= user_link @user
-    %span 已经提交了这个作业
+      %h3 提交附件(#{uploads.count})
+      :ruby
+        attachments = uploads.map {|upload|
+          upload.attachments.first
+        }
+
+      = render_cell :disk, :attachments, :attachments => attachments
+
+    .pblock.form.score
+      %h3{:style=>'margin-top:0;'} 作业判分
+      = simple_form_for record, :url => "/practices/do_check_score?record=#{record.id}" do |f|
+        .form-inputs
+          = f.input :score
+
+        .form-actions{}
+          = f.button :submit, '确定打分', :class => 'success-flat'
+

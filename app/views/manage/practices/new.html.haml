@@ -23,7 +23,7 @@
       .datas{:style => 'display:none;'}
         .form-inputs
           = f.input :title
-          = f.input :content, :input_html => {:rows => 6, :class => 'xxlarge'}
+          = f.input :content, :input_html => {:rows => 8, :class => 'xxlarge', :style => 'resize:none;'}
 
           = render_cell :layout, :file_uploader
 

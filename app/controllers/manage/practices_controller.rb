@@ -50,4 +50,10 @@ class Manage::PracticesController < ApplicationController
   def show
     @practice = current_user.practices.find params[:id]
   end
+
+  def destroy
+    @practice = Practice.find params[:id]
+    @practice.destroy
+    redirect_to :back
+  end
 end

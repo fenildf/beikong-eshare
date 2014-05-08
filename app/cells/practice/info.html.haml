@@ -1,0 +1,28 @@
+.page-practice-info
+  %h3.title= @practice.title
+  .created-at
+    %label 发布于：
+    %span{:style=>'color:#cc3333;'}= @practice.created_at
+  .creator
+    %label 发布人：
+    %span= user_link @practice.creator
+  .course
+    %label 课程：
+    - if @practice.chapter
+      %span= course_link @practice.chapter.course
+  .chapter
+    %label 章节：
+    - if @practice.chapter
+      %span= @practice.chapter.title
+
+  %hr
+
+  %h3 作业要求：
+
+  %p
+    = simple_format @practice.content
+
+  %hr
+
+  %h3 作业附件
+  = render_cell :disk, :attachments, :attachments => @practice.attachments

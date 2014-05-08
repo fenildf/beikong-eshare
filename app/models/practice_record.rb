@@ -1,4 +1,6 @@
 class PracticeRecord < ActiveRecord::Base
+  include Attachment::ModelMethods
+  
   class Status
     SUBMITTED   = 'SUBMITTED'
     CHECKED   = 'CHECKED'
@@ -36,23 +38,42 @@ class PracticeRecord < ActiveRecord::Base
     end
 
     # 学生提交作业
-    def submit_by_user(user)
-      self.created_records.create(
-        :practice => self,
-        :user => user,
-        :submitted_at => Time.now,
-        :status => PracticeRecord::Status::SUBMITTED
-      )
+    def submit_by_user(user, submit_desc)
+      record = get_record_by_user(user)
+
+      if record.blank?
+        self.created_records.create(
+          :practice => self,
+          :user => user,
+          :submitted_at => Time.now,
+          :status => PracticeRecord::Status::SUBMITTED,
+          :submit_desc => submit_desc
+        )
+        return
+      end
+
+      record.submit_desc = submit_desc
+      record.save
     end
 
     # 学生声明已经线下提交了作业
     def submittd_offline_by_user(user, submit_desc)
-      practice_record = get_record_by_user(user)
-      practice_record.status = PracticeRecord::Status::SUBMITTED
-      practice_record.submit_desc = submit_desc
-      practice_record.is_submitted_offline = true
-      practice_record.submitted_at = Time.now
-      practice_record.save
+      record = get_record_by_user(user)
+
+      if record.blank?
+        self.created_records.create(
+          :practice => self,
+          :user => user,
+          :submitted_at => Time.now,
+          :status => PracticeRecord::Status::SUBMITTED,
+          :submit_desc => submit_desc,
+          :is_submitted_offline => true
+        )
+        return
+      end
+
+      record.submit_desc = submit_desc
+      record.save
     end
 
     # 老师验收作业

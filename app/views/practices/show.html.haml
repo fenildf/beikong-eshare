@@ -1,21 +1,27 @@
-- content_for :header do
+- content_for :header_v2 do
   %h1 作业详情查看
+  .desc
+    在这里查看作业要求信息，以及提交作业
 
 .page-practice-check
-  .pblock.practice{:style=>'padding-bottom:20px;'}
-    .title
-      %span{:style=>'font-weight:bold;'}= @practice.title
-    .content
-      :ruby
-        content = @practice.content
-        if content.blank?
-          content = '作业未填写具体要求说明'
-        end
-      %p= content
-    .time
-      %span 作业发布时间：
-      %span{:style=>'color:#cc3333;'}= @practice.created_at
+  .pblock.form
+    = render_cell :practice, :info, :practice => @practice
 
-  .pblock.practice{:style=>'padding-bottom:20px;'}
-    %i.icon-flag
-    %span 我已经提交了这个作业
+  .pblock.desc
+    %span 目前提交状态：
+    %b= user_practice_status(current_user, @practice)
+
+  .pblock.form
+    :ruby
+      record = @practice.get_record_by_user(current_user)
+      record ||= PracticeRecord.new
+
+    = simple_form_for record, :url => "/practices/#{@practice.id}/do_submit_record" do |f|
+      .form-inputs
+        = f.input :submit_desc, :input_html => {:rows => 8, :class => 'xxlarge', :style => 'resize:none;'}
+
+        %label 作业附件
+        = render_cell :layout, :file_uploader
+
+      .form-actions{:style => 'margin-top:20px;'}
+        = f.button :submit, '确定提交', :class => 'success-flat'

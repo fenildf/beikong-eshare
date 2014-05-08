@@ -38,4 +38,9 @@ class IndexController < ApplicationController
     # 北控单点登录
     render :layout => 'auth'
   end
+
+  def download_attach
+    file_entity = FileEntity.find params[:file_entity_id]
+    send_file file_entity.attach.path, :filename => file_entity.attach_file_name
+  end
 end
