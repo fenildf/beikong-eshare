@@ -4,9 +4,13 @@ SimpleNavbar::Base.config do
       controller :index, :only => [:admin_home]
     end
 
-    nav :users_manage, :url => '/admin/user_groups' do
-      controller :'admin/user_groups'
+    nav :users_manage, :url => '/admin/users' do
+      controller :'admin/users'
     end
+
+    nav :users_group, :url => '/admin/user_groups' do
+      controller :'admin/user_groups'
+    end 
 
     nav :categories_manage, :url => '/admin/categories' do
       controller :'admin/categories'

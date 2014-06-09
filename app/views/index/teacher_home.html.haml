@@ -12,6 +12,7 @@
       {
         :module => '课程功能',
         :funcs => [
+          {:title => '课程申报', :desc => '创建课程并等待审批', :link => '/manage/courses', :icon => 'edit-sign'},
           {:title => '课程编排', :desc => '编排和预览课程下的章节内容', :link => '/manage/courses/design', :icon => 'edit-sign'},
           {:title => '上传课件', :desc => '给指定的课程上传 PPT/PDF 等课件', :link => '/manage/course_wares/new', :icon => 'upload'},
           {:title => '课程中心', :desc => '浏览系统内的所有公开课程', :link => '/courses', :icon => 'book'},
@@ -31,9 +32,9 @@
         :funcs => [
           {:title => '文件共享', :desc => '上传文件，共享给其他人', :link => '/disk', :icon => 'share'},
           {:title => '提出的问题', :desc => '我提出的问题', :link => '/questions/iask', :icon => 'question-sign'},
-          {:title => '得到的回答', :desc => '我得到回答的问题', :link => '/questions/iask', :icon => 'comment'},
-          {:title => '回答的问题', :desc => '我进行过回答的问题', :link => '/questions/iask', :icon => 'comment'},
-          {:title => '关注的问题', :desc => '我当前关注的问题', :link => '/questions/iask', :icon => 'star'},
+          {:title => '得到的回答', :desc => '我得到回答的问题', :link => '/questions/be_answered', :icon => 'comment'},
+          {:title => '回答的问题', :desc => '我进行过回答的问题', :link => '/questions/answered', :icon => 'comment'},
+          {:title => '关注的问题', :desc => '我当前关注的问题', :link => '/questions/favs', :icon => 'star'},
           {:title => '好友关注', :desc => '关注其他用户为好友', :link => '/friends', :icon => 'group'},
           {:title => '公共动态', :desc => '查看好友的公开动态汇总', :link => '/dashboard', :icon => 'coffee'},
         ]

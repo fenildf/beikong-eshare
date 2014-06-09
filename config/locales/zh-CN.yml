@@ -3,6 +3,7 @@ zh-CN:
     admin:
       index: 首页
       users_manage: 用户管理
+      users_group: 用户分组
       categories_manage: 科目管理
       select_course: 学生申请
       teacher_surveys_manage: 教师评价
@@ -344,7 +345,8 @@ zh-CN:
         gender: 性别
         group: 所在分组
         select: ''
-        
+        email: 邮箱
+
       files:
         name: 文件名
         size: 大小

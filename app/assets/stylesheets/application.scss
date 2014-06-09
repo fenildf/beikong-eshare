@@ -4004,13 +4004,12 @@ form .input.page-form-tag-inputer {
         width:32px;
         height:24px;
         overflow:hidden;
-        font-size:0;
-        line-height:50em;
         margin-bottom:5px;
         @include border-radius(2px);
 
         i {
-          margin-top:(24px - 14px) / 2;
+          position: relative;
+          top:2px;
           margin-left:(32px - 14px) / 2;
           opacity:0.76;
         }

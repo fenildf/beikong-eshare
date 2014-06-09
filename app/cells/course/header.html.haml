@@ -33,6 +33,9 @@
       %span= @course.time.blank? ? '--' : @course.time
       %span ，地点：
       %span= @course.location.blank? ? '--' : @course.location
+    .teacher
+      %span 创建者：
+      %span #{@course.creator.name} 老师
 
 
     - desc  = @course.desc || t('common.course.course-no-desc')

@@ -3,6 +3,7 @@ class Admin::UsersController < ApplicationController
 
   def index
     authorize! :manage, User
+    @users = User.page(params[:page]).order('id DESC').like_filter(@query = params[:q])
   end
 
   def edit
