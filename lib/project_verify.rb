@@ -1,5 +1,5 @@
 class ProjectVerify
-  VERIFY_SERVER = 'http://211.101.1.178'
+  VERIFY_SERVER = 'http://eshare-verify.mindpin.com'
 
   def check
     code = _get_key_and_mac
