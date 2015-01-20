@@ -6,7 +6,7 @@ set :domain, '60.247.110.148'
 set :deploy_to, '/web/2013/eshare'
 set :current_path, 'current'
 set :repository, 'git://github.com/mindpin/beikong-eshare.git'
-set :branch, 'develop'
+set :branch, '8zhong-master'
 set :user, 'root'
 
 set :shared_paths, [
