@@ -44,3 +44,29 @@ https://github.com/mindpin/simple-page-layout
 用于简化 view layouts 的编写
 
 [![Gem Version](https://badge.fury.io/rb/simple-page-layout.png)](http://badge.fury.io/rb/simple-page-layout)
+
+
+
+
+### 开发环境初始化
+
+```
+apt-get install libmysqlclient-dev
+bundle
+
+rake db:create
+rake db:migrate
+```
+
+```
+启动 redis , 必须使用工程里的 ./deploy/sh/solr_server.sh start
+如果系统已经有 redis 进程需要先 stop
+
+启动 solr , 必须使用工程里的 ./deploy/sh/solr_server.sh start
+同时需要一个 solr-server 文件，放置于 solr 的 example/bin 目录下，并把 bin 目录添加到 PATH. 文件内容见： http://markdown.4ye.me/EsEPcMDc/1
+```
+
+```
+初始化用户 
+rails r script/import.rb
+```
