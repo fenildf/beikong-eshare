@@ -5429,8 +5429,11 @@ form .input.page-form-tag-inputer {
 }
 
 .page-admin-users {
+  $hover-color: #e0e0e0;
+
   .group-tree {
-    background-color:#f0f0f0;
+    // background-color:#f0f0f0;
+    background-color: $hover-color;
     border-right:solid 1px #ddd;
     position:fixed;
     width:320px;
@@ -5441,7 +5444,7 @@ form .input.page-form-tag-inputer {
 
     .head {
       overflow:hidden;
-      margin-left:-5px;
+      // margin-left:-5px;
       a.h {
         width:50%;
         background:#fafafa;
@@ -5460,7 +5463,8 @@ form .input.page-form-tag-inputer {
         }
         
         &.active {
-          background-color:#f0f0f0;
+          // background-color:#f0f0f0;
+          background-color: $hover-color;
           border-bottom:solid 1px transparent;
         }
       }
@@ -5550,10 +5554,11 @@ form .input.page-form-tag-inputer {
           .ops {
             display:none;
             position:absolute;
-            top:50%;right:26px;height:24px;margin-top:-12px;
+            top:50%;right:8px;height:24px;margin-top:-12px;
 
             a.op {
               @include border-box;
+              border-radius:3px;
               float:left;display:block;
               text-align:center;
               background-color:rgba(#81BC03, 0.9);
@@ -5681,7 +5686,7 @@ form .input.page-form-tag-inputer {
     position:fixed;
     top:60px;
     left:446px;
-    right:5px;
+    right:0px;
     bottom:0;
     z-index:1;
 
