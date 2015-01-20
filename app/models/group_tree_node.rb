@@ -2,7 +2,9 @@
 class GroupTreeNode < ActiveRecord::Base
   acts_as_nested_set
 
-  include GroupTreeNodeManagementKinds
+  # include GroupTreeNodeManagementKinds
+  # 2014 年 kaid 开发到一半，但没有进行前端集成的功能
+  # 为了保证产品环境可用，先注释掉这个引用
 
   TEACHER = "TEACHER"
   STUDENT = "STUDENT"

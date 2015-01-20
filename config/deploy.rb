@@ -10,17 +10,31 @@ set :branch, 'develop'
 set :user, 'root'
 
 set :shared_paths, [
+  # 以下文件在各个部署环境存在区别，部署时不会被版本库中的文件覆盖
+
+  # 调查问卷模板
   'config/survey_templates',
+  # 数据库连接信息
   'config/database.yml',
+  # 数据库 migration 记录
   'db/schema.rb',
+  # 日志文件夹
   'log', 
+  # 进程记录文件夹
   'tmp/pids',
-  '.ruby-version', 
-  'deploy/sh/property.yaml', 
-  'public/YKAuth.txt', 
+  # rvm 版本标识
+  '.ruby-version',
+  # 静态文件目录配置信息
+  'deploy/sh/property.yaml',
+  # ????
+  'public/YKAuth.txt',
+  # 用于远程 lisences 校验的信息 
   'public/project_key',
+  # 新浪微博应用信息（八中版没有用到）
   'config/oauth_key.yaml',
+  # 一些第三方库的配置信息
   'config/initializers/r.rb',
+  # R 的另外一些配置，包括选课模式和皮肤信息
   'config/deploy_env.rb'
 ]
 
