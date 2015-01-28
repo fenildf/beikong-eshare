@@ -4,7 +4,8 @@
       %tr
         - if !@user.is_manager?
           %td.cover{:rowspan => 4}
-            = fit_image course.cover.versions[:normal].url, :height => 160, :width => 160
+            %a{:href => "/courses/#{course.id}"}
+              = fit_image course.cover.versions[:normal].url, :height => 160, :width => 160
 
         %th.id ID
         %td.id= course.id
@@ -71,3 +72,6 @@
             %a.btn.inverse.small.design{:href => "/manage/courses/#{course.id}"}
               %i.icon-book.icon-white
               %span 章节编排
+            %a.btn.inverse.small.list{:href => "/courses/#{course.id}/users_rank"}
+              %i.icon-book.icon-white
+              %span 学生名单
