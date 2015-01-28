@@ -347,6 +347,8 @@ Eshare::Application.routes.draw do
       post :unfav
       post :join
       post :exit
+
+      delete :unselect
     end
 
     collection do

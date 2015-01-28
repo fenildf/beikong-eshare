@@ -137,4 +137,12 @@ class CoursesController < ApplicationController
     current_user.cancel_select_course @course
     redirect_to @course
   end
+
+  # 20150128 添加
+  # 方便老师从课程中移除学生
+  def unselect
+    user = User.find params[:user_id]
+    user.cancel_select_course @course
+    redirect_to "/courses/#{@course.id}/users_rank"
+  end
 end

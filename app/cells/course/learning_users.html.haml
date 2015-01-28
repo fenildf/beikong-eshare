@@ -1,10 +1,10 @@
-- count = @course.learning_users.count
-- users = @course.learning_users.order('course_ware_readings.updated_at DESC').limit(20)
+- count = @course.selected_users.count
+- users = @course.selected_users.limit(20)
 
 .pblock
   - if count > 0
     .cpart.page-course-learning-users
-      %h3 #{count}人最近学习过这个课程
+      %h3 #{count}人正在学习这个课程
       .users
         - users.each do |user|
           .user

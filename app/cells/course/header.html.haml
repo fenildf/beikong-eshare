@@ -11,14 +11,18 @@
           %i.icon-star-empty
           %span 加入收藏
 
-      - if @course.has_accept? @user
-        = link_to "/courses/#{@course.id}/exit", :class=> 'btn join gray-flat', :method => :post do
-          %i.icon-signout
-          %span 退出这门课程
+      - if @user == @course.creator
+        %span{:style => 'background: #eee;padding:10px; position:relative; left:10px; top:5px;'} 我是任课老师
+
       - else
-        = link_to "/courses/#{@course.id}/join", :class=> 'btn join success-flat', :method => :post do
-          %i.icon-plus
-          %span 参加这门课程
+        - if @course.has_accept? @user
+          = link_to "/courses/#{@course.id}/exit", :class=> 'btn join gray-flat', :method => :post do
+            %i.icon-signout
+            %span 退出这门课程
+        - else
+          = link_to "/courses/#{@course.id}/join", :class=> 'btn join success-flat', :method => :post do
+            %i.icon-plus
+            %span 参加这门课程
 
   .cover= fit_image(@course.cover.versions[:normal].url, :width => 214, :height => 140)
 
