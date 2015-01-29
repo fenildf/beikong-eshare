@@ -17,6 +17,10 @@ module CourseWareKindMethods
     return is_ppt? || is_pdf?
   end
 
+  def is_image?
+    self.kind.to_s == 'image'
+  end
+
   # ---
 
   def is_video?

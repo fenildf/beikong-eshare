@@ -7,3 +7,6 @@
 
 - if @course_ware.is_javascript?
   = render_cell :course_ware, :javascript, :course_ware => @course_ware, :user => @user
+
+- if @course_ware.is_image?
+  %img{:src => @course_ware.file_entity.attach.url, :style => 'max-width:100%;'}

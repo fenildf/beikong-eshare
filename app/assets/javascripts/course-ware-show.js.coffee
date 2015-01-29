@@ -125,11 +125,13 @@ jQuery ->
     init: ->
       flashvars =
         p : '0' # 不自动播放
-        x : null # 5月23日之前这里必须写成 '/'，而之后必须写成 '' 或 null，待观察。 
-        my_url : encodeURIComponent(window.location.href)
+        # x : null # 5月23日之前这里必须写成 '/'，而之后必须写成 '' 或 null，待观察。
+        # my_url : encodeURIComponent(window.location.href)
         f : @video_xml_url
         s : '2'
         m : '1'
+
+      console.log flashvars
 
       params =
         bgcolor : '#FFF'
@@ -137,7 +139,7 @@ jQuery ->
         allowScriptAccess : 'always'
         wmode : 'opaque'
 
-      CKobject.embedSWF('/ckplayer/ckplayer.swf', @$elm.attr('id'), 'mindpin_ckplayer', '100%', '100%', flashvars, params)
+      CKobject.embedSWF('/ckplayer66/ckplayer.swf', @$elm.attr('id'), 'mindpin_ckplayer', '100%', '100%', flashvars, params)
       @player = CKobject.getObjectById('mindpin_ckplayer')
 
       new VideoMarker(this)
