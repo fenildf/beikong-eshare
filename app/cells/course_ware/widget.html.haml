@@ -2,11 +2,22 @@
 - if @course_ware.is_video?
   = render_cell :course_ware, :video, :course_ware => @course_ware, :user => @user
 
-- if @course_ware.is_pages?
+- elsif @course_ware.is_pages?
   = render_cell :course_ware, :pages, :course_ware => @course_ware, :user => @user
 
-- if @course_ware.is_javascript?
+- elsif @course_ware.is_javascript?
   = render_cell :course_ware, :javascript, :course_ware => @course_ware, :user => @user
 
-- if @course_ware.is_image?
-  %img{:src => @course_ware.file_entity.attach.url, :style => 'max-width:100%;'}
+- elsif @course_ware.is_image?
+  %img{:src => @course_ware.file_entity.attach.url, :style => 'max-width:100%;display:block;margin-bottom:20px;border:solid 1px #ddd;padding:10px;'}
+
+  %a.btn.success{:href => @course_ware.file_entity.attach.url, :target => '_blank'}
+    %i.icon-download
+    %span 下载图片
+
+- else
+  .desc{:style => 'background:#f1f1f1;border-radius:3px;padding:20px;margin-bottom:20px;'} 暂时不能预览，请通过下载按钮下载文件
+
+  %a.btn.success{:href => @course_ware.file_entity.attach.url, :target => '_blank'}
+    %i.icon-download
+    %span 下载文件
