@@ -6,10 +6,13 @@
       - course_wares = chapter.course_wares
       - if course_wares.present?
         .chapter
-          - if chapters.count > 1
-            .ch-title
-              %i.icon-leaf.icon-white
-              %span= truncate_u chapter.title, 32
+          / - if chapters.count > 1
+          .ch-title
+            %i.icon-leaf.icon-white
+            %span= truncate_u chapter.title, 32
+          - if chapter.desc.present?
+            .ch-desc
+              = simple_format chapter.desc
           .wares
             - chapter.course_wares.each do |cw|
               .w{:style => 'position:relative;'}
