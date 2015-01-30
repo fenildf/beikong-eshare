@@ -16,8 +16,11 @@
     %span 下载图片
 
 - else
-  .desc{:style => 'background:#f1f1f1;border-radius:3px;padding:20px;margin-bottom:20px;'} 暂时不能预览，请通过下载按钮下载文件
+  - begin
+    .desc{:style => 'background:#f1f1f1;border-radius:3px;padding:20px;margin-bottom:20px;'} 暂时不能预览，请通过下载按钮下载文件
 
-  %a.btn.success{:href => @course_ware.file_entity.attach.url, :target => '_blank'}
-    %i.icon-download
-    %span 下载文件
+    %a.btn.success{:href => @course_ware.file_entity.attach.url, :target => '_blank'}
+      %i.icon-download
+      %span 下载文件
+  - rescue
+    - #
