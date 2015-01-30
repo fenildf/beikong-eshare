@@ -42,9 +42,12 @@
                         .snapshot.docpage= fit_image img.url, :width => 80, :height => 45
 
                 - if !cw.is_video?
-                  %a.btn.success.mini{:href => cw.file_entity.attach.url, :target => '_blank', :style => 'float:right;top:10px;right:10px;position:absolute;'}
-                    %i.icon-download
-                    %span 下载文件
+                  - begin
+                    %a.btn.success.mini{:href => cw.file_entity.attach.url, :target => '_blank', :style => 'float:right;top:10px;right:10px;position:absolute;'}
+                      %i.icon-download
+                      %span 下载文件
+                  - rescue
+                    - #
 
   - else
     .blank 
