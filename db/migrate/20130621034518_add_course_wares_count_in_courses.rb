@@ -2,7 +2,7 @@ class AddCourseWaresCountInCourses < ActiveRecord::Migration
   def change
     add_column :courses, :course_wares_count, :integer, :default => 0
 
-    _set_value_for_old_data
+    # _set_value_for_old_data
   end
 
   def _set_value_for_old_data
