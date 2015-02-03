@@ -61,6 +61,8 @@ tar xf solr-server.tar
 ### 配置好 redis-server
 安装 redis 并设置好 PATH 变量，保证可以直接运行 redis-server 命令
 
+
+### 工程初始化数据库
 ```
 bundle
 
@@ -68,6 +70,7 @@ rake db:create
 rake db:migrate
 ```
 
+### 启动依赖服务
 ```
 启动 redis , 必须使用工程里的 ./deploy/sh/solr_server.sh start
 如果系统已经有 redis 进程需要先 stop
@@ -75,9 +78,15 @@ rake db:migrate
 启动 solr , 必须使用工程里的 ./deploy/sh/solr_server.sh start
 ```
 
+### 初始化数据
 ```
 初始化用户 
 rails r script/import.rb
+```
+
+### 启动工程
+```
+rails s
 ```
 
 
