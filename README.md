@@ -46,3 +46,38 @@ https://github.com/mindpin/simple-page-layout
 用于简化 view layouts 的编写
 
 [![Gem Version](https://badge.fury.io/rb/simple-page-layout.png)](http://badge.fury.io/rb/simple-page-layout)
+
+
+## 开发环境初始化
+
+### 下载安装 solr-server
+```
+cd /usr/local
+wget http://60.247.110.148/static_files/solr-server.tar
+tar xf solr-server.tar
+# 把 /usr/local/solr-server/bin 设置到 PATH 变量,保证可以直接运行 solr-server 命令
+```
+
+### 配置好 redis-server
+安装 redis 并设置好 PATH 变量，保证可以直接运行 redis-server 命令
+
+```
+bundle
+
+rake db:create
+rake db:migrate
+```
+
+```
+启动 redis , 必须使用工程里的 ./deploy/sh/solr_server.sh start
+如果系统已经有 redis 进程需要先 stop
+
+启动 solr , 必须使用工程里的 ./deploy/sh/solr_server.sh start
+```
+
+```
+初始化用户 
+rails r script/import.rb
+```
+
+
