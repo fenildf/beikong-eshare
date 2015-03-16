@@ -197,23 +197,13 @@ Eshare::Application.routes.draw do
         end
 
         resources :course_wares, :shallow => true do
-          collection do
-            get :import_javascript_course_ware
-            post :do_import_javascript_course_ware
-          end
 
           member do
             put :move_up
             put :move_down
             put :do_convert
-            get :export_json
           end
 
-          resources :javascript_steps, :shallow => true do
-            member do
-              get :form_html
-            end
-          end
         end
       end
 
@@ -262,12 +252,6 @@ Eshare::Application.routes.draw do
       resources :course_wares, :shallow => true do
         resources :questions, :shallow => true
 
-        resources :javascript_steps, :shallow => true do
-          member do
-            post :record_input
-            get :preview
-          end
-        end
 
         member do
           put :update_read_count
