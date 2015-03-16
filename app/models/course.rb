@@ -8,8 +8,6 @@ class Course < ActiveRecord::Base
   include CourseSignModule
   include CourseReadPercent::CourseMethods
   include CourseFeedTimelime::CourseMethods
-  include YoukuVideoList::CourseMethods
-  include TudouVideoList::CourseMethods
   include CourseFav::CourseMethods
   include SelectCourseApply::CourseMethods
   include Note::CourseMethods
@@ -172,30 +170,6 @@ class Course < ActiveRecord::Base
     end
 
     return '无'
-  end
-
-  # 给视频类课程根据其中的视频设置封面
-  def set_video_course_cover
-    return if course_wares.blank?
-    cw = course_wares.first
-    if cw.is_tudou? || cw.is_youku?
-      url = cw.cover_url
-      return if url.blank?
-      require 'open-uri'
-
-      tmpfile = Tempfile.new('foo')
-      path = "#{tmpfile.path}.png"
-
-      open(path, 'wb') do |file|
-        file << open(url).read
-      end
-
-      file = File.new path
-
-      p file.size
-      self.cover = file
-      self.save
-    end
   end
 
   # 获取指定用户在课程下的课件学习情况

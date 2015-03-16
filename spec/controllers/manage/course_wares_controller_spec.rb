@@ -8,14 +8,6 @@ describe Manage::CourseWaresController do
     @chapter = FactoryGirl.create :chapter
   }
 
-  context '#new web_video' do
-    before {
-      get :new, :chapter_id => @chapter.id, :for => 'web_video'
-    }
-
-    it { response.code.should == '200' }
-  end
-
   context '#move_up, #move_down' do
     before {
       8.times do

@@ -1,6 +1,4 @@
 .video
-  - if @course_ware.is_web_video?
-    .page-video-player.web-video{:class => @course_ware.kind, :id => "course-ware-#{@course_ware.id}-#{@course_ware.kind}", :data => {:id => @course_ware.id}}
   - if @course_ware.is_local_video?
     .page-video-player.local-video{:class => @course_ware.kind, :id => "course-ware-#{@course_ware.id}-#{@course_ware.kind}", :data => {:id => @course_ware.id}}
 

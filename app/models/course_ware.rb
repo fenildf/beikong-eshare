@@ -137,22 +137,6 @@ class CourseWare < ActiveRecord::Base
 
   def cover_url
     return cover_url_cache if cover_url_cache.present?
-
-    if is_youku?
-      cover_url = self.youku_video.video_cover_url
-    end
-
-    if is_tudou?
-      cover_url = self.tudou_video.video_cover_url
-    end
-
-    self.update_attributes({ :cover_url_cache => cover_url }, :as => :update_cover)
-    return cover_url
-  end
-
-  def get_video_title
-    return self.youku_video.video_title if is_youku?
-    return self.tudou_video.video_title if is_tudou?
   end
 
   def recent_reading_users(limit = 10)

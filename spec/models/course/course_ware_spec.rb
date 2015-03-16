@@ -246,46 +246,6 @@ describe CourseWare do
     end
   end
 
-  describe '网络视频类型' do
-    before {
-      @course_ware_youku = FactoryGirl.create :course_ware, :kind => :youku,
-                                                      :url => 'http://v.youku.com/v_show/id_XNTQ0MDM5NTY4.html'
-    
-      @course_ware_sina = FactoryGirl.create :course_ware, :kind => :sina,
-                                                           :url => 'http://video.sina.com.cn/v/b/96748194-1418521581.html'
-    
-      @course_ware_youku.reload
-      @course_ware_sina.reload
-    }
-
-    it {
-      @course_ware_youku.is_web_video?.should == true
-      @course_ware_sina.is_web_video?.should == true
-    }
-
-    it {
-      @course_ware_youku.total_count.should == 1000
-      @course_ware_sina.total_count.should == 1000
-    }
-
-    it {
-      @course_ware_youku.cover_url.should_not be_blank
-    }
-
-    context 'update' do
-      before {
-        @url = @course_ware_youku.cover_url
-        cw = @course_ware_youku
-        cw.url = 'http://v.youku.com/v_show/id_XNTQzNzY4NDIw.html'
-        cw.save
-      }
-
-      it {
-        @course_ware_youku.cover_url.should_not == @url
-      }
-    end
-  end
-
   describe '本地视频' do
     before {
       @course_ware = FactoryGirl.create :course_ware, :kind => :flv
@@ -526,24 +486,10 @@ describe CourseWare do
 
   describe '#is_video' do
     before {
-      @cw_youku = FactoryGirl.create :course_ware, :kind => 'youku'
       @cw_flv   = FactoryGirl.create :course_ware, :kind => 'flv'
     }
 
-    it { @cw_youku.is_video?.should == true }
     it { @cw_flv.is_video?.should == true }
-    it { @cw_youku.is_web_video?.should == true }
-    it { @cw_flv.is_web_video?.should == false }
-  end
-
-  describe '#youku_video' do
-    before {
-      @cw_youku = FactoryGirl.create :course_ware, :kind => 'youku'
-      @cw_flv   = FactoryGirl.create :course_ware, :kind => 'flv'
-    }
-
-    it { @cw_youku.youku_video.class.should == YoukuVideo }
-    it { @cw_flv.youku_video.should be_blank }
   end
 
 end

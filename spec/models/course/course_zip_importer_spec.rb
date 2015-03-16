@@ -56,23 +56,6 @@ describe CourseZipImporter do
             end
           end
 
-          describe "第二个 ware" do
-            before {
-              @ware_2 = @wares.last
-            }
-
-            it "title 正确" do
-              @ware_2.title.should == '视频2'
-            end
-
-            it "kind 正确" do
-              @ware_2.kind.should == 'youku'
-            end
-
-            it "url 正确" do
-              @ware_2.url.should == 'http://v.youku.com/v_show/id_ZXNTDz4DQxCDY4.html'
-            end
-          end
         end
 
         describe "检查 practices" do

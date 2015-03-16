@@ -95,40 +95,4 @@ class Manage::CoursesController < ApplicationController
     Course.import(file, current_user)
     redirect_to :action => :index
   end
-
-  def import_youku_list
-    authorize! :manage, Course
-  end
-
-  def import_youku_list_2
-    authorize! :manage, Course
-    @url = params[:url]
-    @data = YoukuVideoList.new(@url).parse
-  end
-
-  def do_import_youku_list
-    authorize! :manage, Course
-    @url = params[:url]
-    Course.import_youku_video_list(@url, current_user)
-
-    redirect_to :action => :index
-  end
-
-  def import_tudou_list
-    authorize! :manage, Course
-  end
-
-  def import_tudou_list_2
-    authorize! :manage, Course
-    @url = params[:url]
-    @data = TudouVideoList.new(@url).parse
-  end
-
-  def do_import_tudou_list
-    authorize! :manage, Course
-    @url = params[:url]
-    Course.import_tudou_video_list(@url, current_user)
-
-    redirect_to :action => :index
-  end
 end

@@ -34,14 +34,6 @@ describe "导出 Course 相关数据到 zip" do
       :file_entity => @file_entity_1
     )
 
-    @ware_1_2 = FactoryGirl.create(
-      :course_ware, 
-      :chapter => @chapter_1,
-      :title => "video one",
-      :kind => 'youku',
-      :url => "http://v.youku.com/v_show/id_XNTM5MzYxNTE2.html"
-    )
-
     @practice_1_1 = FactoryGirl.create(
       :practice, 
       :chapter => @chapter_1,
@@ -68,14 +60,6 @@ describe "导出 Course 相关数据到 zip" do
       :title => "ware one",
       :kind => 'ppt',
       :file_entity => @file_entity_2
-    )
-
-    @ware_2_2 = FactoryGirl.create(
-      :course_ware, 
-      :chapter => @chapter_2,
-      :title => "video one",
-      :kind => 'youku',
-      :url => "http://v.youku.com/v_show/id_XNTM5MzQ2ODI0.html"
     )
 
     @practice_2_1 = FactoryGirl.create(
@@ -116,11 +100,6 @@ describe "导出 Course 相关数据到 zip" do
                 :name => @ware_1_1.title,
                 :kind => @ware_1_1.kind.to_s,
                 :file => @ware_1_1.file_entity.saved_file_name
-              },
-              {
-                :name => @ware_1_2.title,
-                :kind => "youku",
-                :url => @ware_1_2.url,
               }
             ],
             :practices => [
@@ -140,11 +119,6 @@ describe "导出 Course 相关数据到 zip" do
                 :name => @ware_2_1.title,
                 :kind => @ware_1_1.kind.to_s,
                 :file => @ware_2_1.file_entity.saved_file_name
-              },
-              {
-                :name => @ware_2_2.title,
-                :kind => "youku",
-                :url => @ware_2_2.url,
               }
             ],
             :practices => [

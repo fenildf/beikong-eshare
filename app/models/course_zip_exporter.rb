@@ -69,10 +69,6 @@ module CourseZipExporter
     end
 
     def build_wares(ware)
-      if ware.is_web_video?
-        return {:name => ware.title, :kind => "youku", :url => ware.url}
-      end
-      
       return {:name => ware.title} if ware.file_entity.nil?
 
       {:name => ware.title, :kind => ware.kind, :file => ware.file_entity.saved_file_name}

@@ -67,13 +67,8 @@ module CourseZipImporter
             :creator => creator
           )
 
-          case courseware[:kind]
-          when 'youku'
-            ware.url = courseware[:url]
-          else
-            file = file(File.join('files', courseware[:file]))
-            ware.file_entity = FileEntity.create(:attach => file)
-          end
+          file = file(File.join('files', courseware[:file]))
+          ware.file_entity = FileEntity.create(:attach => file)
           ware.kind = courseware[:kind]
 
           ware.save

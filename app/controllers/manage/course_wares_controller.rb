@@ -14,12 +14,6 @@ class Manage::CourseWaresController < ApplicationController
     authorize! :manage, CourseWare
     @chapter = Chapter.find(params[:chapter_id])
     @course_ware = @chapter.course_wares.new
-
-    @for_web_video = params[:for] == 'web_video'
-
-    if R::INTERNET
-      @for_javascript = params[:for] == 'javascript'
-    end
   end
 
   def import_javascript_course_ware
