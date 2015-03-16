@@ -7,7 +7,6 @@ class Course < ActiveRecord::Base
   include CourseInteractive::CourseMethods
   include CourseSignModule
   include CourseReadPercent::CourseMethods
-  include CourseFeedTimelime::CourseMethods
   include CourseFav::CourseMethods
   include SelectCourseApply::CourseMethods
   include Note::CourseMethods

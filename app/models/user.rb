@@ -194,7 +194,6 @@ class User < ActiveRecord::Base
   include Activity::UserMethods
   include UserFeedStream
   include MediaShare::UserMethods
-  include CourseFeedTimelime::UserMethods
   include QuestionFeedTimelime::UserMethods
   include ShortMessage::UserMethods
   include CourseFav::UserMethods
