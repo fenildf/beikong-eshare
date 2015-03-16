@@ -181,37 +181,6 @@ module ApplicationHelper
     }.join('，')
   end
 
-  def course_apply_status(apply)
-    if apply.blank?
-      klass = 'no'
-      string = '未选'
-    else
-      klass = apply.status.downcase
-      string = {
-        SelectCourseApply::STATUS_REQUEST => '待审核',
-        SelectCourseApply::STATUS_ACCEPT => '已批准',
-        SelectCourseApply::STATUS_REJECT => '已拒绝'
-      }[apply.status]
-    end
-
-    capture_haml {
-      haml_tag 'span', :class => "page-apply-status #{klass}" do
-        haml_tag 'span', "#{string}"
-      end
-    }
-  end
-
-  def manage_course_select_apply_status(course)
-    count = course.apply_users.count
-
-    return '空选' if count == 0
-    return '未满' if !course.have_apply_request_limit? 
-
-    return '未满' if course.apply_request_limit > count
-    return '选满' if course.apply_request_limit == count
-    return '超选' if course.apply_request_limit < count
-  end
-
   def user_page_head_bg(user)
     # url = '/assets/user_page/default.png'
     # fit_image url, :height => 180

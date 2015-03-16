@@ -4,7 +4,6 @@
   - if R::INHOUSE
     .checkins
       = render_cell :course, :checkin, :user => current_user, :course => @course
-      = render_cell :course, :student_select, :user => current_user, :course => @course
       
   = render_cell :course, :navbar, :course => @course
 

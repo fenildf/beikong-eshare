@@ -90,7 +90,6 @@ Eshare::Application.routes.draw do
       get :courses
       get :questions
       get :answers
-      get :course_applies
     end
   end
 end
@@ -167,14 +166,6 @@ end
 # 课程
 Eshare::Application.routes.draw do
   namespace :manage do
-    resources :applies, :shallow => true do
-      collection do
-        get :status_request
-        get :status_accept
-        get :status_reject
-      end
-    end
-    
     resources :courses, :shallow => true do
       collection do
         get :download_import_sample
@@ -198,19 +189,6 @@ Eshare::Application.routes.draw do
 
         end
       end
-
-      resources :applies, :shallow => true, :controller => :course_applies do
-        member do
-          put :accept
-          put :reject
-        end
-
-        collection do
-          get :status_request
-          get :status_accept
-          get :status_reject
-        end
-      end
     end
 
     resources :surveys, :shallow => true do
@@ -230,14 +208,9 @@ Eshare::Application.routes.draw do
   resources :courses, :shallow => true do
     member do
       post :checkin
-      post :student_select
       get :users_rank
       get :questions
       get :notes
-    end
-
-    collection do
-      get :sch_select
     end
 
     resources :chapters, :shallow => true do
@@ -265,7 +238,6 @@ Eshare::Application.routes.draw do
       collection do
         get :all_courses_read_pie
         get :all_courses_punch_card
-        get :all_courses_select_apply_pie
       end
 
       member do

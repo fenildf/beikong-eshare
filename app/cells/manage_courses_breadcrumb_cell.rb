@@ -9,8 +9,4 @@ class ManageCoursesBreadcrumbCell < Cell::Rails
     render
   end
 
-  def applies(opts = {})
-    @course = opts[:course]
-    render
-  end
 end

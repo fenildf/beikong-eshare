@@ -200,7 +200,6 @@ class User < ActiveRecord::Base
   include CourseSubject::UserMethods
   include CourseSubjectManagership::UserMethods
   include CourseSubjectFollow::UserMethods
-  include SelectCourseApply::UserMethods
   include CourseWareReading::UserMethods
   include TagFollow::UserMethods
   include Omniauth::UserMethods

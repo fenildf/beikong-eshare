@@ -7,7 +7,7 @@ class CoursesController < ApplicationController
     case controller.action_name
     when 'show', 'users_rank', 'questions', 'notes'
       return 'course_show'
-    when 'index', 'sch_select'
+    when 'index'
       return 'grid'
     else
       return 'application'
@@ -19,10 +19,6 @@ class CoursesController < ApplicationController
   end
 
   def index
-  end
-
-  def sch_select
-    @courses = Course.page(params[:page]).per(18)
   end
 
   def show
@@ -47,41 +43,6 @@ class CoursesController < ApplicationController
   # 用户排名
   def users_rank
     @rank = @course.users_rank
-  end
-
-  # 学生选课 INHOUSE
-  def student_select
-    if params[:cancel]
-      current_user.cancel_select_course @course
-      
-      case params[:page]
-      when 'sch_select'
-        render :json => { 
-          :status => 'request',
-          :html => ( render_cell :course, :sch_select_table, 
-                                 :user => current_user, 
-                                 :courses => [@course] )
-        }
-      else
-        render :json => { :status => 'cancel' }
-      end
-
-      return
-    end
-
-    current_user.select_course @course
-
-    case params[:page]
-    when 'sch_select'
-      render :json => { 
-        :status => 'request',
-        :html => ( render_cell :course, :sch_select_table, 
-                               :user => current_user, 
-                               :courses => [@course] )
-      }
-    else
-      render :json => { :status => 'request' }
-    end
   end
 
   def questions

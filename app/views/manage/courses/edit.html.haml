@@ -20,14 +20,6 @@
           - Course::BASE_TAGS.each do |tagname|
             %a.tag{:href => 'javascript:;', :data => {:name => tagname}}= tagname
 
-      - if R::INHOUSE
-        .form-inputs.apply_request_limit
-          - enable = @course.enable_apply_request_limit
-          = f.input :enable_apply_request_limit, :as => :boolean, :input_html => {:autocomplete => :off}
-          .limit-inputer{:style => enable ? '' : 'display:none;'}
-            = f.input :apply_request_limit, :input_html => {:class => :mini, :autocomplete => :off}, :label => false
-            %label.ren 人
-
       .form-actions
         = f.button :submit, :class => 'success'
         %a.btn.cancel{:href => "/manage/courses?q=#{cookies[:last_course_filter]}"}= t('common.form.cancel')

@@ -6,7 +6,6 @@ zh-CN:
       categories_manage: 分类管理
       courses_manage: 课程管理
       teacher_surveys_manage: 教师评价
-      course_applies_manage: 选课管理
 
       #INTERNET
       user_opinions_view: 反馈意见 
@@ -95,8 +94,6 @@ zh-CN:
         desc: 课程简介
         syllabus: 课程大纲
         cover: 课程封面
-        enable_apply_request_limit: 限制选课人数
-        apply_request_limit: 最大选课人数
 
       chapter:
         title: 章节标题
@@ -264,9 +261,6 @@ zh-CN:
         ops: 操作
         chapters-count: 章节数
         creator: 创建者
-        select_apply: 选课人数/上限
-        select_status: 选课状态
-        select_apply_status: 选课情况
 
       chapters:
         title: 标题
@@ -285,15 +279,6 @@ zh-CN:
         ops: 操作
         position: 排序位置
         convert_status: 转码状态
-
-      course-applies:
-        user: 选课人
-        status: 选课状态
-        ops: 操作
-
-        course: 课程
-        cid: 课程ID
-        updated_at: 更新时间
 
       questions:
         title: 标题

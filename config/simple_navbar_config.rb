@@ -8,13 +8,9 @@ SimpleNavbar::Base.config do
       controller :'manage/courses'
       controller :'manage/chapters'
       controller :'manage/course_wares'
-      controller :'manage/course_applies'
     end
 
     if R::INHOUSE
-      nav :course_applies_manage, :url => '/manage/applies' do
-        controller :'manage/applies'
-      end
       nav :teacher_surveys_manage, :url => '/manage/surveys' do
         controller :'manage/surveys'
         controller :'manage/survey_results'
@@ -66,7 +62,6 @@ SimpleNavbar::Base.config do
       controller :'manage/courses'
       controller :'manage/chapters'
       controller :'manage/course_wares'
-      controller :'manage/applies'
     end
   end
 

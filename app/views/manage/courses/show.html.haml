@@ -2,10 +2,6 @@
   = render_cell :manage_courses_breadcrumb, :display, :model => @course
 
   .btns
-    - if R::INHOUSE
-      %a.btn.gray-flat{:href => "/manage/courses/#{@course.id}/applies"}
-        %i.icon-list-alt
-        %span 选课管理
     %a.btn.gray-flat{:href => "/manage/courses/#{@course.id}/edit"}
       %i.icon-edit
       %span= t('common.edit')

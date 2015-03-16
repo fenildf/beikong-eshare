@@ -33,12 +33,6 @@ class CourseCell < Cell::Rails
     render
   end
 
-  def student_select(opts = {})
-    @course = opts[:course]
-    @user = opts[:user]
-    render
-  end
-
   def sidebar(opts = {})
     @course = opts[:course]
     @user = opts[:user]
@@ -78,12 +72,6 @@ class CourseCell < Cell::Rails
 
   def user_attitudes_form(opts = {})
     @course = opts[:course]
-    @user = opts[:user]
-    render
-  end
-
-  def sch_select_table(opts = {})
-    @courses = opts[:courses]
     @user = opts[:user]
     render
   end

@@ -26,12 +26,6 @@ class UsersController < ApplicationController
     @answers = @user.answers.page params[:page]
   end
 
-  def course_applies
-    @user = User.find params[:id]
-    return render :text => '不能查看他人的选课记录', :status => 401 if @user != current_user
-    @applies = @user.select_course_applies.page(params[:page]).per(20)
-  end
-
   def complete_search
     query = params[:q]
     return render :json => [] if query.blank?

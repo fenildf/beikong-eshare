@@ -15,29 +15,13 @@
 
 
 .page-manage-courses
-  - if params[:select_apply_status]
-    .pblock.select_apply_status
-      %span 以下显示选课情况为
-      :ruby
-        h = {
-          'empty' => '空选',
-          'full' => '选满',
-          'notfull' => '未满',
-          'over' => '超选',
-        }[params[:select_apply_status]]
-
-      %b= h
-      %span 的课程。
-      %span
-        = link_to '点此返回选课管理', '/manage/applies'
-  - else
-    .pblock.filter
-      :ruby
-        cookies[:last_course_filter] = { 
-          :value => @query, 
-          :expires => 1.years.from_now 
-        }
-      = render_cell :layout, :manage_courses_filter, :query => @query
+  .pblock.filter
+    :ruby
+      cookies[:last_course_filter] = { 
+        :value => @query, 
+        :expires => 1.years.from_now 
+      }
+    = render_cell :layout, :manage_courses_filter, :query => @query
 
   .pblock.table
     = page_data_table(:courses, @courses, :striped, :bordered) do |table|
@@ -51,20 +35,7 @@
       - table.add_column(:'chapters-count') do |course|
         = course.chapters.count
         
-      - table.add_column(:select_apply) do |course|
-        - limit = course.have_apply_request_limit? ? course.apply_request_limit : '不限'
-        %span #{course.apply_users.count}
-        %span /
-        %span #{limit}
-
-      - table.add_column(:select_apply_status) do |course|
-        = manage_course_select_apply_status course
-
       - table.add_column(:ops) do |course|
-
-        %a.btn.mini.gray-flat{:href => "/manage/courses/#{course.id}/applies"}
-          %i.icon-list-alt
-          %span 选课管理
 
         %a.btn.mini.gray-flat{:href => "/manage/courses/#{course.id}/edit"}
           %i.icon-edit
