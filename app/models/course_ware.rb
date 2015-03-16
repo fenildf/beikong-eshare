@@ -7,7 +7,6 @@ class CourseWare < ActiveRecord::Base
   include CourseReadPercent::CourseWareMethods
   include CourseWareKindMethods
   include CourseWareReadingDelta::CourseWareMethods
-  include StepHistory::CourseWareMethods
   include Note::CourseWareMethods
 
   attr_accessible :title, :desc, :url, :creator, :total_count
@@ -33,11 +32,7 @@ class CourseWare < ActiveRecord::Base
   has_many :course_ware_marks
   has_many :questions
 
-  has_many :javascript_steps
-  has_many :css_steps
-  has_many :regex_steps
-  has_many :sql_steps
-  has_many :java_steps
+
 
   scope :by_course, lambda {|course|
     joins(:chapter).where('chapters.course_id = ?', course.id)
@@ -105,7 +100,6 @@ class CourseWare < ActiveRecord::Base
 
   def _get_total_count_by_kind
     return 1000 if self.is_video?
-    return javascript_steps.count if self.is_javascript?
 
     if file_entity.present? && convert_success?
       return file_entity.output_images.count if file_entity.is_pdf?
@@ -154,29 +148,6 @@ class CourseWare < ActiveRecord::Base
     chapter.course_wares.where('position > ?', position).first
   end
 
-  def export_json
-    if kind == 'javascript'
-      steps = []
-      javascript_steps.each do |s|
-        steps << {
-          :content => s.content,
-          :rule => s.rule,
-          :title => s.title,
-          :desc => s.desc,
-          :hint => s.hint,
-          :init_code => s.init_code,
-          :code_reset => s.code_reset
-        }
-      end
 
-      {
-        :title => title,
-        :desc => desc,
-        :kind => kind,
-        :total_count => total_count,
-        :steps => steps
-      }.to_json
-    end
-  end
 
 end

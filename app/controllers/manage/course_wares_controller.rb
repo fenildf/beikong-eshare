@@ -16,16 +16,6 @@ class Manage::CourseWaresController < ApplicationController
     @course_ware = @chapter.course_wares.new
   end
 
-  def import_javascript_course_ware
-    @chapter = Chapter.find(params[:chapter_id])
-    @course_ware = @chapter.course_wares.new
-  end
-
-  def do_import_javascript_course_ware
-    @chapter = Chapter.find(params[:chapter_id])
-    @chapter.import_javascript_course_ware_from_json(params[:json], current_user)
-    return redirect_to "/manage/chapters/#{@chapter.id}"
-  end
 
   def create
     authorize! :manage, CourseWare
@@ -110,13 +100,6 @@ class Manage::CourseWaresController < ApplicationController
     return redirect_to "/manage/chapters/#{@chapter.id}"
   end
 
-  def export_json
-    @course_ware = CourseWare.find(params[:id])
-    if @course_ware.is_javascript?
-      # render :text => @course_ware.export_json
-      return
-    end
-    render :text => '课件不是编程教程类型，无法导出字符串'
-  end
+
 
 end
