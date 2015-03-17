@@ -48,9 +48,4 @@ describe Attachment do
     test(chapter)
   }
 
-  it{
-    creator = FactoryGirl.create(:user)
-    announcement = FactoryGirl.create(:announcement, :creator => creator)
-    test(announcement)
-  }
 end

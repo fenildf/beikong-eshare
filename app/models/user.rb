@@ -186,7 +186,7 @@ class User < ActiveRecord::Base
   include Question::UserMethods
   include Answer::UserMethods
   include AnswerVote::UserMethods
-  include Announcement::UserMethods
+  # include Announcement::UserMethods
   include Follow::UserMethods
   include QuestionFollow::UserMethods
   include Practice::UserMethods
