@@ -197,14 +197,12 @@ class User < ActiveRecord::Base
   include QuestionFeedTimelime::UserMethods
   include ShortMessage::UserMethods
   include CourseFav::UserMethods
-  include CourseSubject::UserMethods
-  include CourseSubjectManagership::UserMethods
-  include CourseSubjectFollow::UserMethods
+
+
+
   include CourseWareReading::UserMethods
   include TagFollow::UserMethods
   include Omniauth::UserMethods
-  include Team::UserMethods
-  include TeamMembership::UserMethods
   include WeiboFriends
   include Note::UserMethods
   include CourseAttitude::UserMethods
