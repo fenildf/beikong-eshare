@@ -1,6 +1,5 @@
 class Admin::UsersController < ApplicationController
   before_filter :authenticate_user!
-  layout 'manage'
 
   def index
     authorize! :manage, User

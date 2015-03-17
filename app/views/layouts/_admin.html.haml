@@ -2,7 +2,14 @@
 
 !!!
 - simple_page_layout title, :html_lang => :zh, :body_class => 'admin' do
-  = render_cell :layout, :topnav_admin, :user => current_user
+
+
+    = page_navbar(:fixed_top, :color_inverse) do |navbar|
+      - navbar.add_item('<i class="icon-home icon-white"></i>首页'.html_safe, '/admin')
+      - navbar.add_item('设置管理员密码', '/account/edit')
+      - navbar.add_item('退出登录', '/account/sign_out')
+
+
   = render_cell :layout, :sidebar, :user => current_user
 
   .page-layout-application.admin

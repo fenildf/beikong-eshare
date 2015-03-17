@@ -10,11 +10,6 @@ class LayoutCell < Cell::Rails
     render
   end
 
-  def topnav_admin(opts = {})
-    @user = opts[:user]
-    render
-  end
-
   def topnav_coding(opts = {})
     @user = opts[:user]
     @preview = opts[:preview]
