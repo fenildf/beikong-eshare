@@ -6,7 +6,7 @@ describe MediaResourceDownload do
 
   describe "#download_id" do
     let(:decode)    {Base64.decode64(resource1.download_id)}
-    let(:str)       {"#{resource1.creator.id},#{resource1.file_entity.id},#{resource1.name}"}
+    let(:str)       {"#{resource1.creator.id},#{resource1.id}"}
 
     it "is consistent and uniq" do
       decode.should eq str
