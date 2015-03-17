@@ -1,74 +1,43 @@
 class Practice < ActiveRecord::Base
+  include PracticeRecord::PracticeMethods
+  include Attachment::ModelMethods
 
-  attr_accessible :title, :content, :chapter, :creator, 
-                  :attaches_attributes, :requirements_attributes
+  attr_accessible :title, :content, :chapter, :creator
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :chapter
 
-
-  has_many :attaches, :class_name => 'PracticeAttach', :foreign_key => :practice_id
-  has_many :requirements, :class_name => 'PracticeRequirement', :foreign_key => :practice_id
-  has_many :records, :class_name => 'PracticeRecord', :foreign_key => :practice_id
-  has_many :uploads, :through => :records
-
-  accepts_nested_attributes_for :attaches
-  accepts_nested_attributes_for :requirements
-
+  has_many :uploads, :class_name => 'PracticeUpload', :foreign_key => :practice_id
 
   validates :title, :chapter, :creator, :presence => true
 
+  scope :by_creator, lambda{|creator| where(:creator_id => creator.id) }
+  scope :by_course, lambda{|course| joins(:chapter).where('chapters.course_id = ?', course.id) }
 
-  def submit_by_user(user)
-    self.records.create(
-      :practice => self,
-      :user => user,
-      :submitted_at => Time.now,
-      :status => PracticeRecord::Status::SUBMITTED
-    )
-  end
-
-
-  def check_by_user(user)
-    practice_record = _get_record_by_user(user)
-
-    practice_record.status = PracticeRecord::Status::CHECKED
-    practice_record.checked_at = Time.now
-    practice_record.save
-  end
-
-
-  def in_submitted_status_of_user?(user)
-    return false if _empty_records_by_user?(user)
-    _get_record_by_user(user).status == PracticeRecord::Status::SUBMITTED
-  end
-
-  def in_checked_status_of_user?(user)
-    return false if _empty_records_by_user?(user)
-    _get_record_by_user(user).status == PracticeRecord::Status::CHECKED
-  end
-
-  def submitted_time_by_user(user)
-    _get_record_by_user(user).submitted_at
-  end
-
-  def checked_time_by_user(user)
-    _get_record_by_user(user).checked_at
-  end
-
-  private
-    def _empty_records_by_user?(user)
-      self.records.where(:user_id => user.id).count == 0
+  def add_upload(user, file_entity)
+    upload = self.uploads.by_creator(user).first
+    if upload.blank?
+      upload = self.uploads.create(:creator => user)
     end
+    upload.file_entities << file_entity
+  end
 
-    def _get_record_by_user(user)    
-      self.records.where(:user_id => user.id).first
-    end
-
+  def remove_upload(user, file_entity)
+    upload = self.uploads.by_creator(user).first
+    return if upload.blank?
+    upload.file_entities.delete file_entity
+  end
 
   module UserMethods
     def self.included(base)
-      base.has_many :practices, :class_name => 'Practice', :foreign_key => :creator_id
+      base.has_many :practices, 
+                    :class_name => 'Practice', 
+                    :foreign_key => :creator_id
+
+      # 被分配的作业
+      base.has_many :assigned_practices,
+                    :through => :selected_courses,
+                    :source => :practices
     end
   end
 
