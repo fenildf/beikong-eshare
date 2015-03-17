@@ -197,9 +197,9 @@ class User < ActiveRecord::Base
   include QuestionFeedTimelime::UserMethods
   include ShortMessage::UserMethods
   include CourseFav::UserMethods
-  include CourseSubject::UserMethods
-  include CourseSubjectManagership::UserMethods
-  include CourseSubjectFollow::UserMethods
+
+
+
   include CourseWareReading::UserMethods
   include TagFollow::UserMethods
   include Omniauth::UserMethods
