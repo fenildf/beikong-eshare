@@ -12,10 +12,6 @@ class CourseWaresController < ApplicationController
 
   def show
     _show()
-
-    if @course_ware.is_javascript? && @course_ware.javascript_steps.present?
-      return redirect_to "/javascript_steps/#{@course_ware.javascript_steps.first.id}"
-    end
   end
 
   def _show
