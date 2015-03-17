@@ -1,4 +1,6 @@
 class Announcement < ActiveRecord::Base
+  include Attachment::ModelMethods
+  
   attr_accessible :title, :content, :creator_id
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
