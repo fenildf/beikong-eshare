@@ -2,6 +2,7 @@ class Chapter < ActiveRecord::Base
   include MovePosition::ModelMethods
   include CourseReadPercent::ChapterMethods
   include Note::ChapterMethods
+  include Attachment::ModelMethods
 
   attr_accessible :title, :desc, :creator, :course
 
