@@ -10,21 +10,12 @@ SimpleNavbar::Base.config do
       controller :'manage/course_wares'
     end
 
-    if R::INHOUSE
-      nav :teacher_surveys_manage, :url => '/manage/surveys' do
-        controller :'manage/surveys'
-        controller :'manage/survey_results'
-      end
-    end
+    # nav :teacher_surveys_manage, :url => '/manage/surveys' do
+    #   controller :'manage/surveys'
+    #   controller :'manage/survey_results'
+    # end
 
-    if R::INTERNET
-      nav :user_opinions_view, :url => '/admin/user_opinions' do
-        controller :'admin/user_opinions'
-      end
-
-      nav :site_changes, :url => '/admin/site_changes' do
-        controller :'admin/site_changes'
-      end
+    nav :user_groups_manage, :url => '/manage/user_groups' do
     end
   end
 
@@ -135,17 +126,4 @@ SimpleNavbar::Base.config do
       controller :account, :only => :edit
     end
   end
-
-  if R::INTERNET
-    rule :help do
-      nav :user_opinion, :url => '/help/user_opinions/new' do
-        controller :'help/user_opinions'
-      end
-
-      nav :site_changes, :url => '/help/site_changes' do
-        controller :'help/site_changes'
-      end
-    end
-  end
-
 end

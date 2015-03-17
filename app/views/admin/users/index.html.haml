@@ -1,19 +1,19 @@
 - content_for :header do
   %h1 用户管理
   .btns
-    %a.btn.success-flat{:href => '/admin/users/new'}
-      %i.icon-plus.icon-white
+    %a.btn.btn-pill.btn-flat-success{:href => '/admin/users/new'}
+      %i.fa.fa-plus
       %span 新增用户
-    %a.btn.success-flat{:href => '/admin/users/import'}
-      %i.icon-upload.icon-white
-      %span 导入Excel
+    %a.btn.btn-pill.btn-flat-success{:href => '/admin/users/import'}
+      %i.fa.fa-upload
+      %span 导入 Excel
 
 .page-admin-users
   .pblock.filter
     = render_cell :layout, :admin_users_filter, :query => @query
 
   .pblock.table
-    = page_data_table(:users, @users, :striped, :bordered) do |table|
+    = page_data_table(:users, @users, :striped) do |table|
       - table.add_line_data(:role)
       - table.add_column(:id) do |user|
         = "##{user.id}"

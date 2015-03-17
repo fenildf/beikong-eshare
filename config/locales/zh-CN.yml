@@ -6,6 +6,7 @@ zh-CN:
       categories_manage: 分类管理
       courses_manage: 课程管理
       teacher_surveys_manage: 教师评价
+      user_groups_manage: 用户分组管理
 
       #INTERNET
       user_opinions_view: 反馈意见 

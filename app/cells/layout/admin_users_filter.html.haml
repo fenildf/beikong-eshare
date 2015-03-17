@@ -1,9 +1,11 @@
 .page-filter.admin-users
-  %input.flat{:name => :q, :type => :text, :placeholder => '查找用户', :value => @query}
+  %input.form-control{:name => :q, :type => :text, :placeholder => '查找用户', :value => @query}
 
   - if @query.present?
-    %a.clear-filter{:href => '/admin/users', :title => '清除搜索词'}
-      %i.icon-remove-sign
+    %a.btn.btn-pill.btn-flat{:href => '/admin/users', :title => '清除搜索词'}
+      %i.fa.fa-remove
+      %span 清除
 
-  %a.btn.inverse-flat.do-search{:href => 'javascript:;'}
-    %i.icon-search.icon-white
+  %a.btn.btn-pill.btn-flat{:href => 'javascript:;'}
+    %i.fa.fa-search
+    %span 搜索
