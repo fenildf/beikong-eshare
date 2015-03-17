@@ -95,6 +95,7 @@ class Answer < ActiveRecord::Base
   module UserMethods
     def self.included(base)
       base.has_many :answers, :foreign_key => 'creator_id'
+      base.has_many :answered_questions, :through => :answers, :source => :question
     end
   end
 end

@@ -56,6 +56,8 @@ class Question < ActiveRecord::Base
     }
   }
 
+  scope :be_answered, :conditions => ['answers_count > 0']
+
   # 记录用户活动
   record_feed :scene => :questions,
                         :callbacks => [:create, :update]
