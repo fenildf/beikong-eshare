@@ -1,18 +1,9 @@
 - content_for :header do
-  = render_cell :manage_courses_breadcrumb, :display
+  %h1 编排课程
   .btns
-    %a.btn.success-flat{:href => '/manage/courses/new'}
-      %i.icon-plus.icon-white
+    %a.btn.btn-pill.btn-flat-success{:href => '/manage/courses/new'}
+      %i.fa.fa-plus
       %span 创建课程
-    .down-btns
-      %a.btn.down.success-flat{:href => 'javascript:;'}
-        %i.icon-chevron-down.icon-white
-        %span 导入…
-      .menu
-        %a.btn.success-flat{:href => '/manage/courses/import'}
-          %i.icon-upload.icon-white
-          %span 导入Excel
-
 
 .page-manage-courses
   .pblock.filter
@@ -24,7 +15,7 @@
     = render_cell :layout, :manage_courses_filter, :query => @query
 
   .pblock.table
-    = page_data_table(:courses, @courses, :striped, :bordered) do |table|
+    = page_data_table(:courses, @courses, :striped) do |table|
       - table.add_column(:id) do |course|
         = "##{course.id}"
       - table.add_column(:name) do |course|
@@ -37,16 +28,16 @@
         
       - table.add_column(:ops) do |course|
 
-        %a.btn.mini.gray-flat{:href => "/manage/courses/#{course.id}/edit"}
-          %i.icon-edit
+        %a.btn.btn-pill.btn-flat-info.btn-mini{:href => "/manage/courses/#{course.id}/edit"}
+          %i.fa.fa-edit
           %span= t('common.edit')
 
-        %a.btn.mini.gray-flat{:href => "/courses/#{course.id}?preview=true"}
-          %i.icon-eye-open
+        %a.btn.btn-pill.btn-flat-info.btn-mini{:href => "/courses/#{course.id}?preview=true"}
+          %i.fa.fa-eye
           %span 预览
 
-        %a.btn.mini.danger-flat.delete{:href => 'javascript:;', :data => {:url => "/manage/courses/#{course.id}"}}
-          %i.icon-remove.icon-white
+        %a.delete.btn.btn-pill.btn-flat-danger.btn-mini{:href => 'javascript:;', :data => {:url => "/manage/courses/#{course.id}"}}
+          %i.fa.fa-remove
           %span= t('common.delete')
 
   = paginate @courses

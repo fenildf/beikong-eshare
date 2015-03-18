@@ -59,7 +59,7 @@ gem 'devise', '2.2.4'
 # 页面渲染
 gem 'haml', '4.0.0' # HAML模板语言
 gem 'cells', '3.8.8' # 用于复用一些前端组件
-gem 'simple_form', '2.0.2' # 用于简化表单创建
+gem 'simple_form', '2.1.2' # 用于简化表单创建
 
 # 数据查询
 gem 'pacecar', '1.5.3' # 给模型添加实用的scope

@@ -25,11 +25,12 @@
       - table.add_column(:email)
       - table.add_column(:ops) do |user|
         - if !user.is_admin?
-          = link_to [:edit, :admin, user], :class => 'edit btn mini gray-flat' do
-            %i.icon-edit
-            %span= t('common.user.edit')
-          = link_to [:admin, user], :method => :delete, :confirm => t('common.delete_confirm'), :class => 'btn mini danger-flat' do
-            %i.icon-remove.icon-white
-            %span= t('common.delete')
+          %a.btn.btn-pill.btn-flat-info.btn-mini{:href => url_for([:edit, :admin, user])}
+            %i.fa.fa-edit
+            %span 修改
+
+          = link_to [:admin, user], :method => :delete, :confirm => t('common.delete_confirm'), :class => 'btn btn-pill btn-flat-danger btn-mini' do
+            %i.fa.fa-trash
+            %span 删除
 
   = paginate @users

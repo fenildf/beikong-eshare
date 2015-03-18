@@ -16,16 +16,23 @@
               %i.fa.fa-power-off
               %span 退出登录
 
-- else
-  .page-top-nav
-    - if @user.present?
-      = page_navbar(:fixed_top, :color_inverse) do |navbar|
-        - navbar.add_item("<i class='icon-home icon-white'></i>首页".html_safe, '/')
-        - navbar.add_item("<i class='icon-user icon-white'></i>#{@user.name}".html_safe, "/users/#{@user.id}")
-        - navbar.add_item("<i class='icon-cog icon-white'></i>账号设置".html_safe, '/account/edit')
-        - if R::INTERNET
-          - navbar.add_item("<i class='icon-comment icon-white'></i>意见反馈<span class='newf'>new</span>".html_safe, '/help/user_opinions/new')
-        - navbar.add_item("<i class='icon-off icon-white'></i>退出登录".html_safe, '/account/sign_out')
-    - else
-      = page_navbar(:fixed_top, :color_inverse) do |navbar|
-        - navbar.add_item('<i class="icon-home icon-white"></i>首页'.html_safe, '/')
+- elsif @user.is_teacher? or @user.is_student?
+  .page-header
+    .navbar.container-full
+      .row
+        .col-pad-12
+          .search
+            %input.form-control{:name => :q, :type => :text, :placeholder => '搜索课程和其他内容…'}
+            %a.do-search{:href => 'javascript:;'}
+              %i.fa.fa-search
+
+          .right
+            %a.item{:href => '/courses'}
+              %i.fa.fa-book
+              %span 课程中心
+            %a.item{:href => '/account/edit'}
+              %i.fa.fa-cog
+              %span 账号设置
+            %a.item{:href => '/account/sign_out'}
+              %i.fa.fa-power-off
+              %span 退出登录

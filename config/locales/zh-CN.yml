@@ -12,16 +12,22 @@ zh-CN:
       user_opinions_view: 反馈意见 
       site_changes: 更新记录
 
-    teacher:
-      dashboard: 动态
-      courses: 课程
-      disk: 文件
-      tags: 标签
-      user: 个人
-      questions: 问答
-      
-      courses_manage: 课程管理
-      courses_manage_aj: 课管理β
+    teacher_course:
+      course_design: 编排课程
+      course_ware_upload: 上传课件
+      file_upload: 文件共享
+
+    teacher_homework:
+      new_practice: 布置作业
+      check_practice: 检查作业
+      questions_iask: 提出的问题
+      questions_be_answered: 得到的回答
+      questions_fav: 关注的问题
+      questions_answered: 回答的问题
+
+    teacher_other:
+      new_announcements: 发布公告
+      dashboard: 公共动态
 
     student:
       dashboard: 动态

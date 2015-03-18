@@ -9,12 +9,9 @@
 
       = f.input :password, :required => true, :placeholder => '密码', :required => true
     .form-actions
-      = f.button :submit, t('common.sign-in'), :class => 'large sign-in'#, 'data-disable-with' => t('common.sign-ining')
+      = f.button :submit, t('common.sign-in'), :class => 'btn btn-jumbo btn-flat-info sign-in'
     .remember
       = f.input :remember_me, :as => :boolean
-    - if R::INTERNET
-      .recover
-        %a.forget-password{:href => '/account/password/new'} 忘记密码了？
     .clearfix
 
 .sign-res-info{:style => 'display:none;'}
@@ -24,9 +21,3 @@
   .info.ok{:style => 'display:none;'}
     %i.icon-ok
     %span 登录成功
-
-- if R::INTERNET
-  .oauth-sign
-    %a.btn.large.oauthsign.weibo{:href => '/auth/weibo'}
-      %i
-      %span 使用新浪微博登录

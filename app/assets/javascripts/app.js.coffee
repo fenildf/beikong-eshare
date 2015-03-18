@@ -6,3 +6,6 @@ jQuery ->
 
 jQuery('.btn').on 'dragstart', (evt) ->
   evt.preventDefault()
+
+jQuery('form .form-submits a.submit').click ->
+  jQuery(this).closest('form').submit()

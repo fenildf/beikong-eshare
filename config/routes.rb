@@ -7,12 +7,6 @@ Eshare::Application.routes.draw do
 
   root :to => 'index#index'
   get '/dashboard' => 'index#dashboard'
-  get '/plan' => 'index#plan'
-
-  # install
-  get '/install' => 'install#index'
-  get '/install/:step' => 'install#step'
-  post '/install/submit/:step' => 'install#step_submit'
 
   # /auth/weibo/callback
   get '/auth/:provider/callback' => 'oauth#callback'

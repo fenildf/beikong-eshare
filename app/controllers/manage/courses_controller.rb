@@ -1,9 +1,5 @@
 class Manage::CoursesController < ApplicationController
   before_filter :authenticate_user!
-  layout :get_layout
-  def get_layout
-    return 'manage'
-  end
   
   def index
     authorize! :manage, Course
@@ -45,10 +41,10 @@ class Manage::CoursesController < ApplicationController
   def update
     @course = Course.find params[:id]
     authorize! :manage, @course
-    tags = params[:course_tags]
+    # tags = params[:course_tags]
 
-    if @course.update_attributes(params[:course]) && 
-       @course.replace_public_tags(tags, current_user)
+    if @course.update_attributes(params[:course]) #&& 
+      # @course.replace_public_tags(tags, current_user)
       return redirect_to :action => :index
     end
     render :action => :edit

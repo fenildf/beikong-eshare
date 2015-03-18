@@ -2,11 +2,13 @@
 -# 具体逻辑定义在 search.js.coffee
 
 .page-filter.manage-courses
-  %input.flat{:name => :q, :type => :text, :placeholder => '查找课程', :value => @query}
+  %input.form-control{:name => :q, :type => :text, :placeholder => '查找课程', :value => @query, :data => {:href => '/manage/courses'}}
 
   - if @query.present?
-    %a.clear-filter{:href => '/manage/courses', :title => '清除搜索词'}
-      %i.icon-remove-sign
+    %a.btn.btn-pill.btn-flat{:href => '/manage/courses', :title => '清除搜索词'}
+      %i.fa.fa-remove
+      %span 清除
 
-  %a.btn.inverse-flat.do-search{:href => 'javascript:;', :title => '搜索'}
-    %i.icon-search.icon-white
+  %a.do-search.btn.btn-pill.btn-flat{:href => 'javascript:;', :title => '搜索'}
+    %i.fa.fa-search
+    %span 搜索
