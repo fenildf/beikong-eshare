@@ -2,6 +2,7 @@ $top-nav-border-color: #E4E6E9;
 
 // 顶部导航栏
 .page-top-nav {
+  z-index: 1;
   position: fixed;
   top:0;left:200px;right:0;
   height: 80px; line-height: 80px;
@@ -40,6 +41,76 @@ $top-nav-border-color: #E4E6E9;
         background-color: #1BA4F8;
         text-decoration: none;
       }
+    }
+  }
+}
+
+// 侧边导航栏
+.page-sidebar {
+  position: fixed;
+  width: 200px;
+  left:0;top:0;bottom:0;
+  background-color: #343F51;
+
+  a.userinfo {
+    display: block;
+    padding-top: 30px;
+    position: relative;
+
+    .avatar, .avatar img {
+      width:80px;height:80px;
+      border-radius:100px;
+    }
+    .avatar {margin-left:60px;}
+    .name {
+      text-align: center;
+      font-size: 16px;
+      color: #C8D0DC;
+      padding-top: 20px;
+      padding-bottom: 30px;
+    }
+    &:hover {
+      text-decoration: none;
+      background-color: rgba(white, 0.1);
+    }
+
+    &:before {
+      content:"";
+      position: absolute;
+      bottom:2px;left:0;right:0;
+      height:0;
+      border-top:solid 1px #283140;
+      border-bottom:solid 1px #2F3949;
+    }
+    &:after {
+      content:"";
+      position: absolute;
+      bottom:0;left:0;right:0;
+      height:0;
+      border-top:solid 1px #2A3443;
+      border-bottom:solid 1px #3C485C;
+    }
+  }
+}
+
+// 主区域
+.page-content {
+  margin-top:80px;
+  margin-left:200px;
+  padding: 30px;
+
+  .content-header {
+    background-color: #FFFFFF;
+    border-bottom:solid 1px $top-nav-border-color;
+    margin-bottom: 30px;
+    margin-top:-30px;margin-left:-30px;margin-right:-30px;
+    padding: 25px 30px;
+
+    h1 {
+      color: #4D505D;
+      font-size: 30px; height:30px;line-height:30px;
+      font-weight: normal;
+      padding:0;margin:0;
     }
   }
 }

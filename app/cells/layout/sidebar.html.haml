@@ -1,7 +1,8 @@
 .page-sidebar
   - if @user.present?
-    .avatar
-      = avatar_link @user
+    %a.userinfo{:href => url_for(@user)}
+      .avatar= avatar @user, :large
+      .name= @user.name
       
     - if @user.is_admin?
       = simple_navbar :admin, :as_list, :with_icon
