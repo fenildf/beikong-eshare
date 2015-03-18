@@ -1,7 +1,17 @@
 .page-top-nav
-  = page_navbar(:fixed_top, :color_inverse) do |navbar|
-    - navbar.add_item('<i class="icon-home icon-white"></i>首页'.html_safe, '/admin')
-    - navbar.add_item('设置管理员密码', '/account/edit')
-    - navbar.add_item("<i class='icon-book icon-white'></i>课程中心".html_safe, '/courses')
-    - navbar.add_item("<input class='top-search' name='q' type='text' placeholder='搜索课程内容…' /><i class='icon-search'></i>".html_safe, nil)
-    - navbar.add_item("<i class='icon-off icon-white'></i>退出登录".html_safe, '/account/sign_out')
+  .search
+    %input{:type => :text, :name => :q, :placeholder => '搜索课程内容 …'}
+    %a.do-search.btn.gray-flat{:href => 'javascript:;'}
+      %i.icon-search
+      %span 搜索
+
+  .list
+    %a.item{:href => '/courses'}
+      %i.icon-book
+      %span 课程中心
+    %a.item{:href => '/account/edit'}
+      %i.icon-cog
+      %span 设置管理员密码
+    %a.item{:href => '/account/sign_out'}
+      %i.icon-off
+      %span 退出

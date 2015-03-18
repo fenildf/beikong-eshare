@@ -124,7 +124,7 @@ gem 'simple-images',
 
 gem 'simple-page-compoents',
     :git => 'git://github.com/mindpin/simple-page-compoents',
-    :tag => '0.0.7.9'
+    :ref => '1051df1'
     # :path => '/web/songliang/simple-page-compoents'
 
 ## 给指定 activerecord 模型动态添加属性
