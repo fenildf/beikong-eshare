@@ -169,7 +169,6 @@ class User < ActiveRecord::Base
   include SimpleCredit::UserMethods
   include Report::UserMethods
   include CourseScore::UserMethods
-  include CourseIntent::UserMethods
   include CourseWare::UserMethods
   include UserGenderMethods
   include GroupTreeNode::UserMethods
