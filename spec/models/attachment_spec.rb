@@ -48,9 +48,5 @@ describe Attachment do
     test(chapter)
   }
 
-  it{
-    creator = FactoryGirl.create(:user)
-    announcement = FactoryGirl.create(:announcement, :creator => creator, :for_role => Announcement::FOR_ROLE_STUDENT)
-    test(announcement)
-  }
+  
 end
