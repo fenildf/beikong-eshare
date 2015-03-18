@@ -32,7 +32,7 @@ class CourseWareConverter
       if File.exists?(dest_path)
         FileUtils.rm_r dest_path, :force => true 
       end
-      if File.exists?(source_path) && File.exists(dest_path)
+      if File.exists?(source_path) && !File.exists?(dest_path)
         FileUtils.mv source_path, dest_path
       end
     end
