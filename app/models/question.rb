@@ -5,6 +5,7 @@ class Question < ActiveRecord::Base
   include QuestionFeedTimelime::QuestionMethods
   include QuestionFollow::QuestionMethods
   include QuestionVote::QuestionMethods
+  include Attachment::ModelMethods
   
   attr_accessible :title, :content, :ask_to_user_id, :creator, :best_answer,
                   :course, :chapter, :course_ware, :reward
@@ -55,6 +56,8 @@ class Question < ActiveRecord::Base
       ]
     }
   }
+
+  scope :be_answered, :conditions => ['answers_count > 0']
 
   # 记录用户活动
   record_feed :scene => :questions,

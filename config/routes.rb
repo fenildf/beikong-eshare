@@ -8,10 +8,6 @@ Eshare::Application.routes.draw do
   root :to => 'index#index'
   get '/dashboard' => 'index#dashboard'
 
-  # /auth/weibo/callback
-  get '/auth/:provider/callback' => 'oauth#callback'
-  post '/auth/:provider/unbind' => 'oauth#unbind'
-
   # devise
   devise_for :users, :path => 'account',
                      :controllers => {
@@ -231,7 +227,6 @@ Eshare::Application.routes.draw do
     resources :courses, :shallow => true do
       collection do
         get :all_courses_read_pie
-        get :all_courses_punch_card
       end
 
       member do

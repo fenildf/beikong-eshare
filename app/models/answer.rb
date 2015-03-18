@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class Answer < ActiveRecord::Base
   include AnswerCourseWare::AnswerMethods
+  include Attachment::ModelMethods
 
   attr_accessible :content, :question, :creator
 
@@ -95,6 +96,7 @@ class Answer < ActiveRecord::Base
   module UserMethods
     def self.included(base)
       base.has_many :answers, :foreign_key => 'creator_id'
+      base.has_many :answered_questions, :through => :answers, :source => :question
     end
   end
 end

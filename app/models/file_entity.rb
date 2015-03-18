@@ -24,7 +24,7 @@ class FileEntity < ActiveRecord::Base
       'png', 'svg',  'tif', 'gif'
     ],
     :document => [
-      'xls', 'doc', 'txt'
+      'xls', 'txt'
     ],
     :swf => [
       'swf'
@@ -37,6 +37,9 @@ class FileEntity < ActiveRecord::Base
     ],
     :flv => [
       'flv'
+    ],
+    :doc => [
+      'doc', 'docx'
     ]
   }
 

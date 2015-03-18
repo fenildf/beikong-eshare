@@ -11,6 +11,7 @@ class Course < ActiveRecord::Base
   include Note::CourseMethods
   include CourseAttitude::CourseMethods
   include CourseUpdateStatusMethods
+  include Announcement::HostableMethods
 
   simple_taggable
   BASE_TAGS = %w(
@@ -38,11 +39,7 @@ class Course < ActiveRecord::Base
     self.set_tag_list(tags_str, :user => user, :force_public => true)
   end
 
-  STATUS_UNPUBLISHED = 'UNPUBLISHED'
-  STATUS_PUBLISHED   = 'PUBLISHED'
-  STATUS_MAINTENANCE = 'MAINTENANCE'
-
-  attr_accessible :name, :cid, :desc, :syllabus, :cover, :creator, :with_chapter, :status
+  attr_accessible :name, :cid, :desc, :syllabus, :cover, :creator, :with_chapter
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   has_many :chapters
@@ -75,15 +72,6 @@ class Course < ActiveRecord::Base
 
   validates :inhouse_kind, :inclusion => { :in => COURSE_INHOUSE_KINDS + [nil] }
 
-  validates :status, :inclusion => { :in => [STATUS_UNPUBLISHED, STATUS_PUBLISHED, STATUS_MAINTENANCE] }
-
-  scope :unpublished, :conditions => {:status => STATUS_UNPUBLISHED}
-  scope :published,   :conditions => {:status => STATUS_PUBLISHED}
-  scope :maintenance, :conditions => {:status => STATUS_MAINTENANCE}
-  scope :published_and_maintenance, :conditions => {
-    :status => [STATUS_PUBLISHED, STATUS_MAINTENANCE]
-  }
-  
   default_scope order('courses.id desc')
   max_paginates_per 50
 
