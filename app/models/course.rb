@@ -17,6 +17,7 @@ class Course < ActiveRecord::Base
   include CourseScore::CourseMethods
   include CourseIntent::CourseMethods
   include CourseTeacher::CourseMethods
+  include Announcement::HostableMethods
 
   simple_taggable
   BASE_TAGS = %w(

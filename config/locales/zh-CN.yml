@@ -185,6 +185,9 @@ zh-CN:
       announcement:
         title: 公告标题
         content: 公告内容
+        on_top: 是否置顶
+        host_type: 类型
+        host_id: 类型ID
 
       practice:
         title: 作业标题
