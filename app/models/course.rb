@@ -15,8 +15,8 @@ class Course < ActiveRecord::Base
   include CourseAttitude::CourseMethods
   include CourseUpdateStatusMethods
   include CourseScore::CourseMethods
-  include CourseIntent::CourseMethods
   include CourseTeacher::CourseMethods
+  include Announcement::HostableMethods
 
   simple_taggable
   BASE_TAGS = %w(
@@ -45,21 +45,11 @@ class Course < ActiveRecord::Base
     self.set_tag_list(tags_str, :user => user, :force_public => true)
   end
 
-  STATUS_UNPUBLISHED = 'UNPUBLISHED'
-  STATUS_PUBLISHED   = 'PUBLISHED'
-  STATUS_MAINTENANCE = 'MAINTENANCE'
-
-  APPROVE_STATUS_WAITING = "WAITING"
-  APPROVE_STATUS_YES = "YES"
-  APPROVE_STATUS_NO = "NO"
-
   attr_accessible :name, :cid, :desc, :syllabus, :cover, :creator, :with_chapter, 
-                  :apply_request_limit, :enable_apply_request_limit, :status,
                   :time, :location,
                   :lesson_hour, :credit, 
                   :least_user_count, :most_user_count, 
                   :teach_type, :teach_content,
-                  :approve_status,
                   :category_id
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
@@ -100,31 +90,8 @@ class Course < ActiveRecord::Base
 
   validates :inhouse_kind, :inclusion => { :in => COURSE_INHOUSE_KINDS + [nil] }
 
-  validates :status, :inclusion => { :in => [STATUS_UNPUBLISHED, STATUS_PUBLISHED, STATUS_MAINTENANCE] }
-  validates :approve_status,
-    :inclusion => { :in => [
-      APPROVE_STATUS_WAITING, APPROVE_STATUS_YES, APPROVE_STATUS_NO
-    ] }
-
-
   validates :least_user_count, :most_user_count, :lesson_hour, :credit,
             :presence => true
-
-  scope :unpublished, :conditions => {:status => STATUS_UNPUBLISHED}
-  scope :published,   :conditions => {:status => STATUS_PUBLISHED}
-  scope :maintenance, :conditions => {:status => STATUS_MAINTENANCE}
-  scope :published_and_maintenance, :conditions => {
-    :status => [STATUS_PUBLISHED, STATUS_MAINTENANCE]
-  }
-
-  scope :approve_status_with_waiting,
-    :conditions => ['approve_status = ?', Course::APPROVE_STATUS_WAITING]
-  scope :approve_status_with_yes,
-    :conditions => ['approve_status = ?', Course::APPROVE_STATUS_YES]
-  scope :approve_status_with_no,
-    :conditions => ['approve_status = ?', Course::APPROVE_STATUS_NO]
-  scope :approve_status_with_not_yes,
-    :conditions => ['approve_status <> ?', Course::APPROVE_STATUS_YES]
 
   scope :of_creator, lambda { |creator| where(:creator_id => creator.id) }
 
@@ -139,39 +106,7 @@ class Course < ActiveRecord::Base
                :parent_id  => grade.id})
   }
 
-  # 设置 approve_status 默认值
-  before_validation :set_default_approve_status
-  def set_default_approve_status
-    if self.approve_status.blank?
-      self.approve_status = Course::APPROVE_STATUS_WAITING
-    end
-  end
 
-  # 设置 apply_request_limit 默认值
-  before_validation :set_default_apply_request_limit
-  def set_default_apply_request_limit
-    return true if self.have_apply_request_limit?
-
-    # 设置不限制人数时
-    if !@enable_apply_request_limit
-      self.apply_request_limit = -1
-      return true
-    end
-
-    # 未设置限制人数，或者限制人数被设置为 0 时
-    if self.apply_request_limit.blank? || self.apply_request_limit == 0
-      self.apply_request_limit = -1
-      return true
-    end
-  end
-
-  def enable_apply_request_limit=(value)
-    @enable_apply_request_limit = value
-  end
-
-  def enable_apply_request_limit
-    have_apply_request_limit?
-  end
 
   default_scope order('courses.id desc')
   max_paginates_per 50

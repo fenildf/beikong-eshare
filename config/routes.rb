@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 Eshare::Application.routes.draw do
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq_state'
+
   default_url_options :host => "edushare.mindpin.com" # devise 发邮件需要用到
   # 参考
   # https://github.com/plataformatec/devise/wiki/How-To:-Create-custom-layouts

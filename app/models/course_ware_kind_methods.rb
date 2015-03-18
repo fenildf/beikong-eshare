@@ -3,7 +3,7 @@ module CourseWareKindMethods
     'youku', 'sina', 'tudou',
     'flv', 
     'ppt', 'pdf',
-    
+    'doc',
     'javascript'
   ]
 
@@ -14,7 +14,7 @@ module CourseWareKindMethods
   end
 
   def is_pages?
-    return is_ppt? || is_pdf?
+    return is_ppt? || is_pdf? || is_doc?
   end
 
   def is_image?

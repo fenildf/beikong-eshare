@@ -11,19 +11,19 @@ describe GroupTreeNode do
 
     @group_tree_node = GroupTreeNode.create(
                           :name => @name_1,
-                          :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
+                          # :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
                           :kind => GroupTreeNode::TEACHER,
                           :manage_user => @user
                         )
     @group_tree_node1 = GroupTreeNode.create(
                           :name => @name_2,
-                          :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
+                          # :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
                           :kind => GroupTreeNode::TEACHER,
                           :manage_user => @user
                         ).move_to_child_of(@group_tree_node)
     @group_tree_node2 = GroupTreeNode.create(
                           :name => @name_1,
-                          :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
+                          # :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
                           :kind => GroupTreeNode::TEACHER,
                           :manage_user => @user
                         ).move_to_child_of(@group_tree_node1)
@@ -92,7 +92,7 @@ describe GroupTreeNode do
       expect{
         GroupTreeNode.create(
           :name => @name_1,
-          :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
+          # :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
           :kind => GroupTreeNode::TEACHER,
           :manage_user => @user
         )
@@ -102,14 +102,14 @@ describe GroupTreeNode do
     it '创建 成功' do
       group_tree_node = GroupTreeNode.create(
                           :name => @name_1,
-                          :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
+                          # :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
                           :kind => GroupTreeNode::TEACHER,
                           :manage_user => @user
                         )
       expect{
         GroupTreeNode.create(
           :name => @name_2,
-          :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
+          # :group_kind => GroupTreeNode::GROUP_KIND::OTHER,
           :kind => GroupTreeNode::TEACHER,
           :parent => group_tree_node,
           :manage_user => @user

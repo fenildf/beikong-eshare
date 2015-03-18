@@ -6,7 +6,7 @@ class PracticeRecord < ActiveRecord::Base
     CHECKED   = 'CHECKED'
   end
 
-  attr_accessible :practice, :user, :submitted_at, :checked_at, :status
+  attr_accessible :practice, :user, :submitted_at, :checked_at, :status, :submit_desc
 
   belongs_to :practice
   belongs_to :user
@@ -38,7 +38,7 @@ class PracticeRecord < ActiveRecord::Base
     end
 
     # 学生提交作业
-    def submit_by_user(user, submit_desc)
+    def submit_by_user(user, submit_desc = "")
       record = get_record_by_user(user)
 
       if record.blank?
@@ -72,6 +72,7 @@ class PracticeRecord < ActiveRecord::Base
         return
       end
 
+      record.is_submitted_offline = true
       record.submit_desc = submit_desc
       record.save
     end
