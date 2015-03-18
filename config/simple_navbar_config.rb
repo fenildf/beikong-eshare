@@ -1,22 +1,13 @@
 SimpleNavbar::Base.config do
+  # 管理员
   rule :admin do
     nav :users_manage, :url => '/admin/users' do
       controller :'admin/users'
     end
 
-    nav :courses_manage, :url => '/manage/courses' do
-      controller :'manage/courses'
-      controller :'manage/chapters'
-      controller :'manage/course_wares'
-    end
-
-    # nav :teacher_surveys_manage, :url => '/manage/surveys' do
-    #   controller :'manage/surveys'
-    #   controller :'manage/survey_results'
-    # end
-
-    nav :user_groups_manage, :url => '/manage/user_groups' do
-    end
+    nav :users_group, :url => '/admin/user_groups' do
+      controller :'admin/user_groups'
+    end 
   end
 
   # 教师
