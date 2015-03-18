@@ -10,28 +10,21 @@ zh-CN:
       team_manage: 班级登记
       courses: 课程中心
 
+    # 教师
     teacher:
       index: 首页 
-      course_design: 课程编排
-      course_ware_upload: 上传课件
-      file_upload: 文件共享
-      new_practice: 布置作业
-      check_practice: 检查作业
-      course_scores: 成绩登记
-      stat: 统计信息
       new_announcements: 发布公告
-      announcements: 查看公告
-      my_teams: 我的班级
-      course_submit: 课程申报
-      courses: 课程中心
-      questions: 在线答疑
-      friends: 好友关注
-      questions_iask: 提出的问题
-      questions_be_answered: 得到的回答
-      questions_fav: 关注的问题
-      questions_answered: 回答的问题
-      dashboard: 公共动态
+      dashboard: 群组动态    
 
+    teacher_course:
+      course_design: 课程编排
+      file_upload: 文件共享
+
+    teacher_homework:
+      check_practice: 作业练习
+      questions_iask: 线上问答
+
+    # 教学管理
     manager:
       index: 首页
       courses_check: 课程审批

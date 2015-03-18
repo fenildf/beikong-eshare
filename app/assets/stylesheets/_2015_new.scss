@@ -73,11 +73,21 @@ $top-nav-border-color: #E4E6E9;
       text-decoration: none;
       background-color: rgba(white, 0.1);
     }
+  }
+
+  .module {
+    color: #64738D;
+    font-size: 14px;
+    padding-left: 20px;
+    font-weight: bold;
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 10px;
 
     &:before {
       content:"";
       position: absolute;
-      bottom:2px;left:0;right:0;
+      top:0px;left:0;right:0;
       height:0;
       border-top:solid 1px #283140;
       border-bottom:solid 1px #2F3949;
@@ -85,10 +95,57 @@ $top-nav-border-color: #E4E6E9;
     &:after {
       content:"";
       position: absolute;
-      bottom:0;left:0;right:0;
+      top:2px;left:0;right:0;
       height:0;
       border-top:solid 1px #2A3443;
       border-bottom:solid 1px #3C485C;
+    }
+  }
+
+  .page-navlist {
+    margin-bottom: 20px - 8px;
+    ul.nav {
+      padding:0;margin:0;
+      li {
+        list-style: none;
+        a {
+          display: block;
+          height: 40px; line-height: 40px;
+          font-size: 16px;
+          color: #A0ABBE;
+          position: relative;
+          padding-left: 20px;
+          i {
+            font-family: FontAwesome;
+            font-weight: normal;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            float:left;
+            width:20px;
+            margin-right: 5px;
+            position:relative;top:1px;
+
+            &:before {
+              content: "\F10C";
+              display: inline-block;
+              speak: none;
+              text-decoration: inherit;
+            }
+          }
+        }
+      }
+
+      li a:hover, li.active a {
+        background-color: #2E3848;
+        color: white;
+        text-decoration: none;
+        &:before {
+          content: "";
+          position: absolute;
+          width: 4px; top:0; bottom:0;left:0;
+          background-color: #1BA4F8;
+        }
+      }
     }
   }
 }
@@ -99,7 +156,7 @@ $top-nav-border-color: #E4E6E9;
   margin-left:200px;
   padding: 30px;
 
-  .content-header {
+  .content-header, .content-header-v2{
     background-color: #FFFFFF;
     border-bottom:solid 1px $top-nav-border-color;
     margin-bottom: 30px;
@@ -112,6 +169,20 @@ $top-nav-border-color: #E4E6E9;
       font-weight: normal;
       padding:0;margin:0;
     }
+
+    .desc {
+      background-color:#F9F9F9;
+      // background-color: #FFFBE3;
+      padding:20px 30px;
+      color:#666;
+      margin: 20px -30px -30px;
+    }
+
+    .btns {
+      position:absolute;
+      right:15px;top:14px;
+    }
+
   }
 }
 
