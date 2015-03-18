@@ -11,14 +11,8 @@
   .infodata
     %h2= @course.name
     .data
-      .cover= fit_image(@course.cover.versions[:normal].url, :width => 200, :height => 150)
+      .cover= fit_image(@course.cover.versions[:normal].url, :width => 200, :height => 200)
       .ds
-        .d
-          %span.t 学分：
-          %span.v= @course.credit
-        .d
-          %span.t 课时：
-          %span.v= @course.lesson_hour
         .d
           %span.t 上课时间：
           %span.v= @course.time.blank? ? '--' : @course.time
