@@ -1,17 +1,17 @@
 .baseinfo
   .btns
-    %a.btn.inverse.edit{:href => 'javascript:;', :data => {:url =>"/manage/courses/#{@course.id}/edit"}}
+    %a.btn.dark-flat.edit{:href => 'javascript:;', :data => {:url =>"/manage/courses/#{@course.id}/edit"}}
       %i.icon-edit
       %span 修改课程信息
 
-    %a.btn.gray{:href => "/courses/#{@course.id}?preview=true"}
+    %a.btn.dark-flat{:href => "/courses/#{@course.id}?preview=true"}
       %i.icon-eye-open
       %span 预览
 
   .infodata
     %h2= @course.name
     .data
-      .cover= fit_image(@course.cover.versions[:normal].url, :width => 214, :height => 140)
+      .cover= fit_image(@course.cover.versions[:normal].url, :width => 200, :height => 150)
       .ds
         .d
           %span.t 学分：

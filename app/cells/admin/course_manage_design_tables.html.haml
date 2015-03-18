@@ -8,9 +8,7 @@
       = course.chapters.count
     - table.add_column(:course_wares_count) do |course|
       = course.course_wares.count
-    - table.add_column(:approved) do |course|
-      = course_approve_status_label course
     - table.add_column(:ops) do |course|
-      %a.btn.inverse.small.design{:href => "/manage/courses/#{course.id}"}
+      %a.btn.dark-flat.small.design{:href => "/manage/courses/#{course.id}"}
         %i.icon-book.icon-white
         %span 开始编排

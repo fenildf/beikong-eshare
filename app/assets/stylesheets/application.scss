@@ -24,9 +24,10 @@ body {
   background-color: #EBF1F5;
   position:relative;
   font-family: "Segoe UI", "Helvetica Neue", "Helvetica", "Arial", "sans-serif", "微软雅黑";
-  input, textarea {
+  input, textarea, select {
     font-family: "Segoe UI", "Helvetica Neue", "Helvetica", "Arial", "sans-serif", "微软雅黑";
   }
+  textarea {resize:none;}
 
   a{
     color:#4672BF;
@@ -181,24 +182,61 @@ body {
   }
 
   .pblock {
-    border:solid 1px #e7e7e7;
-    border-bottom:solid 1px #d6d6d6;
+    border:solid 1px #E4E6E9;
+    border-bottom:solid 1px #E4E6E9;
     background-color:white;
-    @include border-radius(3px);
     box-shadow:0 1px 0 #E7E7E7;
-    
-    padding:20px;
+    padding:30px;
     padding-bottom:0;
     margin-bottom:5px;
-    &.nopadding{
+    &.form { padding-bottom:30px; }
+    &.table {
       padding:0;
+      border:0 none;
     }
-    &.info {
-      background-color:#FCFCFC;
+    &.modelinfo {
+      padding-bottom:30px;
+      .baseinfo {
+        position:relative;
+
+        .infodata {
+          h2 {
+            margin:0 0 30px 0;
+            font-size:30px;
+            font-weight: normal;
+          }
+        }
+        
+        .btns {
+          // background-color:#6E7C94;
+          // background-color: #ffffda;
+          position:absolute;
+          top:0px;right:0px;
+          bottom:0;
+          padding:15px;
+          margin-right: -30px;
+          margin-top: -30px;
+          margin-bottom: -30px;
+
+          a.btn {
+            display:block;
+            width:129px;
+            margin-bottom:10px;
+          }
+        }
+      }
+      .edit-form {
+        margin-bottom:20px;
+        margin:-15px -15px 5px;
+        padding:10px;
+        background-color:#FCFCFC;
+        @include border-radius(3px);
+      }
     }
-    &.minus-top {
-      margin-top:-21px;
-    }
+
+    &.nopadding{ padding:0; }
+    &.info { background-color:#FCFCFC; }
+    &.minus-top { margin-top:-21px; }
     &.desc {
       background-color:#ffffda;
       padding-bottom:20px;
@@ -209,18 +247,11 @@ body {
       color:green;
       i {opacity:0.75;}
     }
-    &.form {
-      padding-bottom:20px;
-    }
 
     hr {
       border-top:dashed 1px #e7e7e7 !important;
     }
 
-  }
-  .pblock.table {
-    padding:0;
-    border:0 none;
   }
 }
 
@@ -773,22 +804,6 @@ body.error {
     }
   }
 
-  &.success-flat {
-    background: #6FBC00 !important;
-    background-repeat: repeat-x;
-    border-color:transparent;
-    box-shadow:none;
-    color:#fff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    // @include border-radius(0);
-    border:none;
-    border-bottom:solid 2px rgba(black, 0.1);
-    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
-      background:darken(#6FBC00, 5%) !important;
-      color:#fff;
-    }
-  }
-
   &.info-flat {
     background: #47ADCB !important;
     background-repeat: repeat-x;
@@ -1030,27 +1045,6 @@ body.error {
 }
 
 // -----
-
-ul.page-breadcrumb {
-  background-color:#f5f5f5;
-  @include border-radius(4px);
-  list-style: none outside none;
-  margin:0 0 20px;
-  padding:8px 15px;
-
-  & > .active {
-    color:#999;
-  }
-
-  & > li {
-    display:inline-block;
-    text-shadow:0 1px 0 #fff;
-    & > .divider {
-      color:#ccc;
-      padding:0 5px;
-    }
-  }
-}
 
 .page-tags {
   overflow:hidden;
@@ -1645,11 +1639,7 @@ img.page-avatar {
     position:relative;
 
     .cover {
-      // position:absolute;
-      // top:-20px;
-      // left:20px;
-      float:left;
-      width:214px;height:140px;
+      width:200px;height:150px;
     }
 
     .data {
@@ -2681,8 +2671,8 @@ img.page-avatar {
     .teachers {
       float:left;
       a.add {
-        width:20px;padding:0;
-        margin-left:10px;
+        height:24px;line-height:24px;
+        text-align:center;
       }
     }
   }
@@ -2852,14 +2842,23 @@ img.page-avatar {
 .page-manage-course-show {
   .baseinfo {
     .data {
-      .cover {float:left;margin-right:20px;}
+      .cover {
+        padding:4px;
+        border:solid 1px $border-color;
+        float:left;margin-right:30px;
+      }
       .ds {
         .d {
+          font-size: 16px;
           max-width:500px;
           margin-bottom:5px;
           overflow:hidden;
-          .t {color:#666;}
-          .v {color:#111;}
+          .t {color:#666;display:inline-block;width:100px;}
+          .v {color:#111;display:inline-block;}
+          .t, .v {
+            vertical-align: top;
+            p {margin-top:0;}
+          }
         }
       }
     }
@@ -4773,45 +4772,46 @@ form .input.page-form-tag-inputer {
 .page-teacher-selector-overlay {
   position:fixed;
   background-color:rgba(black, 0.5);
-  left:0;right:0;bottom:0;
-  // top:81px;
-  top:60px;
+  left:0;right:0;bottom:0;top:0;
   z-index:3;
 }
 
 .page-teacher-selector {
   position:fixed;
-  // top:81px;
-  top:60px;
+  top:0;
   right:0px;
   width:70%;
   bottom:0px;
   z-index:4;
   background-color:white;
-  border-left:solid 1px #e7e7e7;
-  // box-shadow:-1px 0 0 #e7e7e7;
+  box-shadow:0 0 10px rgba(black, 0.5);
+  $c:#1BA4F8;
 
   .btns {
-    padding:10px 15px 9px;
-    border-bottom:solid 1px #e7e7e7;
-    background-color:#ffffda;
+    background-color:#6E7D94;
+    height:80px;line-height: 80px;
+    color:white;
+    font-size: 16px;
+    padding: 0 30px;
     a.close {
       margin-right:20px;
     }
   }
 
   .data {
+
     .teachers, .data-users{
       width:70%;
       float:left;
       .title {
-        padding:10px 15px;
-        border-bottom:solid 1px #e7e7e7;
+        height:60px;line-height:60px;
+        padding:0 30px;
+        border-bottom:solid 1px $border-color;
         background-color:#f7f7f7;
       }
 
       .teas {
-        padding:10px;
+        padding:20px;
         overflow-y:auto;
         overflow-x:hidden;
         .teacher {
@@ -4828,7 +4828,7 @@ form .input.page-form-tag-inputer {
           }
 
           &.selected {
-            background-color:#7592D0;
+            background-color:$c;
             color:white;
           }
         }
@@ -4838,18 +4838,20 @@ form .input.page-form-tag-inputer {
     .results {
       width:30%;
       position:absolute;
-      top:50px;bottom:0;
+      top:80px;bottom:0;
       left:70%;right:0;
       @include border-box;
-      border-left:solid 1px #e7e7e7;
+      border-left:solid 1px $border-color;
       .title {
-        padding:10px 15px;
-        border-bottom:solid 1px #e7e7e7;
+        height:60px;line-height:60px;
+        padding:0 20px;
+        border-bottom:solid 1px $border-color;
         background-color:#f7f7f7;
       }
       .creator, .teacher, .user{
-        padding:10px;
-        background-color:#7592D0;
+        height:20px;line-height:20px;
+        padding:10px 15px;
+        background-color:$c;
         color:white;
         @include border-radius(3px);
         margin:5px;

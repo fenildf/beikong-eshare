@@ -8,13 +8,6 @@ class Manage::CoursesController < ApplicationController
 
   # 课程申报
   def index
-    authorize! :manage, Course
-
-    if current_user.is_manager?
-      @courses = Course.approve_status_with_not_yes.page(params[:page])
-      return
-    end
-
     @courses = Course.of_creator(current_user).page(params[:page])
   end
 
@@ -30,7 +23,10 @@ class Manage::CoursesController < ApplicationController
     if request.xhr?
       return render :json => {
         :html => (
-          render_cell :admin, :course_ajax_edit_form, :course => @course, :user => current_user
+          render_cell :admin, :course_form, 
+                              :course => @course, 
+                              :user => current_user,
+                              :ajax => true
         )
       }
     end
@@ -64,7 +60,7 @@ class Manage::CoursesController < ApplicationController
       end
 
       flash[:success] = '课程申报修改成功'
-      return redirect_to :action => :index
+      return redirect_to :action => :show
     end
     render :action => :edit
   end
@@ -88,10 +84,6 @@ class Manage::CoursesController < ApplicationController
   end
 
   # -----------------------------
-
-  def design
-    @courses = Course.of_creator(current_user).page(params[:page])
-  end
 
   def download_import_sample
     authorize! :manage, Course

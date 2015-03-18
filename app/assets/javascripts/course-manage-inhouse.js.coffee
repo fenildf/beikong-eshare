@@ -262,7 +262,7 @@ jQuery ->
         user_ids.push jQuery(this).data('id')
         user_names.push jQuery(this).data('name')
       
-      jQuery('.form-inputs .teachers span')
+      jQuery('.form-inputs .teachers span.names')
         .html if user_names.length > 0 then user_names.join('，') else '无'
       jQuery('.form-inputs .teachers input.teacher_ids').val user_ids.join(',')
 

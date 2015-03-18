@@ -13,8 +13,11 @@
   other_teachers_names = other_teachers.map{|t| t.name}.join('，')
   other_teachers_ids = other_teachers.map{|t| t.id}.join(',')
 
+  remote = !!@ajax
+  cancel_href = remote ? 'javascript:;' : '/manage/courses'
+
 .course-simple-form
-  = simple_form_for @course, :url => url do |f|
+  = simple_form_for @course, :remote => remote, :url => url do |f|
     .form-inputs
       = f.input :cid, :as => :hidden, :input_html => {:value => randstr}
 
@@ -25,9 +28,10 @@
           %span= teacher.name
         .teachers
           %b 其他任课教师：
-          %span= other_teachers_names
-          %a.btn.success.add.mini{:href => 'javascript:;', :title => '点击添加其他教师'}
+          %span.names= other_teachers_names
+          %a.btn.success-flat.add.mini{:href => 'javascript:;', :title => '点击添加其他教师'}
             %i.icon-plus.icon-white
+            %span 点击添加
           %input.teacher_ids{:name => 'teacher_ids', :type => :hidden, :value => other_teachers_ids}
 
       .categroies
@@ -55,14 +59,19 @@
         = f.input :cover, :as => :file
 
     .form-actions
-      = f.button :submit, submit_label, :class => 'success'
-      %a.btn.cancel.gray{:href => '/manage/courses'}= t('common.form.cancel')
+      %a.btn.do-submit.success-flat{:href => 'javascript:;'}
+        %i.icon-ok
+        %span= submit_label
+
+      %a.btn.cancel.gray-flat{:href => cancel_href}
+        %i.icon-arrow-left
+        %span= t('common.form.cancel')
 
 
   .page-teacher-selector-overlay{:style => 'display:none;'}
   .page-teacher-selector{:style => 'display:none;'}
     .btns
-      %a.btn.inverse-flat.close{:href => 'javascript:;'} 
+      %a.btn.dark-flat.close{:href => 'javascript:;'} 
         %i.icon-chevron-left.icon-white
         %span 关闭
       %span 设置任课教师
