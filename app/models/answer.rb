@@ -8,6 +8,8 @@ class Answer < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :question
   has_many :answer_votes, :dependent => :delete_all
+  has_many :voted_up_users, :through => :answer_votes, :source => :user,
+    :conditions => "answer_votes.kind = '#{AnswerVote::Kind::VOTE_UP}'"
 
   validates :creator, :question, :content, :presence => true
   validates_uniqueness_of :question_id, :scope => :creator_id,
