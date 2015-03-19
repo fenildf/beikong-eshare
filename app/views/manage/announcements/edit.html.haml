@@ -8,14 +8,26 @@
       = f.input :content, :input_html => {:rows => 10, :class => :xxlarge}
 
       :ruby
-        s = [
-          ['学生', Announcement::FOR_ROLE_STUDENT], 
-          ['老师', Announcement::FOR_ROLE_TEACHER],
+        on_top = [
+          ['否', 0], 
+          ['是', 1]
         ]
 
+
+      - if current_user.is_teacher?
+        .input{:style => 'margin-bottom:20px;'}
+          %label 选择课程
+          = f.input :host_id, :label => false, :required => true, :collection => current_user.own_courses
+
       .input{:style => 'margin-bottom:20px;'}
-        %label 针对以下角色
-        = f.select :for_role, s, :label => '用户角色'
+        %label 是否置顶
+        %select#announcement_on_top.select.required{:name => "announcement[on_top]"}
+          - if @announcement.on_top
+            %option{:value => "1", :selected => 'selected'} 是
+            %option{:value => "0"} 否
+          - else
+            %option{:value => "0", :selected => 'selected'} 否
+            %option{:value => "1"} 是
 
       = f.button :submit, :class => 'success-flat'
       %a.btn.cancel.gray-flat{:href => '/manage/announcements'}= t('common.form.cancel')

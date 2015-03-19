@@ -8,7 +8,7 @@ class Manage::AnnouncementsController < ApplicationController
 
 
   def index
-    @announcements = Announcement.page params[:page]
+    @announcements = current_user.announcements.page params[:page]
   end
 
   def new
@@ -16,12 +16,16 @@ class Manage::AnnouncementsController < ApplicationController
   end
 
   def create
+    params[:announcement][:host_type] = current_user.is_manager?? 'System': 'Course'
     @announcement = current_user.announcements.build(params[:announcement])
     if @announcement.save
+
       flash[:success] = '公告创建成功'
       return redirect_to :action => :index
     end
     render :action => :new
+
+    # render :nothing => true
   end
 
   def update

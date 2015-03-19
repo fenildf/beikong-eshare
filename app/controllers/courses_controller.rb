@@ -116,6 +116,7 @@ class CoursesController < ApplicationController
   end
 
   def chs
+    @announcements = @course.announcements
   end
 
   def dofav

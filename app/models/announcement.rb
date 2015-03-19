@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Announcement < ActiveRecord::Base
-  attr_accessible :title, :content, :creator, :on_top, :host
+  attr_accessible :title, :content, :creator, :on_top, :host, :host_id, :host_type
 
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
   belongs_to :host, :polymorphic => true

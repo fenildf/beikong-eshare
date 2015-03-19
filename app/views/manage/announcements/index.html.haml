@@ -12,13 +12,8 @@
   .pblock.table
     = page_data_table :announcements, @announcements, :striped, :bordered do |table|
       - table.add_column :title
-      - table.add_column :for_role do |a|
-        :ruby
-          s = {
-            'TEACHER' => '老师',
-            'STUDENT' => '学生'
-          }[a.for_role]
-        = s
+
+
       - table.add_column :content do |a|
         %a.btn.gray-flat.mini{:href => "/announcements/#{a.id}"} 点击查看
       - table.add_column :ops do |a|

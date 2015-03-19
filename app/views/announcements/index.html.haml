@@ -12,18 +12,7 @@
   .pblock.table
     = page_data_table :announcements, @announcements, :striped, :bordered do |table|
       - table.add_column :title
-      - table.add_column :for_role do |a|
-        :ruby
-          s = {
-            'TEACHER' => '老师',
-            'STUDENT' => '学生'
-          }[a.for_role]
-        = s
-      - table.add_column :readed do |a|
-        - if a.has_readed?(current_user)
-          %span 已读
-        - else
-          %b 未读
+
 
       - table.add_column :updated_at
 
