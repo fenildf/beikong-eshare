@@ -2,11 +2,11 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 
-set :domain, '60.247.110.148'
-set :deploy_to, '/web/2013/eshare'
+set :domain, '127.0.0.1'
+set :deploy_to, '/web/2013/beikong-eshare'
 set :current_path, 'current'
 set :repository, 'git://github.com/mindpin/beikong-eshare.git'
-set :branch, '8zhong-master'
+set :branch, 'sjs-master'
 set :user, 'root'
 
 set :shared_paths, [
@@ -123,6 +123,10 @@ task :update_code => :environment do
   deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
+    queue! "bundle"
+    queue! "bundle exec rake db:create RAILS_ENV=production"
+    queue! "bundle exec rake db:migrate RAILS_ENV=production"
+    invoke :'rails:assets_precompile'
   end
 end
 

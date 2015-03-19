@@ -5,7 +5,7 @@ defpack 4 do
                :password => '1234',
                :role     => :admin)
   User.create!(:login    => 'manager',
-               :name     => 'manager',
+               :name     => '教学管理员',
                :password => '1234',
                :role     => :manager)
 end
