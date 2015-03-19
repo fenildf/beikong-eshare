@@ -5,6 +5,7 @@
   .pblock
     = render_cell :questions, :tree_answers, :user => @user, :answers => @question.answers
 
+  .pblock.desc
     .my-answer
       - if @question.answered_by? @user
         .you-can-answer-only-once
@@ -19,9 +20,12 @@
         - if @user.present?
           = simple_form_for [@question, Answer.new] do |f|
             .form-inputs
-              = f.input :content, :as => :text, :input_html => {:rows => 5, :class => 'xxlarge'}
+              %h3.cp 回答问题
+              = f.input :content, :as => :text, :input_html => {:rows => 5, :class => 'xxlarge'}, :label => false, :placeholder => '填写你的回答'
             .form-actions
-              = f.button :submit, :class => 'success'
+              %a.do-submit.btn.success-flat{:href => 'javascript:;'}
+                %i.icon-ok
+                %span 写好了，发布
         - else
           .need-signed-in
             %a{:href => '/account/sign_in'}> 登录网站

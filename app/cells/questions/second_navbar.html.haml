@@ -1,0 +1,16 @@
+:ruby
+  arr = [
+    ['/questions', '问答首页'],
+    ['/questions/iask', '提出的问题'],
+    ['/questions/be_answered', '获得的回答'],
+    ['/questions/answered', '贡献的回答'],
+    ['/questions/favs', '关注的问题'],
+  ]
+
+.page-second-navbar
+  - arr.each do |item|
+    :ruby
+      active = request.path == item[0]
+
+    %a.item{:href => item[0], :class => active ? 'active' : ''}
+      %span= item[1]

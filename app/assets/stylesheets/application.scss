@@ -52,6 +52,7 @@ body {
       @include border-radius(0 !important);
     }
   }
+  .time-color {color:darken(#f18d05, 15%);}
 
   .pagination:last-child {
     margin-bottom:0;
@@ -255,9 +256,10 @@ body {
       }
     }
     &.desc {background-color:#FFFBE3;padding-bottom:30px;}
+    &.info { background-color:#FCFCFC;padding-bottom:30px;}
+    
 
     &.nopadding{ padding:0; }
-    &.info { background-color:#FCFCFC; }
     &.minus-top { margin-top:-21px; }
     &.success {
       padding-bottom:20px;
@@ -695,24 +697,6 @@ body.error {
     }
   }
 
-  &.follow{
-    @include gradient(#AAD74C, #87B946);
-    background-color: #9ACA4A;
-    background-repeat: repeat-x;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    color:#fff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
-      background-color:#87B946;
-      color:#fff;
-    }
-  }
-  &.unfollow {
-    @include gradient(#eee, #eee);
-    background-color:#eee;
-    border-color:#ddd;
-  }
-
   &.learn {
     @include gradient(#E16941, #BF5836);
     background-color:#D0603B;
@@ -831,20 +815,6 @@ body.error {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
       background:#59BEDC !important;
-      color:#fff;
-    }
-  }
-
-  &.primary-flat {
-    background: #0069CC !important;
-    background-repeat: repeat-x;
-    border-color:transparent;
-    box-shadow:none;
-    color:#fff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    border-bottom:solid 2px rgba(black, 0.1);
-    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
-      background:#0084CC !important;
       color:#fff;
     }
   }
@@ -1074,26 +1044,20 @@ body.error {
 }
 
 .page-questions-grid-list {
+  background-color: #FFF;
+  padding: 20px;
+
   .page-data-tile.questions {
 
     .question {
-      // position:relative;
-      // background-color:#fff;
-      // @include border-radius(3px);
-      // border:solid 1px #e7e7e7;
-      // border-bottom:solid 1px #d6d6d6;
-      // margin-bottom:20px;
-      // padding:20px;
-      // box-shadow:0 1px 0 #e7e7e7;
-
-      margin:0 -20px 20px;
-      padding:20px 20px 0;
       border-top:dotted 1px #dcdcdc;
+
+      .tile-field.title {
+        font-size: 16px;
+      }
 
       .counts {
         pointer-events:none;
-        margin-bottom:-10px;
-        margin-left:-10px;
         margin-top:20px;
         margin-right:0;
         .votes {
@@ -1109,9 +1073,9 @@ body.error {
           float:left;
           padding:0 10px;
           height:30px;line-height:30px;
-          @include border-radius(3px);
-          font-size:12px;
+          border-radius:3px;
           margin-right:10px;
+          box-sizing:border-box;
 
           span {opacity:0.75;}
 
@@ -1131,7 +1095,6 @@ body.error {
 
       .creator {
         margin-top:20px;
-        margin-bottom:-10px;
         float:left;margin-right:0;
         .avatar {
           float:left;
@@ -1142,12 +1105,11 @@ body.error {
           float:left;
           line-height:30px;height:30px;
           margin-right:10px;
-          font-size:12px;a{color:#666};
+          a{color:#666};
         }
         .date {
           float:left;
           line-height:30px;height:30px;
-          font-size:12px;
         }
       }
     }
@@ -2749,12 +2711,15 @@ img.page-avatar {
 
 .page-manage-practice-new {
   .chapter-select {
-    margin-bottom:20px;
     overflow:hidden;
 
+    label {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
     .s-course, .s-chapter {
-      float:left;
-      margin-right:20px;
+      margin-bottom: 10px;
     }
   }
 }
@@ -3629,11 +3594,11 @@ form .input.page-form-tag-inputer {
     }
 
     .btb {
-      background-color:#FCFCFC;
-      margin:5px -15px;
+      background-color:#Fff;
+      border-top:solid 1px $border-color;
+      margin:5px -30px 0;
       padding:15px;
       overflow:hidden;
-      @include border-radius(5px);
       .fo {
         float:right;
         a.btn {width:60px;}
@@ -3642,7 +3607,7 @@ form .input.page-form-tag-inputer {
   }
 
   .answers {
-    margin:-20px;
+    margin:-30px;
     margin-bottom:0px;
 
     .tile-body {
@@ -3652,7 +3617,7 @@ form .input.page-form-tag-inputer {
     .answer {
       border-top:solid 1px #ddd;
       position:relative;
-      padding:20px;
+      padding:30px;
       padding-bottom:40px + 20px;
       margin-top:0;
 
@@ -3663,6 +3628,7 @@ form .input.page-form-tag-inputer {
       .content {
         font-size:14px;
         margin-bottom:10px;
+        p {margin-top: 0;}
       }
 
       .creator {
@@ -3706,23 +3672,24 @@ form .input.page-form-tag-inputer {
       a {
         // margin-bottom:10px;
         display:block;
-        background-color:#E7F3F9;
+        background-color:#676767;
         width:32px;
-        height:24px;
+        height:32px;line-height:32px;
         overflow:hidden;
         margin-bottom:5px;
-        @include border-radius(2px);
+        border-radius:100px;
+        color:white;
+        text-align: center;
+        &:hover {
+          text-decoration: none;
+        }
 
         i {
-          position: relative;
-          top:2px;
-          margin-left:(32px - 14px) / 2;
-          opacity:0.76;
         }
       }
 
       a.cancel {
-        background:darken(#E7F3F9, 10%);
+        background-color: #44B2F5;
       }
     }
     .vote_sum {
@@ -3732,26 +3699,14 @@ form .input.page-form-tag-inputer {
       color:#555;
       width:32px;
       height:32px;line-height:32px;
-      background-color:#fafafa;
-      @include border-radius(2px);
+      background-color:#676767;
+      color:white;
+      border-radius:100px;
     }
   }
 
   .my-answer {
-    margin:0 -20px;
-    .you-can-answer-only-once {
-      padding:15px;
-      background:#FFFFDA;
-      margin:5px;
-      @include border-radius(5px);
-    }
-
     .new_answer {
-      border-top:solid 1px #ddd;
-      padding:20px 20px 40px;
-      padding-left:$left;
-      background-color:#FCFCFC;
-      label {display:none;}
     }
   }
 
@@ -3764,7 +3719,6 @@ form .input.page-form-tag-inputer {
 }
 
 .page-question-info {
-  margin-bottom:20px;
   .st {
     color:#666;
   }

@@ -15,6 +15,10 @@ class Manage::PracticesController < ApplicationController
     @practice = @chapter.practices.build params[:practice]
     @practice.creator = current_user
 
+    if @practice.title.blank?
+      @practice.title = "课程作业 #{Time.now}"
+    end
+
     if params[:file_entity_id].present?
       fe = FileEntity.find(params[:file_entity_id])
       @practice.file_entities = [fe]

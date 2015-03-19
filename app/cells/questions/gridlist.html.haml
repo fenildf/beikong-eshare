@@ -1,4 +1,5 @@
 .page-questions-grid-list
+  %h3.cp 问题清单
   = page_tile :questions, @questions do
     - add_foot :counts do |question|
       .votes
@@ -9,7 +10,9 @@
         %span 回答
 
     - add :title do |question|
-      = link_to question.title, question
+      = link_to question do
+        %i.icon-question-sign
+        %span= question.title
 
     - add_foot :creator do |question|
       .avatar= avatar_link question.creator, :small

@@ -275,6 +275,11 @@ zh-CN:
             name:
               taken: 科目名称不允许重复
 
+        practice:
+          attributes:
+            title:
+              blank: 必须填写作业标题
+
 
   views:
     pagination:
@@ -455,6 +460,7 @@ zh-CN:
         count: 已提交问卷数
 
       practices:
+        created_at: 创建时间
         course: 课程
         chapter: 章节
         title: 作业标题

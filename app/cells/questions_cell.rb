@@ -43,4 +43,9 @@ class QuestionsCell < Cell::Rails
     return render if @course
     return ''
   end
+
+  def second_navbar(opts = {})
+    @user = opts[:user]
+    render
+  end
 end

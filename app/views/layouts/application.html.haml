@@ -17,6 +17,8 @@
   .page-layout-application
     .page-content.grids-style
 
+      = yield :second_navbar
+
       - header_content = yield :header
       - if header_content.present?
         .content-header= header_content

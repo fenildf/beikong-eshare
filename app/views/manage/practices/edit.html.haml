@@ -1,20 +1,24 @@
-- content_for :header do
-  %h1 修改作业
+- content_for :header_v2 do
+  %h1
+    %a{:href => '/manage/practices'} 作业练习
+    %span /
+    %span 修改作业要求
+  .desc
+    %span 修改已经布置的作业
 
-.page-manage-practice-edit
-  .pblock.desc
-    %b= current_user.name
-    %span 修改已经布置的作业。
+.pblock.form
+  = simple_form_for @practice, :url => "/manage/practices/#{@practice.id}" do |f|
+    .datas
+      .form-inputs
+        = f.input :title
+        = f.input :content, :input_html => {:rows => 8, :class => 'xxlarge', :style => 'resize:none;'}
 
-  .pblock.form
-    = simple_form_for @practice, :url => "/manage/practices/#{@practice.id}" do |f|
-      .datas
-        .form-inputs
-          = f.input :title
-          = f.input :content, :input_html => {:rows => 8, :class => 'xxlarge', :style => 'resize:none;'}
+        = render_cell :layout, :file_uploader
 
-          = render_cell :layout, :file_uploader
-
-        .form-actions{:style => 'margin-top:20px;'}
-          = f.button :submit, '确定修改', :class => 'success-flat'
-          %a.btn.gray-flat{:href => '/manage/practices'} 取消
+      .form-actions{:style => 'margin-top:20px;'}
+        %a.btn.success-flat.do-submit{:href => 'javascript:;'}
+          %i.icon-ok
+          %span 确定修改
+        %a.btn.gray-flat{:href => '/manage/practices'}
+          %i.icon-arrow-left
+          %span 取消
