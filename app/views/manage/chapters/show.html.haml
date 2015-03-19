@@ -19,18 +19,19 @@
             %b.count= @course_wares.count
             %span 个课件
 
-          %a.btn.success.new{:href => 'javascript:;', :data => {:url => "/manage/chapters/#{@chapter.id}/course_wares/new"}}
+          %a.btn.success-flat.new{:href => 'javascript:;', :data => {:url => "/manage/chapters/#{@chapter.id}/course_wares/new"}}
             %i.icon-plus.icon-white
             %span 上传课件
             
       .tbl
         = render_cell :course_ware, :manage_table, :course_wares => @course_wares
 
-    .blankslate
-      %h3
-        %span 章节
-        %span= @chapter.title
-        %span 下还没有任何课件
+    - if @course_wares.blank?
+      .empty-state
+        .title
+          %span 章节
+          %span= @chapter.title
+          %span 下还没有任何课件
 
-      .desc 
-        点击上方的上传课件按钮来增加课件
+        .desc 
+          点击上方的上传课件按钮来增加课件

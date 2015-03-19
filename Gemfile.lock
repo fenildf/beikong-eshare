@@ -101,8 +101,8 @@ GIT
 
 GIT
   remote: git://github.com/mindpin/simple-page-compoents
-  revision: 2a35754582e67d8c493bb30dddab0a3d5964a706
-  tag: 0.0.7.9
+  revision: 436c1e7c3d70c12cad00ba92d30763099504e6b0
+  ref: 436c1e7
   specs:
     simple-page-compoents (0.0.7.3)
 

@@ -42,7 +42,7 @@ class TableNewForm
     @$tbl     = @$table_block_elm.find('.tbl')
     @$table   = @$table_block_elm.find('table')
     @$js_dyn_table = @$table_block_elm.closest('.js-dyn-table')
-    @$blankslate   = @$js_dyn_table.find('.blankslate')
+    @$blankslate   = @$js_dyn_table.find('.empty-state')
 
     @model_counter = new ModelCounter @$op.find('.counter')
 

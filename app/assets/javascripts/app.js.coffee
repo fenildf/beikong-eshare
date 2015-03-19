@@ -6,3 +6,6 @@ jQuery ->
 
 jQuery('.btn').on 'dragstart', (evt) ->
   evt.preventDefault()
+
+jQuery(document).delegate 'form a.do-submit', 'click', ->
+  jQuery(this).closest('form').submit()

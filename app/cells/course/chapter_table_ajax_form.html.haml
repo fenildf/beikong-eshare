@@ -1,11 +1,15 @@
 - course = @chapter.course
 
+%h3.cp 输入章节信息
+
 = simple_form_for @chapter, :remote => true, :url => "/manage/courses/#{course.id}/chapters" do |f|
   .form-inputs
     = f.input :title, :input_html => {:class => :xxlarge, :placeholder => '输入章节标题'}, :label => false
     = f.input :desc, :input_html => {:rows => 6, :class => :xxlarge, :placeholder => '输入章节简介'}, :label => false
   .form-actions
-    %a.btn.success.submit{:href => "javascript:;"} 
+    %a.btn.success-flat.submit{:href => "javascript:;"} 
       %i.icon-ok
       %span 创建章节
-    %a.btn.gray-flat.cancel{:href => "javascript:;"}= t('common.form.cancel')
+    %a.btn.gray-flat.cancel{:href => "javascript:;"}
+      %i.icon-arrow-left
+      %span= t('common.form.cancel')

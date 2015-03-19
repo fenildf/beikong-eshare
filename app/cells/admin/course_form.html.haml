@@ -13,56 +13,54 @@
   other_teachers_names = other_teachers.map{|t| t.name}.join('，')
   other_teachers_ids = other_teachers.map{|t| t.id}.join(',')
 
+  remote = !!@ajax
+  cancel_href = remote ? 'javascript:;' : '/manage/courses'
+
 .course-simple-form
-  = simple_form_for @course, :url => url do |f|
+  = simple_form_for @course, :remote => remote, :url => url do |f|
     .form-inputs
       = f.input :cid, :as => :hidden, :input_html => {:value => randstr}
 
-      = f.input :name
+      = f.input :name, :placeholder => '输入课程名，必填'
       .creator
         .crea
           %b 负责人：
           %span= teacher.name
         .teachers
           %b 其他任课教师：
-          %span= other_teachers_names
-          %a.btn.success.add.mini{:href => 'javascript:;', :title => '点击添加其他教师'}
+          %span.names= other_teachers_names
+          %a.btn.success-flat.add.mini{:href => 'javascript:;', :title => '点击添加其他教师'}
             %i.icon-plus.icon-white
+            %span 点击添加
           %input.teacher_ids{:name => 'teacher_ids', :type => :hidden, :value => other_teachers_ids}
 
       .categroies
         = f.input :category_id, :collection => Category.all, :include_blank => "未分类"
 
-      .hour-credit
-        = f.input :lesson_hour, :input_html => {:class => :small}
-        = f.input :credit, :input_html => {:class => :small}
-
-      .user-count
-        = f.input :least_user_count, :input_html => {:class => :small}
-        = f.input :most_user_count, :input_html => {:class => :small}
-
       .time-place
-        = f.input :time
-        = f.input :location
+        = f.input :time, :placeholder => '在何时上课。网络课程可不填'
+        = f.input :location, :placeholder => '在何地上课。网络课程可不填'
 
       .txt
-        = f.input :desc,          :input_html => {:rows => 6, :class => :xxlarge}
-        = f.input :syllabus,      :input_html => {:rows => 6, :class => :xxlarge}
-        = f.input :teach_content, :input_html => {:rows => 6, :class => :xxlarge}
-        = f.input :teach_type,    :input_html => {:class => :xxlarge}
+        = f.input :desc, :input_html => {:rows => 10, :class => :xxlarge}, :placeholder => '填写课程梗概，教学目标等内容'
 
       .ccov
         = f.input :cover, :as => :file
 
     .form-actions
-      = f.button :submit, submit_label, :class => 'success'
-      %a.btn.cancel.gray{:href => '/manage/courses'}= t('common.form.cancel')
+      %a.btn.do-submit.success-flat{:href => 'javascript:;'}
+        %i.icon-ok
+        %span= submit_label
+
+      %a.btn.cancel.gray-flat{:href => cancel_href}
+        %i.icon-arrow-left
+        %span= t('common.form.cancel')
 
 
   .page-teacher-selector-overlay{:style => 'display:none;'}
   .page-teacher-selector{:style => 'display:none;'}
     .btns
-      %a.btn.inverse-flat.close{:href => 'javascript:;'} 
+      %a.btn.dark-flat.close{:href => 'javascript:;'} 
         %i.icon-chevron-left.icon-white
         %span 关闭
       %span 设置任课教师

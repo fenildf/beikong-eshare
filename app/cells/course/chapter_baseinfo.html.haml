@@ -1,15 +1,18 @@
 .baseinfo
   .btns
-    %a.btn.inverse.edit{:href => 'javascript:;', :data => {:url =>"/manage/chapters/#{@chapter.id}/edit"}}
+    %a.btn.dark-flat.edit{:href => 'javascript:;', :data => {:url =>"/manage/chapters/#{@chapter.id}/edit"}}
       %i.icon-edit
       %span 修改章节信息
 
-    %a.btn.gray{:href => "/courses/#{@chapter.course.id}?preview=true"}
+    %a.btn.dark-flat{:href => "/courses/#{@chapter.course.id}?preview=true"}
       %i.icon-eye-open
       %span 预览课程
 
   .infodata
     %h2= @chapter.title
-    .desc
-      - desc = @chapter.desc.blank? ? '章节目前没有简介' : @chapter.desc
-      = simple_format("章节简介：#{desc}")
+    .data
+      .ds
+        .d
+          - desc = @chapter.desc.blank? ? '章节目前没有简介' : @chapter.desc
+          %span.t 章节简介：
+          %span.v= simple_format(desc)

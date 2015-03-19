@@ -29,7 +29,9 @@
       = render_cell :layout, :file_uploader, :name => 'course_ware[file_entity_id]'
 
     .form-actions
-      %a.btn.success.submit{:href => 'javascript:;'}
+      %a.btn.success-flat.submit{:href => 'javascript:;'}
         %i.icon-ok.icon-white
         %span 确定
-      %a.btn.gray-flat.cancel{:href => 'javascript:;'} 取消
+      %a.btn.gray-flat.cancel{:href => 'javascript:;'} 
+        %i.icon-arrow-left
+        %span 取消

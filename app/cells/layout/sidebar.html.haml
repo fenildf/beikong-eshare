@@ -1,7 +1,8 @@
 .page-sidebar
   - if @user.present?
-    .avatar
-      = avatar_link @user
+    %a.userinfo{:href => url_for(@user)}
+      .avatar= avatar @user, :large
+      .name= @user.name
       
     - if @user.is_admin?
       = simple_navbar :admin, :as_list, :with_icon
@@ -10,7 +11,12 @@
       = simple_navbar :manager, :as_list, :with_icon
 
     - elsif @user.is_teacher?
+      .module 教师
       = simple_navbar :teacher, :as_list, :with_icon
+      .module 课程功能
+      = simple_navbar :teacher_course, :as_list, :with_icon
+      .module 作业和问答
+      = simple_navbar :teacher_homework, :as_list, :with_icon
 
     - elsif @user.is_student?
       = simple_navbar :student, :as_list, :with_icon

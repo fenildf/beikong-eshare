@@ -66,72 +66,14 @@ SimpleNavbar::Base.config do
     end
   end
 
+  # -------------------------------------
+
   # 教师
   rule :teacher do
     # 教师首页
     nav :index, :url => '/teacher_home' do
       controller :index, :only => [:teacher_home]
     end
-
-    nav :course_submit, :url => '/manage/courses' do
-      controller :'manage/courses', :only => [:index]
-    end
-
-    # 课程编排
-    nav :course_design, :url => '/manage/courses/design' do
-      controller :'manage/courses', :except => [:index, :new, :edit]
-      controller :'manage/chapters'
-    end
-
-    # 上传课件
-    nav :course_ware_upload, :url => '/manage/course_wares/new' do
-      controller :'manage/course_wares'
-    end
-
-    # 课程中心
-    nav :courses, :url => '/courses' do
-      controller :courses
-    end
-
-    # 布置作业
-    nav :new_practice, :url => '/manage/practices/new' do
-      controller :'manage/practices', :only => [:new]
-    end
-
-    # 检查作业
-    nav :check_practice, :url => '/manage/practices' do
-      controller :'manage/practices', :except => [:new] 
-    end
-
-    # 文件共享
-    nav :file_upload, :url => '/disk' do
-      controller :disk
-    end
-
-    # 提出的问题
-    nav :questions_iask, :url => '/questions/iask' do
-      controller :questions, :only => [:iask]
-    end
-
-    # 得到回答的问题
-    nav :questions_be_answered, :url => '/questions/be_answered' do
-      controller :questions, :only => [:be_answered]
-    end
-
-    # 回答过的问题
-    nav :questions_answered, :url => '/questions/answered' do
-      controller :questions, :only => [:answered]
-    end
-
-    # 关注的问题
-    nav :questions_fav, :url => '/questions/favs' do
-      controller :questions, :only => [:favs]
-    end
-
-    # 好友关注
-    nav :friends, :url => '/friends' do
-      controller :friends
-    end 
 
     # 公共动态
     nav :dashboard, :url => '/dashboard' do
@@ -142,22 +84,36 @@ SimpleNavbar::Base.config do
     nav :new_announcements, :url => '/manage/announcements/new' do
       controller :'manage/announcements'
     end
+  end
 
-    # 查看公告
-    nav :announcements, :url => '/announcements' do
-      controller :announcements
+  # 教师课程模块
+  rule :teacher_course do
+    # 课程编排
+    nav :course_design, :url => '/manage/courses' do
+      controller :'manage/courses', :except => [:index, :new, :edit]
+      controller :'manage/chapters'
     end
 
-    # 我的班级
-    nav :my_teams, :url => '/teams/mine' do
-      controller :teams
-    end
-
-    # 统计信息
-    nav :stat, :url => '/manage/stats/teacher' do
-      controller :'manage/stats'
+    # 文件共享
+    nav :file_upload, :url => '/disk' do
+      controller :disk
     end
   end
+
+  # 教师作业与问答模块
+  rule :teacher_homework do
+    # 检查作业
+    nav :check_practice, :url => '/manage/practices' do
+      controller :'manage/practices', :except => [:new] 
+    end
+
+    # 提出的问题
+    nav :questions_iask, :url => '/questions/iask' do
+      controller :questions, :only => [:iask]
+    end
+  end
+
+  # --------------
 
   # 学生
   rule :student do

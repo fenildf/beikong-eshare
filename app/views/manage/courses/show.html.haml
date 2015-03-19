@@ -1,6 +1,6 @@
 - content_for :header_v2 do
   %h1
-    %a{:href => '/manage/courses/design'} 课程编排
+    %a{:href => '/manage/courses'} 课程编排
     %span /
     %span= @course.name
 
@@ -20,22 +20,18 @@
             %b.count= @chapters.count
             %span 个章节
 
-          %a.btn.success.new{:href => 'javascript:;', :data => {:url => "/manage/courses/#{@course.id}/chapters/new"}}
+          %a.btn.success-flat.new{:href => 'javascript:;', :data => {:url => "/manage/courses/#{@course.id}/chapters/new"}}
             %i.icon-plus.icon-white
             %span 增加章节
 
       .tbl
         = render_cell :course_ware, :manage_chapter_table, :chapters => @chapters
 
-    .blankslate
-      %span.icon.icon-blackboard
-      %span.icon.icon-books
-      %span.icon.icon-triangle
+    - if @chapters.blank?
+      .empty-state
+        .title
+          %span 课程
+          %span= @course.name
+          %span 下还没有任何章节
 
-      %h3
-        %span 课程
-        %span= @course.name
-        %span 下还没有任何章节
-
-      .desc 
-        点击上方的增加章节按钮来创建一个新的章节
+        .desc 点击上方的增加章节按钮来创建一个新的章节

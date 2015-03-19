@@ -27,12 +27,7 @@ class AdminCell < Cell::Rails
   def course_form(opts = {})
     @course = opts[:course]
     @cur_user = opts[:user]
-    render
-  end
-
-  def course_ajax_edit_form(opts = {})
-    @course = opts[:course]
-    @cur_user = opts[:user]
+    @ajax = opts[:ajax]
     render
   end
 
