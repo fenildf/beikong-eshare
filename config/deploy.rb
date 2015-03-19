@@ -123,6 +123,10 @@ task :update_code => :environment do
   deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
+    queue! "bundle"
+    queue! "bundle exec rake db:create RAILS_ENV=production"
+    queue! "bundle exec rake db:migrate RAILS_ENV=production"
+    invoke :'rails:assets_precompile'
   end
 end
 
