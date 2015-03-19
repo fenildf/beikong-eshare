@@ -321,23 +321,23 @@ class Course < ActiveRecord::Base
     end
   end
 
-  # searchable do
-  #   text :name, :desc
+  searchable do
+    text :name, :desc
 
-  #   text :chapter_titles do
-  #     chapters.pluck("chapters.title").uniq.compact
-  #   end
+    text :chapter_titles do
+      chapters.pluck("chapters.title").uniq.compact
+    end
 
-  #   text :chapter_descs do
-  #     chapters.pluck("chapters.desc").uniq.compact
-  #   end
+    text :chapter_descs do
+      chapters.pluck("chapters.desc").uniq.compact
+    end
 
-  #   text :course_ware_titles do
-  #     course_wares.pluck("course_wares.title").uniq.compact
-  #   end
+    text :course_ware_titles do
+      course_wares.pluck("course_wares.title").uniq.compact
+    end
 
-  #   text :chapter_descs do
-  #     course_wares.pluck("course_wares.desc").uniq.compact
-  #   end
-  # end
+    text :chapter_descs do
+      course_wares.pluck("course_wares.desc").uniq.compact
+    end
+  end
 end

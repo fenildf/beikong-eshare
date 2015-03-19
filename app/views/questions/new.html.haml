@@ -1,12 +1,21 @@
 - content_for :header do
   %h1 发起提问
-.pblock.desc
-  请填写问题标题和详细描述
+  .desc
+    请填写问题标题和详细描述
 
 .pblock.form
+  %h3.cp 输入问题信息
   = simple_form_for @question do |f|
-    = f.input :title, :as => :text, :input_html => {:rows => 3, :class => :xxlarge}, :label => '问题'
-    = f.input :content, :as => :text, :input_html => {:rows => 6, :class => :xxlarge}, :label => '问题详细描述'
-    = f.input :course_id, :as => :hidden
-    = f.button :submit, :class => 'success'
-    %a.btn.cancel{:href => "/questions/iask"}= t('common.form.cancel')
+    .form-inputs
+      = f.input :title, :as => :text, :input_html => {:rows => 3, :class => :xxlarge}, :label => '问题'
+      = f.input :content, :as => :text, :input_html => {:rows => 6, :class => :xxlarge}, :label => '问题详细描述'
+      = f.input :course_id, :as => :hidden
+
+    .form-submits
+      %a.do-submit.btn.success-flat{:href => 'javascript:;'}
+        %i.icon-ok
+        %span 写好了
+
+      %a.btn.cancel.gray-flat{:href => "/questions/iask"}
+        %i.icon-arrow-left
+        %span= t('common.form.cancel')

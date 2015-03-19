@@ -1,12 +1,24 @@
+- content_for :second_navbar do
+  = render_cell :questions, :second_navbar
+
 - content_for :header do
   %h1= t('page.questions.index')
-  .btn-group
+  .btns
     %a.btn.success-flat{:href => '/questions/new'}
       %i.icon-plus.icon-white
       %span 发起提问
+  .desc
+    %span 这里列出了目前系统里的问题。
+    %span 共 #{@questions.count} 个问题，你可以浏览和回答它们。
 
 .page-questions-index
-  .mainp66
-    .pblock
-      %h3.cp 问答
-      = render_cell :questions, :gridlist, :questions => @questions, :user => current_user
+  - if @questions.blank?
+    .empty-state
+      .title 目前还没有任何提问
+      .desc 
+        %span 你可以通过右上角的
+        %a{:href => '/questions/new'} 发起提问按钮
+        %span 提出新的问题
+
+  - else
+    = render_cell :questions, :gridlist, :questions => @questions, :user => current_user

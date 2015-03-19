@@ -72,7 +72,7 @@ SimpleNavbar::Base.config do
   rule :teacher do
     # 教师首页
     nav :index, :url => '/teacher_home' do
-      controller :index, :only => [:teacher_home]
+      controller :index, :only => :teacher_home
     end
 
     # 公共动态
@@ -104,12 +104,12 @@ SimpleNavbar::Base.config do
   rule :teacher_homework do
     # 检查作业
     nav :check_practice, :url => '/manage/practices' do
-      controller :'manage/practices', :except => [:new] 
+      controller :'manage/practices'
     end
 
     # 提出的问题
     nav :questions_iask, :url => '/questions/iask' do
-      controller :questions, :only => [:iask]
+      controller :questions
     end
   end
 
