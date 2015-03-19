@@ -29,7 +29,7 @@
           %label 第一步，请先选择一项课程
           %select.course-id
             %option{:value => 0} 请选择课程
-            - Course.of_creator(current_user).each do |c|
+            - current_user.own_courses.each do |c|
               %option{:value => c.id, :selected => (course_id == c.id)}
                 #{c.name}(共#{c.chapters.count}章)
 
