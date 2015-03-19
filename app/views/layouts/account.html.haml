@@ -5,18 +5,21 @@
   = render_cell :layout, :google_analytics_code if R::INTERNET
 
 !!!
-- simple_page_layout title, :html_lang => :zh, :body_class => 'account' do
-  - if user_signed_in?
-    - if current_user.is_admin?
-      = render_cell :layout, :topnav_admin, :user => current_user
-    - else
-      = render_cell :layout, :topnav, :user => current_user
+- simple_page_layout title, :html_lang => :zh, :body_class => 'app' do
 
-    = render_cell :layout, :account_sidebar, :user => current_user
+  - if current_user.is_admin?
+    = render_cell :layout, :topnav_admin, :user => current_user
+  - else
+    = render_cell :layout, :topnav, :user => current_user
 
-  .page-content
-    - header_content = yield :header
-    - if header_content.present?
-      .content-header= header_content
-    = yield
-    .clearfix
+  = render_cell :layout, :account_sidebar, :user => current_user
+
+  .page-layout-application
+    .page-content.grids-style
+
+      - header_content = yield :header
+      - if header_content.present?
+        .content-header= header_content
+        
+      = yield
+      .clearfix

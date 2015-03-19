@@ -56,6 +56,24 @@ $top-nav-border-color: #E4E6E9;
   left:0;top:0;bottom:0;
   background-color: #343F51;
 
+  a.back {
+    height:78px;line-height:78px;
+    display: block; padding-left: 20px;
+    font-size: 16px;
+    color: #A0ABBE;
+    &:hover {
+      text-decoration: none;
+      background-color: rgba(white, 0.1);
+    }
+
+    i {
+      display: inline-block;
+      width: 20px; margin-right: 5px;
+      border-radius: 100px;
+      text-align: center;
+    }
+  }
+
   a.userinfo {
     display: block;
     padding-top: 30px;

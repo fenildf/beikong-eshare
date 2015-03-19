@@ -536,7 +536,7 @@ body.auth{
 
 // ----------- 
 
-body.admin, body.app, body.account, body.help, body.error, body.course{
+body.admin, body.app, body.help, body.error, body.course{
   .page-search-bar{
     background-color:white;
     height:50px;
@@ -586,36 +586,6 @@ body.admin, body.app, body.account, body.help, body.error, body.course{
         padding-top:10px;
         .name{float:left;line-height:30px;margin-right:10px;}
         .avatar{float:left;}
-      }
-    }
-  }
-}
-
-body.account, body.help {
-  padding-top:60px;
-
-  .sidebar {
-    width:230px;
-    margin-top:20px;
-    margin-left:0px;
-    float:left;
-
-    a.back {
-      display:block;
-      border:solid 1px #ddd;
-      border-left:none;
-      // border-bottom:none;
-      background-color:white;
-      padding:15px;
-      height:20px;line-height:20px;
-      color:#555;
-      margin-bottom:-1px;
-
-      i {opacity: 0.25;}
-      &:hover {
-        background-color:#f5f5f5;
-        text-decoration:none;
-        i {opacity: 0.75;}
       }
     }
   }
@@ -1476,7 +1446,6 @@ img.page-avatar {
 .page-account-avatar {
   .fsuccess {
     background-color:#eeffda;
-    border-bottom:solid 1px #e7e7e7;
     margin:-20px;
     padding:20px;
     margin-bottom:20px;
@@ -1546,6 +1515,10 @@ img.page-avatar {
     width:500px;
     height:150px;
     margin-bottom:20px;
+    img {
+      border:solid 1px $border-color;
+      padding: 4px;
+    }
   }
 
   .hint {
@@ -2456,7 +2429,6 @@ img.page-avatar {
               // @include border-radius(3px);
               border:solid 1px #eee;
             }
-            .form-actions {}
           }
           .questions-list {
             margin-bottom:20px;
