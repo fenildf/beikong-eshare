@@ -1,8 +1,10 @@
 - content_for :header_v2 do
   %h1
-    %a{:href => '/manage/practices'} 检查作业
+    %a{:href => '/manage/practices'} 作业练习
     %span /
-    %span= @practice.title
+    %span
+      %span 检查
+      %span= @practice.title
   .desc
     检查学生的作业提交
 

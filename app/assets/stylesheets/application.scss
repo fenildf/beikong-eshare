@@ -52,6 +52,7 @@ body {
       @include border-radius(0 !important);
     }
   }
+  .time-color {color:darken(#f18d05, 15%);}
 
   .pagination:last-child {
     margin-bottom:0;
@@ -831,20 +832,6 @@ body.error {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
       background:#59BEDC !important;
-      color:#fff;
-    }
-  }
-
-  &.primary-flat {
-    background: #0069CC !important;
-    background-repeat: repeat-x;
-    border-color:transparent;
-    box-shadow:none;
-    color:#fff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    border-bottom:solid 2px rgba(black, 0.1);
-    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
-      background:#0084CC !important;
       color:#fff;
     }
   }
@@ -2749,12 +2736,15 @@ img.page-avatar {
 
 .page-manage-practice-new {
   .chapter-select {
-    margin-bottom:20px;
     overflow:hidden;
 
+    label {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
     .s-course, .s-chapter {
-      float:left;
-      margin-right:20px;
+      margin-bottom: 10px;
     }
   }
 }

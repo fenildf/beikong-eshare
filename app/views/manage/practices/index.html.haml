@@ -1,36 +1,52 @@
 - content_for :header do
-  %h1 检查作业
+  %h1 作业练习
   .btns
     %a.btn.success-flat{:href => '/manage/practices/new'}
       %i.icon-plus.icon-white
       %span 布置作业
+  .desc
+    %b= current_user.name
+    %span 老师你好，这里列出了所有你布置过的作业，你可以在这里检查学生的作业完成情况。
+    %br
+    %span 你也可以在这里点击右上角的按钮布置新的作业。
 
 .page-manage-homeworks
-  .pblock.desc
-    %b= current_user.name
-    %span 老师你好，你可以在这里检查学生的作业完成情况。
+  - if @practices.blank?
+    .empty-state
+      .title 你目前还没有布置过作业
+      .desc 
+        %span 你可以通过右上角的
+        %a{:href => '/manage/practices/new'} 布置作业按钮
+        %span 布置新的作业
 
-  .pblock.table
-    = page_data_table(:practices, @practices, :striped, :bordered) do |table|
-      - table.add_column :course do |p|
-        - if p.chapter
-          = course_link p.chapter.course
-      - table.add_column :chapter do |p|
-        - if p.chapter
-          = p.chapter.title
-      - table.add_column :title
-      - table.add_column :submit_count do |p|
-        = p.submitted_users.count
-      - table.add_column :checked_count do |p|
-        = p.checked_users.count
-      - table.add_column :edit do |p|
-        %a.btn.inverse-flat.small{:href => "/manage/practices/#{p.id}/edit"}
-          %i.icon-edit.icon-white
-          %span 编辑修改
-      - table.add_column :ops do |p|
-        %a.btn.success-flat.small{:href => "/manage/practices/#{p.id}"}
-          %i.icon-ok.icon-white
-          %span 检查
-        %a.btn.danger-flat.small{:href => "/manage/practices/#{p.id}", :data => {:method => :delete, :confirm => "确定要删除这个作业吗？"}}
-          %i.icon-trash
-          %span 删除
+  - else
+    .pblock.table
+      = page_data_table(:practices, @practices, :striped, :bordered) do |table|
+        - table.add_column :course do |p|
+          - if p.chapter
+            = course_link p.chapter.course
+        - table.add_column :chapter do |p|
+          - if p.chapter
+            = p.chapter.title
+        - table.add_column :title do |p|
+          %a{:href => url_for([:manage, p])}
+            %span= p.title
+        - table.add_column :created_at do |p|
+          %span.time-color
+            %i.icon-time
+            %span= p.created_at
+        - table.add_column :submit_count do |p|
+          = p.submitted_users.count
+        - table.add_column :checked_count do |p|
+          = p.checked_users.count
+        - table.add_column :edit do |p|
+          %a.btn.inverse-flat.small{:href => "/manage/practices/#{p.id}/edit"}
+            %i.icon-edit.icon-white
+            %span 编辑修改
+        - table.add_column :ops do |p|
+          %a.btn.success-flat.small{:href => "/manage/practices/#{p.id}"}
+            %i.icon-ok.icon-white
+            %span 检查
+          %a.btn.danger-flat.small{:href => "/manage/practices/#{p.id}", :data => {:method => :delete, :confirm => "确定要删除这个作业吗？"}}
+            %i.icon-trash
+            %span 删除

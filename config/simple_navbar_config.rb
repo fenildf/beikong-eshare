@@ -90,7 +90,7 @@ SimpleNavbar::Base.config do
   rule :teacher_course do
     # 课程编排
     nav :course_design, :url => '/manage/courses' do
-      controller :'manage/courses', :except => [:index, :new, :edit]
+      controller :'manage/courses'
       controller :'manage/chapters'
     end
 

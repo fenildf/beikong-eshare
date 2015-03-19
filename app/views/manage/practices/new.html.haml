@@ -1,31 +1,53 @@
-- content_for :header do
-  %h1 布置作业
-
-.page-manage-practice-new
-  .pblock.desc
+- content_for :header_v2 do
+  %h1
+    %a{:href => '/manage/practices'} 作业练习
+    %span /
+    %span 布置作业
+  .desc
     %b= current_user.name
     %span 老师你好，你可以在这里为学生布置作业。
 
+.page-manage-practice-new
+  .pblock.desc
+    .t 你可以在在所有你负责的课程中布置作业，
+    .t 请按照以下步骤指引进行操作：
+
   .pblock.form
+    :ruby
+      chapter = @practice.chapter
+      if chapter.blank?
+        chapter_id = 0
+        course_id = 0
+      else
+        chapter_id = chapter.id
+        course_id = chapter.course_id
+      end
+
     = simple_form_for @practice, :url => '/manage/practices' do |f|
-      .chapter-select
+      .chapter-select{:data => {:'chapter-id' => chapter_id}}
         .s-course
-          %label 请先选择课程与章节
+          %label 第一步，请先选择一项课程
           %select.course-id
             %option{:value => 0} 请选择课程
             - Course.of_creator(current_user).each do |c|
-              %option{:value => c.id}
+              %option{:value => c.id, :selected => (course_id == c.id)}
                 #{c.name}(共#{c.chapters.count}章)
+
         .s-chapter{:style => 'display:none;'}
-          %label 选择章节
+          %label 第二步，选择课程中的章节
           %select.chapter-id{:name => :chapter_id}
 
       .datas{:style => 'display:none;'}
         .form-inputs
-          = f.input :title
-          = f.input :content, :input_html => {:rows => 8, :class => 'xxlarge', :style => 'resize:none;'}
+          = f.input :title, :placeholder => '输入作业标题'
+          = f.input :content, :input_html => {:rows => 8, :class => 'xxlarge', :style => 'resize:none;'}, :placeholder => '输入作业描述'
 
           = render_cell :layout, :file_uploader
 
         .form-actions{:style => 'margin-top:20px;'}
-          = f.button :submit, '确定创建', :class => 'success'
+          %a.btn.success-flat.do-submit{:href => 'javascript:;'}
+            %i.icon-ok
+            %span 确定创建
+          %a.btn.gray-flat{:href => '/manage/practices'}
+            %i.icon-arrow-left
+            %span 取消

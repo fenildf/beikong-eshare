@@ -14,6 +14,8 @@ class Practice < ActiveRecord::Base
   scope :by_creator, lambda{|creator| where(:creator_id => creator.id) }
   scope :by_course, lambda{|course| joins(:chapter).where('chapters.course_id = ?', course.id) }
 
+  default_scope order('created_at desc')
+
   def add_upload(user, file_entity)
     upload = self.uploads.by_creator(user).first
     if upload.blank?

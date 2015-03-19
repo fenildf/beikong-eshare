@@ -152,6 +152,10 @@ $top-nav-border-color: #E4E6E9;
       }
     }
   }
+
+  .page-navlist ul.nav {
+    li.course_design i:before {content: "\F02D";}
+  }
 }
 
 // 主区域
@@ -180,6 +184,7 @@ $top-nav-border-color: #E4E6E9;
       padding:20px 30px;
       color:#666;
       margin: 20px -30px -30px;
+      line-height: 24px;
     }
 
     .btns {
@@ -231,6 +236,9 @@ $top-nav-border-color: #E4E6E9;
   }
   &.inverse-flat {
     @include make-btn(#444, $color: white);
+  }
+  &.primary-flat {
+    @include make-btn(#2a70e8, $color: white);
   }
 
   &.small {
