@@ -254,14 +254,11 @@ body {
         @include border-radius(3px);
       }
     }
+    &.desc {background-color:#FFFBE3;padding-bottom:30px;}
 
     &.nopadding{ padding:0; }
     &.info { background-color:#FCFCFC; }
     &.minus-top { margin-top:-21px; }
-    &.desc {
-      background-color:#ffffda;
-      padding-bottom:20px;
-    }
     &.success {
       padding-bottom:20px;
       background-color:#eeffda;
@@ -891,8 +888,6 @@ body.error {
           overflow:hidden;
           text-overflow:ellipsis;
           white-space:nowrap;
-          color:#000;
-          &:hover {color:#000;text-decoration:underline;}
         }
       }
     }
@@ -917,12 +912,8 @@ body.error {
   }
 
   .share-desc {
-    label {
-      margin-bottom:10px;
-    }
-    input.share {
-      width: 500px;
-    }
+    label { margin-bottom:10px; }
+    input.share { width: 500px; margin-bottom:0;}
   }
 }
 
@@ -1028,7 +1019,7 @@ body.error {
 .page-tags {
   overflow:hidden;
   padding:0;
-  margin-bottom:20px;
+  margin-top: 20px;
   .shower {
     height:34px;
     label {
@@ -1039,15 +1030,13 @@ body.error {
       margin-top:4px;
     }
 
-    i {
+    i.t {
       float:left;
       margin-right:7px;
-      opacity:0.62;
-      margin-top:(27px - 16px) / 2 + 4px;
+      height:24px;line-height:24px;
     }
     .tags {
       float:left;
-      margin-top:4px;
       a.tag {
         display:block;float:left;margin-right:5px;
         background-color:#FEE49B;
@@ -1069,16 +1058,13 @@ body.error {
     }
     a.edit {
       float:left;
-      height:27px;line-height:27px;
       margin-left:7px;
-      margin-top:4px;
     }
   }
   .inputer {
     position:relative;
     ul {
-      // padding-right:100px;
-      margin-bottom:5px;
+      margin:0;margin-bottom:10px;
     }
     .btns {
       // position:absolute;

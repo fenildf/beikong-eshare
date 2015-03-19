@@ -5,7 +5,8 @@
     查看你上传的文件信息
 
 .page-file-show
-  = render_cell :disk, :file_info, :media_resource => @media_resource, :user => current_user
+  .pblock.modelinfo
+    = render_cell :disk, :file_info, :media_resource => @media_resource, :user => current_user
 
   .pblock.desc.download
     %a.large.btn.success-flat{:href => "/disk/download?path=#{@media_resource.path}"}
@@ -18,4 +19,4 @@
       site = site.split("?")[0]
       link = site + @media_resource.share_link
     %label <b>复制下面的链接地址发送给他人，共享这个文件：</b>
-    %input.share{:type => :text, :value => link}
+    %input.share{:type => :text, :value => link, :readonly => true}

@@ -1,32 +1,36 @@
-.pblock
-  %h3.file-name= @media_resource.name
+.baseinfo
+  .infodata
+    %h2= @media_resource.name
 
-  .attrs
-    .attr
-      .t 文件大小：
-      .p= @media_resource.size_str
-    .attr
-      .t 上传时间：
-      .p= @media_resource.fileops_time
-    .attr
-      .t 上传者：
-      .p= user_link @media_resource.creator
-
-  %hr
+    .data
+      .ds
+        .d
+          %span.t 文件大小：
+          %soab.v= @media_resource.size_str
+        .d
+          %span.t 上传时间：
+          %span.v= @media_resource.fileops_time
+        .d
+          %span.t 上传者：
+          %span.v= user_link @media_resource.creator
 
   .page-tags{:data => {:'tagable-id' => @media_resource.id, :'tagable-type' => @media_resource.class.to_s}}
     .shower
-      %i.icon-tags
+      %i.t.icon-tags
       .tags
         - @media_resource.private_tags(@user).each do |tag|
           %a.tag{:href => "/tags/file/#{tag.name}", :data => {:name => tag.name}}= tag.name
-      %a.edit{:href => 'javascript:;'} 编辑标签
+      %a.edit.btn.small.gray-flat{:href => 'javascript:;'} 
+        %i.icon-pencil
+        %span 编辑标签
     .inputer{:style => 'display:none;'}
       %ul
         - @media_resource.private_tags(@user).each do |tag|
           %li= tag.name
-      .btns
+      .tag-btns
         %a.yes.btn.small.success-flat{:href => 'javascript:;'} 
           %i.icon-ok
           %span 确定
-        %a.no.btn.small.gray-flat{:href => 'javascript:;'} 取消
+        %a.no.btn.small.gray-flat{:href => 'javascript:;'} 
+          %i.icon-arrow-left
+          %span 取消
