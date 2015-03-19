@@ -319,6 +319,20 @@ class Course < ActiveRecord::Base
         :reading => reading
       }
     end
+
+
+    def own_courses
+      data = []
+      CourseTeacher.by_user(self).each { |course_teacher| data << course_teacher.course }
+
+      courses.each { |course| data << course }
+
+      data.uniq
+    end
+
+    def has_own_course?(course)
+      self.own_courses.include? course
+    end
   end
 
   # searchable do

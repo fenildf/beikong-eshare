@@ -28,6 +28,8 @@ class IndexController < ApplicationController
 
   def dashboard
     # 教师和学生的工作台页面
+
+    @announcements = Announcement.by_manager
   end
 
   def plan

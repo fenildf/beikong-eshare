@@ -12,15 +12,10 @@ class AnnouncementsController < ApplicationController
   end
 
   def index
-    if current_user.is_teacher?
-      @announcements = Announcement.with_role_teacher.page params[:page]
-    elsif current_user.is_student?
-      @announcements = Announcement.with_role_student.page params[:page]
-    end
+    @announcements = current_user.announcements.page params[:page]
   end
 
   def show
-    @announcement.read_by_user(current_user)
   end
 
 

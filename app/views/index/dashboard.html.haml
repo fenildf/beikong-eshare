@@ -22,6 +22,11 @@
 
   .sidep33
     .pblock
+      %h3 公告
+      - @announcements.each do |announcement|
+        %p= announcement.title
+        
+    .pblock
       = render_cell :course, :recent_learning, :user => current_user
     .pblock
       = render_cell :course, :advise, :user => current_user
