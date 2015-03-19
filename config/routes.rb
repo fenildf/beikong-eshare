@@ -181,6 +181,8 @@ Eshare::Application.routes.draw do
   get    '/disk/d/:download_id' => 'disk#do_share_download'
 
   get    '/disk/download' => 'disk#download'
+
+  get    '/tags/file/:tagname' => 'disk#tag_files'
 end
 
 # 问答和问答投票

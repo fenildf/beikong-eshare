@@ -221,6 +221,7 @@ describe Answer do
       it {
         @answer.vote_up_by!(@user)
         @answer.answer_votes.by_user(@user).count.should == 1
+        @answer.voted_up_users.should == [@user]
       }
     end
     

@@ -75,6 +75,10 @@ class DiskController < ApplicationController
     send_file file_entity.attach.path, :filename => @media_resource.name
   end
 
+  def tag_files
+    @media_resources = MediaResource.by_tag(params[:tagname], :user => current_user)
+  end
+
   private
     def _current_dir_path
       path = params[:path]
