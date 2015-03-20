@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class GroupTreeNode < ActiveRecord::Base
+  include GroupTreeNodeFeedStream
   acts_as_nested_set
 
   # include GroupTreeNodeManagementKinds
