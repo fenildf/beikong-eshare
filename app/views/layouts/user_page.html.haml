@@ -10,10 +10,11 @@
 
   .page-layout-application
     .page-content.grids-style
-      .mainp66{:style => 'padding-right:10px;'}
-        .pblock
+      .mainp66{:style => 'padding-right:5px;'}
+        .pblock.modelinfo
           = render 'users/head', :user => @user
           = render_cell :user, :page_navbar, :user => @user, :cur_user => current_user
+        .pblock
           = yield
       .sidep33
         .pblock.nopadding
