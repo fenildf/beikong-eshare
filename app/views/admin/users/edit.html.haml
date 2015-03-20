@@ -5,22 +5,33 @@
   .pblock.form
     .cpart.base-info
       %h3.cp 基本信息
-      = flash[:manage_change_base_info]
+      - if flash[:manage_change_base_info].present?
+        .flash.success= flash[:manage_change_base_info]
+
       = simple_form_for @user, :url => "/admin/users/#{@user.id}" do |f|
         = f.input :login
         = f.input :name
         
         = render_cell :admin, :form_user_role_select, :form_object => f
         
-        = f.button :submit, :class => 'success-flat'
-        %a.btn.cancel.gray-flat{:href => '/admin/users'}= t('common.form.cancel')
+        %a.btn.success-flat.do-submit{:href => 'javascript:;'}
+          %i.icon-ok
+          %span 确定更新
+        %a.btn.cancel.gray-flat{:href => '/admin/users'}
+          %i.icon-arrow-left
+          %span= t('common.form.cancel')
 
   .pblock
     .cpart.chpw
       %h3.cp 修改密码
-      = flash[:change_password]
+      - if flash[:change_password]
+        .flash.success= flash[:change_password]
       = simple_form_for @user, :url => "/admin/users/#{@user.id}/change_password" do |f|
         = f.input :password
         = f.input :password_confirmation
-        = f.button :submit, '修改密码', :class => 'success-flat'
-        %a.btn.cancel.gray-flat{:href => '/admin/users'}= t('common.form.cancel')
+        %a.btn.success-flat.do-submit{:href => 'javascript:;'}
+          %i.icon-ok
+          %span 修改密码
+        %a.btn.cancel.gray-flat{:href => '/admin/users'}
+          %i.icon-arrow-left
+          %span= t('common.form.cancel')
