@@ -7,23 +7,26 @@
 !!!
 - simple_page_layout title, :html_lang => :zh, :body_class => 'app' do
   = render_cell :layout, :topnav, :user => current_user
-  / = render_cell :layout, :searchbar, :user => current_user
+
+  .page-sidebar
+    %a.course-link.back{:href => url_for(@chapter.course)}
+      %i.icon-chevron-left
+      %span.name 返回课程首页
+
+    .module 课件列表
+    .page-navlist
+      .navlist-inner
+        %ul.nav
+          - @chapter.course_wares.each do |cw|
+            - klass = ( cw == @course_ware ? 'current' : '' )
+            - klass = [klass, course_ware_reading_css_class(cw)].join(' ').strip
+            %li
+              %a{:href => "/course_wares/#{cw.id}", :class => klass}
+                %i
+                %span.title= truncate_u cw.title, 6
+
+
 
   .page-layout-course-ware-show
-    .sidebar
-      %a.course-link{:href => "/courses/#{@course.id}"}
-        .cb
-          %i.icon-book
-          %span.name= truncate_u @course.name, 24
-
-      .items
-        - @chapter.course_wares.each do |cw|
-          - klass = ( cw == @course_ware ? 'current' : '' )
-          - klass = [klass, course_ware_reading_css_class(cw)].join(' ').strip
-          %a.item{:href => "/course_wares/#{cw.id}", :class => klass}
-            .line
-            %i{:class => cw.kind}
-            %span.title= truncate_u cw.title, 32
-
-    .course-content
+    .page-content.course-content
       = yield

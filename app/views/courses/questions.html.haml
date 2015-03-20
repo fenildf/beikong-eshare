@@ -3,8 +3,10 @@
     = render_cell :course, :header, :course => @course, :user => current_user
     = render_cell :course, :navbar, :course => @course
 
-  .mainp66{:style => 'padding-right:10px;'}
-    = render_cell :questions, :gridlist, :user => current_user, :questions => @questions
+  .mainp66{:style => 'padding-right:5px;'}
+    .div{:style => 'border:solid 1px #E4E6E9;'}
+      = render_cell :questions, :gridlist, :user => current_user, :questions => @questions
+
   .sidep33
     %a.btn.ask{:href => "/questions/new?course_id=#{@course.id}"} 
       %i.icon-plus.icon-white

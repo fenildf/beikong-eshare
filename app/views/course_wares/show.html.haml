@@ -9,10 +9,10 @@
         = render_cell :course_ware, :widget, :course_ware => @course_ware, :user => current_user
 
     .infos
-      .mainp66{:style => 'padding-right:10px;'}
+      .mainp66{:style => 'padding-right:5px;'}
         .pblock
           .cpart.questions
-            %h3 线上问答
+            %h3.cp 线上问答
             - if user_signed_in?
               .form
                 = simple_form_for Question.new, :url => [@course_ware, :questions] do |f|
@@ -22,8 +22,12 @@
                   .form-inputs
                     = f.input :title, :as => :text, :input_html => {:placeholder => '你可以在这里提问'}
                   .form-actions{:style => 'display:none;'}
-                    %a.btn.submit.success{:href => 'javascript:;'}= t('helpers.submit.question.create')
-                    %a.btn.cancel{:href => "javascript:;"}= t('common.form.cancel')
+                    %a.btn.submit.success-flat{:href => 'javascript:;'}
+                      %i.icon-ok
+                      %span= t('helpers.submit.question.create')
+                    %a.btn.cancel.gray-flat{:href => "javascript:;"}
+                      %i.icon-arrow-left
+                      %span= t('common.form.cancel')
             - else
               .need-signed-in
                 %span 登录之后，你可以进行提问。
@@ -38,12 +42,12 @@
           - if user_signed_in?
             .pblock
               .chart
-                .bar 一周学习进度变化
+                %h3.cp 一周学习进度变化
                 .page-chart.course-ware.read-count-last-week{:data => {:url => "/charts/course_wares/#{@course_ware.id}/read_count_last_week"}}
 
           .pblock
             .learners
-              .bar 这些人最近学习过这个小节
+              %h3.cp 这些人最近学习过这个小节
               .users
                 - @course_ware.recent_reading_users(10).each do |user|
                   .user

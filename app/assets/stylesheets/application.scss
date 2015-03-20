@@ -1978,59 +1978,8 @@ img.page-avatar {
   }
 }
 
-.page-layout-course-ware-show,
-.page-layout-course-show
-{
-  .sidebar {
-    overflow:hidden;
-
-    width:230px - 1px;
-    border:solid 1px #e7e7e7;
-    border-left:0 none;
-    border-bottom:solid 1px #D6D6D6;
-    box-shadow:0 1px 0 #E7E7E7;
-    background-color:white;
-    @include border-radius(0 3px 3px 0);
-
-    margin-top:0px;
-    margin-left:0px;
-    float:left;
-
-    a.course-link {
-      display:block;
-      padding:15px;
-      text-decoration:none;
-
-      .cb {
-        color:#555;
-        i {opacity:0.75;}
-      }
-      &:hover {
-        .cb {
-          text-decoration:none;
-          i  {opacity:1;}
-        }
-      }
-    }
-
-    a.course-link.back {
-      border-top:solid 1px #E7E7E7;
-      background-color:#FCFCFC;
-    }
-  }
-
+.page-layout-course-ware-show {
   .course-content {
-    margin-left:240px;
-    min-width:730px;
-    max-width:1030px;
-
-    // background-color:white;
-    padding:20px;
-    margin-top:0px;
-    margin-right:20px;
-    margin-bottom:30px;
-    
-    position:relative;
   }
 }
 
@@ -2108,14 +2057,6 @@ img.page-avatar {
     // border-top:solid 1px transparent;
   }
 }
-.page-layout-course-ware-show .sidebar .items {
-  border-top:dotted 1px #ddd;
-  .item {
-    border-left:none;
-    border-right:0 none !important;
-    border-bottom:dotted 1px #ddd;
-  }
-}
 
 .page-layout-course-show {
   .course-header {
@@ -2150,13 +2091,12 @@ img.page-avatar {
 
     .cbody{
       .widget {
-        margin-bottom:20px;
-        .video {
-          margin: -20px -20px 10px -20px;
+        > .video {
+          margin: -30px -30px 20px;
           position:relative;
 
           .page-video-player {
-            height:480px;
+            height: 480px;
             background-color:#f7f7f7;
           }
 
@@ -2215,7 +2155,9 @@ img.page-avatar {
             }
             a.send {
               float:right;
-              width:34px;
+              width:39px;
+              height:30px;line-height:30px;
+              border-radius:3px;
             }
           }
 
@@ -2292,7 +2234,8 @@ img.page-avatar {
             }
             .question-desc {
               padding:15px;
-              background-color:#F7FFFD;
+              // background-color:#F7FFFD;
+              background-color: #ffffda;
               margin-bottom:10px;
               // @include border-radius(3px);
               border:solid 1px #eee;
