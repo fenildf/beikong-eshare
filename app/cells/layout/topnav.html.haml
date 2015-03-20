@@ -5,13 +5,26 @@
       %i.icon-search
       %span 搜索
 
-  .list
-    %a.item{:href => '/courses'}
-      %i.icon-book
-      %span 课程中心
-    %a.item{:href => '/account/edit'}
-      %i.icon-cog
-      %span 账号设置
-    %a.item{:href => '/account/sign_out'}
-      %i.icon-off
-      %span 退出
+  - if @user.is_admin?
+    .list
+      %a.item{:href => '/courses'}
+        %i.icon-book
+        %span 课程中心
+      %a.item{:href => '/account/edit'}
+        %i.icon-cog
+        %span 设置管理员密码
+      %a.item{:href => '/account/sign_out'}
+        %i.icon-off
+        %span 退出
+
+  - else
+    .list
+      %a.item{:href => '/courses'}
+        %i.icon-book
+        %span 课程中心
+      %a.item{:href => '/account/edit'}
+        %i.icon-cog
+        %span 账号设置
+      %a.item{:href => '/account/sign_out'}
+        %i.icon-off
+        %span 退出

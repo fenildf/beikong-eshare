@@ -1466,8 +1466,11 @@ img.page-avatar {
   }
 
   .form {
+    @include clearfix;
     .right{
-      float:right;
+      float:left;
+      border-right:solid 1px $border-color;
+      padding-right: 20px;
       .preview{
         width:180px;height:180px;overflow:hidden;
         border:solid 3px #e7e7e7;
