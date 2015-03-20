@@ -21,6 +21,10 @@ class CourseWaresController < ApplicationController
     @chapter = @course_ware.chapter
     @course = @chapter.course
     @questions = @course_ware.questions.page(params[:page]).per(10)
+
+    if !@course_ware.is_video? && !@course_ware.is_pages?
+      @course_ware.set_read_by!(current_user)
+    end
   end
 
   def update_read_count
