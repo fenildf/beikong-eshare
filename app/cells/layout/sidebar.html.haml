@@ -5,9 +5,11 @@
       .name= @user.name
       
     - if @user.is_admin?
+      .module 系统管理员
       = simple_navbar :admin, :as_list, :with_icon
 
     - elsif @user.is_manager?
+      .module 教学管理员
       = simple_navbar :manager, :as_list, :with_icon
 
     - elsif @user.is_teacher?
@@ -15,8 +17,13 @@
       = simple_navbar :teacher, :as_list, :with_icon
       .module 课程功能
       = simple_navbar :teacher_course, :as_list, :with_icon
-      .module 作业和问答
+      .module 作业和问答功能
       = simple_navbar :teacher_homework, :as_list, :with_icon
 
     - elsif @user.is_student?
+      .module 学生
       = simple_navbar :student, :as_list, :with_icon
+      .module 课程功能
+      = simple_navbar :student_course, :as_list, :with_icon
+      .module 作业和问答功能
+      = simple_navbar :student_homework, :as_list, :with_icon

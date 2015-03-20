@@ -5,66 +5,48 @@ zh-CN:
       users_manage: 用户管理
       users_group: 用户分组
       categories_manage: 科目管理
-      select_course: 学生申请
-      teacher_surveys_manage: 教师评价
-      team_manage: 班级登记
-      courses: 课程中心
+      course_center: 课程中心
 
     # 教师
     teacher:
       index: 首页 
-      new_announcements: 发布公告
+      announcements: 公告管理
       dashboard: 群组动态    
 
     teacher_course:
+      course_center: 课程中心
       course_design: 课程编排
       file_upload: 文件共享
 
     teacher_homework:
       check_practice: 作业练习
-      questions_iask: 线上问答
+      questions: 线上问答
+
+    student:
+      index: 首页
+      dashboard: 群组动态
+
+    student_course:
+      course_center: 课程中心
+      mine_courses: 我的课程
+      file_upload: 文件共享
+
+    student_homework:
+      practices: 课程作业
+      questions: 线上问答
 
     # 教学管理
     manager:
       index: 首页
-      courses_check: 课程审批
-      select_course: 学生申请
-      announcements: 公告发布
-      courses: 课程中心
-      teacher_surveys_manage: 教师评价
-
-      stat_courses: 课程统计
-      stat_plans: 教案统计
-      stat_answers: 问答统计
-      stat_problem_book: 错题本统计
-      stat_progress: 进度统计
-      stat_practices: 作业统计
-
-    student:
-      index: 学生首页
-      select_course: 在线选课
-      courses: 课程中心
-      practices: 课程作业
-      file_upload: 文件共享
-      questions: 在线提问
-      friends: 好友关注
-      dashboard: 公共动态
-      announcements: 公告查看
-      teacher-surveys: 教师评价
-      user: 个人主页
-      my_teams: 我的班级
-      stat: 统计信息
-      mine_courses: 我的课程
-      fav_courses: 收藏的课程
-      questions_iask: 提出的问题
-      questions_be_answered: 得到的回答
-      questions_fav: 关注的问题
+      announcements: 公告管理
+      course_center: 课程中心
 
     account:
       edit: 基础信息设置
       avatar: 头像设置
       userpage: 个人页设置
       sync: 社交网站同步
+      
     admin_account:
       password: 修改管理员密码
 

@@ -5,8 +5,6 @@ class CoursesController < ApplicationController
   
   layout Proc.new { |controller|
     case controller.action_name
-    when 'index'
-      return 'course_center'
     when 'show', 'users_rank', 'questions', 'notes', 'chs'
       return 'course_show'
     else
