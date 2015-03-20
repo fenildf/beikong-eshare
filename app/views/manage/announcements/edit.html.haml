@@ -29,5 +29,10 @@
             %option{:value => "0", :selected => 'selected'} 否
             %option{:value => "1"} 是
 
-      = f.button :submit, :class => 'success-flat'
-      %a.btn.cancel.gray-flat{:href => '/manage/announcements'}= t('common.form.cancel')
+      %a.btn.success-flat.do-submit{:href => 'javascript:;'}
+        %i.icon-ok
+        %span 更新公告
+
+      %a.btn.cancel.gray-flat{:href => '/manage/announcements'}
+        %i.icon-arrow-left
+        %span= t('common.form.cancel')

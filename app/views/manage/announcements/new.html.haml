@@ -1,4 +1,3 @@
-
 - content_for :header do
   %h1 发布新公告
 
@@ -23,5 +22,10 @@
         %label 是否置顶
         = f.select :on_top, on_top, :label => '是否置顶'
 
-      = f.button :submit, :class => 'success'
-      %a.btn.cancel.gray{:href => '/manage/announcements'}= t('common.form.cancel')
+      %a.btn.success-flat.do-submit{:href => 'javascript:;'}
+        %i.icon-ok
+        %span 创建公告
+
+      %a.btn.cancel.gray-flat{:href => '/manage/announcements'}
+        %i.icon-arrow-left
+        %span= t('common.form.cancel')
