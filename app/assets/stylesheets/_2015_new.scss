@@ -395,6 +395,27 @@ table.page-data-table th, table.page-data-table td {
   vertical-align: middle;
 }
 
+@mixin second-navbar-item {
+  float: left;
+  color: #8994A4;
+  font-size: 16px;
+  padding:0 15px;
+  position:relative;
+  height:60px;line-height:60px;
+  margin-top:20px;
+
+  &.active, &:hover{
+    color: #444;
+    text-decoration: none;
+    &:after {
+      content:"";
+      position: absolute;
+      left:15px;right:15px;bottom:0;height:4px;
+      background-color: #1BA4F8;
+    }
+  }
+}
+
 .page-second-navbar {
   height:80px;line-height:80px;
   border-bottom:solid 2px $border-color;
@@ -405,24 +426,7 @@ table.page-data-table th, table.page-data-table td {
   padding:0 15px;
 
   a.item {
-    float: left;
-    color: #8994A4;
-    font-size: 16px;
-    padding:0 15px;
-    position:relative;
-    height:60px;line-height:60px;
-    margin-top:20px;
-
-    &.active, &:hover{
-      color: #444;
-      text-decoration: none;
-      &:after {
-        content:"";
-        position: absolute;
-        left:15px;right:15px;bottom:0;height:4px;
-        background-color: #1BA4F8;
-      }
-    }
+    @include second-navbar-item;
   }
 }
 

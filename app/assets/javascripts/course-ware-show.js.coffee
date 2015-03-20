@@ -124,14 +124,11 @@ jQuery ->
 
     init: ->
       flashvars =
-        p : '0' # 不自动播放
-        # x : null # 5月23日之前这里必须写成 '/'，而之后必须写成 '' 或 null，待观察。
-        # my_url : encodeURIComponent(window.location.href)
         f : @video_xml_url
-        s : '2'
-        m : '1'
-
-      console.log flashvars
+        p : 0 # 不自动播放
+        my_url : encodeURIComponent(window.location.href)
+        s : 2 # 以网址形式调用XML
+        b : 0 # 允许 js 交互 
 
       params =
         bgcolor : '#FFF'
@@ -139,20 +136,30 @@ jQuery ->
         allowScriptAccess : 'always'
         wmode : 'opaque'
 
-      CKobject.embedSWF('/ckplayer66/ckplayer.swf', @$elm.attr('id'), 'mindpin_ckplayer', '100%', '100%', flashvars, params)
+      CKobject.embed(
+        '/ckplayer66/ckplayer.swf', 
+        @$elm.attr('id'), 
+        'mindpin_ckplayer', 
+        '100%', 
+        '100%', 
+        false,
+        flashvars, 
+        [],
+        params
+      )
       @player = CKobject.getObjectById('mindpin_ckplayer')
 
       new VideoMarker(this)
 
     total_time: ->
       try
-        return parseInt @player.ckplayer_getstatus().totaltime
+        return parseInt @player.getStatus().totalTime
       catch e
         return -1
 
     current_time: ->
       try
-        return parseInt @player.ckplayer_getstatus().time
+        return parseInt @player.getStatus().time
       catch e
         return -1
 
@@ -162,6 +169,8 @@ jQuery ->
   # 此类用来对各种视频源的播放进度记录做一个统一整合
   class MindpinVideoProgressParser
     constructor: (@player, @updater)->
+      window.player = @player
+
       @start_timer()
 
       @played_seconds = 0 # 这次播放已经累计播放的秒数

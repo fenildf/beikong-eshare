@@ -1,6 +1,14 @@
-.page-course-page-navbar
-  = page_navbar do |navbar|
-    - navbar.add_item("<span>内容</span>".html_safe, "/courses/#{@course.id}/chs")
-    - navbar.add_item("<span>问答(#{@course.questions.count})</span>".html_safe, "/courses/#{@course.id}/questions")
-    - #navbar.add_item("<span>笔记(#{@course.notes.count})</span><span class='newf'>new</span>".html_safe, "/courses/#{@course.id}/notes")
-    - navbar.add_item("<span>学生名单</span>".html_safe, "/courses/#{@course.id}/users_rank")
+:ruby
+  arr = [
+    ["/courses/#{@course.id}/chs", '课程内容'],
+    ["/courses/#{@course.id}/questions", "课程问答(#{@course.questions.count})"],
+    ["/courses/#{@course.id}/users_rank", '学习者名单'],
+  ]
+
+.modelnavbar
+  - arr.each do |item|
+    :ruby
+      active = request.path == item[0]
+
+    %a.item{:href => item[0], :class => active ? 'active' : ''}
+      %span= item[1]

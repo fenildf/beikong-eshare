@@ -1,17 +1,17 @@
 .page-course-show
-  = render_cell :course, :header, :course => @course
-  = render_cell :course, :navbar, :course => @course
+  .pblock.modelinfo
+    = render_cell :course, :header, :course => @course, :user => current_user
+
+    = render_cell :course, :navbar, :course => @course
 
   .mainp100
     .pblock.users-rank
-      .cpart
-        %h3 
-          %i.icon-th-list
-          %span 学生名单
+      %h3.cp
+        %i.icon-th-list
+        %span 学生名单
+      .desc 总共 #{@course.selected_users.count} 人学习本课程
 
       .page-course-users-rank
-        .stat
-          %span.total 总共 #{@course.selected_users.count} 人学习本课程
         .users-head
           %span.index 排名
           %span.name 学友

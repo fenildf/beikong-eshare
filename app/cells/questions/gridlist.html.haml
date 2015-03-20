@@ -18,3 +18,5 @@
       .avatar= avatar_link question.creator, :small
       .name= user_link question.creator
       .date= timeago question.created_at
+
+  .paginate= paginate @questions

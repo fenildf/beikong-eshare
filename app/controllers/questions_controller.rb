@@ -49,7 +49,7 @@ class QuestionsController < ApplicationController
     if @question.course_id.blank?
       return redirect_to @question if @question.save
     else
-      return redirect_to @question.course if @question.save
+      return redirect_to [:questions, @question.course] if @question.save
     end
     render :action => :new
   end
