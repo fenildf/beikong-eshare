@@ -15,12 +15,12 @@
 
 
       - table.add_column :content do |a|
-        %a.btn.gray-flat.mini{:href => "/announcements/#{a.id}"} 点击查看
+        %a.btn.gray-flat.small{:href => "/announcements/#{a.id}"} 点击查看
       - table.add_column :ops do |a|
-        %a.btn.success-flat.mini{:href => "/manage/announcements/#{a.id}/edit"} 
+        %a.btn.success-flat.small{:href => "/manage/announcements/#{a.id}/edit"} 
           %i.icon-edit.icon-white
           %span 修改
 
-        %a.btn.danger-flat.mini{:href => "/manage/announcements/#{a.id}", :data => {:confirm => '确定要删除吗？', :method => :delete}} 
+        %a.btn.danger-flat.small{:href => "/manage/announcements/#{a.id}", :data => {:confirm => '确定要删除吗？', :method => :delete}} 
           %i.icon-trash.icon-white
           %span 删除
