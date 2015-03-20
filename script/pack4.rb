@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require './script/makers/user_maker'
+
 defpack 4 do
   User.create!(:login    => 'admin',
                :name     => '系统管理员',
@@ -8,4 +10,5 @@ defpack 4 do
                :name     => '教学管理员',
                :password => '1234',
                :role     => :manager)
+  ['teachers', 'students'].each {|yaml| UserMaker.new(yaml).produce}
 end
