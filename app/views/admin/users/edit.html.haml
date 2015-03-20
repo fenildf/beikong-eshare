@@ -5,6 +5,7 @@
   .pblock.form
     .cpart.base-info
       %h3.cp 基本信息
+      = flash[:manage_change_base_info]
       = simple_form_for @user, :url => "/admin/users/#{@user.id}" do |f|
         = f.input :login
         = f.input :name
@@ -17,6 +18,7 @@
   .pblock
     .cpart.chpw
       %h3.cp 修改密码
+      = flash[:change_password]
       = simple_form_for @user, :url => "/admin/users/#{@user.id}/change_password" do |f|
         = f.input :password
         = f.input :password_confirmation

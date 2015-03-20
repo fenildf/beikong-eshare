@@ -95,6 +95,7 @@ private
     @user = User.find(params[:id])
     authorize! :manage, @user
     if @user.update_attributes(params[:user], :as => as)
+      flash[as.to_sym] = I18n.t("devise.account.user.updated")
       return redirect_to "/admin/users/#{@user.id}/edit"
     end
     render :action => :edit

@@ -465,6 +465,9 @@ zh-CN:
         ops: 操作
 
   devise:
+    account:
+      user:
+        updated: 用户信息修改成功
     failure:
       user:
         unauthenticated: 用户验证失败
