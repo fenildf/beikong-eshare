@@ -398,7 +398,7 @@ class FormWidget
       .find(".group[data-id=#{@DEFAULT_GROUP_ID}]").addClass('active')
 
   _fill_table_data_and_checkbox: (res)->
-    $new_table = jQuery(res.html).find('.data-from-group-users .table')
+    $new_table = jQuery(res.html).find('.data-from-group-users .tablee')
     $paginate = jQuery(res.html).find('.data-from-group-users .paginate')
 
     if $new_table.find('td').length > 0
@@ -452,7 +452,7 @@ class GroupDetail
       $group = that.tree.$elm.find(".group[data-id=#{id}]")
       that.tree.select_group $group
 
-    @$elm.delegate '.table td.group a.group', 'click', ->
+    @$elm.delegate '.tablee td.group a.group', 'click', ->
       id = jQuery(this).data('id')
       $group = that.tree.$elm.find(".group[data-id=#{id}]")
       that.tree.select_group $group

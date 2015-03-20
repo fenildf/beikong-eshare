@@ -14,10 +14,6 @@
         .page-progress.success.striped
           .bar{:style => "width:#{3300/42}%;"}
 
-        %a.btn.inverse.small 
-          %i.icon-chevron-right.icon-white
-          %span 查看详情
-
     .pblock
       .cpart{:style=>'position:relative;padding-bottom:40px;'}
         %h3.cp 课程内容分布
@@ -39,77 +35,3 @@
           %span  0.0% 其他 
 
         %img{:src=>'/assets/chart-sample.jpg', :style=>'position:absolute;top:10px;right:10px;'}
-
-    .pblock
-      .cpart{:style=>'position:relative;padding-bottom:40px;'}
-        %h3.cp 分时活跃度统计
-
-        .page-user-page-navbar
-          = page_navbar do |navbar|
-            - navbar.add_item("<span>年</span>".html_safe, "/")
-            - navbar.add_item("<span>月</span>".html_safe, "/")
-            - navbar.add_item("<span>周</span>".html_safe, "/")
-            - navbar.add_item("<span>日</span>".html_safe, "/")
-
-        .chart{:style=>'border:dashed 1px #e7e7e7;height:100px;'}
-          - 10.times do |i|
-            .ii{:style=>'float:left;width:10%;text-align:center;line-height:30px;height:100%;'}=i
-        .chart{:style=>'border:dashed 1px #e7e7e7;height:100px;'}
-
-
-  .sidep33{:style => 'padding-right:5px;'}
-    .pblock
-      .cpart
-        %h3.cp 课程活跃度排名
-
-        - i = 0
-        - Course.limit(5).each do |c|
-          - i = i + 1
-          .c{:style=>'height:20px;line-height:20px;padding-bottom:10px;margin-bottom:10px;border-bottom:dotted 1px #e7e7e7;'}
-            .rank{:style=>'float:left;border-radius:20px;background-color:#4285F4;color:white;width:20px;height:20px;text-align:center;'}= i
-            .course{:style=>'margin-left:30px;'}
-              %span= course_link c
-              %span -
-              %span= (User.with_role(:teacher).limit(5))[rand(4)].name
-
-        %a.btn.inverse.small 
-          %i.icon-chevron-right.icon-white
-          %span 查看详情
-
-    .pblock
-      .cpart
-        %h3.cp 选课情况汇总统计
-
-        .page-chart.all-courses-select-apply-pie
-
-    .pblock
-      .cpart
-        %h3.cp 在线问答汇总
-
-  .sidep33
-    .pblock
-      .cpart
-        %h3.cp 学生学习活跃度排名
-
-        - i = 0
-        - User.with_role(:student).limit(5).each do |c|
-          - i = i + 1
-          .c{:style=>'height:30px;line-height:30px;padding-bottom:10px;margin-bottom:10px;border-bottom:dotted 1px #e7e7e7;'}
-            .rank{:style=>'float:left;border-radius:20px;background-color:#FFA001;color:white;width:30px;height:30px;text-align:center;'}= i
-            .course{:style=>'margin-left:10px;float:left;'}
-              %span= avatar_link c, :small
-              %span= user_link c
-              %span{:style=>'color:red;font-size:12px;margin-left:5px;'}
-                %b ↑
-                %b #{rand(10)}
-
-
-        %a.btn.inverse.small 
-          %i.icon-chevron-right.icon-white
-          %span 查看详情
-
-    .pblock
-      .cpart{:style=>'position:relative;padding-bottom:40px;'}
-        %h3.cp 综合学习进度曲线    
-
-        .page-chart.all-courses-punch-card{:data => {:url => '/charts/courses/all_courses_punch_card'}}

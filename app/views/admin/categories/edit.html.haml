@@ -9,5 +9,9 @@
         = f.input :parent_id, :as => :hidden, :input_html => { :value => params['parent_id'] } 
 
       .form-actions
-        = f.button :submit, :class => 'success-flat'
-        %a.btn.cancel.gray-flat{:href => '/admin/categories'}= t('common.form.cancel')
+        %a.do-submit.btn.success-flat{:href => 'javascript:;'}
+          %i.icon-ok
+          %span 更新科目名称
+        %a.btn.cancel.gray-flat{:href => '/admin/categories'}
+          %i.icon-arrow-left
+          %span= t('common.form.cancel')

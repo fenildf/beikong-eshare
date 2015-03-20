@@ -4,11 +4,11 @@
       = f.input :login, :placeholder => '用户名', :required => true
       = f.input :password, :required => true, :placeholder => '密码', :required => true
     .form-actions
-      %input{:name => :to, :type => :hidden, :value => @for}
-      - if :xuanke == @for
-        = f.button :submit, '登录选课系统', :class => 'large sign-in'
-      - else
-        = f.button :submit, '登录云课堂', :class => 'large sign-in'
+      .div{:style => 'display:none;'}
+        = f.submit '登录'
+
+      %a.btn.primary-flat.large.sign-in.do-submit{:href => 'javascript:;'}
+        %span 登录云课堂
 
     .remember
       = f.input :remember_me, :as => :boolean

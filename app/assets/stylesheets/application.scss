@@ -448,7 +448,9 @@ body.auth{
         margin-bottom:10px;
         .btn {
           width:$w - 40px !important;
-          @include border-radius(3px);
+          border-radius:3px;
+          padding:0;
+          height:50px;line-height:50px;
         }
       }
       .remember{
@@ -652,10 +654,6 @@ body.error {
 }
 
 .btn {
-  &.danger {
-    color:#fff !important;
-  }
-
   &.btn-link {
     background: transparent none;
     border-color: transparent;
@@ -717,20 +715,6 @@ body.error {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
       background:rgba(black, 0.6) !important;
-      color:#fff;
-    }
-  }
-
-  &.sign-in{
-    // @include gradient(#94BB2E, #7EAC26);
-    background: #0066EC !important;
-    background-repeat: repeat-x;
-    border-color:transparent;
-    box-shadow:none;
-    color:#fff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
-      background:lighten(#0066EC, 10%) !important;
       color:#fff;
     }
   }
@@ -4550,18 +4534,18 @@ form .input.page-form-tag-inputer {
   }
 
   .data-tree {
-    background-color:#f0f0f0;
+    background-color:#EBF1F5;
     border-right:solid 1px #ddd;
     position:absolute;
     width:240px;
-    top:50px;
+    top:80px;
     left:0px;
     bottom:0;
     z-index:2;
 
     .tree {
       position:absolute;
-      top:10px;left:5px;right:-6px;bottom:0;
+      top:5px;left:5px;right:-26px;bottom:0;
 
       .nano-content{
         padding-top:1px;
@@ -4670,11 +4654,12 @@ form .input.page-form-tag-inputer {
   .data-from-group-users {
     position:absolute;
     left:241px;
-    top:50px;bottom:0;
+    top:80px;bottom:0;
     right:300px - 1;
     // padding:5px;
     // overflow-y:scroll;
     border-right:solid 1px #E7E7E7;
+    z-index:2;
 
     table td, table th{
       &.select {width:20px;}
@@ -4689,7 +4674,7 @@ form .input.page-form-tag-inputer {
       }
     }
 
-    .table {
+    >.tablee {
       position:absolute;
       border:solid 1px #e7e7e7;
       padding-top:36px;
@@ -4734,7 +4719,7 @@ form .input.page-form-tag-inputer {
       }
     }
 
-    .table {
+    >.tablee {
       td.group a.group {
         float:left;margin-right:3px;
         background-color:lighten(#3BA4E3, 10%);
@@ -4766,7 +4751,7 @@ form .input.page-form-tag-inputer {
     position:absolute;
     right:0;
     width:300px;
-    top:50px;
+    top:80px;
     height:44px;line-height:43px;
     border-bottom:solid 2px #B8B8B8;
     @include border-box;
@@ -4780,7 +4765,7 @@ form .input.page-form-tag-inputer {
     position:absolute;
     right:0;
     width:300px - 10px;
-    top:94px;
+    top:124px;
     bottom:0;
     overflow-y:scroll;
     padding:5px;
@@ -4875,7 +4860,7 @@ form .input.page-form-tag-inputer {
 }
 
 .page-admin-users {
-  $hover-color: #e0e0e0;
+  $hover-color: #EBF1F5;
 
   .group-tree {
     // background-color:#f0f0f0;
@@ -4883,8 +4868,8 @@ form .input.page-form-tag-inputer {
     border-right:solid 1px #ddd;
     position:fixed;
     width:320px;
-    top:60px;
-    left:126px;
+    top:80px;
+    left:200px;
     bottom:0;
     z-index:2;
 
@@ -5130,8 +5115,8 @@ form .input.page-form-tag-inputer {
     border-left:solid 1px #e7e7e7;
     border-right:solid 1px #e7e7e7;
     position:fixed;
-    top:60px;
-    left:446px;
+    top:80px;
+    left:520px;
     right:0px;
     bottom:0;
     z-index:1;
@@ -5215,12 +5200,11 @@ form .input.page-form-tag-inputer {
 
       .ops {
         float:left;
-        background:red;
         margin-top:10px;
         margin-left:10px;
         a.btn{
-          width:86px;height:29px;
-          line-height:31px;
+          width:86px;
+          border-radius:3px;
         }
       }
 
@@ -5244,7 +5228,7 @@ form .input.page-form-tag-inputer {
           margin-left:0;
         }
 
-        .table {
+        > .table {
           position:absolute;
           border:solid 1px #e7e7e7;
           padding-top:36px;

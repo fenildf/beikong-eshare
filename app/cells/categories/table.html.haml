@@ -3,9 +3,9 @@
   - table.add_column :courses_count do |c|
     = Course.of_category(c).count
   - table.add_column :ops do |c|
-    %a.edit.btn.inverse.small{:href => "/admin/categories/#{c.id}/edit"}
+    %a.edit.btn.inverse-flat.small{:href => "/admin/categories/#{c.id}/edit"}
       %i.icon-edit
       %span 修改
-    %a.delete.btn.danger.small{:href => "/admin/categories/#{c.id}", :data => {:method => :delete, :confirm => "确定要删除吗？"}}
+    %a.delete.btn.danger-flat.small{:href => "/admin/categories/#{c.id}", :data => {:method => :delete, :confirm => "确定要删除吗？"}}
       %i.icon-trash
       %span 删除

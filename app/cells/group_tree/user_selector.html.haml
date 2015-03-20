@@ -1,9 +1,9 @@
 .page-user-selector{:style => 'display:none;'}
   .btns
-    %a.btn.inverse-flat.close{:href => 'javascript:;'}
+    %a.btn.dark-flat.close{:href => 'javascript:;'} 
       %i.icon-chevron-left.icon-white
       %span 关闭
-    %span 
+    %span
       %span 选择用户，添加到分组：
       %span.group-name= @node.name
 
@@ -14,7 +14,7 @@
           = render_cell :group_tree, :node, :node => @root
 
     .data-from-group-users
-      .table
+      .tablee
         .header-bg
         .table-inner
           = page_data_table(:users, @users, :striped, :bordered) do |table|
