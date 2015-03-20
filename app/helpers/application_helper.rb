@@ -56,6 +56,11 @@ module ApplicationHelper
     link_to course.name, "/courses/#{course.id}", :title => course.name
   end
 
+  def chapter_link(chapter)
+    return '<s class="quiet">章节已删除</s>'.html_safe if chapter.blank?
+    link_to chapter.title, "/chapters/#{chapter.id}", :title => chapter.title
+  end
+
   def course_ware_link(course_ware)
     return '<s class="quiet">小节已删除</s>'.html_safe if course_ware.blank?
     link_to course_ware.title, "/course_wares/#{course_ware.id}", :title => course_ware.title
@@ -64,6 +69,11 @@ module ApplicationHelper
   def question_link(question)
     return '<s class="quiet">问题已删除</s>'.html_safe if question.blank?
     link_to "“#{truncate_u(question.title, 32)}”", "/questions/#{question.id}", :title => question.title 
+  end
+
+  def practice_link(practice)
+    return '<s class="quiet">作业已删除</s>'.html_safe if practice.blank?
+    link_to "“#{truncate_u(practice.title, 32)}”", "/practices/#{practice.id}", :title => practice.title 
   end
 
   def course_ware_read_count_html(course_ware, user)
@@ -405,6 +415,18 @@ module ApplicationHelper
               haml_concat "\""
               haml_concat feed.data
               haml_concat "\""
+            when 'create_practice_record'
+              practice = feed.to.practice
+              chapter = practice.chapter
+              course = chapter.course
+              haml_concat user_link(feed.who)
+              haml_concat '提交了'
+              haml_concat course_link(course)
+              haml_concat '课程下的'
+              haml_concat chapter_link chapter
+              haml_concat '章节下的'
+              haml_concat practice_link practice
+              haml_concat '作业'
             else
               haml_concat feed.what
           end
