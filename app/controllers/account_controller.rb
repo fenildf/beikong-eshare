@@ -116,8 +116,10 @@ class AccountController < Devise::RegistrationsController
 
   def userpage_update
     user = User.find(current_user.id)
-    user.userpage_head = params[:user][:userpage_head]
-    user.save
+    if params[:user].present?
+      user.userpage_head = params[:user][:userpage_head]
+      user.save
+    end
     redirect_to :action => :userpage
   end
 
