@@ -762,20 +762,6 @@ body.error {
     }
   }
 
-  &.fav-flat {
-    background: #FFE255 !important;
-    background-repeat: repeat-x;
-    border-color:transparent;
-    box-shadow:none;
-    color:darken(#ffd637, 40%);
-    @include border-radius(0);
-    border:none;
-    border-bottom:solid 2px rgba(black, 0.1);
-    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
-      background:#FFD637 !important;
-    }
-  }
-
   &.info-flat {
     background: #47ADCB !important;
     background-repeat: repeat-x;
