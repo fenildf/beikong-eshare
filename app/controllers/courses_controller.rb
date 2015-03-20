@@ -128,7 +128,7 @@ class CoursesController < ApplicationController
   end
 
   def join
-    current_user.select_course SelectCourse::STATUS_ACCEPT, @course
+    current_user.select_course @course
     redirect_to @course
   end
 
