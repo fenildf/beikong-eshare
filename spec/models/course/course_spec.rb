@@ -1,6 +1,46 @@
 require "spec_helper"
 
 describe Course do
+
+  describe '老师负责课程' do
+    before {
+      @user_1 = FactoryGirl.create(:user)
+      @user_2 = FactoryGirl.create(:user)
+      @course = FactoryGirl.create(:course, :creator => @user_1)
+
+      2.times {
+        FactoryGirl.create(:course)
+      }
+
+      3.times {
+        @course_for_user_2 = FactoryGirl.create(:course, :creator => @user_2)
+      }
+
+      @course_1 = FactoryGirl.create(:course)
+
+      @course_1.add_teacher_user(@user_1)
+    }
+
+    it '数量正确' do
+      @user_1.own_courses.count.should == 2
+    end
+
+    it '数量正确' do
+      @user_2.own_courses.count.should == 3
+    end
+
+    it 'should be true' do
+      @user_2.has_own_course?(@course_for_user_2).should == true
+    end
+
+    it 'should be false' do
+      @user_1.has_own_course?(@course_for_user_2).should == false
+    end
+
+    it 'should be true' do
+      @user_1.has_own_course?(@course_1).should == true
+    end
+  end
   
   context '签到模块' do
     before do
