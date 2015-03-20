@@ -1,6 +1,6 @@
 .page-top-nav
   .search
-    %input{:type => :text, :name => :q, :placeholder => '搜索课程内容 …'}
+    %input{:type => :text, :name => :q, :placeholder => '搜索课程内容 …', :value => params[:query]}
     %a.do-search.btn.gray-flat{:href => 'javascript:;'}
       %i.icon-search
       %span 搜索

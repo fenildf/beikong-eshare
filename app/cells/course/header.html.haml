@@ -13,8 +13,8 @@
           %span 加入收藏
 
       / 参加课程
-      - if @user == @course.creator
-        %span{:style => 'background: #eee;padding:10px; position:relative; left:10px; top:5px;'} 我是任课老师
+      - if @user.has_own_course?(@course)
+        %span.i-am-teacher 我是任课老师
 
       - elsif @user.is_student?
         - if @course.is_selected_by? @user

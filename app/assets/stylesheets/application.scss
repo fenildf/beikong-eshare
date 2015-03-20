@@ -598,48 +598,6 @@ body.error {
   padding-top:60px;
 }
 
-.page-course-center-search {
-  overflow:hidden;
-  margin-bottom:20px;
-  margin-top:10px;
-
-  label {
-    font-size:0;
-    line-height:100em;
-    overflow-y:hidden;
-    height:46px;
-    width:104px;
-    background:url(course-center.png);
-    float:left;
-    margin:0 30px 0 15px;
-  }
-
-  input.course-search {
-    height:24px;line-height:24px;
-    padding:8px 10px;
-    border:solid 3px #6B6E77;
-    border-radius:0;
-    box-shadow:none;
-    float:left;
-    width:400px;
-    margin:0;
-  }
-
-  a.do-search {
-    float:left;
-    height:40px;line-height:40px;
-    background-color:#6B6E77;
-    border:solid 3px #6B6E77;
-    color:white;
-    font-size:16px;
-    width:80px;
-    text-align:center;
-    text-decoration:none;
-    font-weight:bold;
-    margin:0;
-  }
-}
-
 // ------------------------
 
 .link-text {
@@ -1509,6 +1467,14 @@ img.page-avatar {
 
 .page-course-show {
   min-height:300px;
+
+  .i-am-teacher {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+    color:#999;
+  }
 
   .page-long-desc {
     margin-top: 10px;
