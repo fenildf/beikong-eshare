@@ -6,6 +6,12 @@ class Announcement < ActiveRecord::Base
   belongs_to :host, :polymorphic => true
 
   validates :title, :content, :presence => true
+  validate :host_not_empty
+  def host_not_empty
+    if self.creator.is_teacher?
+      errors.add(:base, '课程不能为空') if self.host.nil?
+    end
+  end
 
 
   scope :by_manager, :conditions => ['host_type = ?', 'System']

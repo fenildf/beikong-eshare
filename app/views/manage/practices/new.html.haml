@@ -26,12 +26,13 @@
     = simple_form_for @practice, :url => '/manage/practices' do |f|
       .chapter-select{:data => {:'chapter-id' => chapter_id}}
         .s-course
-          %label 第一步，请先选择一项课程
+          %label 第一步，请先选择一项课程（只列出了有章节的课程）
           %select.course-id
             %option{:value => 0} 请选择课程
             - current_user.own_courses.each do |c|
-              %option{:value => c.id, :selected => (course_id == c.id)}
-                #{c.name}(共#{c.chapters.count}章)
+              - if c.chapters.count > 0
+                %option{:value => c.id, :selected => (course_id == c.id)}
+                  #{c.name}(共#{c.chapters.count}章)
 
         .s-chapter{:style => 'display:none;'}
           %label 第二步，选择课程中的章节

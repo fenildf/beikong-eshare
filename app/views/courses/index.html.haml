@@ -2,41 +2,22 @@
   @category = Category.find_by_id params[:category_id]
 
   if !@category.blank?
-    @courses = Course.of_category(@category).approve_status_with_yes.page(params[:page])
+    @courses = Course.of_category(@category).page(params[:page])
   else
-    @courses = Course.approve_status_with_yes.page(params[:page])
+    @courses = Course.page(params[:page])
   end
 
-
-.page-course-center-search
-  %label 课程中心
-  %input.course-search{:name => :q, :type => :text, :placeholder => '搜索要学习的课程'}
-  %a.do-search{:href => 'javascript:;'} 搜　索
+- content_for :header do
+  %h1 课程中心
+  .desc
+    这里列出了所有已经开放的线上课程，共 #{Course.count} 项课程
+  - if current_user.present? and current_user.is_teacher?
+    .btns
+      %a.btn.success-flat{:href => '/manage/courses/new'}
+        %i.icon-plus
+        %span 创建新课程
 
 .page-courses-index
-  - if current_user.is_teacher?
-    .pblock.teacher-func
-      .ddesc{:style => 'border-bottom:dashed 1px #ddd;padding-bottom:10px;'}
-        %b= current_user.name
-        %span 老师你好，你可以通过课程中心对目前系统中的公开课程进行浏览，也可以快速访问下列课程功能。
-
-      :ruby
-        funcs = [
-          {:title => '课程申报', :desc => '申报新课程，提交给领导进行审核', :link => '/manage/courses'},
-          {:title => '课程编排', :desc => '编排课程下的章节内容，对编排好的课程进行预览', :link => '/manage/courses/design'},
-          {:title => '上传课件', :desc => '给指定的课程上传 PPT/PDF 等课件', :link => '/manage/course_wares/new'},
-        ]
-
-      .funcs
-        - funcs.each do |f|
-          .func{:style => 'float:left;margin-right:40px;'}
-            %a.title{:href => f[:link]}= f[:title]
-            .desc= f[:desc]
-        .clearfix
-
-  .pblock.desc{:style => 'display:none;'}
-    这里列出了所有已经开放的线上课程，共 #{Course.approve_status_with_yes.count} 项课程
-
   .pblock.form
     :ruby
       options = options_for_select([["全部", 0]] + Category.all.map { |c|

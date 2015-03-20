@@ -1,7 +1,6 @@
 .course.page-course.card.small
   %a.course-link{:href => "/courses/#{@course.id}"}
-    .cover
-      = fit_image @course.cover.versions[:normal].url, :height => 120
+    .cover{:style => "background-image:url(#{@course.cover.versions[:normal].url})"}
     .desc
       = simple_format truncate_u(@course.desc, 32)
     .update-status

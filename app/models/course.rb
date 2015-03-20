@@ -321,6 +321,7 @@ class Course < ActiveRecord::Base
     end
 
 
+    # 返回当前用户负责的课程对象表
     def own_courses
       data = []
       CourseTeacher.by_user(self).each { |course_teacher| data << course_teacher.course }
@@ -330,6 +331,7 @@ class Course < ActiveRecord::Base
       data.uniq
     end
 
+    # 判断当前用户是否拥有该课程
     def has_own_course?(course)
       self.own_courses.include? course
     end

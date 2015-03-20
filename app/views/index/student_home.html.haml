@@ -1,12 +1,10 @@
 - content_for :header do
   %h1 欢迎使用云课堂
-  .fdesc
-
-.page-teacher-home
-  .pblock.desc
+  .desc
     %b= current_user.name
     %span 同学，你好！你可以通过本系统使用下列功能：
 
+.page-teacher-home
   :ruby
     modules = [
       {

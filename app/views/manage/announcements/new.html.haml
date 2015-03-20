@@ -17,7 +17,7 @@
       - if current_user.is_teacher?
         .input{:style => 'margin-bottom:20px;'}
           %label 选择课程
-          = f.input :host_id, :label => false, :required => true, :collection => current_user.own_courses
+          = f.input :host_id, :label => false, :include_blank => false, :collection => current_user.own_courses
 
       .input{:style => 'margin-bottom:20px;'}
         %label 是否置顶
