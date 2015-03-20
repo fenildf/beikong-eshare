@@ -1,6 +1,7 @@
-.header
-  - if @user
+.baseinfo
+  - if @user.present?
     .btns
+      / 收藏
       - if @course.faved_by? @user
         = link_to "/courses/#{@course.id}/unfav", :class=> 'btn fav fav-flat faved', :method => :post do
           %i.icon-star
@@ -11,11 +12,12 @@
           %i.icon-star-empty
           %span 加入收藏
 
+      / 参加课程
       - if @user == @course.creator
         %span{:style => 'background: #eee;padding:10px; position:relative; left:10px; top:5px;'} 我是任课老师
 
-      - else
-        - if @course.has_accept? @user
+      - elsif @user.is_student?
+        - if @course.is_selected_by? @user
           = link_to "/courses/#{@course.id}/exit", :class=> 'btn join gray-flat', :method => :post do
             %i.icon-signout
             %span 退出这门课程
@@ -24,47 +26,46 @@
             %i.icon-plus
             %span 参加这门课程
 
-  .cover= fit_image(@course.cover.versions[:normal].url, :width => 214, :height => 140)
+  .infodata
+    %h2= @course.name
+    .data
+      .cover= fit_image(@course.cover.versions[:normal].url, :width => 200, :height => 200)
+      .ds
+        .d
+          %span.t 上课时间：
+          %span.v= @course.time.blank? ? '--' : @course.time
+        .d
+          %span.t 上课地点：
+          %span.v= @course.location.blank? ? '--' : @course.location
+        .d
+          %span.t 创建者：
+          %span.v #{@course.creator.name} 老师
+        .d
+          - desc = @course.desc.blank? ? t('common.course.course-no-desc') : @course.desc
+          %span.t 课程简介：
 
-  .data
-    %h1= @course.name
-    .info
-      %span= @course.credit
-      %span 学分，
-      %span= @course.lesson_hour
-      %span 课时，
-      %span 上课时间：
-      %span= @course.time.blank? ? '--' : @course.time
-      %span ，地点：
-      %span= @course.location.blank? ? '--' : @course.location
-    .teacher
-      %span 创建者：
-      %span #{@course.creator.name} 老师
+          - desc  = @course.desc || t('common.course.course-no-desc')
+          - short = truncate_u(desc, 32)
+          - long  = simple_format desc
 
+          - if short == desc
+            .desc.open
+              .long
+                .txt= long
 
-    - desc  = @course.desc || t('common.course.course-no-desc')
-    - short = truncate_u(desc, 32)
-    - long  = simple_format desc
+          - else
+            .desc.closed.page-long-desc
+              .short
+                %span= short
+                %a.o{:href => 'javascript:;'}
+                  %i.icon-chevron-down
+                  %span 展开
+              .long
+                .txt= long
+                %a.c{:href => 'javascript:;'}
+                  %i.icon-chevron-up
+                  %span 收起
 
-    - if short == desc
-      .desc.open
-        .long
-          .txt= long
-
-    - else
-      .desc.closed.page-long-desc
-        .short
-          %span= short
-          %a.o{:href => 'javascript:;'}
-            %i.icon-chevron-down
-            %span 展开
-        .long
-          .txt= long
-          %a.c{:href => 'javascript:;'}
-            %i.icon-chevron-up
-            %span 收起
-
-
-    = render_cell :tags, :public, :model => @course
+      .clearfix
 
   .clearfix

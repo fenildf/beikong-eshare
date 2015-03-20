@@ -2,14 +2,6 @@ class QuestionsController < ApplicationController
   before_filter :authenticate_user!,
                 :except => [:show]
   before_filter :pre_load
-  layout Proc.new { |controller|
-    case controller.action_name
-    when 'show'
-      return 'question_page'
-    else
-      return 'application'
-    end
-  }
 
   def pre_load
     @question = Question.find(params[:id]) if params[:id]

@@ -59,7 +59,7 @@ body {
   }
 
   .page-progress {
-    box-shadow:0 1px 1px rgba(0, 0, 0, 0.1) inset
+    box-shadow:0 1px 1px rgba(0, 0, 0, 0.1) inset;
   }
 
   .btns .down-btns {
@@ -1534,86 +1534,19 @@ img.page-avatar {
 }
 
 .page-course-show {
-  margin:-20px -20px 20px;
   min-height:300px;
 
-  .header {
-    background-color:white;
-    border:solid 1px #e7e7e7;
-    @include border-radius(3px 3px 0 0);
-    margin-bottom:20px;
-    padding:20px 20px 20px;
-    position:relative;
-
-    .cover {
-      width:200px;height:150px;
+  .page-long-desc {
+    margin-top: 10px;
+    margin-left:20px;
+    &.closed {
+      .short {display:block;}
+      .long {display:none;}
     }
-
-    .data {
-      margin-left: 214px + 20px;
-      margin-right:140px;
-
-      h1 {
-        font-size:21px;
-        font-weight:normal;
-        margin:0;
-        margin-bottom:20px;
-      }
-
-      .info {
-        margin-bottom:20px;
-      }
-
-      .desc {
-        margin-bottom:20px;
-
-        i {
-          opacity:0.75;
-        }
-
-        &.closed {
-          .short {display:block;}
-          .long {display:none;}
-        }
-
-        &.open {
-          .short {display:none;}
-          .long {display:block;}
-        }
-      }
+    &.open {
+      .short {display:none;}
+      .long {display:block;}
     }
-
-    .btns {
-      position:absolute;
-      right:0;
-
-      a.btn.join, a.btn.fav{
-        height:40px;line-height:40px;
-        width:130px;
-        position:relative;
-        left:10px;
-        display:block;
-        margin-bottom:15px;
-
-        &:after {
-          content:"";
-          display:block;
-          position:absolute;
-          border:solid 5px darken(#CECECE, 20%);
-          border-right-color:transparent;
-          border-bottom-color:transparent;
-          right:0;bottom:-12px;
-        }
-      }
-
-      a.btn.fav {
-        &:after {
-          border-top-color:darken(#CECECE, 20%);
-          border-left-color:darken(#CECECE, 20%);
-        }
-      }
-    }
-
   }
 
   .checkins {
@@ -2094,67 +2027,6 @@ img.page-avatar {
     a.course-link.back {
       border-top:solid 1px #E7E7E7;
       background-color:#FCFCFC;
-    }
-
-    .user-card{
-      border-top:dotted 1px #ddd;
-      padding:15px;
-      @include floatfix;
-
-      .avatar { float:left; 
-        img {width:50px;height:50px;}
-      }
-
-      .uinfo {
-        margin-left:65px;
-
-        .name {
-          margin-bottom:10px;
-          font-weight:bold;
-          height:20px;line-height:20px;
-        }
-
-        .percent {
-          @include floatfix;
-          margin-top:10px;
-
-          .d {
-            font-size:12px;
-            float:left;
-            line-height:16px;
-            margin-right:5px;
-          }
-
-          .page-progress {
-            width:133px;
-            float:left;
-            height:20px;
-            margin-bottom:0;
-            position:relative;
-          }
-          .p {
-            text-align:center;
-            font-size:12px;line-height:20px;
-            height:20px;
-            position:absolute;
-            top:0;left:0;right:0;
-          }
-        }
-      }
-    }
-
-    .user-rank {
-      border-top:dotted 1px #ddd;
-      font-size:12px;
-      padding:15px;
-      .r {
-        color:#DD0000;
-        margin-right:10px;
-      }
-    }
-
-    .items {
-      margin:0;
     }
   }
 

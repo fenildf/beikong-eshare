@@ -16,7 +16,7 @@ class SelectCourse < ActiveRecord::Base
       base.has_many :selected_users, :through => :select_courses, :source => :user
     end
 
-    def is_select?(user)
+    def is_selected_by?(user)
       record = user.select_course_records.by_course(self).first
       !record.blank?
     end

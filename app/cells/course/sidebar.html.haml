@@ -1,29 +1,26 @@
-.sidebar
-  %a.course-link{:href => "/courses/#{@course.id}"}
-    .cb
-      %i.icon-book
-      %span.name= truncate_u @course.name, 24
+.page-sidebar
   %a.course-link.back{:href => '/courses'}
-    .cb
-      %i.icon-chevron-left
-      %span.name 返回课程目录
+    %i.icon-chevron-left
+    %span.name 返回课程目录
 
+  %hr
 
-  - if false && @user.present?
-    .user-card
-      .avatar= avatar_link @user
-      .uinfo
-        .name= user_link @user
-        .percent
-          - percent = @course.read_percent(@user)
-          .page-progress.info.striped
-            .bar{:style => "width:#{percent};"}
-            .p= percent
+  - if @user.present?
+    %a.userinfo{:href => url_for(@user)}
+      .avatar= avatar @user, :large
+      .name= @user.name
 
-    .user-rank
-      .d 
-        %span 我的排名：
-        %span.r #{@course.user_rank_of(@user)}
-        %span= link_to '查看详细', "/courses/#{@course.id}/users_rank"
+    .module 课程学习进度
+    .course-percent
+      .prog 整体：
+      - percent = @course.read_percent(@user)
+      .page-progress.info.striped
+        .bar{:style => "width:#{percent};"}
+        .p= percent
 
-  .items
+      - @course.chapters.each do |chapter|
+        .prog 章节-#{truncate_u chapter.title, 8}
+        - percent = chapter.read_percent(@user)
+        .page-progress.info.striped
+          .bar{:style => "width:#{percent};"}
+          .p= percent

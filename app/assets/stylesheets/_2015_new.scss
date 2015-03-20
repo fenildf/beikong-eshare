@@ -74,7 +74,7 @@ $top-nav-border-color: #E4E6E9;
     }
   }
 
-  a.userinfo {
+  a.userinfo, .course-userinfo{
     display: block;
     padding-top: 30px;
     position: relative;
@@ -106,6 +106,28 @@ $top-nav-border-color: #E4E6E9;
     padding-top: 20px;
     padding-bottom: 10px;
 
+    &:before {
+      content:"";
+      position: absolute;
+      top:0px;left:0;right:0;
+      height:0;
+      border-top:solid 1px #283140;
+      border-bottom:solid 1px #2F3949;
+    }
+    &:after {
+      content:"";
+      position: absolute;
+      top:2px;left:0;right:0;
+      height:0;
+      border-top:solid 1px #2A3443;
+      border-bottom:solid 1px #3C485C;
+    }
+  }
+
+  hr {
+    height:4px;position:relative;
+    border:0 none;
+    padding:0;margin:0;display:block;
     &:before {
       content:"";
       position: absolute;
@@ -173,6 +195,23 @@ $top-nav-border-color: #E4E6E9;
 
   .page-navlist ul.nav {
     li.course_design i:before {content: "\F02D";}
+  }
+
+  .course-percent {
+    padding:0 20px;
+    .page-progress {position: relative;}
+    .page-progress .p {
+      position: absolute;
+      top:0;left:0;right:0;bottom:0;
+      line-height: 20px;
+      text-align: center;
+    }
+    .prog {
+      color: #C8D0DC;
+      font-size: 14px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
   }
 }
 
@@ -374,4 +413,9 @@ table.page-data-table th, table.page-data-table td {
       }
     }
   }
+}
+
+// 进度条
+.page-progress {
+  box-shadow:0 1px 1px rgba(0, 0, 0, 0.1) inset;
 }
