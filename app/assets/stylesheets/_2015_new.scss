@@ -307,12 +307,23 @@ $top-nav-border-color: #E4E6E9;
     @include make-btn(#ddd);
   }
 
+  &.fav-flat {
+    @include make-btn(#FFE255, $color: darken(#ffd637, 40%));
+  }
+
   &.small {
     font-size: 12px;
     height: 24px;line-height:24px;
     padding:0 10px;
     i {width: 12px;display:inline-block;margin-right:3px}
   }
+  &.large {
+    font-size: 16px;
+    height: 40px;line-height:40px;
+    padding:0 20px;
+    i {width: 16px;display:inline-block;margin-right:10px}
+  }
+
   &.onlyicon {
     i {margin-right:0;}
   }
@@ -384,6 +395,27 @@ table.page-data-table th, table.page-data-table td {
   vertical-align: middle;
 }
 
+@mixin second-navbar-item {
+  float: left;
+  color: #8994A4;
+  font-size: 16px;
+  padding:0 15px;
+  position:relative;
+  height:60px;line-height:60px;
+  margin-top:20px;
+
+  &.active, &:hover{
+    color: #444;
+    text-decoration: none;
+    &:after {
+      content:"";
+      position: absolute;
+      left:15px;right:15px;bottom:0;height:4px;
+      background-color: #1BA4F8;
+    }
+  }
+}
+
 .page-second-navbar {
   height:80px;line-height:80px;
   border-bottom:solid 2px $border-color;
@@ -394,24 +426,7 @@ table.page-data-table th, table.page-data-table td {
   padding:0 15px;
 
   a.item {
-    float: left;
-    color: #8994A4;
-    font-size: 16px;
-    padding:0 15px;
-    position:relative;
-    height:60px;line-height:60px;
-    margin-top:20px;
-
-    &.active, &:hover{
-      color: #444;
-      text-decoration: none;
-      &:after {
-        content:"";
-        position: absolute;
-        left:15px;right:15px;bottom:0;height:4px;
-        background-color: #1BA4F8;
-      }
-    }
+    @include second-navbar-item;
   }
 }
 

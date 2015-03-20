@@ -3,13 +3,17 @@
     = render_cell :course, :header, :course => @course, :user => current_user
     = render_cell :course, :navbar, :course => @course
 
-  .mainp66{:style => 'padding-right:10px;'}
+  .mainp66{:style => 'padding-right:5px;'}
     = render_cell :course, :show_chapters, :user => current_user, :course => @course
-
-    %h3 公告
-    - @announcements.each do |announcement|
-      %p= announcement.title
       
   .sidep33
     = render_cell :course, :learning_users, :course => @course
 
+    .pblock
+      %h3.cp 课程公告
+      - if @announcements.blank?
+        .quiet 目前没有课程公告
+      - else
+        - @announcements.each do |announcement|
+          .anno
+            .title= announcement.title

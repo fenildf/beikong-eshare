@@ -1,18 +1,19 @@
 .page-course-show
-  = render_cell :course, :header, :course => @course
-  = render_cell :course, :navbar, :course => @course
+  .pblock.modelinfo
+    = render_cell :course, :header, :course => @course, :user => current_user
+    = render_cell :course, :navbar, :course => @course
 
-  .mainp66
-    .pblock
-      .cpart.course-questions
-        %h3 总共 #{@course.questions.count} 个提问
-        = render_cell :questions, :gridlist, :user => current_user, :questions => @questions
+  .mainp66{:style => 'padding-right:5px;'}
+    .div{:style => 'border:solid 1px #E4E6E9;'}
+      = render_cell :questions, :gridlist, :user => current_user, :questions => @questions
+
   .sidep33
-    %a.btn.success-flat.ask{:href => "/questions/new?course_id=#{@course.id}"} 
+    %a.btn.ask{:href => "/questions/new?course_id=#{@course.id}"} 
       %i.icon-plus.icon-white
       %span 发起提问
 
-    .pblock.course-questions-stat
+    .pblock
+      %h3.cp 问答相关统计
       .cpart
         .st
           %span 总提问数：
