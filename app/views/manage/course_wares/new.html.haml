@@ -28,14 +28,15 @@
         - if !@chapter
           .chapter-select
             .s-course
-              %label 请先选择课程与章节
+              %label 第一步，请先选择一项课程（只列出了有章节的课程）
               %select.course-id
                 %option{:value => 0} 请选择课程
                 - Course.of_creator(current_user).each do |c|
-                  %option{:value => c.id}
-                    #{c.name}(共#{c.chapters.count}章)
+                  - if c.chapters.count > 0
+                    %option{:value => c.id}
+                      #{c.name}(共#{c.chapters.count}章)
             .s-chapter{:style => 'display:none;'}
-              %label 选择章节
+              %label 第二步，选择课程中的章节
               %select.chapter-id{:name => :chapter_id}
 
         .datas{:style => @chapter.nil? ? 'display:none;' : ''}
@@ -46,8 +47,14 @@
             = render_cell :layout, :file_uploader, :name => 'course_ware[file_entity_id]'
 
           .form-actions
-            = f.button :submit, :class => 'success'
+            %a.btn.success-flat.do-submit{:href => 'javascript:;'}
+              %i.icon-ok
+              %span 确定创建
             - if @chapter
-              %a.btn.cancel{:href => "/manage/chapters/#{@chapter.id}"}= t('common.form.cancel')
+              %a.btn.cancel.gray-flat{:href => "/manage/chapters/#{@chapter.id}"}
+                %i.icon-arrow-left
+                %span 取消
             - else
-              %a.btn.cancel{:href => "/"}= t('common.form.cancel')
+              %a.btn.cancel.gray-flat{:href => "/courses"}
+                %i.icon-arrow-left
+                %span 取消

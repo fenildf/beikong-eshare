@@ -4,71 +4,80 @@
     %b= current_user.name
     %span 老师，你好！你可以通过本系统使用下列功能：
 
-.page-teacher-home
+.page-user-home
 
   :ruby
     modules = [
       {
+        :module => '基础功能',
+        :funcs => [
+          {:title => '个人主页', :desc => '查看个人信息', :link => "/users/me", :icon => 'user'},
+          {:title => '群组动态', :desc => '查看好友的公开动态汇总', :link => '/dashboard', :icon => 'coffee'},
+          {
+            :title => '公告管理', :desc => '管理已发布的公告', :link => '/manage/announcements', :icon => 'info-sign',
+            :funcs => [
+              {:title => '发布公告', :desc => '发布课程公告', :link => '/manage/announcements/new', :icon => 'bell'},
+            ]
+          },
+        ]
+      },
+    
+      {
         :module => '课程功能',
         :funcs => [
-          {:title => '课程申报', :desc => '创建课程并等待审批', :link => '/manage/courses', :icon => 'edit-sign'},
-          {:title => '课程编排', :desc => '编排和预览课程下的章节内容', :link => '/manage/courses/design', :icon => 'edit-sign'},
-          {:title => '上传课件', :desc => '给指定的课程上传 PPT/PDF 等课件', :link => '/manage/course_wares/new', :icon => 'upload'},
           {:title => '课程中心', :desc => '浏览系统内的所有公开课程', :link => '/courses', :icon => 'book'},
-        ]
-      },
-
-      {
-        :module => '作业功能',
-        :funcs => [
-          {:title => '布置作业', :desc => '在课程下给学生布置作业', :link => '/manage/practices/new', :icon => 'copy'},
-          {:title => '检查作业', :desc => '检查学生的作业提交情况', :link => '/manage/practices', :icon => 'flag'},
-        ]
-      },
-
-      {
-        :module => '互动功能',
-        :funcs => [
+          {
+            :title => '课程编排', :desc => '编排和预览课程下的章节内容', :link => '/manage/courses/design', :icon => 'edit-sign',
+            :funcs => [
+              {:title => '创建课程', :desc => '创建一个新课程', :link => '/manage/courses/new', :icon => 'plus'},
+              {:title => '上传课件', :desc => '上传 PPT/PDF 等课件', :link => '/manage/course_wares/new', :icon => 'upload'},
+            ] 
+          },
           {:title => '文件共享', :desc => '上传文件，共享给其他人', :link => '/disk', :icon => 'share'},
-          {:title => '提出的问题', :desc => '我提出的问题', :link => '/questions/iask', :icon => 'question-sign'},
-          {:title => '得到的回答', :desc => '我得到回答的问题', :link => '/questions/be_answered', :icon => 'comment'},
-          {:title => '回答的问题', :desc => '我进行过回答的问题', :link => '/questions/answered', :icon => 'comment'},
-          {:title => '关注的问题', :desc => '我当前关注的问题', :link => '/questions/favs', :icon => 'star'},
-          {:title => '好友关注', :desc => '关注其他用户为好友', :link => '/friends', :icon => 'group'},
-          {:title => '公共动态', :desc => '查看好友的公开动态汇总', :link => '/dashboard', :icon => 'coffee'},
         ]
       },
 
       {
-        :module => '公告功能',
+        :module => '作业与问答功能',
         :funcs => [
-          {:title => '发布公告', :desc => '向学生发布公告', :link => '/manage/announcements/new', :icon => 'bell'},
-          {:title => '查看公告', :desc => '查看上级领导发布的公告', :link => '/announcements', :icon => 'info-sign'},
+          {
+            :title => '作业管理', :desc => '检查学生的作业提交情况', :link => '/manage/practices', :icon => 'flag',
+            :funcs => [
+              {:title => '布置作业', :desc => '在课程下给学生布置作业', :link => '/manage/practices/new', :icon => 'copy'},
+            ]
+          },
+          {
+            :title => '线上问答', :desc => '提问和回答问题', :link => '/questions', :icon => 'question-sign',
+            :funcs => [
+              {:title => '提出的问题', :desc => '我提出的问题', :link => '/questions/iask', :icon => 'question-sign'},
+              {:title => '得到的回答', :desc => '我得到回答的问题', :link => '/questions/be_answered', :icon => 'comment'},
+              {:title => '贡献的回答', :desc => '我进行过回答的问题', :link => '/questions/answered', :icon => 'comment'},
+              {:title => '关注的问题', :desc => '我当前关注的问题', :link => '/questions/favs', :icon => 'star'},
+            ]
+          },
         ]
       },
-
-      {
-        :module => '教学功能',
-        :funcs => [
-          {:title => '我的班级', :desc => '老师查看自己负责的班级', :link => '/teams/mine', :icon => 'sitemap'},
-          {:title => '统计信息', :desc => '教学相关的统计信息汇总', :link => '/manage/stats/teacher', :icon => 'compass'},
-        ]
-      },
-      
     ]
 
   .modules
     - modules.each do |m|
       .module
         .mtitle
-          %i.icon-circle-blank
           %span= m[:module]
         .funcs
           - m[:funcs].each do |f|
-            - md5 = Digest::MD5.hexdigest f[:title]
-            - code = md5[0...6]
-            .func
-              .box
-                %i{:class => "icon-#{f[:icon]}", :style => "background-color:##{code};"}
-                %a.title{:href => f[:link]}= f[:title]
+            - color = string_grid_color f[:title]
+            %a.func{:href => f[:link]}
+              %i{:class => "icon-#{f[:icon]}", :style => "background-color:#{color};"}
+              .data
+                .title= f[:title]
                 .desc= f[:desc]
+            - if f[:funcs].present?
+              .sub-funcs
+                - f[:funcs].each do |sf|
+                  -# color = string_grid_color sf[:title]
+                  %a.sub-func{:href => sf[:link]}
+                    %i{:class => "icon-#{sf[:icon]}", :style => "background-color:#{color};"}
+                    .data
+                      .title= sf[:title]
+                      .desc= sf[:desc]

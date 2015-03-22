@@ -46,6 +46,28 @@ module ApplicationHelper
     end
   end
 
+  def string_grid_color(str)
+    colors = 
+      %w(
+        #1ABC9C #2ECC71 #3498DB #9B59B6 
+        #34495E #F1C40F #E67E22 #E74C3C 
+        #95A5A6
+      )
+
+    # 颜色来自 http://flatuicolors.com/
+
+    md5 = Digest::MD5.hexdigest str.to_s
+    i1 = md5[0..1].to_i(16) % colors.length
+    i2 = md5[2..3].to_i(16) % colors.length
+    i3 = md5[4..5].to_i(16) % 100
+
+    c1 = colors[i1]
+    c2 = colors[i2]
+
+    bgc = ColorTransfer.mix(c1, c2, i3)
+    # ColorTransfer.darken bgc.to_s
+  end
+
   def user_link(user)
     return '未知用户' if user.blank?
     link_to user.name, "/users/#{user.id}", :class=>'u-name'
@@ -546,4 +568,50 @@ module ApplicationHelper
   include FeedHelper
   include TimeHelper
   include UserGroupHelper
+
+  class ColorTransfer
+    include Sass::Script
+
+    def self.parse_color(s)
+      r = s[1..2].to_i(16)
+      g = s[3..4].to_i(16)
+      b = s[5..6].to_i(16)
+
+      c = Color.new [r, g, b]
+      c.options = {}
+      return c
+    end
+
+    def self.mix(s1, s2, i3)
+      c1 = parse_color(s1)
+      c2 = parse_color(s2)
+      weight = Number.new(i3)
+
+      c = Functions::EvaluationContext.new({}).mix(c1, c2, weight)
+      c.options = {}
+      return c
+    end
+
+    def self.invert(c1)
+      c = Functions::EvaluationContext.new({}).invert(c1)
+      c.options = {}
+      return c
+    end
+
+    def self.grayscale(c1)
+      c = Functions::EvaluationContext.new({}).grayscale(c1)
+      c.options = {}
+      return c
+    end
+
+    def self.darken(s1)
+      c1 = parse_color(s1)
+
+      amount = Number.new(10)
+      c = Functions::EvaluationContext.new({}).darken(c1, amount)
+      c.options = {}
+      return c
+    end
+  end
+
 end

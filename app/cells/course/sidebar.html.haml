@@ -10,17 +10,18 @@
       .avatar= avatar @user, :large
       .name= @user.name
 
-    .module 课程学习进度
-    .course-percent
-      .prog 整体：
-      - percent = @course.read_percent(@user)
-      .page-progress.info.striped
-        .bar{:style => "width:#{percent};"}
-        .p= percent
-
-      - @course.chapters.each do |chapter|
-        .prog 章节-#{truncate_u chapter.title, 8}
-        - percent = chapter.read_percent(@user)
+    - if @user.is_student?
+      .module 课程学习进度
+      .course-percent
+        .prog 整体：
+        - percent = @course.read_percent(@user)
         .page-progress.info.striped
           .bar{:style => "width:#{percent};"}
           .p= percent
+
+        - @course.chapters.each do |chapter|
+          .prog 章节-#{truncate_u chapter.title, 8}
+          - percent = chapter.read_percent(@user)
+          .page-progress.info.striped
+            .bar{:style => "width:#{percent};"}
+            .p= percent
