@@ -20,6 +20,20 @@ class SystemConfig < ActiveRecord::Base
     FileEntity.find(logo_img_file_entity_id).attach.url
   end
 
+  # 设置 背景图 回系统默认
+  def self.set_bg_img_to_default
+    config = self.first
+    config.bg_img_file_entity_id = nil
+    config.save
+  end
+
+  # 设置 logo图 回系统默认
+  def self.set_logo_img_to_default
+    config = self.first
+    config.logo_img_file_entity_id = nil
+    config.save
+  end
+
   # 设置 背景图
   def self.set_bg_img(file_entity_id)
     config = self.first
