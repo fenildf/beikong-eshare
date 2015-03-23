@@ -7,7 +7,7 @@ class Admin::ConfigController < ApplicationController
   end
 
   def do_auth_image
-    if params[:default]
+    if params[:default] == 'true'
       SystemConfig.set_bg_img_to_default
       SystemConfig.set_logo_img_to_default
     end
