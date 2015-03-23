@@ -1,0 +1,32 @@
+- content_for :header do
+  %h1 设置登录背景图
+  .desc 设置登录页的背景图和 LOGO
+
+.page-admin-auth-image-setting
+
+  .leftform
+    .pblock.form
+      = simple_form_for User.new, :url => '/admin/auth_image_setting' do
+        %input{:type => :hidden, :name => :default, :value => false}
+
+        %h3.cp 
+          %span 页面背景图（大小自适应）：
+          %a{:href => @bg_url, :target => '_blank'}= @bg_url
+
+        = render_cell :layout, :file_uploader, :name => 'bg_id'
+
+        %h3.cp 
+          %span LOGO（600 × 250）：
+          %a{:href => @logo_url, :target => '_blank'}= @logo_url
+        = render_cell :layout, :file_uploader, :name => 'logo_id'
+        .form-actions
+          %a.btn.success-flat.do-submit{:href => 'javascript:;'}
+            %i.icon-ok
+            %span 确定
+
+          %a.btn.default.gray-flat{:href => 'javascript:;'}
+            %span 恢复默认值
+
+  .rightpreview
+    .bg{:style => "background-image:url(#{@bg_url});"}
+      .logo{:style => "background-image:url(#{@logo_url});"}

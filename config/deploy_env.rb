@@ -8,5 +8,5 @@ class R
   JAVA_STEP_TESTER_PORT = 10001
 
   # 登录界面的背景图和 logo
-  AUTH_SKIN = "8z"
+  # AUTH_SKIN = "8z"
 end

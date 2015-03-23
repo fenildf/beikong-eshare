@@ -118,7 +118,8 @@ Eshare::Application.routes.draw do
   namespace :admin do
     root :to => 'index#index'
 
-    get 'auth_image_setting' => 'setting#auth_image'
+    get 'auth_image_setting' => 'config#auth_image'
+    post 'auth_image_setting' => 'config#do_auth_image'
 
     resources :user_groups do
       collection do

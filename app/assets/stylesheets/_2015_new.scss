@@ -561,3 +561,31 @@ table.page-data-table th, table.page-data-table td {
 
   }
 }
+
+// ------------- 
+
+.page-admin-auth-image-setting {
+  .leftform {
+    width:50%;float:left;
+  }
+  .rightpreview {
+    width:50%;float:right;
+
+    .bg {
+      margin-left: 20px;
+      padding-bottom: percentage(10/16);
+      background-repeat: no-repeat;
+      background-size: cover; 
+      position: relative;
+      .logo {
+        position:absolute;
+        top: percentage(1/4);
+        left:percentage(1/4);
+        width:percentage(1/2);
+        padding-bottom: percentage(250/600 * 1/2);
+        background-repeat: no-repeat;
+        background-size: cover; 
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 class SystemConfig < ActiveRecord::Base
-  DEFAULT_BG_IMG_URL   = "/bg_img.png"
-  DEFAULT_LOGO_IMG_URL = "/logo_img.png"
+  DEFAULT_BG_IMG_URL   = "/assets/auth-ui/default/wallpaper.jpg"
+  DEFAULT_LOGO_IMG_URL = "/assets/auth-ui/default/logo.png"
   
   # 获取背景图(如果没有设置过，就返回系统默认的)
   def self.bg_img_url
