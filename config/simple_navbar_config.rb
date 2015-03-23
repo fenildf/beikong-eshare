@@ -19,6 +19,10 @@ SimpleNavbar::Base.config do
     nav :course_center, :url => '/courses' do
       controller :courses, :only => :index
     end
+
+    nav :auth_bg, :url => '/admin/auth_image_setting' do
+      controller :'admin/config'
+    end
   end
 
   # 教学领导

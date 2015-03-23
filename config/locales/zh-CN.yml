@@ -6,6 +6,7 @@ zh-CN:
       users_group: 用户分组
       categories_manage: 科目管理
       course_center: 课程中心
+      auth_bg: 登录背景设置
 
     # 教师
     teacher:
