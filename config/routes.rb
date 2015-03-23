@@ -118,6 +118,8 @@ Eshare::Application.routes.draw do
   namespace :admin do
     root :to => 'index#index'
 
+    get 'auth_image_setting' => 'setting#auth_image'
+
     resources :user_groups do
       collection do
         get :teachers, :action => :index, :tab => :teachers

@@ -44,6 +44,8 @@ class CoursesController < ApplicationController
   end
 
   def show
+    session[:preview] = params[:preview]
+
     if params[:index].blank?
       return redirect_to :action => :chs
     end

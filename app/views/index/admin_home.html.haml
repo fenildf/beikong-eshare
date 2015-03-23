@@ -1,37 +1,66 @@
-- content_for :header do
-  %h1 系统信息汇总
+- content_for :header_v2 do
+  %h1 欢迎使用云课堂
+  .desc
+    %b 系统管理员可以使用下列功能：
 
-.page-admin-home
-  .sidep33{:style => 'padding-right:5px;'}
-    .pblock
-      .cpart
-        %h3.cp 课程信息统计
-        .desc{:style=>'margin-bottom:5px;'}
-          %b 33
-          %span 项课程已发布，
-          %b 9
-          %span 项课程内容完整
-        .page-progress.success.striped
-          .bar{:style => "width:#{3300/42}%;"}
+.page-user-home
 
-    .pblock
-      .cpart{:style=>'position:relative;padding-bottom:40px;'}
-        %h3.cp 课程内容分布
+  :ruby
+    modules = [
+      {
+        :module => '系统管理员设置功能',
+        :funcs => [
+          {
+            :title => '登录页背景设置', :desc => '设置登录页的背景图片', :link => '/admin/auth_image_setting', :icon => 'picture'
+          },
+        ]
+      },
 
-        .p{:style=>'margin-bottom:10px;'}
-          %span{:style=>'color:#607CBE;'} ■
-          %span 73.7% 演示文稿 
+      {
+        :module => '系统管理员用户功能',
+        :funcs => [
+          {
+            :title => '用户管理', :desc => '增加用户，设置角色', :link => "/admin/users", :icon => 'user',
+            :funcs => [
+              {:title => '新增用户', :desc => '创建一个科目', :link => '/admin/users/new', :icon => 'plus'},
+              {:title => '导入用户', :desc => '创建一个科目', :link => '/admin/users/import', :icon => 'upload'},
+            ]
+          },
+          {:title => '用户分组管理', :desc => '给用户设置多级分组', :link => '/admin/user_groups', :icon => 'group'},
+        ]
+      },
+      {
+        :module => '系统管理员课程功能',
+        :funcs => [
+          {
+            :title => '科目管理', :desc => '管理课程科目分类', :link => '/admin/categories', :icon => 'folder-open',
+            :funcs => [
+              {:title => '新建科目', :desc => '创建一个科目', :link => '/admin/categories/new', :icon => 'bell'},
+            ]
+          },
+        ]
+      }
+    ]
 
-        .p{:style=>'margin-bottom:10px;'}
-          %span{:style=>'color:#E6B053;'} ■
-          %span 20.0% 视频 
-
-        .p{:style=>'margin-bottom:10px;'}
-          %span{:style=>'color:#55B0DB;'} ■
-          %span  6.3% 互动程序 
-
-        .p{:style=>'margin-bottom:10px;'}
-          %span{:style=>'color:#87B979;'} ■
-          %span  0.0% 其他 
-
-        %img{:src=>'/assets/chart-sample.jpg', :style=>'position:absolute;top:10px;right:10px;'}
+  .modules
+    - modules.each do |m|
+      .module
+        .mtitle
+          %span= m[:module]
+        .funcs
+          - m[:funcs].each do |f|
+            - color = string_grid_color f[:title]
+            %a.func{:href => f[:link]}
+              %i{:class => "icon-#{f[:icon]}", :style => "background-color:#{color};"}
+              .data
+                .title= f[:title]
+                .desc= f[:desc]
+            - if f[:funcs].present?
+              .sub-funcs
+                - f[:funcs].each do |sf|
+                  -# color = string_grid_color sf[:title]
+                  %a.sub-func{:href => sf[:link]}
+                    %i{:class => "icon-#{sf[:icon]}", :style => "background-color:#{color};"}
+                    .data
+                      .title= sf[:title]
+                      .desc= sf[:desc]

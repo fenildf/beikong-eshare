@@ -1,7 +1,12 @@
 .page-sidebar
-  %a.course-link.back{:href => '/courses'}
-    %i.icon-chevron-left
-    %span.name 返回课程目录
+  - if session[:preview].present?
+    %a.course-link.back{:href => "/manage/courses/#{@course.id}"}
+      %i.icon-chevron-left
+      %span.name 返回课程编排
+  - else
+    %a.course-link.back{:href => '/courses'}
+      %i.icon-chevron-left
+      %span.name 返回课程目录
 
   %hr
 
