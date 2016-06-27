@@ -129,7 +129,7 @@ gem 'simple-page-compoents',
 
 ## 给指定 activerecord 模型动态添加属性
 gem 'dynamic_attrs',
-    :git => 'git://github.com/kaid/dynamic_attrs.git',
+    :git => 'git://github.com/mindpin/dynamic_attrs.git',
     :tag => 'v0.0.1'
 
 ## 文件分段上传

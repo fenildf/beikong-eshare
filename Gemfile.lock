@@ -17,15 +17,6 @@ GIT
       redis-namespace (>= 1.0.2)
 
 GIT
-  remote: git://github.com/kaid/dynamic_attrs.git
-  revision: 98506c8befc25c1643f023043fb0a667a332756c
-  tag: v0.0.1
-  specs:
-    dynamic_attrs (0.1.0)
-      activerecord (~> 3.2.12)
-      railties (~> 3.2.12)
-
-GIT
   remote: git://github.com/kaid/simple-credit.git
   revision: e544bf89a2d8be2fe7e18b80deae84ebc69d2934
   tag: 0.0.5
@@ -47,6 +38,15 @@ GIT
   specs:
     simple_comment (0.0.1)
       activerecord (= 3.2.12)
+
+GIT
+  remote: git://github.com/mindpin/dynamic_attrs.git
+  revision: 98506c8befc25c1643f023043fb0a667a332756c
+  tag: v0.0.1
+  specs:
+    dynamic_attrs (0.1.0)
+      activerecord (~> 3.2.12)
+      railties (~> 3.2.12)
 
 GIT
   remote: git://github.com/mindpin/file-part-upload.git
