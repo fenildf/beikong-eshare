@@ -131,7 +131,7 @@ GIT
       roo (= 1.10.3)
 
 GEM
-  remote: http://ruby.taobao.org/
+  remote: https://ruby.taobao.org/
   specs:
     actionmailer (3.2.12)
       actionpack (= 3.2.12)
@@ -533,3 +533,6 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   unicorn (= 4.6.2)
   weibo_2 (~> 0.1.1)
+
+BUNDLED WITH
+   1.11.2

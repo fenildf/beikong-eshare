@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-source 'http://ruby.taobao.org'
+source 'https://ruby.taobao.org'
 
 require File.expand_path('../config/deploy_env', __FILE__)
 
